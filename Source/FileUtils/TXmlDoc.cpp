@@ -16,12 +16,14 @@
 
 #include "txmldoc.h"
 #include "stringutils.h"
+#include "TFileStream.h"
     
 TXMLDoc::TXMLDoc()
 {
     parserLevel = NULL;
     parserData  = NULL;
     parserDataLength = 0;
+    parserDataNeedUnalloc = false;
     parserPosition = 0;    
     endReached = false;	
 	SetPool(NULL);
@@ -32,6 +34,7 @@ TXMLDoc::TXMLDoc(TXMLTagBasePool& tagPool)
     parserLevel = NULL;
     parserData  = NULL;
     parserDataLength = 0;
+    parserDataNeedUnalloc = false;
     parserPosition = 0;    
     endReached = false;	
 
@@ -55,7 +58,23 @@ TXMLTag* TXMLDoc::Root()
     {
         return NULL;
     }
-	return xmlTagPool->GetChild(NULL, 0);
+    TXMLTag* root = xmlTagPool->GetChild(NULL, 1);
+    if (root==NULL)
+    {
+        root = xmlTagPool->GetChild(NULL, 0);
+    }
+	return root;
+}
+
+TXMLTag* TXMLDoc::Header()
+{
+    TXMLTag* root = xmlTagPool->GetChild(NULL, 1);
+    if (root==NULL)
+    {
+        return NULL;
+    }
+    TXMLTag* header = xmlTagPool->GetChild(NULL, 0);
+    return header;
 }
 
 void TXMLDoc::Clear()
@@ -72,7 +91,7 @@ void TXMLDoc::Clear()
     }
 }
 
-bool TXMLDoc::LoadXML (char* rewriteableBuffer, int xmlLength)
+bool TXMLDoc::LoadFromBuffer (char* rewriteableBuffer, int xmlLength)
  {
 	Clear();  
     if (xmlTagPool==NULL)
@@ -83,6 +102,7 @@ bool TXMLDoc::LoadXML (char* rewriteableBuffer, int xmlLength)
     endReached = false;
     parserLevel = NULL;
 	parserData = (char*) rewriteableBuffer;
+    parserDataNeedUnalloc = false;
 	if (xmlLength==0)
     {
 		xmlLength = strlen(rewriteableBuffer);
@@ -93,8 +113,8 @@ bool TXMLDoc::LoadXML (char* rewriteableBuffer, int xmlLength)
     return res;
 }
 
-bool TXMLDoc::LoadXML(TString &xmlData)
-{
+bool TXMLDoc::LoadFromString(TString &rewriteableString)
+ {
 	Clear();
     if (xmlTagPool==NULL)
     {
@@ -103,12 +123,71 @@ bool TXMLDoc::LoadXML(TString &xmlData)
     xmlTagPool->Clear();
   
     endReached = false;
-    parserLevel = NULL;
-	parserData = (char*)xmlData.ToPChar();
-	parserDataLength = xmlData.Length();
+    parserLevel = NULL;	
+	parserDataLength = rewriteableString.Length();
+    parserData = (char*)rewriteableString.ToPChar();
+    parserDataNeedUnalloc = false;
     parserPosition = 0;
     bool res = ParseXML();
     return res;
+}
+
+bool TXMLDoc::LoadFromFile(const char* filename)
+{
+    Clear();
+    if (xmlTagPool==NULL)
+    {
+        return false;
+    }
+    xmlTagPool->Clear();
+    
+    endReached = false;
+    parserLevel = NULL;
+    FILE* hFile = fopen(filename, "rb");
+    if (hFile==NULL)
+    {
+        return false;
+    }
+    fseek(hFile, 0, SEEK_END);
+    parserDataLength = ftell(hFile);
+    parserData = (char*)malloc(parserDataLength);
+    fclose(hFile);
+
+    hFile = fopen(filename, "rb");
+    fread(parserData, 1, parserDataLength, hFile);   
+    parserDataNeedUnalloc = true;    
+    parserPosition = 0;
+
+    bool res = ParseXML();
+    return res;
+}
+
+bool TXMLDoc::SaveToStream (TStream& stream)
+{
+	TXMLTag* header = Header();
+	if (header)
+	{
+		header->SaveToStream(stream);
+	}
+	TXMLTag* root = Root();
+	if (root)
+	{
+		root->SaveToStream(stream);
+	}
+	return true;
+}
+
+bool TXMLDoc::SaveToFile (const char* filename)
+{
+	TFileStream* fs = new TFileStream(filename, efmCreate);
+	if (fs==NULL)
+	{
+		return false;
+	}
+	bool result = SaveToStream(*fs);
+	fs->Close();
+	delete fs;
+	return result;
 }
 
 char TXMLDoc::NextChar()
@@ -174,7 +253,13 @@ bool TXMLDoc::ParseXML()
                 {
                     return true;
                 }
-                c = NextChar();
+				char* endTagName = parserData + parserPosition;
+				while((c!='>') && (c!=0))
+				{
+					c = NextChar();	
+				}
+				parserData[parserPosition] = 0;
+                
             } else {
                 char* tagName = parserData + parserPosition;
 				TXMLTag* newTag = xmlTagPool->CreateXMLTag(tagName, parserLevel);
@@ -185,7 +270,13 @@ bool TXMLDoc::ParseXML()
                 char attributeCount = 0;
                 while(c!=0)
                 {    
-                    if (c==' ') 
+					if (c=='=')
+					{
+						//= is not valid part of xml name,
+						//therefore is replaced by space
+						c=' ';
+					}
+                    if (c==' ')
                     {                                                
                         //end of xmltag or begin of xmlattribute
                         parserData[parserPosition] = 0;
@@ -198,48 +289,50 @@ bool TXMLDoc::ParseXML()
                         {
                             newTag->FirstAttribute = parserData + parserPosition;
                             //reads any number of attributes
-                             while(c!=0)
+                            while(c!=0)
                             {
                                 while(c!=0)
                                 {   
                                     c=NextNonEmptyChar();
-                                    if (c=='=')
+                                    if ((c=='=') || (c=='>'))
                                     {
                                         break;
                                     }                                    
                                 }
-                                //reads atrribute value                                
-                                c=NextNonEmptyChar();                                
-                                char separator = ' ';
-                                if (c=='"') 
-                                {
-                                    separator='"';
-                                    c = NextChar();
-                                }
-                                if (c==39) //apostrophe
-                                {
-                                    separator=39;
-                                    c = NextChar();
-                                }
-                                char* attrValue = parserData + parserPosition;
-                                while(c!=0)
-                                {
-                                    c=NextChar();
-                                    if (c==separator)
-                                    {
-                                        parserData[parserPosition] = 0;
-                                        RemoveEscapedCharacters(attrValue);
-                                        break;
-                                    }                                        
-                                }     
-                                attributeCount++;
-                                newTag->LastAttribute = parserData + parserPosition + 1;
+								if (c=='>') break;
+
+								//reads atrribute value                                
+								c=NextNonEmptyChar();                                
+								char separator = ' ';
+								if (c=='"') 
+								{
+									separator='"';
+									c = NextChar();
+								}
+								if (c==39) //apostrophe
+								{
+									separator=39;
+									c = NextChar();
+								}
+								char* attrValue = parserData + parserPosition;
+								while(c!=0)
+								{
+									c=NextChar();
+									if (c==separator)
+									{
+										parserData[parserPosition] = 0;
+										RemoveEscapedCharacters(attrValue);
+										break;
+									}                                        
+								}     
+								attributeCount++;
+								newTag->LastAttribute = parserData + parserPosition + 1;
 
                                 c=NextNonEmptyChar();
                                 if ((c=='/') || (c=='>')) break;
                             }
                         }
-                    }
+                    }					
                     if (c=='>')
                     {
                         //end of tag name                        
@@ -276,14 +369,17 @@ bool TXMLDoc::ParseXML()
                     c=NextChar();
                 }                                
 				//end of one xml tag
-                if (emptyTag)
+                if (tagName[0]!='?')
                 {
-                    if (parserLevel==NULL)
+                    if (emptyTag)
                     {
-                        return true;
+                        if (parserLevel==NULL)
+                        {
+                            return true;
+                        }
+                    } else {                   
+                        parserLevel = newTag;  
                     }
-                } else {                   
-                    parserLevel = newTag;  
                 }
                 continue;
             }

@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include "tshortstring.h"
 #include "tcustomstring.h"
+#include "tstream.h"
 
 #define XMLPATHMAXLENGTH 80
 #define XMLTAGPOOLFOOTPRINT (sizeof(TXMLTag)*XMLTAGPOOLSIZE)
@@ -96,6 +97,8 @@ class TXMLTag
         TXMLTag*         SelectNode(const char* xpath);
         TXMLTagIterator* SelectNodes(const char* xpath, bool no_malloc=true);
 		unsigned short   CountNodes (const char* xpath);
+
+		void			 SaveToStream(TStream& stream, int indent = 0);
        
 };
 

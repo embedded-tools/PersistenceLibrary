@@ -53,6 +53,7 @@ class TXMLDoc
         TXMLTag*    parserLevel;
 		char*       parserData;
         int         parserDataLength;
+        bool        parserDataNeedUnalloc;
 		int         parserPosition;
         bool        endReached;
        
@@ -69,10 +70,14 @@ class TXMLDoc
 		~TXMLDoc();
 
         void        SetPool(TXMLTagBasePool* tagPool);
-		TXMLTag*    Root();
+        TXMLTag*    Header();
+		TXMLTag*    Root();        
 		void        Clear();       	
-        bool        LoadXML (char*   rewriteableBuffer, int xmlLength=0);
-		bool        LoadXML (TString &rewriteableBuffer);
+        bool        LoadFromBuffer (char*   rewriteableBuffer, int xmlLength=0);
+		bool        LoadFromString (TString &rewriteableString);
+        bool        LoadFromFile   (const char*   filename);
+		bool		SaveToStream   (TStream& stream);
+		bool        SaveToFile     (const char* filename);
 
         TXMLTag*         SelectNode (const char* xpath);
         TXMLTagIterator* SelectNodes(const char* xpath, bool no_alloc=true);

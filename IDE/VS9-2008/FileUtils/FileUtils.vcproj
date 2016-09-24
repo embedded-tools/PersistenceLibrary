@@ -437,6 +437,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\FileUtils\TXmlDoc.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\FileUtils\TXmlTag.h"
 				>
 			</File>

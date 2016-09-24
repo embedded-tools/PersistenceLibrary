@@ -18,6 +18,8 @@ class Test_TXMLDoc : public TestFixture<Test_TXMLDoc>
         TEST_CASE (SelectNode);
 		TEST_CASE (SelectNodes);
 		TEST_CASE (CountNodes);
+		TEST_CASE (LoadXmlWithHeader1);
+		TEST_CASE (LoadXmlWithHeader2);
         TEST_CASE( LoadXmlWithAttributes );        
         TEST_CASE( XmlTagCheck );
 
@@ -58,7 +60,10 @@ class Test_TXMLDoc : public TestFixture<Test_TXMLDoc>
                     "</Data>\r\n";
         const char* text = xmlBuffer.ToPChar();
                 
-        xmlDoc.LoadXML(xmlBuffer);
+        bool res = xmlDoc.LoadFromString(xmlBuffer);
+		ASSERT(res);
+		ASSERT(xmlDoc.Root()!=NULL);
+		ASSERT(xmlDoc.Header()==NULL);
 
         const char* textAfterLoadXML = 
                             "<Data\0\0\n"\
@@ -105,12 +110,15 @@ class Test_TXMLDoc : public TestFixture<Test_TXMLDoc>
 		ASSERT(user1UID->GetValueAsShortInt()==1);
 
 		TXMLTag* user1Name = user1->SelectNode("Name");
+		ASSERT(user1Name!=NULL);
 		ASSERT(user1Name->GetValueAsString()=="John");
 
 		TXMLTag* user1Surname = user1->SelectNode("Surname");
+		ASSERT(user1Surname!=NULL);
 		ASSERT_EQUALS("Doe", user1Surname->GetValue());
 
 		TXMLTag* user1Pin = user1->SelectNode("Pin");
+		ASSERT(user1Pin!=NULL);
 		ASSERT_EQUALS("1234", user1Pin->GetValue());
 
     }
@@ -161,7 +169,67 @@ class Test_TXMLDoc : public TestFixture<Test_TXMLDoc>
 		ASSERT(n4==4);
 	}
 
+	void LoadXmlWithHeader1()
+	{
+		xmlBuffer = 
+			"<?xml version='1.0'>"\
+			"<Data>\r\n"\
+			"  <UserManager Id='1' Type='123'>\r\n"\
+			"     <PinLength>6</PingLength>\r\n"\
+			"     <Users>\r\n"\
+			"       <User Id='111' Type='Normal' Name='John' Surname='Doe' Address='112 WallStreet' City='Phoenix' State='Arizona' Country='United States' PhoneNumber='0012345678' CanLogin='true' Remark='None'>\r\n"\
+			"         <UserGroupID>1</UserGroupID>\r\n"\
+			"         <Name test='&quot;Yes&quot;'>&quot;&gt;Naz&amp;dar&lt;&quot;</Name>\r\n"\
+			"       </User>\r\n"\
+			"       <User Id='112' Type='Normal' Name='John' Surname='Doe' Address='112 WallStreet' City='Phoenix' State='Arizona' Country='United States' PhoneNumber='0012345678' CanLogin='true' Remark='None' />\r\n"\
+			"    </Users>\r\n"\
+			"  </UserManager>\r\n"\
+			"  <UserGroupManager Id='2' Type='456'>\r\n"\
+			"    <DefaultRights>1234</DefaultRights>\r\n"\
+			"    <UserGroups>\r\n"\
+			"      <UserGroup Id='1' Type='1234' Name='Group1' Attr1='1' Attr2='2' Attr3='3' Attr4='4' Attr5='5' Attr6='6' Attr7='7' Attr8='8' Attr9='9' Attr10='10' Attr11='11' Attr12='12' Attr13='13' Attr14='14' Attr15='15' />\r\n"\
+			"      <UserGroup Id='2' Type='1234' Name='Group2' Attr1='11' Attr2='12' Attr3='13' Attr4='14' Attr5='15' Attr6='16' Attr7='17' Attr8='18' Attr9='19' Attr10='20' Attr11='21' Attr12='22' Attr13='23' Attr14='24' Attr15='25'>\r\n"\
+			"      </UserGroup>\r\n"\
+			"    </UserGroups>\r\n"\
+			"  </UserGroupManager>\r\n"\
+			"</Data>\r\n";
 
+		bool res = xmlDoc.LoadFromString(xmlBuffer);
+		ASSERT(res);
+		ASSERT(xmlDoc.Root()!=NULL);
+		ASSERT(xmlDoc.Header()!=NULL);
+	}
+
+	void LoadXmlWithHeader2()
+	{
+		xmlBuffer = 
+			"<?xml version='1.0' ?>"\
+			"<Data>\r\n"\
+			"  <UserManager Id='1' Type='123'>\r\n"\
+			"     <PinLength>6</PingLength>\r\n"\
+			"     <Users>\r\n"\
+			"       <User Id='111' Type='Normal' Name='John' Surname='Doe' Address='112 WallStreet' City='Phoenix' State='Arizona' Country='United States' PhoneNumber='0012345678' CanLogin='true' Remark='None'>\r\n"\
+			"         <UserGroupID>1</UserGroupID>\r\n"\
+			"         <Name test='&quot;Yes&quot;'>&quot;&gt;Naz&amp;dar&lt;&quot;</Name>\r\n"\
+			"       </User>\r\n"\
+			"       <User Id='112' Type='Normal' Name='John' Surname='Doe' Address='112 WallStreet' City='Phoenix' State='Arizona' Country='United States' PhoneNumber='0012345678' CanLogin='true' Remark='None' />\r\n"\
+			"    </Users>\r\n"\
+			"  </UserManager>\r\n"\
+			"  <UserGroupManager Id='2' Type='456'>\r\n"\
+			"    <DefaultRights>1234</DefaultRights>\r\n"\
+			"    <UserGroups>\r\n"\
+			"      <UserGroup Id='1' Type='1234' Name='Group1' Attr1='1' Attr2='2' Attr3='3' Attr4='4' Attr5='5' Attr6='6' Attr7='7' Attr8='8' Attr9='9' Attr10='10' Attr11='11' Attr12='12' Attr13='13' Attr14='14' Attr15='15' />\r\n"\
+			"      <UserGroup Id='2' Type='1234' Name='Group2' Attr1='11' Attr2='12' Attr3='13' Attr4='14' Attr5='15' Attr6='16' Attr7='17' Attr8='18' Attr9='19' Attr10='20' Attr11='21' Attr12='22' Attr13='23' Attr14='24' Attr15='25'>\r\n"\
+			"      </UserGroup>\r\n"\
+			"    </UserGroups>\r\n"\
+			"  </UserGroupManager>\r\n"\
+			"</Data>";
+
+		bool res = xmlDoc.LoadFromString(xmlBuffer);
+		ASSERT(res);
+		ASSERT(xmlDoc.Root()!=NULL);
+		ASSERT(xmlDoc.Header()!=NULL);
+	}
 
     void LoadXmlWithAttributes()
     {
@@ -177,7 +245,7 @@ class Test_TXMLDoc : public TestFixture<Test_TXMLDoc>
                     "    </Users>\r\n"\
                     "  </UserManager>\r\n"\
                     "  <UserGroupManager Id='2' Type='456'>\r\n"\
-                    "    <DefaultRights='1234'>\r\n"\
+                    "    <DefaultRights>'1234'</DefaultRights\r\n"\
                     "    <UserGroups>\r\n"\
                     "      <UserGroup Id='1' Type='1234' Name='Group1' Attr1='1' Attr2='2' Attr3='3' Attr4='4' Attr5='5' Attr6='6' Attr7='7' Attr8='8' Attr9='9' Attr10='10' Attr11='11' Attr12='12' Attr13='13' Attr14='14' Attr15='15' />\r\n"\
                     "      <UserGroup Id='2' Type='1234' Name='Group2' Attr1='11' Attr2='12' Attr3='13' Attr4='14' Attr5='15' Attr6='16' Attr7='17' Attr8='18' Attr9='19' Attr10='20' Attr11='21' Attr12='22' Attr13='23' Attr14='24' Attr15='25'>\r\n"\
@@ -186,7 +254,10 @@ class Test_TXMLDoc : public TestFixture<Test_TXMLDoc>
                     "  </UserGroupManager>\r\n"\
                     "</Data>";
 
-        xmlDoc.LoadXML(xmlBuffer);
+        bool res = xmlDoc.LoadFromString(xmlBuffer);
+		ASSERT(res);
+		ASSERT(xmlDoc.Root()!=NULL);
+		ASSERT(xmlDoc.Header()==NULL);
     }
 
 

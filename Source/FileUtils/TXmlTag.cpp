@@ -132,12 +132,14 @@ const char* TXMLTag::GetAttributeValue(const char* attributeName)
 {
     char* pp = (char*)FirstAttribute;
     char* result = NULL;
-    while(pp<LastAttribute)
+    while(true)
     {
         while(*pp==32)      
         {
             pp++;
         }    
+		if (pp>=LastAttribute) break;
+
         unsigned short attrNameLen = strlen(attributeName);
         bool nameMatch = true;
         for(unsigned short i = 0; i<attrNameLen; i++)
@@ -358,6 +360,106 @@ unsigned short TXMLTag::CountNodes(const char* xpath)
 		count++;
 	}
 	return count;
+}
+
+void TXMLTag::SaveToStream(TStream& stream, int indent)
+{
+	for(int i = indent; i>0; i--)
+	{
+		stream.WritePlainText("  ");
+	}
+	stream.WriteChar('<');
+	stream.WritePlainText(GetName());
+	
+	if (FirstAttribute)
+	{
+		char* pp = (char*)FirstAttribute;
+		char* result = NULL;
+		char separator=' ';
+		while(true)
+		{
+			stream.WriteChar(' ');
+			while(*pp==32)      
+			{
+				pp++;
+			}
+			if (pp>=LastAttribute) break;
+
+			while((*pp!='=') && (*pp!=0))
+			{				
+				stream.WriteChar(*pp);
+				pp++;
+			}
+			stream.WriteChar('=');
+			stream.WriteChar('\"');
+			pp++;
+			while(*pp==32)      
+			{
+				pp++;
+			}    
+			if ((*pp=='\"') || (*pp=='\''))
+			{
+				separator=*pp;
+				pp++;
+			}
+			result = pp;
+			while((*pp!=0))
+			{
+				switch(*pp)
+				{
+					case '<': stream.WritePlainText("&lt;"); break;
+					case '>': stream.WritePlainText("&gt;"); break;
+					case '&': stream.WritePlainText("&amp;"); break;
+					case '\"': stream.WritePlainText("&quot;"); break;
+					default: stream.WriteChar(*pp); break;
+				}
+				pp++;
+			}
+			pp++;
+			stream.WriteChar('\"');
+		}		
+		const char* name = GetName();
+		if (name[0]=='?')
+		{
+			stream.WritePlainText(" ?>\r\n");
+			return;
+		}
+	}
+
+	stream.WriteChar('>');
+	const char* value = GetValue();
+	if (value[0])
+	{
+		while(*value!=0)
+		{
+			switch(*value)
+			{
+				case '<': stream.WritePlainText("&lt;"); break;
+				case '>': stream.WritePlainText("&gt;"); break;
+				case '&': stream.WritePlainText("&amp;"); break;
+				case '\"': stream.WritePlainText("&quot;"); break;
+				default: stream.WriteChar(*value);
+			}
+			value++;
+		}
+	} else {
+		stream.WritePlainText("\r\n");
+		int n = TagPool->GetChildCount(this);
+		for (int i = 0; i<n; i++)
+		{
+			TXMLTag* child = TagPool->GetChild(this, i);
+			child->SaveToStream(stream, indent + 1);
+		}
+		for(int i = indent; i>0; i--)
+		{
+			stream.WritePlainText("  ");
+		}
+	}	
+	stream.WriteChar('<');
+	stream.WriteChar('/');
+	stream.WritePlainText(GetName());
+	stream.WritePlainText(">\r\n");
+
 }
 
 
