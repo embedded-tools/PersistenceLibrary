@@ -474,7 +474,7 @@ TXMLTag* TXMLDoc::SelectNode(const char* xpath)
         rootName=xpath;
         tagName=NULL;        
     } else {
-        rootName.CopyFrom(xpath,0,n);
+        rootName.CopyFrom(xpath,n);
         tagName = xpath + n;
     }
     if (rootName!=rootTag->GetName())
@@ -512,7 +512,7 @@ TXMLTagIterator* TXMLDoc::SelectNodes(const char* xpath, bool no_malloc)
 		rootName=xpath;
 		tagName=NULL;        
 	} else {
-		rootName.CopyFrom(xpath,0,n);
+		rootName.CopyFrom(xpath,n);
 		tagName = xpath + n;
 	}
 	if (rootName!=rootTag->GetName())
@@ -550,7 +550,7 @@ unsigned short TXMLDoc::CountNodes(const char* xpath)
 		rootName=xpath;
 		tagName=NULL;        
 	} else {
-		rootName.CopyFrom(xpath,0,n);
+		rootName.CopyFrom(xpath,n);
 		tagName = xpath + n;
 	}
 	if (rootName!=rootTag->GetName())

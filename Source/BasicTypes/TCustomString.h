@@ -47,7 +47,7 @@ public:
 		PData = (char*)&Data;
 		DataMax = LENGTH+1;
 		DataStatic = true;
-		CopyFrom(pChar, 0, pCharLen);
+		CopyFrom(pChar, pCharLen);
 	}
 
 	TCustomString(TString& s)
@@ -56,7 +56,7 @@ public:
 		PData = (char*)&Data;
 		DataMax = LENGTH+1;
 		DataStatic = true;
-		CopyFrom(s.ToPChar(), 0, s.Length());
+		CopyFrom(s.ToPChar(), s.Length());
 	}
 
     TCustomString(TCustomString& s)
@@ -65,7 +65,7 @@ public:
         PData = (char*)&Data;
         DataMax = LENGTH+1;
         DataStatic = true;
-        CopyFrom(s.ToPChar(), 0, s.Length());
+        CopyFrom(s.ToPChar(), s.Length());
     }
 
     TCustomString<LENGTH>& operator = ( TCustomString<LENGTH>& oString )

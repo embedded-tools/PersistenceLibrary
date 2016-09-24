@@ -426,7 +426,7 @@ void TSerializedItem::SerializeUIDArray (const char* arrayName, void* objectList
 				int n = textUIDs.IndexOf(';');
 				while(n>0)
 				{
-					textUID.CopyFrom(textUIDs.ToPChar(), 0, n);
+					textUID.CopyFrom(textUIDs.ToPChar(), n);
 					UID = StrToULongInt(textUID);
 					TSerializedItem* item = collection->FindItem(UID);
 					if (item!=NULL) 

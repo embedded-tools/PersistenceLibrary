@@ -25,13 +25,13 @@ TString::TString()
 TString::TString (const char* pChar, unsigned short pCharLen)
     : PData(NULL), DataLen(0), DataMax(0), DataStatic(false)
 {
-	CopyFrom(pChar, 0, pCharLen);
+	CopyFrom(pChar, pCharLen);
 }
 
 TString::TString(TString &s)
 	: PData(NULL), DataLen(0), DataMax(0), DataStatic(false)
 {
-	CopyFrom(s.ToPChar(), 0, s.Length());
+	CopyFrom(s.ToPChar(), s.Length());
 }
 
 TString::~TString()
@@ -93,7 +93,7 @@ bool TString::Fill(char c, unsigned short number)
     return true;
 }
 
-bool TString::CopyFrom (const char* s, unsigned short startIndex, unsigned short length)
+bool TString::CopyFrom (const char* s, unsigned short length)
 {    
     if (s==NULL) 
     {
@@ -102,28 +102,23 @@ bool TString::CopyFrom (const char* s, unsigned short startIndex, unsigned short
     }
        
     unsigned short slen = strlen(s);
-    if (startIndex>=slen)
-    {
-        Clear();
-        return false;
-    }
     if (length==0)
     {
-        length = slen-startIndex;
+        length = slen;
         if (length==0)
         {
             Clear();
             return false;
         }
     }    
-    if (startIndex+length>slen)
+    if (length>slen)
     {
-        length = slen-startIndex;
+        length = slen;
     }
 
     SetLength(length);
 
-    char* src = (char*)s + startIndex;
+    char* src = (char*)s;
     char* dst = PData;
     for(unsigned short k = DataLen; k>0; k--)
     {
@@ -214,14 +209,14 @@ int TString::IndexOf(const char* pChar, unsigned short startIndex)
     {
         return -1;
     }
-    if (startIndex>=pCharLen)
+    if (startIndex>=len)
     {
         return -1;
     }
     
     int result= -1;
     bool found = false;
-    for(int i = startIndex; i<len-pCharLen; i++)
+    for(int i = startIndex; i<=len-pCharLen; i++)
     {
         found = true;
         for (int j = 0; j<pCharLen; j++)

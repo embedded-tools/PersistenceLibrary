@@ -55,7 +55,7 @@ public:
 		DataLen = 0;
 		DataMax = SHORTSTRINGLENGTH+1;
 		DataStatic = true;
-    	CopyFrom(pChar, 0, pCharLen);    
+    	CopyFrom(pChar, pCharLen);    
 	}
 
     TShortString::TShortString(TShortString &s)
@@ -64,7 +64,7 @@ public:
         DataLen = 0;
         DataMax = SHORTSTRINGLENGTH+1;
         DataStatic = true;
-        CopyFrom(s.ToPChar(), 0, s.Length());    
+        CopyFrom(s.ToPChar(), s.Length());    
     }
 
     TShortString& operator = ( TString& oString )

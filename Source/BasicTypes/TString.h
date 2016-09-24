@@ -61,7 +61,7 @@ public:
     //setters
     void Clear(bool dontReleaseMemory=false);    
     bool Fill(char c, unsigned short number);	
-    bool CopyFrom (const char* AData, unsigned short startIndex=0, unsigned short length=0);    
+    bool CopyFrom (const char* AData, unsigned short length=0);    
     
     //string operations    
     bool Contains(const char* pChar);
