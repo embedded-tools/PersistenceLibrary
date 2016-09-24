@@ -1,0 +1,84 @@
+/*
+ * Persistence Library / Basic types / TXMLDoc
+ *
+ * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
+ *
+ * https://github.com/embedded-tools/PersistenceLibrary
+ *
+ * Permission to use, copy, modify, distribute and sell this software
+ * and its documentation for any purpose is hereby granted without fee,
+ * provided that the above copyright notice appear in all copies and
+ * that both that copyright notice and this permission notice appear
+ * in supporting documentation.
+ * It is provided "as is" without express or implied warranty.
+ *
+ */
+
+#ifndef XMLDOC___H
+#define XMLDOC___H
+
+#include "txmltag.h"
+#include "txmltagbasepool.h"
+#include "tstring.h"
+
+
+/**
+ *  TXMLDoc is xml parser designed for low memory embedded systems.
+ *
+ *  It makes no dynamic memory allocations. It uses references to 
+ *  existing XML buffer. It inserts terminal zeros in input buffer 
+ *  and then uses direct references to this buffer.
+ *
+ *  E.g. buffer is modified like this:
+ *
+ *  <root>                           <root\0
+ *    <name>Karel</name>                <name\0Karel\0/name>
+ *    <name>Josef</name>                <name\0Josef\0/name> 
+ *    <name>Marcel</name>               <name\0Marcel\0/name>
+ *  </root>                          </root> 
+ *
+ *  Instances of TXmlTags are stored in tag pool. Tags can be also fully
+ *  preallocated if you use TXMLTagStaticPool. 
+ *
+ */
+
+class TXMLDoc
+{
+    friend class TXMLTag;
+
+	protected:
+
+        TXMLTagBasePool* xmlTagPool;
+
+        TXMLTag*    parserLevel;
+		char*       parserData;
+        int         parserDataLength;
+		int         parserPosition;
+        bool        endReached;
+       
+        char        CurrentChar();
+        char        NextChar();
+        char        NextNonEmptyChar();
+        
+        bool        ParseXML();			
+        void        RemoveEscapedCharacters(char* value);
+       
+    public:
+        TXMLDoc();
+		TXMLDoc(TXMLTagBasePool& tagPool);
+		~TXMLDoc();
+
+        void        SetPool(TXMLTagBasePool* tagPool);
+		TXMLTag*    Root();
+		void        Clear();       	
+        bool        LoadXML (char*   rewriteableBuffer, int xmlLength=0);
+		bool        LoadXML (TString &rewriteableBuffer);
+
+        TXMLTag*         SelectNode (const char* xpath);
+        TXMLTagIterator* SelectNodes(const char* xpath, bool no_alloc=true);
+		unsigned short   CountNodes (const char* xpath);
+        
+
+};
+
+#endif

@@ -1,0 +1,143 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "BasicTypes"=.\BasicTypes\BasicTypes.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "Collections"=.\Collections\Collections.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "FileUtils"=.\FileUtils\FileUtils.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name BasicTypes
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "Graphics"=.\Graphics\Graphics.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "Math"=.\Math\Math.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "Persistence"=.\Persistence\Persistence.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name BasicTypes
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Collections
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "Protocols"=.\Protocols\Protocols.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "UnitTests"=.\UnitTests\UnitTests.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name Collections
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name FileUtils
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Persistence
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name BasicTypes
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Graphics
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Math
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Protocols
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+
