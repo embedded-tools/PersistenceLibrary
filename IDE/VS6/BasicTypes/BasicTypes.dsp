@@ -127,26 +127,6 @@ SOURCE=..\..\..\Source\BasicTypes\TTime.cpp
 
 SOURCE=..\..\..\Source\BasicTypes\TWideString.cpp
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\BasicTypes\TXmlDoc.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\BasicTypes\TXmlTag.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\BasicTypes\TXmlTagBasePool.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\BasicTypes\TXmlTagDynamicPool.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\BasicTypes\TXmlTagStaticPool.cpp
-# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -198,26 +178,6 @@ SOURCE=..\..\..\Source\BasicTypes\ttime.h
 # Begin Source File
 
 SOURCE=..\..\..\Source\BasicTypes\twidestring.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\BasicTypes\txmldoc.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\BasicTypes\txmltag.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\BasicTypes\txmltagbasepool.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\BasicTypes\TXmlTagDynamicPool.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\BasicTypes\txmltagstaticpool.h
 # End Source File
 # End Group
 # End Target

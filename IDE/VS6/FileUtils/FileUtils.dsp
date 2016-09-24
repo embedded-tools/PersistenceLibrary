@@ -123,6 +123,26 @@ SOURCE=..\..\..\Source\FileUtils\TStream.cpp
 
 SOURCE=..\..\..\Source\FileUtils\TStringList.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TXmlDoc.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TXmlTag.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TXmlTagBasePool.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TXmlTagDynamicPool.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TXmlTagStaticPool.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -166,6 +186,26 @@ SOURCE=..\..\..\Source\FileUtils\TStream.h
 # Begin Source File
 
 SOURCE=..\..\..\Source\FileUtils\TStringList.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TXmlDoc.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TXmlTag.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TXmlTagBasePool.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TXmlTagDynamicPool.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TXmlTagStaticPool.h
 # End Source File
 # End Group
 # End Target
