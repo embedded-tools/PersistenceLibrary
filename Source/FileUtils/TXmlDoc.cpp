@@ -262,7 +262,8 @@ bool TXMLDoc::ParseXML()
                 
             } else {
                 char* tagName = parserData + parserPosition;
-				TXMLTag* newTag = xmlTagPool->CreateXMLTag(tagName, parserLevel);
+				TXMLTag* newTag = xmlTagPool->CreateXMLTag();
+				xmlTagPool->SetXMLTagName(newTag, tagName, parserLevel);
 
                 c = NextChar();
                 

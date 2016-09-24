@@ -27,6 +27,8 @@
  */
 class TXMLTagBasePool
 {
+	friend class TXMLDoc;
+
     protected:
         void SetXMLTagName(TXMLTag* tag, const char* tagName, TXMLTag* tagParent);
         virtual TXMLTag*        GetXMLTag(short i) = 0;
@@ -34,7 +36,7 @@ class TXMLTagBasePool
 
 	public:
 
-        virtual TXMLTag*        CreateXMLTag(const char* tagName, TXMLTag* parentTag) = 0;
+        virtual TXMLTag*        CreateXMLTag() = 0;
         virtual bool            DeleteXMLTag(TXMLTag* tag) = 0;
         virtual void            Clear() = 0;
 

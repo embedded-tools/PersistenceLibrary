@@ -44,7 +44,7 @@ class TXMLTagStaticPool : public TXMLTagBasePool
 
 		TXMLTagStaticPool();
 
-        virtual TXMLTag*        CreateXMLTag(const char* tagName, TXMLTag* parentTag);
+        virtual TXMLTag*        CreateXMLTag();
         virtual bool            DeleteXMLTag(TXMLTag* tag);
         virtual void            Clear();
 

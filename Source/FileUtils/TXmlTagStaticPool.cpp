@@ -37,19 +37,14 @@ unsigned short  TXMLTagStaticPool::GetXMLTagCount()
     return count;
 }
 
-TXMLTag* TXMLTagStaticPool::CreateXMLTag(const char* name, TXMLTag* parentTag)
+TXMLTag* TXMLTagStaticPool::CreateXMLTag()
 {
-    if (name==NULL)
-    {
-        return NULL;
-    }
     TXMLTag* newXmlTag = NULL;
     for(int i = 0; i<XMLTAGSTATICPOOLSIZE; i++)
     {
         if (Tags[i].GetName()==NULL)
         {
             newXmlTag=&Tags[i];
-            SetXMLTagName(newXmlTag, name, parentTag);
             TagsCount++;
             break;
         }
