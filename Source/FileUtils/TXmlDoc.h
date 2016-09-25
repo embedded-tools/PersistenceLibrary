@@ -80,7 +80,7 @@ class TXMLDoc
 		bool        SaveToFile     (const char* filename);
 
         TXMLTag*         SelectNode (const char* xpath);
-        TXMLTagIterator* SelectNodes(const char* xpath, bool no_alloc=true);
+        TXMLTagList*     SelectNodes(const char* xpath, bool no_alloc=true);
 		unsigned short   CountNodes (const char* xpath);
         
 

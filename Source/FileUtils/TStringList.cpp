@@ -320,7 +320,7 @@ bool TStringList::LoadFromStream (TStream *stream)
     char* pp;
 	char* pp2;
 
-    int     gc,c,nn;
+    int     c,nn;
     int     size;
 	char    tmpBuf[2049];
     char*   tmp = (char*) &tmpBuf;
@@ -329,49 +329,35 @@ bool TStringList::LoadFromStream (TStream *stream)
 
     int totalsize=stream->GetSize();
 
-    #ifdef __EXCEPTIONS
-    try
+    nn=0;
+    while (stream->GetPosition()<(totalsize)) 
     {
-		#endif
-        nn=0;
-        while (stream->GetPosition()<(totalsize)) 
+        size=(int)stream->ReadBuffer(tmp+nn,2048-nn)+nn;  
+        tmp[size]=0;
+        pp= (char*) &tmp[0]; 
+        pp2=(char*) &tmp[0];
+        for (c=0; c<size; c++) 
         {
-            size=(int)stream->ReadBuffer(tmp+nn,2048-nn)+nn;  
-            tmp[size]=0;
-            pp= (char*) &tmp[0]; 
-            pp2=(char*) &tmp[0];
-            for (c=0; c<size; c++) 
+            if (*pp==13) {
+                *pp=0;
+                Add(pp2);
+                nn=size-c-1;
+                pp2=pp; 
+                pp2++;
+            } else
+            if (*pp==10) {
+                nn=size-c-1;
+                pp2=pp; pp2++;
+            } else
+            if (c==(size-1)) 
             {
-                if (*pp==13) {
-                    *pp=0;
-                    Add(pp2);
-                    nn=size-c-1;
-                    pp2=pp; 
-                    pp2++;
-                } else
-                    if (*pp==10) {
-                        nn=size-c-1;
-                        pp2=pp; pp2++;
-                    } else
-                        if (c==(size-1)) 
-                        {
-                            gc++;
-                            if (stream->GetPosition()==totalsize) Add (pp2);
-                            else memcpy (tmp,pp2,nn);
-                        }
-                        pp++;
+                if (stream->GetPosition()==totalsize) Add (pp2);
+                else memcpy (tmp,pp2,nn);
             }
+            pp++;
         }
-		#ifdef __EXCEPTIONS
     }
-    catch (...)
-    {
-        return (false);
-    }
-		#endif
-
     return (true);
-
 };
 
 bool TStringList::LoadFromFile (const char* filename)
@@ -458,23 +444,13 @@ bool TStringList::SaveToStream (TStream *stream)
     TString filename;
 
     if (stream==NULL) return (false);
-	  #ifdef __EXCEPTIONS
-    try 
-    {
-		#endif
 			
-		for (int c=0; c<item_num; c++) {
-				stream->WriteBuffer (buf+pstr[c],(int)(pstr[c+1]-pstr[c])-1);
-				stream->WriteBuffer (&newline,2);
-		}
-				
-    #ifdef __EXCEPTIONS				
-    }		
-    catch (...)
-    {
-        return false;
-    };
-		#endif
+	for (int c=0; c<item_num; c++) 
+	{
+			stream->WriteBuffer (buf+pstr[c],(int)(pstr[c+1]-pstr[c])-1);
+			stream->WriteBuffer (&newline,2);
+	}
+			
     return (true);	
 }
 

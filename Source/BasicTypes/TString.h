@@ -68,6 +68,8 @@ public:
     bool Contains(char c);
     int  IndexOf(const char* pChar, unsigned short startIndex=0);
     int  IndexOf(char c, unsigned short startIndex=0);    
+	int  LastIndexOf(char c);
+	int  LastIndexOf(const char* pChar);
  
     operator char* ();
     operator const char*();

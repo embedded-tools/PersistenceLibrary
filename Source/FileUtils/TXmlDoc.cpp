@@ -488,7 +488,7 @@ TXMLTag* TXMLDoc::SelectNode(const char* xpath)
     return rootTag;
 }
 
-TXMLTagIterator* TXMLDoc::SelectNodes(const char* xpath, bool no_malloc)
+TXMLTagList* TXMLDoc::SelectNodes(const char* xpath, bool no_malloc)
 {
 	if (xpath==NULL)
 	{

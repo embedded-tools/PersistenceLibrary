@@ -28,7 +28,7 @@
 class TXMLTagBasePool;
 class TXMLTag;
 
-class TXMLTagIterator
+class TXMLTagList 
 {
 private:
     TXMLTag*       iteratedParent;
@@ -36,10 +36,10 @@ private:
     unsigned short iteratorIndex;
 
 protected:
-	TXMLTagIterator();
+	TXMLTagList();
 
 public:
-    TXMLTagIterator(TXMLTag* parent, const char* name=NULL);
+    TXMLTagList(TXMLTag* parent, const char* name=NULL);
     TXMLTag* First();
     TXMLTag* Next();
 };
@@ -58,7 +58,7 @@ public:
 class TXMLTag
 {
     friend class TXMLTagBasePool;
-	friend class TXMLTagIterator;
+	friend class TXMLTagList;
     friend class TXMLDoc;
 
     protected:        
@@ -95,7 +95,7 @@ class TXMLTag
         short            GetChildCount();
         TXMLTag*         GetChild(short i);
         TXMLTag*         SelectNode(const char* xpath);
-        TXMLTagIterator* SelectNodes(const char* xpath, bool no_malloc=true);
+        TXMLTagList* SelectNodes(const char* xpath, bool no_malloc=true);
 		unsigned short   CountNodes (const char* xpath);
 
 		void			 SaveToStream(TStream& stream, int indent = 0);

@@ -489,7 +489,12 @@ unsigned short HexToUShortIntDef(const char* pChar, unsigned short def, unsigned
     {
         return def;
     }
-    if (pCharLength==0) pCharLength = StrLen(pChar);
+	if (pCharLength==0) pCharLength = StrLen(pChar);
+	if (pChar[1]=='x') 
+	{
+		pChar+=2;
+		pCharLength-=2;
+	}    
     for(unsigned char i=0; i<(unsigned char)pCharLength; i++)
     {
         c = pChar[i];
@@ -588,9 +593,14 @@ unsigned long HexToULongIntDef(const char* pChar, unsigned long def, unsigned sh
     char c;
     if (pChar==NULL)
     {
-        return def;
-    }
-    if (pCharLength==0) pCharLength = StrLen(pChar);
+        return def;    
+	}
+	if (pCharLength==0) pCharLength = StrLen(pChar);
+	if (pChar[1]=='x') 
+	{
+		pChar+=2;
+		pCharLength-=2;
+	}    
     for(unsigned char i=0; i<(unsigned char)pCharLength; i++)
     {
         c = pChar[i];

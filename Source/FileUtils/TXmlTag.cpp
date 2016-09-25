@@ -18,21 +18,21 @@
 #include "stringutils.h"
 #include "txmltagbasepool.h"
 
-TXMLTagIterator::TXMLTagIterator()
+TXMLTagList::TXMLTagList()
 {
 	iteratedParent = NULL;
 	iteratedName = NULL;
 	iteratorIndex = 0;
 }
 
-TXMLTagIterator::TXMLTagIterator(TXMLTag* parent, const char* name)
+TXMLTagList::TXMLTagList(TXMLTag* parent, const char* name)
 {
     iteratedParent = parent;
     iteratedName = name;
     iteratorIndex = 0;
 }
 
-TXMLTag* TXMLTagIterator::First()
+TXMLTag* TXMLTagList::First()
 {
 	iteratorIndex = 0;
 	unsigned short n = TXMLTag::TagPool->GetChildCount(iteratedParent);
@@ -48,7 +48,7 @@ TXMLTag* TXMLTagIterator::First()
 	return NULL;
 }
 
-TXMLTag* TXMLTagIterator::Next()
+TXMLTag* TXMLTagList::Next()
 {
 	iteratorIndex++;
 
@@ -295,7 +295,7 @@ TXMLTag* TXMLTag::SelectNode(const char* xpath)
     return NULL;
 }
 
-TXMLTagIterator* TXMLTag::SelectNodes(const char* xpath, bool no_malloc)
+TXMLTagList* TXMLTag::SelectNodes(const char* xpath, bool no_malloc)
 {
 	if (xpath[0]=='/')
 	{
@@ -325,7 +325,7 @@ TXMLTagIterator* TXMLTag::SelectNodes(const char* xpath, bool no_malloc)
 		return staticIterator;
 		*/
 	}
-    TXMLTagIterator* iterator = new TXMLTagIterator(iteratedParent, iteratedName);
+    TXMLTagList* iterator = new TXMLTagList(iteratedParent, iteratedName);
     return iterator;
 }
 

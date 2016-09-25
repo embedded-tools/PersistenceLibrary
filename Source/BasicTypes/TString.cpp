@@ -236,6 +236,49 @@ int TString::IndexOf(const char* pChar, unsigned short startIndex)
     return result;
 }
 
+int TString::LastIndexOf(char c)
+{
+	char buf[2];
+	buf[0] = c;
+	buf[1] = 0;
+	char* pChar = (char*) &buf;
+	return LastIndexOf(pChar);
+}
+
+int TString::LastIndexOf(const char* pChar)
+{
+	unsigned short len = Length();
+	unsigned char pCharLen = 0;
+	if (pChar!=NULL)
+	{
+		pCharLen = 0;
+		if (pChar!=NULL)
+		{
+			pCharLen = strlen(pChar);
+		}
+	}
+
+	int result= -1;
+	bool found = false;
+	for(int i = 0; i<=len-pCharLen; i++)
+	{
+		found = true;
+		for (int j = 0; j<pCharLen; j++)
+		{
+			if (PData[i+j]!=pChar[j])
+			{
+				found=false;
+				break;
+			}
+		}
+		if (found)
+		{
+			result = i;
+		}
+	}
+	return result;
+}
+
 TString::operator char*()
 {
     return (char*)PData;
@@ -258,7 +301,7 @@ TString& TString::Trim()
     for(unsigned short i = 0;  i<len; i++)
     {
         begin = i;
-        if (PData[i]!=32) break;
+        if ((PData[i]!=9) && (PData[i]!=32)) break;
     }
     unsigned short end = len;
     if (len!=0)
@@ -266,7 +309,7 @@ TString& TString::Trim()
         for(unsigned short j = len-1; j>0; j--)
         {
             end = j;
-            if (PData[j]!=32) break;
+            if ((PData[j]!=9) && (PData[j]!=32)) break;
         }        
     }
     if (begin>end)

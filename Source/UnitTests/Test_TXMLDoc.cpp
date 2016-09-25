@@ -125,7 +125,7 @@ class Test_TXMLDoc : public TestFixture<Test_TXMLDoc>
 
 	void SelectNodes()
 	{
-		TXMLTagIterator* iterSchedules = xmlDoc.SelectNodes("Data/Schedule/DayOfWeek");
+		TXMLTagList* iterSchedules = xmlDoc.SelectNodes("Data/Schedule/DayOfWeek");
 		TXMLTag* dayofweek1 = iterSchedules->First();
 		TXMLTag* dayofweek2 = iterSchedules->Next();
 		TXMLTag* dayofweek3 = iterSchedules->Next();
@@ -278,7 +278,7 @@ class Test_TXMLDoc : public TestFixture<Test_TXMLDoc>
 		ASSERT_EQUALS("PinLength", pinLengthTag->GetName());
 		ASSERT_EQUALS(6, (long)pinLengthTag->GetValueAsShortInt());
 
-		TXMLTagIterator* iterUsers = userManagerTag->SelectNodes("Users/User");
+		TXMLTagList* iterUsers = userManagerTag->SelectNodes("Users/User");
 		TXMLTag* user1Tag = iterUsers->First();
 
 		ASSERT_EQUALS(111, user1Tag->GetAttributeValueAsLongInt("Id"));

@@ -56,6 +56,12 @@ class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
 			CopyFrom(pChar);
 			return *this;
 		}
+
+		void DeleteFileName(TString &s)
+		{
+			int i = s.LastIndexOf('\\');			
+			s.SetLength(i+1);
+		}
         
         void DeleteLastDir(TString &s)
         {
@@ -84,12 +90,18 @@ class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
 
 		TFilePath& operator += ( const char* pChar )
 		{
+			if (pChar==NULL)
+			{
+				return *this;
+			}
+
             int pCharLen = 0;
 
             if (Length()>0)
             {
                 while (pChar[0]=='.')
                 {
+					DeleteFileName(*this);
                     if ((pChar[1]=='.'))
                     {
                         pChar += 2;
