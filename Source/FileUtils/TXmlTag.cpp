@@ -450,7 +450,7 @@ void TXMLTag::SaveToStream(TStream& stream, int indent)
 			TXMLTag* child = TagPool->GetChild(this, i);
 			child->SaveToStream(stream, indent + 1);
 		}
-		for(int i = indent; i>0; i--)
+		for(int j = indent; j>0; j--)
 		{
 			stream.WritePlainText("  ");
 		}
