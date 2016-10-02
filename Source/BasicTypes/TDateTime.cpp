@@ -76,10 +76,18 @@ TDateTime TDateTime::AddHours(short hours)
     
 	TDate date = TDate::AddDay(d);
 	TTime time = TTime::AddHours(hours);
-    if ((time.GetHour()+hours)>=24)
-    {
-        date = TDate::AddDay();
-    }
+	if (hours>=0)
+	{
+		if ((time.GetHour()+hours)>=24)
+		{
+	        date = TDate::AddDay();
+	    }
+	} else {
+		if ((time.GetHour()+hours)<0)
+		{
+			date = TDate::AddDay(-1);
+		}
+	}
     TDateTime result(date.GetYear(), date.GetMonth(), date.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond(), time.GetMillisecond());
     return result;
 }
@@ -91,10 +99,18 @@ TDateTime TDateTime::AddMinutes(short minutes)
 
     TDate date = TDate::AddDay(d);
 	TTime time = TTime::AddMinutes(minutes);
-    if ( (time.GetHour()*60+time.GetMinute()+minutes) >= 1440 )
-    {
-        date = TDate::AddDay();
-    }
+	if (minutes>=0)
+	{
+		if ( (time.GetHour()*60+time.GetMinute()+minutes) >= 1440 )
+		{
+			date = TDate::AddDay();
+		}
+	} else {
+		if ( (time.GetHour()*60+time.GetMinute()+minutes) < 0 )
+		{
+			date = TDate::AddDay(-1);
+		}
+	}
     TDateTime result(date.GetYear(), date.GetMonth(), date.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond(), time.GetMillisecond());
     return result;
 }
@@ -103,10 +119,18 @@ TDateTime TDateTime::AddSeconds(short seconds)
 {
     TDate date = TDate::AddDay(0);
 	TTime time = TTime::AddSeconds(seconds);
-    if ( time.GetHour()<GetHour() )
-    {
-        date = TDate::AddDay();
-    }
+	if (seconds>=0)
+	{
+		if ( time.GetHour()<GetHour() )
+		{
+			date = TDate::AddDay();
+		}
+	} else {
+		if ( time.GetHour()>GetHour() )
+		{
+			date = TDate::AddDay(-1);
+		}
+	}
     TDateTime result(date.GetYear(), date.GetMonth(), date.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond(), time.GetMillisecond());
     return result;
 }
@@ -115,10 +139,18 @@ TDateTime TDateTime::AddMilliSeconds(short milliseconds)
 {
     TDate date = TDate::AddDay(0);
 	TTime time = TTime::AddMilliSeconds(milliseconds);
-    if ( time.GetHour()<GetHour() )
-    {
-        date = TDate::AddDay();
-    }
+	if (milliseconds>0)
+	{
+		if ( time.GetHour()<GetHour() )
+		{
+			date = TDate::AddDay();
+		}
+	} else {
+		if ( time.GetHour()>GetHour() )
+		{
+			date = TDate::AddDay(-1);
+		}
+	}
     TDateTime result(date.GetYear(), date.GetMonth(), date.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond(), time.GetMillisecond());
     return result;
 }

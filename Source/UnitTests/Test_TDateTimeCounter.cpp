@@ -9,6 +9,7 @@ public:
     TEST_FIXTURE( Test_TDateTimeCounter)
     {
         TEST_CASE( ConstructDestruct );
+		TEST_CASE( Setter );
         TEST_CASE( Increment );
     }
 
@@ -19,44 +20,68 @@ public:
 
     }
 
+	void Setter()
+	{
+		TDateTimeCounter dtc;
+		dtc.SetDate(2016, 10, 1);
+		dtc.SetTime(23, 59, 30);
+		
+		ASSERT_EQUALS(2016, (int)dtc.GetYear());
+		ASSERT_EQUALS(10,   (int)dtc.GetMonth());
+		ASSERT_EQUALS(1,    (int)dtc.GetDay());
+
+		ASSERT_EQUALS(23,   (int)dtc.GetHour());
+		ASSERT_EQUALS(59,   (int)dtc.GetMinute());
+		ASSERT_EQUALS(30,   (int)dtc.GetSecond());
+	}
+
     void Increment()
     {
         TDateTimeCounter dtc;
+		dtc.SetDate(2016, 12, 31);
+		dtc.SetTime(23, 59, 59);
 
-        for(int h = 0; h<183; h++)
-        {
-            for(int i = 0; i<24; i++)
-            {
-                for(int j=0; j<60; j++)
-                {
-                    for (int k=0;k<60;k++)
-                    {
-                        dtc.OnTimerTick();
-                    }
-                }
-            }
-        }
-        int x = 0;
+		ASSERT_EQUALS(2016, (int)dtc.GetYear());
+		ASSERT_EQUALS(12,   (int)dtc.GetMonth());
+		ASSERT_EQUALS(31,   (int)dtc.GetDay());
+		ASSERT_EQUALS(23,   (int)dtc.GetHour());
+		ASSERT_EQUALS(59,   (int)dtc.GetMinute());
+		ASSERT_EQUALS(59,   (int)dtc.GetSecond());
 
-        for(int k = 0; k<183; k++)
+
+        for(int i = 0; i<61; i++)
         {
-            for(int l = 0; l<24; l++)
-            {
-                for(int m=0; m<60; m++)
-                {
-                    for (int n=0;n<60;n++)
-                    {
-                        dtc.OnTimerTick();
-                    }
-                }
-            }
+			for(int j = 0; j<50; j++)
+			{
+				dtc.OnTimerTickMilliSeconds(20);
+			}
         }
-        int y = 0;
+		ASSERT_EQUALS(2017, (int)dtc.GetYear());
+		ASSERT_EQUALS(1,    (int)dtc.GetMonth());
+		ASSERT_EQUALS(1,    (int)dtc.GetDay());
+		ASSERT_EQUALS(0,    (int)dtc.GetHour());
+		ASSERT_EQUALS(1,    (int)dtc.GetMinute());
+		ASSERT_EQUALS(0,    (int)dtc.GetSecond());
+
+		for(int i = 0; i<61; i++)
+		{
+			for(int j = 0; j<50; j++)
+			{
+				dtc.OnTimerTickMilliSeconds(-20);
+			}
+		}
+		ASSERT_EQUALS(2016, (int)dtc.GetYear());
+		ASSERT_EQUALS(12,   (int)dtc.GetMonth());
+		ASSERT_EQUALS(31,   (int)dtc.GetDay());
+		ASSERT_EQUALS(23,   (int)dtc.GetHour());
+		ASSERT_EQUALS(59,   (int)dtc.GetMinute());
+		ASSERT_EQUALS(59,   (int)dtc.GetSecond());
+
     }
 
     
 };
 
-//REGISTER_FIXTURE( Test_TDateTimeCounter);
+REGISTER_FIXTURE( Test_TDateTimeCounter);
 
 

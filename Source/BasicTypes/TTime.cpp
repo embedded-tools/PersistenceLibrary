@@ -181,12 +181,25 @@ TTime TTime::AddMilliSeconds(short milliSeconds)
     milliSeconds -= seconds*1000;
     result = result.AddSeconds(seconds);
 
-    result.m_milliseconds+=m_milliseconds;
-    if (result.m_milliseconds>=60000)
-    {
-        result.m_milliseconds-=60000;
-        result = result.AddMinutes(1);
-    }
+	if (milliSeconds>0)
+	{
+		result.m_milliseconds+= milliSeconds;
+		if (result.m_milliseconds>=60000)
+		{
+			result.m_milliseconds-=60000;
+			result = result.AddMinutes(1);
+		}
+	} else {
+		if ( ((long)(-milliSeconds))<= ((long)m_milliseconds) )
+		{
+			result.m_milliseconds+= milliSeconds;
+		} else
+		{
+			result.m_milliseconds+= milliSeconds;
+			result.m_milliseconds+=60000;
+			result = result.AddMinutes(-1);
+		}
+	}
     return result;
 }
 

@@ -25,9 +25,10 @@
  *  (it can be used when you target platform contains no Real Time Clock (RTC))
  */
 
-class TDateTimeCounter : public TDateTime
+class TDateTimeCounter : protected TDateTime
 {
     private:
+		short m_microseconds;
         short m_minutesToAddOneSecond;
 		TTime m_calibrationCounter;
 
@@ -35,11 +36,25 @@ class TDateTimeCounter : public TDateTime
     public:
         TDateTimeCounter();
 
+		void SetDate(unsigned short year, unsigned char month,  unsigned char day);
+		void SetTime(unsigned char  hour, unsigned char minute, unsigned char second);
+
+		unsigned char  GetDay();
+		unsigned char  GetMonth();
+		unsigned short GetYear();
+		unsigned char  GetHour();
+		unsigned char  GetMinute();
+		unsigned char  GetSecond();
+		unsigned short GetMillisecond(); 
+
 		//when time "minutesToCorrection" expires, one second will be added (addSecond=true) or substracted (addSecond=false)
 		void SetMinuteCalibration(short minutesToCorrection, bool addSecond);
 
+		//timer tick method add time interval to current time (one millisecond by default)
+		void OnTimeTickMicroSeconds(short microseconds=1000);
+
 		//timer tick method add time interval to current time (one second by default)
-        void OnTimerTick(short milliseconds=1000);
+        void OnTimerTickMilliSeconds(short milliseconds=1000);
 
 };
 
