@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="Protocols"
 	ProjectGUID="{B51F88F6-1359-4CCA-8D32-EFD50A1666D5}"
+	RootNamespace="Protocols"
 	TargetFrameworkVersion="0"
 	>
 	<Platforms>
@@ -42,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"

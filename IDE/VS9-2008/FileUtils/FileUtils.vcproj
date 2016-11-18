@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="FileUtils"
 	ProjectGUID="{7BEA2081-BBEA-4B13-B3E9-5F8BCBEA9C2C}"
+	RootNamespace="FileUtils"
 	TargetFrameworkVersion="0"
 	>
 	<Platforms>
@@ -117,7 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes;..\..\..\Source\Collections"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"

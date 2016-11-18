@@ -136,23 +136,26 @@ bool TFilePath::ChangeFileExt (const char* ext)
 
 bool TFilePath::ChangeFileName (const char* filename)
 {
-	int i = Length();
-	while(i >= 0)
+	int pos = Length();
+	for(int i = Length()-1; i>=0; i--)
 	{
-		if (filename[i] == '\\')	break;
-		i--;
+		if (PData[i] == '\\')	
+		{
+			pos = i+1;
+			break;
+		}
 	}
-	if (i==-1)
+	unsigned short extLen = 0;
+	if (filename!=NULL)
 	{
-		i = Length();
+		StrLen(filename);
 	}
-	unsigned short extLen = StrLen(filename);
 	if (Length()+extLen>=FILEPATH_MAXLENGTH)
 	{
 		return false;
 	}
-	memcpy(PData+i, filename, extLen+1);
-	DataLen = i+extLen;
+	memcpy(PData+pos, filename, extLen+1);
+	DataLen = pos+extLen;
 	return true;
 };
 

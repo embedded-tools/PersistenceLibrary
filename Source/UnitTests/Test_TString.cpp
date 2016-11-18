@@ -12,6 +12,7 @@ public:
 		TEST_CASE( TestStringFunctions);
         TEST_CASE( TestOperators);
 		TEST_CASE( TestStringReallocations);
+		TEST_CASE( TestDelete );
 		TEST_CASE( TestDestructors);
 	}
 	
@@ -165,6 +166,22 @@ public:
 		}
 		ASSERT(s1.Length()==20000);
 	}
+
+	void TestDelete()
+	{
+		TString s = "Text1, Text2, Text3";
+		s.Delete(7,7);
+		ASSERT(s=="Text1, Text3");
+
+		s.Delete(5, 50);
+		ASSERT(s=="Text1");
+
+		s.Delete(0, 1);
+		ASSERT(s=="ext1");
+
+		s.Delete(0, 50);
+		ASSERT(s.Length()==0);
+	}		
 	
 	void TestDestructors()
 	{

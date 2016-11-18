@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="Persistence"
 	ProjectGUID="{7977D3CD-1B4C-496C-ACDE-205379FA4FD0}"
+	RootNamespace="Persistence"
 	TargetFrameworkVersion="0"
 	>
 	<Platforms>
@@ -116,8 +117,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;E:\tvorba-emb\PersistenceLibrary\Source\BasicTypes&quot;;&quot;E:\tvorba-emb\PersistenceLibrary\Source\Collections&quot;;&quot;E:\tvorba-emb\PersistenceLibrary\Source\FileUtils&quot;;&quot;E:\tvorba-emb\PersistenceLibrary\Source\Persistence&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Persistence"
+				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"

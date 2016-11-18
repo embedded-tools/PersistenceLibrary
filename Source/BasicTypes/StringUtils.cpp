@@ -275,7 +275,7 @@ bool LongIntToStr (long Value, char* buffer, unsigned short bufferSize)
         return false;
     }
     char* pp = buffer;
-    if (Value==-2147483648)
+    if (Value==(-2147483647-1))
     {
         if (bufferSize<12) return false;
         *pp='-'; pp++;

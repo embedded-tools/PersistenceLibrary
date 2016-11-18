@@ -88,6 +88,23 @@ class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
 			return result;
 		}
 
+		TFilePath operator + ( const char c )
+		{
+			TFilePath result = *this;
+			result+=c;
+			return result;
+		}
+
+		TFilePath& operator += ( const char c )
+		{
+			unsigned short newLength = SetLength(DataLen+1);
+			if (newLength>0)
+			{
+				PData[newLength-1] = c;
+			}			
+			return *this;
+		}
+
 		TFilePath& operator += ( const char* pChar )
 		{
 			if (pChar==NULL)
@@ -115,13 +132,6 @@ class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
                         break;
                     }
                 }
-                if (Length()>0)
-                {
-                    if ((*this)[Length()-1]=='\\')
-                    {
-                        pChar++;
-                    }
-                }
             };			
 			if (pChar!=NULL)
 			{
@@ -143,8 +153,6 @@ class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
 			}
 			return *this;
 		}
-
-
 
 		bool operator == (TCustomString<FILEPATH_MAXLENGTH>& s)
 		{

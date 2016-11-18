@@ -70,13 +70,13 @@ void TString::Clear(bool dontReleaseMemory)
         DataMax = 0;
         DataStatic = false;
     } else {
-        SetLength(0);
+        SetLength(0, false);
     }
 }
 
 bool TString::Fill(char c, unsigned short number)
 {
-    SetLength(number);
+    SetLength(number, false);
 
     if (number!=DataLen)
     {
@@ -116,7 +116,7 @@ bool TString::CopyFrom (const char* s, unsigned short length)
         length = slen;
     }
 
-    SetLength(length);
+    SetLength(length, false);
 
     char* src = (char*)s;
     char* dst = PData;
@@ -279,6 +279,32 @@ int TString::LastIndexOf(const char* pChar)
 	return result;
 }
 
+char TString::FirstChar()
+{
+	if (PData==NULL)
+	{
+		return 0;
+	}
+	if (DataLen==0)
+	{
+		return 0;
+	}
+	return PData[0];
+}
+
+char TString::LastChar()
+{
+	if (PData==NULL)
+	{
+		return 0;
+	}
+	if (DataLen==0)
+	{
+		return 0;
+	}
+	return PData[DataLen-1];
+}
+
 TString::operator char*()
 {
     return (char*)PData;
@@ -325,7 +351,7 @@ TString& TString::Trim()
         *dst = *src;
         dst++; src++;
     }
-    SetLength(newLength);
+    SetLength(newLength, false);
     return *this;
 }
 
@@ -370,7 +396,7 @@ TString& TString::UpperCase()
 TString& TString::Append(char c)
 {
 	int oldLength = Length();
-	SetLength(oldLength+1);
+	SetLength(oldLength+1, false);
 	if (Length()!=oldLength)
 	{
 		PData[oldLength] = c;
@@ -384,7 +410,7 @@ TString& TString::Append(const char* s)
 	int sLength = 0;
 	if (s!=NULL) sLength = strlen(s);
 
-	SetLength(oldLength+sLength);
+	SetLength(oldLength+sLength, false);
 	if (Length()!=oldLength)
 	{
 		memcpy(PData+oldLength, s, sLength);
@@ -395,7 +421,7 @@ TString& TString::Append(const char* s)
 TString& TString::Append(TString& oString)
 {
 	int oldLength = Length();
-	SetLength(oldLength+oString.Length());
+	SetLength(oldLength+oString.Length(), false);
 	if (Length()!=oldLength)
 	{
 		memcpy(PData+oldLength, oString.ToPChar(), oString.Length());
@@ -408,7 +434,7 @@ TString& TString::Insert(unsigned short index, char c)
 	if (index>Length()) return *this;
 	
 	int oldLength = Length();
-	int newLength = SetLength(oldLength+1);
+	int newLength = SetLength(oldLength+1, false);
 
 	for(int i = newLength; i>index; i--)
 	{
@@ -426,7 +452,7 @@ TString& TString::Insert(unsigned short index, const char* s)
 	if (s!=NULL) sLength=strlen(s);
 	
 	int oldLength = Length();
-	int newLength = SetLength(oldLength+1);
+	int newLength = SetLength(oldLength+1, false);
 
 	for(int i = newLength; i>index; i--)
 	{
@@ -443,17 +469,16 @@ TString& TString::Insert(unsigned short index, TString& oString)
 
 TString& TString::Delete(unsigned short index, unsigned short length)
 {
-	if (length<1) return *this;
-
 	int oldLength = Length();
+	if (index>=oldLength) return *this;
+
 	if ((index+length)>oldLength)
 	{
 		length = oldLength - index;
 	}
-	for(int i = index; i<oldLength-length; i--)
-	{
-		PData[i] = PData[i];
-	}		
+	memcpy(PData+index, PData+index+length, oldLength - index - length + 1);
+	DataLen-=length;
+
 	return *this;
 }
 
@@ -594,7 +619,7 @@ TString& TString::operator += ( const char* pChar )
     unsigned short newLength = oldLength + pCharLen;
     if (newLength<oldLength) newLength=65534;
     if (newLength==65535) newLength=65534;
-    newLength = SetLength(newLength);        
+    newLength = SetLength(newLength, false);
     if (newLength>oldLength)
 	{
 		memcpy(&PData[oldLength], pChar, newLength-oldLength);
@@ -605,7 +630,7 @@ TString& TString::operator += ( const char* pChar )
 TString& TString::operator += ( const char AChar )
 {    
     int length = Length();
-    int newLength = SetLength(length+1);
+    int newLength = SetLength(length+1, false);
     if (newLength>0)
     {
         if (length!=newLength)

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="UnitTests"
 	ProjectGUID="{3B4700CD-77F5-4190-AE31-22C5C4627894}"
+	RootNamespace="UnitTests"
 	TargetFrameworkVersion="0"
 	>
 	<Platforms>
@@ -44,8 +45,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\Source\UnitTests\PersistenceExample;&quot;E:\tvorba-emb\PersistenceLibrary\Source\BasicTypes&quot;;&quot;E:\tvorba-emb\PersistenceLibrary\Source\Collections&quot;;&quot;E:\tvorba-emb\PersistenceLibrary\Source\FileUtils&quot;;&quot;E:\tvorba-emb\PersistenceLibrary\Source\Graphics&quot;;&quot;E:\tvorba-emb\PersistenceLibrary\Source\Math&quot;;&quot;E:\tvorba-emb\PersistenceLibrary\Source\Persistence&quot;;&quot;E:\tvorba-emb\PersistenceLibrary\Source\Protocols&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="..\..\..\Source\UnitTests\PersistenceExample;..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols"
+				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"

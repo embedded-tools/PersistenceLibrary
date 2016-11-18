@@ -70,6 +70,8 @@ public:
     int  IndexOf(char c, unsigned short startIndex=0);    
 	int  LastIndexOf(char c);
 	int  LastIndexOf(const char* pChar);
+	char FirstChar();
+	char LastChar();
  
     operator char* ();
     operator const char*();
