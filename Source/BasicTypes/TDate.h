@@ -27,9 +27,9 @@
 class TDate
 {
     protected:
-        unsigned char  m_day;
-        unsigned char  m_month;
-        unsigned short m_year;
+		unsigned short m_year;
+		unsigned char  m_month;
+        unsigned char  m_day;                
 
         unsigned char  DaysInMonth(unsigned short month, unsigned short year);
 
