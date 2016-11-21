@@ -186,8 +186,7 @@ class Test_StringUtils : public TestFixture<Test_StringUtils>
         LongIntToStr(value5, text2, 20);
         ASSERT(strcmp(text2,"-2147483647")==0);
 
-        value5 = -2147483647;
-		value5--;
+        value5 = -2147483647-1;
         LongIntToStr(value5, text2, 20);
         ASSERT(strcmp(text2,"-2147483648")==0);
         
@@ -455,8 +454,7 @@ class Test_StringUtils : public TestFixture<Test_StringUtils>
 		unsigned short bufferLen = 80;     
 
 		long arr3[10];
-		arr3[0] = -2147483647;
-		arr3[0] += 1;
+		arr3[0] = -2147483647-1;
 		arr3[1] = -32767;
 		arr3[2] = -32000;
 		arr3[3] = -1500;

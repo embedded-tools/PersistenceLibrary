@@ -281,27 +281,15 @@ int TString::LastIndexOf(const char* pChar)
 
 char TString::FirstChar()
 {
-	if (PData==NULL)
-	{
-		return 0;
-	}
-	if (DataLen==0)
-	{
-		return 0;
-	}
+	if (PData==NULL) return 0;
+	if (DataLen==0) return 0;
 	return PData[0];
 }
 
 char TString::LastChar()
 {
-	if (PData==NULL)
-	{
-		return 0;
-	}
-	if (DataLen==0)
-	{
-		return 0;
-	}
+	if (PData==NULL) return 0;
+	if (DataLen==0) return 0;
 	return PData[DataLen-1];
 }
 
@@ -469,14 +457,13 @@ TString& TString::Insert(unsigned short index, TString& oString)
 
 TString& TString::Delete(unsigned short index, unsigned short length)
 {
-	int oldLength = Length();
-	if (index>=oldLength) return *this;
+	if (length<1) return *this;
 
-	if ((index+length)>oldLength)
+	if ((index+length)>DataLen)
 	{
-		length = oldLength - index;
+		length = DataLen - index;
 	}
-	memcpy(PData+index, PData+index+length, oldLength - index - length + 1);
+	memcpy(PData+index, PData+index+length, DataLen - index - length + 1);
 	DataLen-=length;
 
 	return *this;
@@ -740,16 +727,18 @@ bool TString::operator != (const char* pChar)
     return strcmp(ToPChar(), pChar) != 0;
 }
 
-char TString::operator[] (unsigned short index)
+char& TString::operator[] (unsigned short index)
 {
-      if (index<0) return 0;
-      if (index>=Length()) return 0;
+	  static char tmp = 0;
+      if (index<0) return tmp;
+      if (index>=Length()) return tmp;
       return PData[index];
 }
 
-char TString::operator[] (int index)
+char& TString::operator[] (int index)
 {
-    if (index<0) return 0;
-    if (index>=Length()) return 0;
+	static char tmp = 0;
+    if (index<0) return tmp;
+    if (index>=Length()) return tmp;
     return PData[index];
 }

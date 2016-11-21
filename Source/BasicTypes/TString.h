@@ -103,8 +103,8 @@ public:
     bool operator <= (const char* pChar);
     bool operator == (const char* pChar);
     bool operator != (const char* pChar);
-    char operator [] (unsigned short index);
-    char operator [] (int index);
+    char& operator [] (unsigned short index);
+    char& operator [] (int index);
 
 };
 
