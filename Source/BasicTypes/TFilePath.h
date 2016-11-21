@@ -57,28 +57,51 @@ class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
 			return *this;
 		}
 
-		void DeleteFileName(TString &s)
+		void DeleteFileName()
 		{
-			int i = s.LastIndexOf('\\');			
-			s.SetLength(i+1);
+			int i = LastIndexOf('\\');			
+			SetLength(i+1);
 		}
         
-        void DeleteLastDir(TString &s)
+        void DeleteLastDir()
         {
             unsigned short i;
-            for (i = s.Length()-2; i>2; i--) 
+			
+			if (Length()==3)
+			{
+				if (((*this)[0]=='.') && ((*this)[1]=='.') && ((*this)[2]=='\\'))
+				{
+					SetLength(2);
+					(*this)[1]='\\';
+					return;
+				}
+			}
+			bool slashFound = false;
+            for (i = Length()-2; i>0; i--) 
             {
-                if ((s[i]=='\\') && (s[i-2]==':'))
+                if ((*this)[i]=='\\')
                 {
-                    //detects "c:\", it is not considered a directory
+                    SetLength(i+1);
+					slashFound = true;
                     break;
                 }
-                if (s[i]=='\\')
-                {
-                    s.SetLength(i);
-                    break;
-                }
+				if ((*this)[i]==':')
+				{
+					slashFound = true;
+					break;
+				}
             }
+			if (!slashFound)
+			{
+				if (Length()==2)
+				{
+					if ((PData[0]=='.') && (PData[1]=='\\'))
+					{
+						return;
+					}
+				}
+				Clear();
+			}
         }
 
 		TFilePath operator + ( const char* pChar )
@@ -97,32 +120,45 @@ class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
 
             int pCharLen = 0;
 
-            if (Length()>0)
-            {
+			if (LastChar()>=' ')
+			{
+				if (LastChar()!='\\')
+				{
+					SetLength(DataLen+1,false);
+					if (PData!=NULL)
+					{
+						PData[DataLen-1] = '\\';						
+					}
+				}
+			}
+			if (pChar!=0)
+			{
                 while (pChar[0]=='.')
                 {
-					DeleteFileName(*this);
-                    if ((pChar[1]=='.'))
-                    {
-                        pChar += 2;
-                        DeleteLastDir(*this);
-                    } else
-                    if (pChar[1]=='\\')
-                    {
-                        pChar += 1;
-                    } else
-                    {
-                        break;
-                    }
-                }
-                if (Length()>0)
-                {
-                    if ((*this)[Length()-1]=='\\')
+					DeleteFileName();
+					pChar++;
+                    if ((pChar[0]=='.'))
                     {
                         pChar++;
-                    }
+						if (pChar[0]=='\\')
+						{
+							pChar++;
+						}
+                        DeleteLastDir();
+                    } else
+					if (pChar[0]=='\\')
+                    {
+                        pChar++;
+                    } else break;
                 }
             };			
+			if (LastChar()=='\\')
+			{
+				if (*pChar=='\\')
+				{
+					pChar++;
+				}
+			}
 			if (pChar!=NULL)
 			{
 				pCharLen = 0;

@@ -112,47 +112,55 @@ TFilePath TFilePath::ExtractRelativePath (const char* dir, const char* basedir)
 
 bool TFilePath::ChangeFileExt (const char* ext)
 {
-	int i = Length();
-	while(i >= 0)
+	int pos = Length();
+	for(int i = Length()-1; i>=0; i--)
 	{
-		if (PData[i] == '.') break;
-		i--;
-	}
-	if (i==-1)
-	{
-		i = Length();
+		if (PData[i] == '.') 
+		{
+			pos = i;
+			break;
+		}
+		if (PData[i]=='\\')
+		{
+			break;
+		}
 	}
 	unsigned short extLen = StrLen(ext);
 	if (Length()+extLen>=FILEPATH_MAXLENGTH)
 	{
 		return false;
 	}
-
-	memcpy(PData+i, ext, extLen+1);
-	DataLen = i+extLen;
-
+	int n = pos+extLen;
+	SetLength(n);
+	if (DataLen==n)
+	{
+		memcpy(PData+pos, ext, extLen+1);
+	}
 	return true;
 };
 
 bool TFilePath::ChangeFileName (const char* filename)
 {
-	int i = Length();
-	while(i >= 0)
+	int pos = Length();
+	for(int i = Length()-1; i>=0; i--)
 	{
-		if (filename[i] == '\\')	break;
-		i--;
-	}
-	if (i==-1)
-	{
-		i = Length();
+		if (PData[i]=='\\')
+		{
+			pos = i + 1;
+			break;
+		}
 	}
 	unsigned short extLen = StrLen(filename);
 	if (Length()+extLen>=FILEPATH_MAXLENGTH)
 	{
 		return false;
 	}
-	memcpy(PData+i, filename, extLen+1);
-	DataLen = i+extLen;
+	int n = pos+extLen;
+	SetLength(n);
+	if (DataLen==n)
+	{
+		memcpy(PData+pos, filename, extLen+1);
+	}
 	return true;
 };
 
