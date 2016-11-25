@@ -4,8 +4,11 @@ Set of classes storing basic data types like string, date, time and serializatio
 In such systems you should follow these rules:
 
 -you cant allocate too big buffer at stack (stack size is often 256 or 512 bytes, therefore you can hardly allocate 512 bytes or even more at stack!!!)
--you cant use std:: namespace!!! This namespace is not available on most embedded systems!!!
+
+-you cant use std:: namespace!!! This namespace is often not available
+
 -you cant use any helper library like Boost! Bootst includes up to 150MB of source codes. It can never fit in such small ROM.
--you should allocate memory statically whenever it is possible. Use dynamic memory allocation if there really is no other choice.
--you cant use <stdint.h> library. It is not present at all platforms!!!
+
+-you should allocate memory statically whenever it is possible. Use dynamic memory allocation if there really is no other choice. Always make a notice in a description that particular class uses dynamic memory allocation.
+
 -you can use <stdlib.h>, <string.h>, <stdio.h> etc. there is no problem with them
