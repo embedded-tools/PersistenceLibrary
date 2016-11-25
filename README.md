@@ -10,5 +10,3 @@ In such systems you should follow these rules:
 -you cant use any helper library like Boost! Bootst includes up to 150MB of source codes. It can never fit in such small ROM.
 
 -you should allocate memory statically whenever it is possible. Use dynamic memory allocation if there really is no other choice. Always make a notice in a description that particular class uses dynamic memory allocation.
-
--you can use <stdlib.h>, <string.h>, <stdio.h> etc. there is no problem with them
