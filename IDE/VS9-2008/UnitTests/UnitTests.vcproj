@@ -139,7 +139,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="..\..\..\Source\UnitTests\PersistenceExample;..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols"
+				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
@@ -163,10 +164,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="collections.lib fileutils.lib persistence.lib strings.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="basictypes.lib collections.lib fileutils.lib math.lib persistence.lib protocols.lib odbc32.lib odbccp32.lib"
 				OutputFile=".\Release/UnitTests.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="..\lib"
 				ProgramDatabaseFile=".\Release/UnitTests.pdb"
 				SubSystem="1"
 				RandomizedBaseAddress="1"
