@@ -1,6 +1,7 @@
                                                 
 #include "UnitTests.h"
 #include "tstringlist.h"
+#include "StringUtils.h"
 
 class Test_TStringList : public TestFixture<Test_TStringList>
 {
@@ -9,7 +10,7 @@ class Test_TStringList : public TestFixture<Test_TStringList>
     TEST_FIXTURE( Test_TStringList)
     {
         TEST_CASE( AddStrings );
-        TEST_CASE( SortStrings );
+        TEST_CASE( SortStrings );        
         TEST_CASE( DelStrings );
         TEST_CASE( IndexOf );
     }
@@ -37,20 +38,39 @@ class Test_TStringList : public TestFixture<Test_TStringList>
         ASSERT(sl.Count()==4);
         ASSERT(sl.GetLength()==63);
         ASSERT(sl.GetCapacity()==64);
-        ASSERT(sl.Strings(0) == "1");
-        ASSERT(sl.Strings(1) == "ABC");
-        ASSERT(sl.Strings(2) == "1234567890");
-        ASSERT(sl.Strings(3) == "123456789012345678901234567890123456789012345");
+        ASSERT(sl.GetStringAsObject(0) == "1");
+        ASSERT(sl.GetStringAsObject(1) == "ABC");
+        ASSERT(sl.GetStringAsObject(2) == "1234567890");
+        ASSERT(sl.GetStringAsObject(3) == "123456789012345678901234567890123456789012345");
+
+        sl.Clear();
+        ASSERT(sl.Count()==0);
+        sl.Add("1234567890123456789012345678901234567890123456789012345678901");
+        ASSERT(sl.Count()==1);
+        ASSERT(sl.GetLength()==62);
+        ASSERT(sl.GetCapacity()==64);
+        ASSERT(sl.GetStringAsObject(0) == "1234567890123456789012345678901234567890123456789012345678901");
+
+        sl.Clear();
+        ASSERT(sl.Count()==0);
+        sl.Add("12345678901234567890123456789012345678901234567890123456789012");
+        ASSERT(sl.Count()==1);
+        ASSERT(sl.GetLength()==63);
+        ASSERT(sl.GetCapacity()==64);
+        ASSERT(sl.GetStringAsObject(0) == "12345678901234567890123456789012345678901234567890123456789012");
 
         sl.Clear();
         ASSERT(sl.Count()==0);
         sl.Add("123456789012345678901234567890123456789012345678901234567890123");
         ASSERT(sl.Count()==1);
         ASSERT(sl.GetLength()==64);
-        ASSERT(sl.GetCapacity()==128);
-        ASSERT(sl.Strings(0) == "123456789012345678901234567890123456789012345678901234567890123");
+        ASSERT(sl.GetCapacity()>64);
+        ASSERT(sl.GetStringAsObject(0) == "123456789012345678901234567890123456789012345678901234567890123");
+	}
 
-        sl.Clear();
+    void AddNumbers()
+    {
+        TStringList sl;
 
         char s[20];
         for(char c1 = 1; c1<=100; c1++)
@@ -61,18 +81,9 @@ class Test_TStringList : public TestFixture<Test_TStringList>
         for(char c2 = 0; c2<100; c2++)
         {
             LongIntToStr(c2+1, s, 20);
-            ASSERT(sl.Strings(c2)==(const char*)&s);
+            ASSERT(sl.GetStringAsObject(c2)==(const char*)&s);
         }
-
-        sl.Clear();
-        ASSERT(sl.Count()==0);
-        ASSERT(sl.GetLength()==0);
-        ASSERT(sl.GetCapacity()==64);
-
-        sl.Add("OK");
-        ASSERT(sl.Count()==1);
-        ASSERT(sl.Strings(0)=="OK");
-	}
+    }
 
     void SortStrings()
     {
@@ -88,15 +99,15 @@ class Test_TStringList : public TestFixture<Test_TStringList>
         sl.Add("Irene");
         sl.Add("Darryl");
         sl.Add("Rachel");
-        ASSERT(sl[0]=="Aaron");
-        ASSERT(sl[1]=="Abel");        
-        ASSERT(sl[2]=="Charles");
-        ASSERT(sl[3]=="Darryl");
-        ASSERT(sl[4]=="Eva");
-        ASSERT(sl[5]=="Frank");
-        ASSERT(sl[6]=="Franklin");
-        ASSERT(sl[7]=="Irene");
-        ASSERT(sl[8]=="Rachel");
+        ASSERT(sl.GetStringAsObject(0)=="Aaron");
+        ASSERT(sl.GetStringAsObject(1)=="Abel");        
+        ASSERT(sl.GetStringAsObject(2)=="Charles");
+        ASSERT(sl.GetStringAsObject(3)=="Darryl");
+        ASSERT(sl.GetStringAsObject(4)=="Eva");
+        ASSERT(sl.GetStringAsObject(5)=="Frank");
+        ASSERT(sl.GetStringAsObject(6)=="Franklin");
+        ASSERT(sl.GetStringAsObject(7)=="Irene");
+        ASSERT(sl.GetStringAsObject(8)=="Rachel");
       
         sl.Add("Bessie");
         sl.Add("Evan");
@@ -113,29 +124,29 @@ class Test_TStringList : public TestFixture<Test_TStringList>
         sl.Add("Phillippa");
         sl.Add("Quentin");
 
-        ASSERT(sl.Strings(0)=="Aaron");
-        ASSERT(sl.Strings(1)=="Abe");
-        ASSERT(sl.Strings(2)=="Abel");
-        ASSERT(sl.Strings(3)=="Bessie");
-        ASSERT(sl.Strings(4)=="Charles");
-        ASSERT(sl.Strings(5)=="Darryl");
-        ASSERT(sl.Strings(6)=="Eva");
-        ASSERT(sl.Strings(7)=="Evan");
-        ASSERT(sl.Strings(8)=="Frank");
-        ASSERT(sl.Strings(9)=="Franklin");
-        ASSERT(sl.Strings(10)=="Gabriel");
-        ASSERT(sl.Strings(11)=="Hannah");
-        ASSERT(sl.Strings(12)=="Irene");
-        ASSERT(sl.Strings(13)=="Jerald");
-        ASSERT(sl.Strings(14)=="Kate");
-        ASSERT(sl.Strings(15)=="Linda");
-        ASSERT(sl.Strings(16)=="Miles");
-        ASSERT(sl.Strings(17)=="Naomi");
-        ASSERT(sl.Strings(18)=="Phillip");
-        ASSERT(sl.Strings(19)=="Phillippa");
-        ASSERT(sl.Strings(20)=="Quentin");
-        ASSERT(sl.Strings(21)=="Rachel");
-        ASSERT(sl.Strings(22)=="Ralph");
+        ASSERT(sl.GetStringAsObject(0)=="Aaron");
+        ASSERT(sl.GetStringAsObject(1)=="Abe");
+        ASSERT(sl.GetStringAsObject(2)=="Abel");
+        ASSERT(sl.GetStringAsObject(3)=="Bessie");
+        ASSERT(sl.GetStringAsObject(4)=="Charles");
+        ASSERT(sl.GetStringAsObject(5)=="Darryl");
+        ASSERT(sl.GetStringAsObject(6)=="Eva");
+        ASSERT(sl.GetStringAsObject(7)=="Evan");
+        ASSERT(sl.GetStringAsObject(8)=="Frank");
+        ASSERT(sl.GetStringAsObject(9)=="Franklin");
+        ASSERT(sl.GetStringAsObject(10)=="Gabriel");
+        ASSERT(sl.GetStringAsObject(11)=="Hannah");
+        ASSERT(sl.GetStringAsObject(12)=="Irene");
+        ASSERT(sl.GetStringAsObject(13)=="Jerald");
+        ASSERT(sl.GetStringAsObject(14)=="Kate");
+        ASSERT(sl.GetStringAsObject(15)=="Linda");
+        ASSERT(sl.GetStringAsObject(16)=="Miles");
+        ASSERT(sl.GetStringAsObject(17)=="Naomi");
+        ASSERT(sl.GetStringAsObject(18)=="Phillip");
+        ASSERT(sl.GetStringAsObject(19)=="Phillippa");
+        ASSERT(sl.GetStringAsObject(20)=="Quentin");
+        ASSERT(sl.GetStringAsObject(21)=="Rachel");
+        ASSERT(sl.GetStringAsObject(22)=="Ralph");
 
     }
 
@@ -183,15 +194,16 @@ class Test_TStringList : public TestFixture<Test_TStringList>
         sl.Delete(0);
         sl.Delete(0);
 
-        ASSERT(sl[0]=="Eva");
-        ASSERT(sl[1]=="Franklin");
-        ASSERT(sl[2]=="Hannah");
-        ASSERT(sl[3]=="Kate");
-        ASSERT(sl[4]=="Linda");
-        ASSERT(sl[5]=="Miles");
-        ASSERT(sl[6]=="Phillip");
-        ASSERT(sl[7]=="Phillippa");
-        ASSERT(sl[8]=="Quentin");
+        ASSERT(sl.GetStringAsObject(0)=="Eva");
+        ASSERT(sl.GetStringAsObject(1)=="Franklin");
+        ASSERT(sl.GetStringAsObject(2)=="Hannah");
+        ASSERT(sl.GetStringAsObject(3)=="Kate");
+        ASSERT(sl.GetStringAsObject(4)=="Linda");
+        ASSERT(sl.GetStringAsObject(5)=="Miles");
+        ASSERT(sl.GetStringAsObject(6)=="Phillip");
+        ASSERT(sl.GetStringAsObject(7)=="Phillippa");
+        ASSERT(sl.GetStringAsObject(8)=="Quentin");
+
 
         sl.Delete(8);
         ASSERT(sl.Count()==8);
@@ -210,9 +222,9 @@ class Test_TStringList : public TestFixture<Test_TStringList>
         sl.Delete(1);
         ASSERT(sl.Count()==3);
         
-        ASSERT(sl[0]=="Franklin");
-        ASSERT(sl[1]=="Kate");
-        ASSERT(sl[2]=="Linda");
+        ASSERT(sl.GetStringAsObject(0)=="Franklin");
+        ASSERT(sl.GetStringAsObject(1)=="Kate");
+        ASSERT(sl.GetStringAsObject(2)=="Linda");
 
         sl.Delete(2);
         ASSERT(sl.Count()==2);

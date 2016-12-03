@@ -79,6 +79,6 @@ class Test_TCachedFileStream : public TestFixture<Test_TCachedFileStream>
 
 };
 
-//REGISTER_FIXTURE( Test_TCachedFileStream);
+REGISTER_FIXTURE( Test_TCachedFileStream);
 
 

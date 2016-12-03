@@ -184,7 +184,12 @@ bool TWindowsBmpFile::SaveToWindowsBmp(const char* filename)
     header.ulWidth = m_bitmapWidth;
     header.ulHeight = m_bitmapHeight;
     header.usPlanes = 1;
-    header.usBitsPerPixel = m_bytesPerLine * 8 /m_bitmapWidth;
+    if (m_bitmapWidth==0)
+    {
+        header.usBitsPerPixel = 0;
+    } else {
+        header.usBitsPerPixel = m_bytesPerLine * 8 /m_bitmapWidth;
+    }    
     header.ulCompression = 0;
     header.ulBitmapDataSize = m_bytesPerLine * m_bitmapHeight;
     header.ulPixelsPerMeterHorizontal = 3000;

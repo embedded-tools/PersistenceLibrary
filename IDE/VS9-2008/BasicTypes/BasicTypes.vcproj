@@ -354,6 +354,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\BasicTypes\TStringList.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\BasicTypes\TTime.cpp"
 				>
 				<FileConfiguration
@@ -436,6 +440,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\BasicTypes\TString.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\BasicTypes\TStringList.h"
 				>
 			</File>
 			<File

@@ -271,6 +271,7 @@ TFilePath& TFilePath::operator = ( const char* pChar)
 TFilePath TFilePath::operator + ( const char* pChar )
 {
 	TFilePath result = *this;
+    result.ChangeSeparator(m_separator);
 	result+=pChar;
 	return result;
 }
