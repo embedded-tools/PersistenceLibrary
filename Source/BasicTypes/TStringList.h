@@ -17,13 +17,7 @@
 #ifndef TSTRINGLIST___H
 #define TSTRINGLIST___H
 
-#include <stdlib.h> 
-#include <stdio.h>
 #include "tstring.h"
-#include "tstream.h"
-#include "tfilestream.h"
-#include "stringutils.h"
-
 
 //class is designed for storing, sorting, loading and saving text files, 
 //internally it stores all strings in one memory block, strings are separated
@@ -31,31 +25,29 @@
 class TStringList 
 {
 private:	
+
+    const static int NUMBER_OF_TERMINAL_ZEROS = 1;
+
     //buffer for storing string data
-    int   buf_capacity;
-    int   buf_size;
-    char* buf;
+	int   m_stringDataCapacity;
+	int   m_stringDataSize;
+	char* m_stringData;
 
     //buffer for storing pointers to string beginnings
-    int*  pstr;
+    int*  m_substringOffset;
     
-    //buffer for storing additional tag for each string item
-    int*  obj;  
-
     //counter shared by PSTR and OBJ
-    int   item_num;
-    int   item_capacity;
+    int   m_substringCount;
+    int   m_substringCapacity;
     
     //fsorted=true -> data are being sorted during inserting
-    bool  fsorted;
+    bool  m_sorted;
 
     void  InsertBytes (int i, int len);
     bool  Compare (const char *s1, int len1, const char *s2, int len2);
 
-    void AddObject (const char* s, int sLength, void* AObject);
-    void InsertObject (int i, const char*s, int sLength, void* AObject);
-    
-    void UpdateBufSizes ();
+    void AddObject (const char* s, int sLength);
+    void Insert    (int i, const char*s, int sLength);   
 
 public:
 
@@ -65,33 +57,28 @@ public:
 
     void Clear ();
 
-    void Add (const char* s);
-    void AddObject (const char* s, void* AObject);
-    int  Count ();
-
-    int  IndexOf (const char* s);
+    void Add (const char* s, int stringLength=-1);        
     void Insert (int i, const char*s);
-    void InsertObject (int i, const char*s, void* AObject);
     void Delete (int i);
-    void Exchange (int i1, int i2);
 
-    void Sort (bool ascending=true);	
-
-    bool LoadFromStream (TStream *stream);
-    bool SaveToStream   (TStream *stream);
-    bool LoadFromFile (const char* filename);
-    bool SaveToFile (const char* filename);
-    
-    TString Strings (int i);
-	TString operator[] (int i);
-
-    void*  Objects (int i);
-    void  SetText(const char* val);
-    char* Get();
+    int   Count ();
     int   GetLength();
     int   GetCapacity();
 
-    void Copy(TStringList* stl);
+    int  IndexOf (const char* s);
+    void Exchange (int i1, int i2);
+
+    void Sort (bool ascending=true);
+    
+    const char* operator[] (int i);
+    const char* GetString (int i);
+    const char* GetStringArray();
+    TString     GetStringAsObject (int i);	    
+
+    void  SetText(const char* val);
+    
+
+    bool  Copy(TStringList* stl);
 };
 
 
