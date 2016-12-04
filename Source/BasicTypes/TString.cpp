@@ -101,30 +101,21 @@ bool TString::CopyFrom (const char* s, unsigned short length)
         return false;
     }
        
-    unsigned short slen = strlen(s);
     if (length==0)
     {
-        length = slen;
+        length = strlen(s);
         if (length==0)
         {
             Clear();
             return false;
         }
     }    
-    if (length>slen)
-    {
-        length = slen;
-    }
-
     SetLength(length, false);
 
     char* src = (char*)s;
     char* dst = PData;
-    for(unsigned short k = DataLen; k>0; k--)
-    {
-        *dst = *src; dst++; src++;
-    }
-    *dst = 0;
+    memcpy(PData, s, DataLen);
+    PData[DataLen] = 0;
     return true;
 }
 
@@ -315,7 +306,7 @@ TString& TString::Trim()
     for(unsigned short i = 0;  i<len; i++)
     {
         begin = i;
-        if ((PData[i]!=9) && (PData[i]!=32)) break;
+        if (PData[i]>' ') break;
     }
     unsigned short end = len;
     if (len!=0)
@@ -323,7 +314,7 @@ TString& TString::Trim()
         for(unsigned short j = len-1; j>0; j--)
         {
             end = j;
-            if ((PData[j]!=9) && (PData[j]!=32)) break;
+            if (PData[j]>' ') break;
         }        
     }
     if (begin>end)
@@ -508,7 +499,7 @@ unsigned short TString::SetLength(unsigned short len, bool addSpaces)
             unsigned short newDataMax = DataMax;
             while (newDataMax<=len)
             {            
-                if (newDataMax>=64000)
+                if (newDataMax>=64500)
                 {
                     newDataMax = 65535;
                     break;

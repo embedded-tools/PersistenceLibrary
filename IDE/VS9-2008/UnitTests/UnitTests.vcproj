@@ -787,23 +787,10 @@
 			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TStringList.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TTextFile.cpp"
+				>
 			</File>
 			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TTime.cpp"

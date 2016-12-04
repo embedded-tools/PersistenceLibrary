@@ -22,6 +22,7 @@ class Test_StringUtils : public TestFixture<Test_StringUtils>
         TEST_CASE( TestStrToLongInt );
         TEST_CASE( TestStrToULongInt );
         TEST_CASE( TestHexToULongInt );
+        TEST_CASE( TestHexToULongInt2 );
         TEST_CASE( TestHexToULongIntDef );
 
         TEST_CASE( TestByteArrayToStr );
@@ -327,6 +328,17 @@ class Test_StringUtils : public TestFixture<Test_StringUtils>
         ASSERT(value2==0xABCD);        
     }
 
+    void TestHexToULongInt2()
+    {
+        TCustomString<9> text1 = "0x300";
+        unsigned long value1 = HexToULongInt(text1);
+        ASSERT(value1==0x300);
+
+        TCustomString<9> text2 = "ABC";
+        unsigned long value2 = HexToULongInt(text2);
+        ASSERT(value2==0xABC);        
+    }
+
     void TestHexToULongIntDef()
     {
         TCustomString<9> text1 = "12345678";
@@ -626,7 +638,7 @@ class Test_StringUtils : public TestFixture<Test_StringUtils>
 };
 
 
-REGISTER_FIXTURE( Test_StringUtils);
+//REGISTER_FIXTURE( Test_StringUtils);
 
 
 

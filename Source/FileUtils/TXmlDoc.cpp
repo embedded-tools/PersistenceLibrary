@@ -475,7 +475,7 @@ TXMLTag* TXMLDoc::SelectNode(const char* xpath)
         tagName=NULL;        
     } else {
         rootName.CopyFrom(xpath,n);
-        tagName = xpath + n;
+        tagName = xpath + n + 1;
     }
     if (rootName!=rootTag->GetName())
     {

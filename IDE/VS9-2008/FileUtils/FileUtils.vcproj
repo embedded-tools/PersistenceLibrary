@@ -354,7 +354,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\FileUtils\TStringList.cpp"
+				RelativePath="..\..\..\Source\FileUtils\TTextFile.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -435,7 +435,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\FileUtils\TStringList.h"
+				RelativePath="..\..\..\Source\FileUtils\TTextFile.h"
 				>
 			</File>
 			<File

@@ -25,7 +25,8 @@ unsigned short StrLen(const char* s)
 	while(*s!=0)
 	{	
 		s++;
-		result++;		
+		result++;	
+        if (result==0xFFFF) break;
 	}
 	return result;
 }
