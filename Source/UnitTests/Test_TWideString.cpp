@@ -11,6 +11,8 @@ public:
 		TEST_CASE( TesTWideStringOperations);
 		TEST_CASE( TesTWideStringFunctions);
         TEST_CASE( TestOperators);
+        TEST_CASE( TestUTF8Conversion1);
+        TEST_CASE( TestUTF8Conversion2);
 		TEST_CASE( TesTWideStringReallocations);
 		TEST_CASE( TestDestructors);
 	}
@@ -154,6 +156,68 @@ public:
         s4 += L'@';
         
     }
+
+    void TestUTF8Conversion1()
+    {
+        unsigned char utf8String[4];
+        utf8String[0] = 'A';
+        utf8String[1] = 'b';
+        utf8String[2] = 'c';
+        utf8String[3] =  0;
+
+        TWideString ws;
+        ws = (const char*)utf8String;
+        ASSERT_EQUALS(3, (int)ws.Length());
+        ASSERT(ws[0]=='A');
+        ASSERT(ws[1]=='b');
+        ASSERT(ws[2]=='c');
+    }
+
+
+    void TestUTF8Conversion2()
+    {
+        unsigned char utf8String[20];
+        utf8String[0] = 0xC5;
+        utf8String[1] = 0xBD;
+        utf8String[2] = 0x6C;
+        utf8String[3] = 0x75;
+        utf8String[4] = 0xC5;
+        utf8String[5] = 0xA5;
+        utf8String[6] = 0x6F;
+        utf8String[7] = 0x75;
+        utf8String[8] = 0xC4;
+        utf8String[9] = 0x8D;
+        utf8String[10]= 0x6B;
+        utf8String[11]= 0xC3;
+        utf8String[12]= 0xBD;
+        utf8String[13]= 0x20;
+        utf8String[14]= 0x6B;
+        utf8String[15]= 0xC5;
+        utf8String[16]= 0xAF;
+        utf8String[17]= 0xC5;
+        utf8String[18]= 0x88;
+        utf8String[19]= 0x00;
+
+        TWideString ws;
+        
+        ws = (const char*) utf8String; //unicodeString = "éluùouËk˝ k˘Ú" (Zlutoucky kun)
+
+        ASSERT_EQUALS(13, (int)ws.Length());
+        ASSERT(ws[0]==0x17D);
+        ASSERT(ws[1]==0x06C);
+        ASSERT(ws[2]==0x075);
+        ASSERT(ws[3]==0x165);
+        ASSERT(ws[4]==0x06F);
+        ASSERT(ws[5]==0x075);
+        ASSERT(ws[6]==0x10D);
+        ASSERT(ws[7]==0x06B);
+        ASSERT(ws[8]==0x0FD);
+        ASSERT(ws[9]==0x020);
+        ASSERT(ws[10]==0x06B);
+        ASSERT(ws[11]==0x16F);
+        ASSERT(ws[12]==0x148);        
+
+    }
 	
 	void TesTWideStringReallocations()
 	{
@@ -193,8 +257,7 @@ public:
 			s1 = s1 + s2;
 		}
 		
-		ASSERT(s1.Length()==65534);
-		
+		ASSERT(s1.Length()==65534);		
 	}
 	
 };
