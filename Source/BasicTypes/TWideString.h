@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "tstring.h"
 
 /**
  *  TString is a class for handling unicode strings with maximum 
@@ -92,7 +93,8 @@ public:
 	TWideString& Insert(unsigned short index, TWideString& oString);
 	TWideString& Delete(unsigned short index, unsigned short length=1);
 
-	//TWideString& operator = ( TString& oString );
+	TWideString& operator = ( TString& oString );
+    TWideString& operator = ( const char* pChar );
 	TWideString& operator = ( TWideString& oString );
 	TWideString& operator = ( const wchar_t* pChar);      
 	TWideString operator  + ( TWideString& oString);
@@ -112,7 +114,7 @@ public:
 	bool operator == (const wchar_t* pChar);
 	bool operator != (TWideString& s);
 	bool operator != (const wchar_t* pChar);
-	wchar_t operator [] (int index);
+	wchar_t& operator [] (int index);
 
 };
 

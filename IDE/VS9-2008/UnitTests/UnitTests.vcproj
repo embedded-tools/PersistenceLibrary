@@ -338,10 +338,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\UnitTests\Test_TEncoding.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TFilePath.cpp"
 				>
 			</File>
@@ -363,6 +359,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TMemoryStream.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TRandom.cpp"
 				>
 			</File>
 			<File
@@ -403,10 +403,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TXMLParser.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\UnitTests\TStringList.cpp"
 				>
 			</File>
 			<File

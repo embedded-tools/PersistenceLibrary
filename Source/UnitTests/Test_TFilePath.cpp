@@ -21,6 +21,8 @@ class Test_TFilePath : public TestFixture<Test_TFilePath>
 		TEST_CASE( MergingFileNames6 );
 		TEST_CASE( MergingFileNames7 );
 		TEST_CASE( MergingFileNames8 );
+        TEST_CASE( MergingFileNames9 );
+        TEST_CASE( MergingFileNames10 );
     }
 
 
@@ -88,7 +90,7 @@ class Test_TFilePath : public TestFixture<Test_TFilePath>
 		TFilePath path1 = ".\\A\\BB\\CCC";
 		TFilePath path2 = "..\\..\\..\\..\\..\\..\\DD.EEE";
 		TFilePath path3 = path1 + path2;
-		ASSERT(path3==".\\DD.EEE");
+		ASSERT(path3=="..\\..\\..\\DD.EEE");
 	}
 
 	void MergingFileNames4()
@@ -112,7 +114,7 @@ class Test_TFilePath : public TestFixture<Test_TFilePath>
 		TFilePath path1 = "..\\";
 		TFilePath path2 = "..\\..\\DD.EEE";
 		TFilePath path3 = path1 + path2;
-		ASSERT(path3==".\\DD.EEE");
+		ASSERT(path3=="..\\DD.EEE");
 	}
 
 	void MergingFileNames7()
@@ -130,6 +132,23 @@ class Test_TFilePath : public TestFixture<Test_TFilePath>
 		TFilePath path3 = path1 + path2;
 		ASSERT(path3=="DD.EEE");
 	}
+
+    void MergingFileNames9()
+    {
+        TFilePath path1 = ".\\";
+        TFilePath path2 = "..\\..\\..\\..\\DD.EEE";
+        TFilePath path3 = path1 + path2;
+        ASSERT(path3=="..\\..\\..\\..\\DD.EEE");
+    }
+
+    void MergingFileNames10()
+    {
+        TFilePath path1 = "A\\BB\\CCC";
+        TFilePath path2 = "E:\\DD.EEE";
+        TFilePath path3 = path1 + path2;
+        ASSERT(path3=="E:\\DD.EEE");
+    }
+
 
 };
 

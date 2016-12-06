@@ -43,7 +43,7 @@ class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
 		bool        ChangeFileName (const char* pszNewFilename);
 
 		void		DeleteFileName();
-		void		DeleteLastDir();
+		bool		DeleteLastDir();
 		TFilePath	operator = ( TFilePath& oString );
 		TFilePath&	operator = ( TString& oString );
 		TFilePath&	operator = ( const char* pChar);

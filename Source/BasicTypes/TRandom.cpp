@@ -25,11 +25,31 @@ void TRandom::Randomize(unsigned long newSeed)
 
 unsigned long TRandom::GetRandomNumber(unsigned long max)
 {
-    m_seed = m_seed * TRANDOM_PRIME_1 + TRANDOM_PRIME_2;
+    unsigned long value;
 
-    if (max<2147483647)
+    m_seed = m_seed * TRANDOM_PRIME_1 + TRANDOM_PRIME_2;
+    
+    if (max<=0x100)
     {
-        return (m_seed % max);
+        value = m_seed>>23;
+    } else 
+    if (max <= 0x10000)
+    {
+        value = m_seed>>15;
+    } else 
+    if (max <= 0x1000000)
+    {
+        value = m_seed>>7;
+    } else {
+        value = m_seed;
     }
-    return m_seed;
+    return (m_seed % max);
+}
+
+void TRandom::GetRandomByteArray(unsigned char* pArray, unsigned long arrayLength)
+{
+    for(unsigned long i = 0; i<arrayLength; i++)
+    {
+        pArray[i] = GetRandomNumber(256);
+    }
 }

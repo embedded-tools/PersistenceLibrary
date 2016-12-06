@@ -195,10 +195,18 @@ void TFilePath::DeleteFileName()
 	}
 }
 
-void TFilePath::DeleteLastDir()
+bool TFilePath::DeleteLastDir()
 {
     unsigned short i;
-	
+
+    if (Length()==2)
+    {
+        if ((PData[0]=='.') && ( (PData[1]=='\\') || (PData[1]=='/')) )
+        {
+            return false;
+        }
+    }
+
 	if (Length()==3)
 	{
 		if ( ((*this)[0]=='.')  && 
@@ -208,7 +216,7 @@ void TFilePath::DeleteLastDir()
 		{
 			SetLength(2);
 			(*this)[1]=m_separator;
-			return;
+			return true;
 		}
 	}
 	bool slashFound = false;
@@ -226,18 +234,13 @@ void TFilePath::DeleteLastDir()
 			break;
 		}
     }
-	if (!slashFound)
-	{
-		if (Length()==2)
-		{
-			if ((PData[0]=='.') && ( (PData[1]=='\\') || (PData[1]=='/')) )
-			{
-				return;
-			}
-		}
-		Clear();
-	}
+    if (!slashFound)
+    {
+        Clear();
+    }
+    return true;
 }
+
 
 
 TFilePath TFilePath::operator = ( TFilePath& oString )
@@ -300,20 +303,21 @@ TFilePath& TFilePath::operator += ( const char* pChar )
 	{
         while (pChar[0]=='.')
         {
-			DeleteFileName();
-			pChar++;
-            if ((pChar[0]=='.'))
+			DeleteFileName();			
+            if ((pChar[1]=='.'))
             {
-                pChar++;
-				if ((pChar[0]=='\\') || (pChar[0]=='/'))
+				if ((pChar[2]=='\\') || (pChar[2]=='/'))
 				{
-					pChar++;
+                    if (!DeleteLastDir())
+                    {
+                        break;
+                    }
 				}
-                DeleteLastDir();
+                pChar+=3;                
             } else
-			if ((pChar[0]=='\\') || (pChar[0]=='/'))
+			if ((pChar[1]=='\\') || (pChar[1]=='/'))
             {
-                pChar++;
+                pChar+=2;
             } else break;
         }
     };			
@@ -324,6 +328,16 @@ TFilePath& TFilePath::operator += ( const char* pChar )
 			pChar++;
 		}
 	}
+    if (DataLen==2)
+    {
+        if (PData && pChar)
+        {
+            if ( (pChar[0]=='.') && (PData[0]=='.') && ((PData[1]=='\\') || (PData[1]=='/')) )
+            {
+                Clear();
+            }            
+        }
+    }
 	if (pChar!=NULL)
 	{
 		pCharLen = 0;
@@ -332,6 +346,17 @@ TFilePath& TFilePath::operator += ( const char* pChar )
 			pCharLen = strlen(pChar);    
 		}
 	}
+    if (pCharLen>=3)
+    {
+        if ( ((pChar[0]>='A')&&(pChar[0]<='Z')) || ((pChar[0]>='a')&&(pChar[0]<='z')) )
+        {
+            if (pChar[1]==':')
+            {
+                Clear();
+            }
+        }
+    }
+
 	if (pCharLen==0) return *this;
 	unsigned short oldLength = Length();
 	unsigned short newLength = oldLength + pCharLen;

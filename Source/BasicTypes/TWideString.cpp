@@ -15,6 +15,11 @@
  */
 
 #include "TWideString.h"
+extern "C"
+{
+    #include "UTF8.h"
+};
+
 
 TWideString::TWideString()
 {
@@ -577,6 +582,26 @@ TWideString& TWideString::Delete(unsigned short index, unsigned short length)
 	return *this;
 }
 
+TWideString& TWideString::operator = ( TString& oString )
+{
+    SetLength(oString.Length());
+    UTF8TextToUnicodeText(oString.ToPChar(), PData, DataLen);    
+    return *this;
+}
+
+TWideString& TWideString::operator = ( const char* pChar )
+{
+    if (pChar==NULL)
+    {
+        Clear();
+    } else {
+        SetLength(strlen(pChar)+1);
+        UTF8TextToUnicodeText(pChar, PData, DataLen);
+        DataLen = wcslen(PData);
+    }    
+    return *this;
+}
+
 TWideString& TWideString::operator = (TWideString& oString )
 {
 	Set(oString.ToPWChar());
@@ -799,9 +824,10 @@ bool TWideString::operator != (const wchar_t* pChar)
 	return wcscmp(ToPWChar(), pChar) != 0;
 }
 
-wchar_t TWideString::operator[] (int index)
+wchar_t& TWideString::operator[] (int index)
 {
-	if (index<0) return 0;
-	if (index>=Length()) return 0;
+    static wchar_t tmp = 0;
+	if (index<0) return tmp;
+	if (index>=Length()) return tmp;
 	return PData[index];
 }

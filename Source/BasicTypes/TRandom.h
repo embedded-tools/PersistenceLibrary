@@ -17,8 +17,8 @@
 #ifndef TRANDOM___H
 #define TRANDOM___H
 
-#define TRANDOM_PRIME_1 6961
-#define TRANDOM_PRIME_2 7919
+#define TRANDOM_PRIME_1 696132157
+#define TRANDOM_PRIME_2 791941417
 
 class TRandom
 {
@@ -28,7 +28,8 @@ class TRandom
     public:
 
         static void Randomize(unsigned long newSeed);
-        static unsigned long GetRandomNumber(unsigned long max=2147483647);            
+        static unsigned long GetRandomNumber(unsigned long max=4294967295);            
+        static void GetRandomByteArray(unsigned char* pArray, unsigned long arrayLength);
 };
 
 #endif
