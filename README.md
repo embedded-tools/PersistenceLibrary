@@ -1,5 +1,5 @@
 # PersistenceLibrary
-Set of classes storing basic data types like string, date, time and serialization to file, xml, data compression etc. All classes are designed for using in embeeded systems. In this case embedded system means a system based on 8 to 32 bit MCUs like Atmel AVR (aka Arduino) with max. 2kB of RAM or ARM Cortex M3 (with 8kB - 256kB of RAM)
+Set of classes storing basic data types like string, date, time and serialization to file, xml, data compression etc. All classes are designed for using in embeeded systems. In this case embedded system means a system based on 32 bit MCUs like ARM Cortex M3 (with 8kB - 256kB of RAM). Some classes work with even less memory and with 8 bit CPU like Atmel AVR.
 
 In such systems you should follow these rules:
 
