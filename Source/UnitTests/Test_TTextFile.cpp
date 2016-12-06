@@ -21,12 +21,35 @@ class Test_TTextFile : public TestFixture<Test_TTextFile>
         TTextFile textFile;
         TString   line;
 
+        int linesCount = 0;
+        int typeCount = 0;
+        int tagCount = 0;
+        bool projectBeginFound = false;
+        bool projectEndFound   = false;
+
         textFile.Open("..\\..\\..\\TestData\\ConfigFile.ini");
-        printf("\r\n");
         while(textFile.ReadLine(line))
         {
-            printf(line.ToPChar());
+            linesCount++;
+            if (line.IndexOf("<Project"))
+            {
+                projectBeginFound = true;
+            }
+            if (line.IndexOf("</Project"))
+            {
+                projectEndFound = true;
+            }
+            for(int i = 0; i<line.Length(); i++)
+            {
+                if (line[i]=='<')
+                {
+                    tagCount++;
+                }
+            }
         }        
+        ASSERT(projectBeginFound);
+        ASSERT(projectEndFound);
+        ASSERT(tagCount==965);
     }
 
 };
