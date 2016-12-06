@@ -239,10 +239,6 @@ SOURCE=..\..\..\Source\UnitTests\Test_Template.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\Source\UnitTests\Test_TEncoding.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\Source\UnitTests\Test_TFilePath.cpp
 # End Source File
 # Begin Source File
@@ -284,6 +280,10 @@ SOURCE=..\..\..\Source\UnitTests\Test_TString.cpp
 # Begin Source File
 
 SOURCE=..\..\..\Source\UnitTests\Test_TStringList.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Test_TTextFile.cpp
 # End Source File
 # Begin Source File
 

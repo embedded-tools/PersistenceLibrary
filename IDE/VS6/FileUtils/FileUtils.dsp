@@ -121,7 +121,7 @@ SOURCE=..\..\..\Source\FileUtils\TStream.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\Source\FileUtils\TStringList.cpp
+SOURCE=..\..\..\Source\FileUtils\TTextFile.cpp
 # End Source File
 # Begin Source File
 
@@ -185,7 +185,7 @@ SOURCE=..\..\..\Source\FileUtils\TStream.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\Source\FileUtils\TStringList.h
+SOURCE=..\..\..\Source\FileUtils\TTextFile.h
 # End Source File
 # Begin Source File
 

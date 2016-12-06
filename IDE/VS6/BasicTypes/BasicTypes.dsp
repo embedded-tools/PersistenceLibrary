@@ -101,10 +101,6 @@ SOURCE=..\..\..\Source\BasicTypes\TDateTimeCounter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\Source\BasicTypes\TEncoding.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\Source\BasicTypes\TFilePath.cpp
 # End Source File
 # Begin Source File
@@ -121,11 +117,19 @@ SOURCE=..\..\..\Source\BasicTypes\TString.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\BasicTypes\TStringList.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\BasicTypes\TTime.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\Source\BasicTypes\TWideString.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\BasicTypes\UTF8.c
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -153,10 +157,6 @@ SOURCE=..\..\..\Source\BasicTypes\tdatetimecounter.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\Source\BasicTypes\tencoding.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\Source\BasicTypes\tfilepath.h
 # End Source File
 # Begin Source File
@@ -173,11 +173,19 @@ SOURCE=..\..\..\Source\BasicTypes\tstring.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\BasicTypes\TStringList.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\BasicTypes\ttime.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\Source\BasicTypes\twidestring.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\BasicTypes\UTF8.h
 # End Source File
 # End Group
 # End Target
