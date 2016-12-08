@@ -17,6 +17,6 @@
 #ifndef TCOLLECTIONS____H
 #define TCOLLECTIONS____H
 
-#define SHORTCOLLECTIONSIZE 10
+#define TITERATOR_INHERITANCE
 
 #endif

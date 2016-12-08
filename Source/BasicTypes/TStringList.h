@@ -19,14 +19,15 @@
 
 #include "tstring.h"
 
+const static int NUMBER_OF_TERMINAL_ZEROS = 1;
+
 //class is designed for storing, sorting, loading and saving text files, 
 //internally it stores all strings in one memory block, strings are separated
 //by zero, final string is followed by two zeros. 
 class TStringList 
 {
 private:	
-
-    const static int NUMBER_OF_TERMINAL_ZEROS = 1;
+    
 
     //buffer for storing string data
 	int   m_stringDataCapacity;
@@ -73,7 +74,7 @@ public:
     const char* operator[] (int i);
     const char* GetString (int i);
     const char* GetStringArray();
-    TString     GetStringAsObject (int i);	    
+    const TString     GetStringAsObject (int i);	    
 
     void  SetText(const char* val);
     

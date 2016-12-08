@@ -1,6 +1,7 @@
 #include "UnitTests.h"
 #include "MainObject.h"
 #include "tmemorystream.h"
+#include "tfilestream.h"
 
 class Test_Persistence : public TestFixture<Test_Persistence>
 {

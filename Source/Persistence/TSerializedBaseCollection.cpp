@@ -250,7 +250,7 @@ void TSerializedBaseCollection::SerializeBody(unsigned short version)
 				TSerializedItem* item = (TSerializedItem*) First();
 				if (item==NULL)
 				{
-					TSerializedItem* item = CreateItem(0,NULL);
+					TSerializedItem* item = CreateItem(0,0);
 					item->Serialize(GetVersion());
 					delete item;
 				} else {
@@ -320,12 +320,12 @@ void TSerializedBaseCollection::OnStartElement ( TXMLParserInterface* Parser, co
 	if (ElementName==pszName)
 	{
 		Serialize(GetVersion());
-		newItemUID  = attributes["UID"];
-		newItemType = attributes["Type"];
+        const char* newItemUID  = attributes["UID"];
+        const char* newItemType = attributes["Type"];
 		TSerializer::XMLCache->Clear();
 		TSerializer::XMLCache->RedirectTalker(Parser);
-		if (newItemUID.Length()>0)  TSerializer::XMLCache->Attributes.Add("UID",  newItemUID);
-		if (newItemType.Length()>0) TSerializer::XMLCache->Attributes.Add("Type", newItemType);
+		if (newItemUID)  TSerializer::XMLCache->Attributes.Add("UID",  newItemUID);
+		if (newItemType) TSerializer::XMLCache->Attributes.Add("Type", newItemType);
 		
 		return;
 	}
@@ -356,14 +356,20 @@ void TSerializedBaseCollection::OnEndElement   ( TXMLParserInterface* Parser, co
 
 void TSerializedBaseCollection::OnCharacterData( TXMLParserInterface* Parser, const char *pszData)
 {
-	static TCustomString<XMLMAXNAMESIZE>	lastValue = pszData;
+	static char lastValue[XMLMAXNAMESIZE];
+    if (pszData!=NULL)
+    {
+        memcpy(lastValue, pszData, strlen(pszData));
+    } else {
+        lastValue[0] = 0;
+    }    
 	TSerializer::XMLCache->Values.Add(lastName, lastValue);
 }
 
 bool TSerializedBaseCollection::LoadItem()
 {
-	TCustomString<XMLMAXVALUESIZE> uidAttribute  = TSerializer::XMLCache->Attributes["UID"];
-	TCustomString<XMLMAXVALUESIZE> typeAttribute = TSerializer::XMLCache->Attributes["Type"];
+	const char* uidAttribute  = TSerializer::XMLCache->Attributes["UID"];
+	const char* typeAttribute = TSerializer::XMLCache->Attributes["Type"];
 	unsigned int   UID = StrToULongInt(uidAttribute);
 	unsigned short SubType = StrToUShortInt(typeAttribute);
 

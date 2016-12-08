@@ -27,7 +27,10 @@
  *  more memory than it is needed to decrease memory fragmentation
  *  on embedded systems with low RAM size (e.g. 32kB or less)
  */
-template <typename T> class TList : public TIterator
+template <typename T> class TList
+#ifdef TITERATOR_INHERITANCE
+: public TIterator
+#endif
 {
 protected:
 
@@ -45,9 +48,15 @@ public:
     TList();
     ~TList();
 
-	void* First();
-	void* Next();
-	short Count();
+#ifdef TITERATOR_INHERITANCE
+    virtual void* First();
+    virtual void* Next();
+    virtual short Count();
+#else 
+    void* First();
+    void* Next();
+    short Count();
+#endif			
 
     void  Add(T R);
     void  Del(short index);

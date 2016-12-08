@@ -82,11 +82,11 @@ void TXMLCache::OnCharacterData( TXMLParserInterface* Parser, const char* value)
 	} else {
 		if (arrayValue.Length()>0) arrayValue += ';';
 		arrayValue += value;
-		if (Values.ContainsKey(lastName))
+		if (Values.ContainsKey((const char*)&lastName))
 		{
-			Values[lastName] = arrayValue;
+			Values[(const char*)&lastName] = arrayValue;
 		} else {
-			Values.Add(lastName, arrayValue);
+			Values.Add((const char*)&lastName, arrayValue);
 		}
 	}	
 }

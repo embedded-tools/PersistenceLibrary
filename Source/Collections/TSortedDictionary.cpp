@@ -22,9 +22,9 @@
 template <typename KEY, typename VALUE>
 TSortedDictionary<KEY, VALUE>::TSortedDictionary(short capacity)
 {
-    ItemCount = 0;
-    ItemMax   = 0;
-    Item  = NULL;
+    DataCount = 0;
+    DataMax   = 0;
+    Data  = NULL;
     Key   = NULL;
 
     if (capacity>0)
@@ -36,9 +36,9 @@ TSortedDictionary<KEY, VALUE>::TSortedDictionary(short capacity)
 template<typename KEY, typename VALUE>
 TSortedDictionary<KEY, VALUE>::TSortedDictionary(TSortedDictionary<KEY, VALUE> &dictionary)
 {
-    ItemCount = 0;
-    ItemMax   = 0;
-    Item  = NULL;
+    DataCount = 0;
+    DataMax   = 0;
+    Data  = NULL;
     Key   = NULL;
 }
 
@@ -51,30 +51,30 @@ TSortedDictionary<KEY, VALUE>::~TSortedDictionary()
 template<typename KEY, typename VALUE>
 void TSortedDictionary<KEY, VALUE>::Clear()       
 {
-    if (Item!=NULL)
+    if (Data!=NULL)
     {
-        free(Item);
+        free(Data);
     }
-    Item=NULL;
+    Data=NULL;
     if (Key!=NULL)
     {
         free(Key);
     }
     Key=NULL;
-    ItemCount = 0;
-    ItemMax   = 0;
+    DataCount = 0;
+    DataMax   = 0;
 }
 
 template<typename KEY, typename VALUE>
 short  TSortedDictionary<KEY, VALUE>::Count()
 {
-    return ItemCount;
+    return DataCount;
 }
 
 template<typename KEY, typename VALUE>
 short  TSortedDictionary<KEY, VALUE>::Capacity()
 {
-    return ItemMax;
+    return DataMax;
 }
 
 template<typename KEY, typename VALUE>
@@ -82,14 +82,14 @@ short  TSortedDictionary<KEY, VALUE>::SetCount(short count)
 {
     if (count == 0)
     {
-        ItemCount = 0;
-        ItemMax = 0;
-        return ItemCount;
+        DataCount = 0;
+        DataMax = 0;
+        return DataCount;
     }
 
-    if (count>ItemMax)
+    if (count>DataMax)
     {
-        short newCapacity = ItemMax;
+        short newCapacity = DataMax;
 		if (newCapacity==0)
 		{
 			newCapacity = 8;
@@ -106,31 +106,31 @@ short  TSortedDictionary<KEY, VALUE>::SetCount(short count)
         }
         SetCapacity(newCapacity);
     }
-    ItemCount = count;
-    return ItemCount;
+    DataCount = count;
+    return DataCount;
 }
 
 template<typename KEY, typename VALUE>
 void TSortedDictionary<KEY, VALUE>::SetCapacity(short capacity)
 {
-    if (Item==NULL)
+    if (Data==NULL)
     {
 		Key  = (KEY*)   malloc(capacity*sizeof(KEY));
-        Item = (VALUE*) malloc(capacity*sizeof(VALUE));
-        if (Item!=NULL)
+        Data = (VALUE*) malloc(capacity*sizeof(VALUE));
+        if (Data!=NULL)
         {
-            ItemMax = capacity;
+            DataMax = capacity;
         } else {
-            ItemMax = 0;
+            DataMax = 0;
         }
     } else {
 		Key  = (KEY*)   realloc(Key, capacity*sizeof(KEY));
-        Item = (VALUE*) realloc(Item, capacity*sizeof(VALUE));
-        if (Item!=NULL)
+        Data = (VALUE*) realloc(Data, capacity*sizeof(VALUE));
+        if (Data!=NULL)
         {
-            ItemMax = capacity;
+            DataMax = capacity;
         } else {
-            ItemMax = 0;
+            DataMax = 0;
         }
     }
 }
@@ -167,11 +167,11 @@ short TSortedDictionary<KEY, VALUE>::FindKeyIndexRec(KEY key, short min, short m
 template<typename KEY, typename VALUE>
 short TSortedDictionary<KEY, VALUE>::FindKeyIndex(KEY key)
 {
-    if (ItemCount==0)
+    if (DataCount==0)
     {
         return -1;
     }
-    short result = FindKeyIndexRec(key, 0, ItemCount);
+    short result = FindKeyIndexRec(key, 0, DataCount);
     if (result != -1)
     {
         if (Key[result]!=key)
@@ -185,11 +185,11 @@ short TSortedDictionary<KEY, VALUE>::FindKeyIndex(KEY key)
 template<typename KEY, typename VALUE>
 short TSortedDictionary<KEY, VALUE>::FindNearestKeyIndex(KEY key)
 {
-	if (ItemCount==0)
+	if (DataCount==0)
 	{
 		return -1;
 	}
-	return FindKeyIndexRec(key, 0, ItemCount);	
+	return FindKeyIndexRec(key, 0, DataCount);	
 }
 
 
@@ -197,14 +197,14 @@ short TSortedDictionary<KEY, VALUE>::FindNearestKeyIndex(KEY key)
 template<typename KEY, typename VALUE>
 bool TSortedDictionary<KEY, VALUE>::InsertKey(short index, KEY key)
 {
-    short oldCount = ItemCount;
+    short oldCount = DataCount;
     short newCount = SetCount(oldCount+1);
     if (newCount==oldCount+1)
     {                
 		for(short i = oldCount; i>index; i--)
 		{
 			Key[i] = Key[i-1];
-			Item[i] = Item[i-1];
+			Data[i] = Data[i-1];
 		}
 		Key[index] = key;
         return true;
@@ -225,19 +225,19 @@ VALUE&   TSortedDictionary<KEY, VALUE>::operator [] (KEY key)
 		//verifies if found index is the required result
 		found = Key[i]==key;
 	} else {
-		i = ItemCount;
+		i = DataCount;
 	}
     if (found)
 	{
 		//yes
-		return Item[i];
+		return Data[i];
 	}
     
 	//found index is a position where new item must be inserted
     if (InsertKey(i, key))
 	{
 		//returns reference to dictionary item
-		return Item[i];    
+		return Data[i];    
 	}
 
 	//returns invalid value if memory allocation failed
@@ -248,14 +248,14 @@ template<typename KEY, typename VALUE>
 void* TSortedDictionary<KEY, VALUE>::First()
 {
 	DataIterator=0;
-	if (ItemCount==0) return NULL;
+	if (DataCount==0) return NULL;
 	return (void*)&Key[DataIterator++];
 }
 
 template<typename KEY, typename VALUE>
 void* TSortedDictionary<KEY, VALUE>::Next()
 {
-	if (DataIterator>ItemCount) return NULL;
+	if (DataIterator>DataCount) return NULL;
 	return (void*)&Key[DataIterator++];
 }
 
@@ -264,9 +264,9 @@ KEY&  TSortedDictionary<KEY,VALUE>::Keys(int index)
 {
 	if ((index>=0) || (index<DataCount))
 	{
-		return _Key[index];
+		return Key[index];
 	}
-	static K result;
+	static KEY result;
 	memset(&result, 0, sizeof(result));
 	return result;
 }

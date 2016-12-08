@@ -28,7 +28,10 @@
  *  it is needed to decrease memory fragmentation.
  */
 
-template <class T> class TObjectList : public TIterator
+template <class T> class TObjectList 
+#ifdef TITERATOR_INHERITANCE
+: public TIterator
+#endif
 {
 
 protected:
@@ -52,7 +55,6 @@ public:
     T*    Insert (int i);
     void  Insert (int i, T* R);
 	bool  Contains(T* R);
-    short Count();
     short Capacity();
     short SetCount(short count);
     short SetCountAndCreate(short count);
@@ -60,8 +62,16 @@ public:
     void  Clear();
     void  UnallocAndClear();
 
+#ifdef TITERATOR_INHERITANCE
+    virtual void* First();
+    virtual void* Next();
+    virtual short Count();
+#else 
     void* First();
     void* Next();
+    short Count();
+#endif			
+    
     T* operator [] (short id);
 	T* Items (short id);
 

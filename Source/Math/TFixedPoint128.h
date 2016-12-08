@@ -31,7 +31,7 @@ public:
     TFixedPoint128(short frac1, short frac2);
 
     TFixedPoint128& operator = (short num);
-    TFixedPoint128& operator = (TFixedPoint128& value);
+    TFixedPoint128& operator = (const TFixedPoint128 value);
 
     TFixedPoint128  operator + (TFixedPoint128& value);
     TFixedPoint128& operator +=(TFixedPoint128& value);

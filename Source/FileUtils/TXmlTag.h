@@ -19,7 +19,6 @@
 
 #include <stdlib.h>
 #include "tshortstring.h"
-#include "tcustomstring.h"
 #include "tstream.h"
 
 #define XMLPATHMAXLENGTH 80

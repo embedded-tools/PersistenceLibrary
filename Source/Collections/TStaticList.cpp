@@ -141,6 +141,28 @@ void TStaticList<T, N>::Clear()
 };
 
 template<class T, int N>
+void* TStaticList<T, N>::First()
+{
+    DataIterator = 0;
+    if (DataCount>0)
+    {
+        return Data[0];
+    }
+    return NULL;    
+};
+
+template<class T, int N>
+void* TStaticList<T, N>::Next()
+{
+    DataIterator++;
+    if (DataIterator<DataCount)
+    {
+        return Data[DataIterator];
+    }
+    return NULL;
+};
+
+template<class T, int N>
 T& TStaticList<T, N>::operator [] (short index)
 {	
     if ((index>=0) && (index<DataCount))

@@ -20,9 +20,6 @@
 #include <stdlib.h> 
 #include <stdio.h>
 #include "tstring.h"
-#include "tstream.h"
-#include "tfilestream.h"
-#include "stringutils.h"
 
 class TTextFile
 {

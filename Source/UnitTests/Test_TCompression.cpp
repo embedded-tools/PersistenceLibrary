@@ -1,6 +1,7 @@
 #include "UnitTests.h"
 
 #include "tmemorystream.h"
+#include "tfilestream.h"
 #include "tcachedstream.h"
 #include "stringutils.h"
 #include "tcustomstring.h"

@@ -67,11 +67,11 @@ bool UShortIntArrayToStr(unsigned short* ushortArray,unsigned short ushortArrayL
 bool LongIntArrayToStr  (long*  intArray,  unsigned short byteArrayLength, char* buffer, unsigned short bufferSize, char separator=',');
 bool ULongIntArrayToStr (unsigned long* uintArray,  unsigned short byteArrayLength, char* buffer, unsigned short bufferSize, char separator=',');
 
-unsigned short  StrToByteArray    (char* string,  char* array,           unsigned short maxArraySize, char separator=',');
-unsigned short  StrToUByteArray    (char* string, unsigned char* array,  unsigned short maxArraySize, char separator=',');
-unsigned short  StrToShortIntArray (char* string, short* array,          unsigned short maxArraySize, char separator=',');
-unsigned short  StrToUShortIntArray(char* string, unsigned short* array, unsigned short maxArraySize, char separator=',');
-unsigned short  StrToLongIntArray  (char* string, long* array,           unsigned short maxArraySize, char separator=',');
-unsigned short  StrToULongIntArray (char* string, unsigned long* array,  unsigned short maxArraySize, char separator=',');
+unsigned short  StrToByteArray     (const char* string,  char* array,           unsigned short maxArraySize, char separator=',');
+unsigned short  StrToUByteArray    (const char* string, unsigned char* array,  unsigned short maxArraySize, char separator=',');
+unsigned short  StrToShortIntArray (const char* string, short* array,          unsigned short maxArraySize, char separator=',');
+unsigned short  StrToUShortIntArray(const char* string, unsigned short* array, unsigned short maxArraySize, char separator=',');
+unsigned short  StrToLongIntArray  (const char* string, long* array,           unsigned short maxArraySize, char separator=',');
+unsigned short  StrToULongIntArray (const char* string, unsigned long* array,  unsigned short maxArraySize, char separator=',');
 
 #endif

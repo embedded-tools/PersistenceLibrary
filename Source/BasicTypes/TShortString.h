@@ -39,7 +39,6 @@ private:
 
 public:
     TShortString()
-        :TString()
 	{
 		PData = (char*)&Data;
 		DataLen = 0;
@@ -49,7 +48,7 @@ public:
 	}
 
     TShortString(const char* pChar, unsigned short pCharLen=0)
-        :TString()
+		:TString()
 	{
 		PData = (char*)&Data;
 		DataLen = 0;
@@ -58,7 +57,8 @@ public:
     	CopyFrom(pChar, pCharLen);    
 	}
 
-    TShortString::TShortString(TShortString &s)
+    TShortString::TShortString(const TShortString& s)
+		:TString()
     {
         PData = (char*)&Data;
         DataLen = 0;
@@ -67,7 +67,13 @@ public:
         CopyFrom(s.ToPChar(), s.Length());    
     }
 
-    TShortString& operator = ( TString& oString )
+    TShortString& operator = (const TShortString& oString )
+    {
+        CopyFrom(oString.ToPChar());
+        return *this;
+    }
+
+    TShortString& operator = (const TString& oString )
 	{
 		CopyFrom(oString.ToPChar());
 		return *this;

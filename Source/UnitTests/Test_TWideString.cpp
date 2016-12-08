@@ -114,34 +114,21 @@ public:
 	
 	void TesTWideStringFunctions()
 	{
-		TWideString s1 = L" !@#$%^&*()_+??+@ABYZ~abyz";
-		ASSERT(s1==L" !@#$%^&*()_+??+@ABYZ~abyz");
+		TWideString s1 = L"\t !@#$%^&*()_+??+@ABYZ~abyz\t \t   \r\n";
+		s1.Trim();
+
+		ASSERT(s1==L"!@#$%^&*()_+??+@ABYZ~abyz");
 		
-		TWideString s2 = s1.ToLower();
-		ASSERT(s1==L" !@#$%^&*()_+??+@ABYZ~abyz");
-		ASSERT(s2==L" !@#$%^&*()_+??+@abyz~abyz");
+		s1.LowerCase();
+		ASSERT(s1==L"!@#$%^&*()_+??+@abyz~abyz");
 		
-		TWideString s3 = s1.ToUpper();
-		ASSERT(s1==L" !@#$%^&*()_+??+@ABYZ~abyz");
-		ASSERT(s3==L" !@#$%^&*()_+??+@ABYZ~ABYZ");
+		s1.UpperCase();
+		ASSERT(s1==L" !@#$%^&*()_+??+@ABYZ~ABYZ");
 		
-		TWideString s4 = L"  123    ";
-		TWideString s5 = s4.TrimStart();
-		ASSERT(s5==L"123    ");
 		
-		TWideString s6 = s4.TrimEnd();
-		ASSERT(s6 ==L"  123");
-		
-		TWideString s7 = s4.Trim();
-		ASSERT(s7 ==L"123");
-		
-		TWideString s8 = L"     ";
-		ASSERT(s8.Length()==5);
-		
-		TWideString s9 = s8.Trim();
-		ASSERT(s8.Length()==5);
-		ASSERT(s9.Length()==0);             
-		
+		TWideString s2 = L"             ";
+        s2.Trim();
+		ASSERT(s2.Length()==0);             		
 	}
 
     void TestOperators()

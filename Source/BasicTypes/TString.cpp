@@ -28,7 +28,7 @@ TString::TString (const char* pChar, unsigned short pCharLen)
 	CopyFrom(pChar, pCharLen);
 }
 
-TString::TString(TString &s)
+TString::TString(const TString &s)
 	: PData(NULL), DataLen(0), DataMax(0), DataStatic(false)
 {
 	CopyFrom(s.ToPChar(), s.Length());
@@ -46,17 +46,17 @@ TString::~TString()
 	PData=NULL;
 }
 
-unsigned short TString::GetBufferSize()
+unsigned short TString::GetBufferSize() const
 {
 	return DataMax;
 }
 
-bool TString::IsBufferStatic()
+bool TString::IsBufferStatic() const
 {
 	return DataStatic;
 }
 
-unsigned short TString::Length()
+unsigned short TString::Length() const
 {
     return DataLen;
 }
@@ -119,12 +119,12 @@ bool TString::CopyFrom (const char* s, unsigned short length)
     return true;
 }
 
-const char* TString::ToPChar()
+const char* TString::ToPChar() const
 {
     return (const char*)PData;
 }
 
-bool TString::Contains(char c)
+bool TString::Contains(char c) const
 {
     char buf[2];
     buf[0] = c;
@@ -133,7 +133,7 @@ bool TString::Contains(char c)
     return Contains(pChar);
 }
 
-bool TString::Contains(const char* pChar)
+bool TString::Contains(const char* pChar) const
 {
     if (PData==NULL)
     {
@@ -174,7 +174,7 @@ bool TString::Contains(const char* pChar)
     return found;
 }
 
-int TString::IndexOf(char c, unsigned short startIndex)
+int TString::IndexOf(char c, unsigned short startIndex) const
 {
     char buf[2];
     buf[0] = c;
@@ -183,7 +183,7 @@ int TString::IndexOf(char c, unsigned short startIndex)
     return IndexOf(pChar, startIndex);
 }
 
-int TString::IndexOf(const char* pChar, unsigned short startIndex)
+int TString::IndexOf(const char* pChar, unsigned short startIndex) const
 {
     unsigned short len = Length();
     unsigned char pCharLen = 0;
@@ -227,7 +227,7 @@ int TString::IndexOf(const char* pChar, unsigned short startIndex)
     return result;
 }
 
-int TString::LastIndexOf(char c)
+int TString::LastIndexOf(char c) const
 {
 	char buf[2];
 	buf[0] = c;
@@ -236,7 +236,7 @@ int TString::LastIndexOf(char c)
 	return LastIndexOf(pChar);
 }
 
-int TString::LastIndexOf(const char* pChar)
+int TString::LastIndexOf(const char* pChar) const
 {
 	unsigned short len = Length();
 	unsigned char pCharLen = 0;
@@ -270,14 +270,14 @@ int TString::LastIndexOf(const char* pChar)
 	return result;
 }
 
-char TString::FirstChar()
+char TString::FirstChar() const
 {
 	if (PData==NULL) return 0;
 	if (DataLen==0) return 0;
 	return PData[0];
 }
 
-char TString::LastChar()
+char TString::LastChar() const
 {
 	if (PData==NULL) return 0;
 	if (DataLen==0) return 0;
@@ -553,7 +553,6 @@ unsigned short TString::SetLength(unsigned short len, bool addSpaces)
             PData[i] = ' ';
         }
     }
-
     PData[len]=0;   
     DataLen = len;
     return len;
@@ -561,7 +560,7 @@ unsigned short TString::SetLength(unsigned short len, bool addSpaces)
 
 
 
-TString& TString::operator = (TString& oString )
+TString& TString::operator = (const TString& oString )
 {
     CopyFrom(oString.ToPChar());
     return *this;
@@ -621,7 +620,7 @@ TString& TString::operator += ( const char AChar )
     return *this;
 }
 
-bool TString::operator > (const char* pChar)
+bool TString::operator > (const char* pChar) const
 {
     if (Length()==0)   return (false);
     if (pChar==NULL)   return (true);
@@ -654,7 +653,7 @@ bool TString::operator > (const char* pChar)
     return (false);
 }
 
-bool TString::operator < (const char* pChar)
+bool TString::operator < (const char* pChar) const
 {
 	int minlength;
 	if (Length()==0)   return (true);
@@ -687,21 +686,21 @@ bool TString::operator < (const char* pChar)
 
 }
 
-bool TString::operator >= (const char* pChar)
+bool TString::operator >= (const char* pChar) const
 {
 	if (*this>pChar) return (true);
 	if (*this==pChar) return (true);
 	return false;
 }
 
-bool TString::operator <= (const char* pChar)
+bool TString::operator <= (const char* pChar) const
 {        
 	if (*this<pChar) return (true);
 	if (*this==pChar) return (true);
 	return false;
 }
 
-bool TString::operator == (const char* pChar)
+bool TString::operator == (const char* pChar) const
 {
     if ((ToPChar()==NULL) && (pChar==NULL)) return true;
     if ((ToPChar()==NULL) && (*pChar==0)) return true;
@@ -710,7 +709,7 @@ bool TString::operator == (const char* pChar)
     return strcmp(ToPChar(), pChar) == 0;
 }
 
-bool TString::operator != (const char* pChar)
+bool TString::operator != (const char* pChar) const
 {
     if ((ToPChar()==NULL) && (pChar==NULL)) return false;
 	if (ToPChar()==NULL) return true;

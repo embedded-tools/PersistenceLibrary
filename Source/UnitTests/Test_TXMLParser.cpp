@@ -39,12 +39,12 @@ class Test_XMLParser : public TestFixture<Test_XMLParser>
 		parser.Parse(xml1, strlen(xml1));
 		parser.FlushCache();
 
-		ASSERT_EQUALS(3, xmlCache.Attributes.Count());
+		ASSERT_EQUALS(3, (int)xmlCache.Attributes.Count());
 		ASSERT(xmlCache.Attributes.ContainsKey("UID"));
 		ASSERT(xmlCache.Attributes.ContainsKey("Type"));
 		ASSERT(xmlCache.Attributes.ContainsKey("SubType"));
 
-		ASSERT_EQUALS(5, xmlCache.Values.Count());
+		ASSERT_EQUALS(5, (int)xmlCache.Values.Count());
 		ASSERT(xmlCache.Values.ContainsKey("Name"));
 		ASSERT(xmlCache.Values.ContainsKey("Surname"));
 		ASSERT(xmlCache.Values.ContainsKey("Address"));

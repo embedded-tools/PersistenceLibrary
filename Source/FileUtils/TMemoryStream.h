@@ -18,7 +18,6 @@
 #define TMEMORYSTREAM___H
 
 #include "tstream.h"
-#include "tfilestream.h"
 
 class TMemoryStream:public TStream
 {

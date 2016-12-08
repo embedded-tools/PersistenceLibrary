@@ -55,7 +55,7 @@ unsigned short TColorRGB::ConvertToRGB565()
 	return l + (h<<8);
 }
 
-TColorRGB& TColorRGB::operator = (TColorRGB& color)
+TColorRGB TColorRGB::operator = (TColorRGB color)
 {
 	this->R = color.R;
 	this->G = color.G;
@@ -64,7 +64,7 @@ TColorRGB& TColorRGB::operator = (TColorRGB& color)
 	return *this;
 }
 
-TColorRGB& TColorRGB::operator = (unsigned long color)
+TColorRGB TColorRGB::operator = (unsigned long color)
 {
 	this->R = (unsigned char)(color>>16);
 	this->G = (unsigned char)(color>>8);

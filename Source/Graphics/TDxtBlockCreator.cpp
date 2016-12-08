@@ -17,7 +17,6 @@
 #include "TDxtBlockCreator.h"
 #include "TColorConverter.h"
 #include <string.h>
-#include <math.h>
 
 TDxtBlockCreator::TDxtBlockCreator()
 {
@@ -26,6 +25,12 @@ TDxtBlockCreator::TDxtBlockCreator()
 	TransparentColor = 0;
 	TransparentColorUsed = false;
 	memset((void*)Pixel, 0, sizeof(Pixel) );
+}
+
+int TDxtBlockCreator::abs(short i)
+{
+    if (i>0) return i;
+    return -i;
 }
 
 void TDxtBlockCreator::DoBlockCompression()

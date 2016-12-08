@@ -76,7 +76,7 @@ void TSRProtocol::SetDataBuffer(unsigned char* incomingDataBuffer, unsigned long
 void TSRProtocol::SetDataHandlers(WriteByteToStorage incomingDataHandler, ReadByteFromStorage outgoingDataHandler)
 {
 	m_incomingDataBuffer     = NULL;
-	m_incomingDataBufferSize = NULL;
+	m_incomingDataBufferSize = 0;
 	m_incomingDataHandler    = incomingDataHandler;
 	m_outgoingDataHandler    = outgoingDataHandler;
 }

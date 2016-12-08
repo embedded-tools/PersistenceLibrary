@@ -169,15 +169,25 @@ void TStaticObjectList<T, N>::UnallocAndClear()
 };
 
 template<class T, int N>
-T* TStaticObjectList<T, N>::First()
+void* TStaticObjectList<T, N>::First()
 {
-    return Data[0];
+    DataIterator = 0;
+    if (DataCount>0)
+    {
+        return Data[0];
+    }
+    return NULL;    
 };
 
 template<class T, int N>
-T* TStaticObjectList<T, N>::Last()
+void* TStaticObjectList<T, N>::Next()
 {
-    return Data[DataCount-1];
+    DataIterator++;
+    if (DataIterator<DataCount)
+    {
+        return Data[DataIterator];
+    }
+    return NULL;
 };
 
 template<class T, int N>

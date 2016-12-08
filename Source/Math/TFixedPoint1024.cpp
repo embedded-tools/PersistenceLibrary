@@ -46,7 +46,7 @@ TFixedPoint1024& TFixedPoint1024::operator = (short num)
     return *this;
 }
 
-TFixedPoint1024& TFixedPoint1024::operator = (TFixedPoint1024& value)
+TFixedPoint1024& TFixedPoint1024::operator = (const TFixedPoint1024 value)
 {
     m_value = value.m_value;
     return *this;

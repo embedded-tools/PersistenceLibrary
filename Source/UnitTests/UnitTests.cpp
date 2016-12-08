@@ -36,8 +36,6 @@ void decode()
 int main(int argc, char* argv[])
 {
     int result = TestFixtureFactory::theInstance().runTests() ? 0 : -1;
-	
-    char c;
-    scanf("Press any key %c", &c);
+
 	return 0;
 }

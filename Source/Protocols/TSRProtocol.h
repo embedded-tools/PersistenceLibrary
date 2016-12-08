@@ -52,7 +52,7 @@ typedef enum eExpectedInputData
 	eidDataSumHigh,
 	eidWaitForLastByte,
 	eidWaitForNewCommand
-};
+} EEXPECTEDINPUTDATA;
 
 typedef enum ePacketType 
 {
@@ -60,7 +60,7 @@ typedef enum ePacketType
 	ptCommand,
 	ptAck,
 	ptAckOfAck
-};
+} EPACKETTYPE;
 
 typedef enum eProtocolError
 {
@@ -71,10 +71,10 @@ typedef enum eProtocolError
 	peNoIncomingDataHandler,
 	peNoOutgoingDataHandler,
 	peDataBufferTooSmall
-};
+} EPROTOCOLERROR;
 
 typedef unsigned char (*ReadByteFromStorage)(unsigned long address);
-typedef void (*WriteByteToStorage)(unsigned long address, unsigned char value);
+typedef void (*WriteByteToStorage)  (unsigned long address, unsigned char value);
 typedef void (*SendByteCallback)    (unsigned char c);
 typedef bool (*HeaderEventCallback) (unsigned short busAddress, ePacketType packetType, short packetId, short command, unsigned short customParam1, unsigned short customParam2, unsigned long dataSize);
 typedef void (*PacketEventCallback) (unsigned short busAddress, ePacketType packetType, short packetId, short command, unsigned short customParam1, unsigned short customParam2, unsigned long dataSize, unsigned char* data );
@@ -158,7 +158,6 @@ public:
 	void SendCommandEx(unsigned short busAddress, short command, unsigned short customParam1, unsigned short customParam2, unsigned long dataSize, unsigned char* data );
 	void SendAck(unsigned short busAdress, unsigned short packetId);
 	void SendAckOfAck(unsigned short busAddress, unsigned short packetId);
-
 
 	eProtocolError GetLastError();
 

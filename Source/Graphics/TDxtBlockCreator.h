@@ -30,7 +30,8 @@ struct TDxtPixel
 class TDxtBlockCreator
 {
 	private:
-		
+
+        int  abs(short i);
 		long AssignColors(TColorYUV yuv1, TColorYUV yuv4, short numberOfColors);
 		void LeastSquare (short* valueArray, short& bestValue1, short &bestValue2, short numberOfColors);		
 

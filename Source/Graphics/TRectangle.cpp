@@ -24,7 +24,7 @@ TRectangle::TRectangle()
 	Bottom = 0;
 }
 
-TRectangle::TRectangle(TRectangle &src)
+TRectangle::TRectangle(const TRectangle &src)
 {
 	this->Left = src.Left;
 	this->Right = src.Right;

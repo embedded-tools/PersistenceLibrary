@@ -191,7 +191,7 @@ class Test_StringUtils : public TestFixture<Test_StringUtils>
         LongIntToStr(value5, text2, 20);
         ASSERT(strcmp(text2,"-2147483648")==0);
         
-        unsigned long value6 = 4294967295;
+        unsigned long value6 = 4294967295U;
         ULongIntToStr(value6, text2, 20);
         ASSERT(strcmp(text2,"4294967295")==0);        
 
@@ -313,7 +313,7 @@ class Test_StringUtils : public TestFixture<Test_StringUtils>
 
         TCustomString<12> text5 = "4000000000";
         unsigned long value5 = StrToULongInt(text5);
-        ASSERT(value5==4000000000);
+        ASSERT(value5==4000000000U);
     }
 
 
@@ -500,7 +500,7 @@ class Test_StringUtils : public TestFixture<Test_StringUtils>
 		arr3[6] = 1000000;
 		arr3[7] = 10000000;
 		arr3[8] = 2147483647;
-		arr3[9] = 4294967295;
+		arr3[9] = 4294967295U;
 		bool res = ULongIntArrayToStr(arr3, 10, buffer, bufferLen, '-');
 		ASSERT(res);
 		ASSERT_EQUALS("0-50-1000-1500-23456-32000-1000000-10000000-2147483647-4294967295", buffer);

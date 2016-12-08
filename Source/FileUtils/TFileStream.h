@@ -27,7 +27,7 @@ typedef enum EFileMode
 	efmOpenWrite=0x0001,
 	efmOpenReadWrite=0x0002,
 	efmCreate=0xFFFF
-};
+} EFILEMODE;
 
 class TFileStream : public THandleStream
 {

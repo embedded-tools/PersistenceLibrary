@@ -100,7 +100,9 @@ public:
         ASSERT(s3.Length()==21);
         ASSERT(s3=="ABCDEFGHIJKLMNOPQRST_");
 		
-        TCustomString<80> s4 = TCustomString<80>("(") + s1 + s2 + ")";
+        TCustomString<80> s4 = "(";
+        s4 += s1 + s2 + ")";
+
         ASSERT(s4=="(ABCDEFGHIJKLMNOPQRST)");
 		
         TCustomString<80> s5;

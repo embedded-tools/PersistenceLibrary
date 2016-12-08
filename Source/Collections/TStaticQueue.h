@@ -17,7 +17,6 @@
 #ifndef TQUEUE___H
 #define TQUEUE___H
 
-
 template <typename T, int N> class TQueue 
 {
     private:

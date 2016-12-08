@@ -530,12 +530,12 @@ unsigned short TXMLDoc::CountNodes(const char* xpath)
 {
 	if (xpath==NULL)
 	{
-		return NULL;
+		return 0;
 	}
 	TXMLTag* rootTag = xmlTagPool->GetChild(NULL, 0);
 	if (rootTag==NULL)
 	{
-		return NULL;
+		return 0;
 	}
 	if (xpath[0]=='/')
 	{

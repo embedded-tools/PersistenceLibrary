@@ -15,7 +15,8 @@
  */
 
 #include "stringutils.h"
-#include "tshortstring.h"
+#include <stdlib.h>
+
 
 unsigned short StrLen(const char* s)
 {
@@ -776,14 +777,14 @@ bool ULongIntArrayToStr (unsigned long* ulongArray,  unsigned short ulongArrayLe
     return true;
 }
 
-unsigned short  StrToByteArray (char* string, char* array,  unsigned short maxArraySize, char separator)
+unsigned short  StrToByteArray (const char* string, char* array,  unsigned short maxArraySize, char separator)
 {
 	unsigned short arrayLength = 0;
 	while(*string!=0)
 	{
 		unsigned short numberLength = 0;
 
-		char* pp = string;
+		const char* pp = string;
 		while(*pp!=0)
 		{
 			if (*pp==separator) break;
@@ -802,14 +803,14 @@ unsigned short  StrToByteArray (char* string, char* array,  unsigned short maxAr
 }
 
 
-unsigned short  StrToUByteArray (char* string, unsigned char* array,  unsigned short maxArraySize, char separator)
+unsigned short  StrToUByteArray (const char* string, unsigned char* array,  unsigned short maxArraySize, char separator)
 {
     unsigned short arrayLength = 0;
     while(*string!=0)
     {
         unsigned short numberLength = 0;
 
-        char* pp = string;
+        const char* pp = string;
         while(*pp!=0)
         {
             if (*pp==separator) break;
@@ -827,14 +828,14 @@ unsigned short  StrToUByteArray (char* string, unsigned char* array,  unsigned s
     return arrayLength;    
 }
 
-unsigned short  StrToShortIntArray (char* string, short* array,          unsigned short maxArraySize, char separator)
+unsigned short  StrToShortIntArray (const char* string, short* array,          unsigned short maxArraySize, char separator)
 {
     unsigned short arrayLength = 0;
     while(*string!=0)
     {
         unsigned short numberLength = 0;
 
-        char* pp = string;
+        const char* pp = string;
         while(*pp!=0)
         {
             if (*pp==separator) break;
@@ -852,14 +853,14 @@ unsigned short  StrToShortIntArray (char* string, short* array,          unsigne
     return arrayLength;    
 }
 
-unsigned short  StrToUShortIntArray(char* string, unsigned short* array, unsigned short maxArraySize, char separator)
+unsigned short  StrToUShortIntArray(const char* string, unsigned short* array, unsigned short maxArraySize, char separator)
 {
     unsigned short arrayLength = 0;
     while(*string!=0)
     {
         unsigned short numberLength = 0;
 
-        char* pp = string;
+        const char* pp = string;
         while(*pp!=0)
         {
             if (*pp==separator) break;
@@ -877,14 +878,14 @@ unsigned short  StrToUShortIntArray(char* string, unsigned short* array, unsigne
     return arrayLength;    
 }
 
-unsigned short  StrToLongIntArray  (char* string, long* array, unsigned short maxArraySize, char separator)
+unsigned short  StrToLongIntArray  (const char* string, long* array, unsigned short maxArraySize, char separator)
 {
     unsigned short arrayLength = 0;
     while(*string!=0)
     {
         unsigned short numberLength = 0;
 
-        char* pp = string;
+        const char* pp = string;
         while(*pp!=0)
         {
             if (*pp==separator) break;
@@ -902,14 +903,14 @@ unsigned short  StrToLongIntArray  (char* string, long* array, unsigned short ma
     return arrayLength;    
 }
 
-unsigned short StrToULongIntArray (char* string, unsigned long* array,  unsigned short maxArraySize, char separator)
+unsigned short StrToULongIntArray (const char* string, unsigned long* array,  unsigned short maxArraySize, char separator)
 {
     unsigned short arrayLength = 0;
     while(*string!=0)
     {
         unsigned short numberLength = 0;
 
-        char* pp = string;
+        const char* pp = string;
         while(*pp!=0)
         {
             if (*pp==separator) break;

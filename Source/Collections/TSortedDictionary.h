@@ -28,14 +28,17 @@
  *  It allocates memory dynamically, but it preallocates a bit more memory than 
  *  it is needed to decrease memory fragmentation.
  */
-template <typename KEY, typename VALUE> class TSortedDictionary : public TIterator
+template <typename KEY, typename VALUE> class TSortedDictionary 
+#ifdef TITERATOR_INHERITANCE
+: public TIterator
+#endif
 {
 
 private:
     KEY*   Key;
-    VALUE* Item;
-    short  ItemCount;
-    short  ItemMax;
+    VALUE* Data;
+    short  DataCount;
+    short  DataMax;
 	short  DataIterator;
 
     short  SetCount(short count);
@@ -52,14 +55,21 @@ public:
     ~TSortedDictionary();
 
     void  Clear();    
-    short Count();
     short Capacity();    
 
     VALUE& operator [] (KEY key);
 	
 	KEY&  Keys(int index);
-	void* First(); //key iterator
-	void* Next();					
+
+#ifdef TITERATOR_INHERITANCE
+    virtual void* First();
+    virtual void* Next();
+    virtual short Count();
+#else 
+    void* First();
+    void* Next();
+    short Count();
+#endif						
 	
     bool  ContainsKey(KEY key);
 	short FindKeyIndex(KEY key);

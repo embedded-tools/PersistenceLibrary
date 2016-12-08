@@ -38,6 +38,7 @@ TList<T>::~TList()
     Clear();
 }
 
+
 template<class T>
 void* TList<T>::First()
 {

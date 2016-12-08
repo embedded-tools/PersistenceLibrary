@@ -31,7 +31,7 @@ class TFixedPoint1024
         TFixedPoint1024(short frac1, short frac2);
 
         TFixedPoint1024& operator = (short num);
-        TFixedPoint1024& operator = (TFixedPoint1024& value);
+        TFixedPoint1024& operator = (const TFixedPoint1024 value);
 
         TFixedPoint1024  operator + (TFixedPoint1024& value);
         TFixedPoint1024& operator +=(TFixedPoint1024& value);

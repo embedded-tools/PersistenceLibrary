@@ -33,8 +33,8 @@ public:
     TColorRGB(unsigned long rgb);
 	
 	unsigned short ConvertToRGB565();
-	TColorRGB& operator = (TColorRGB& color);
-	TColorRGB& operator = (unsigned long color);
+	TColorRGB operator = (TColorRGB color);
+	TColorRGB operator = (unsigned long color);
 	bool operator == (TColorRGB& color);	
 };
 

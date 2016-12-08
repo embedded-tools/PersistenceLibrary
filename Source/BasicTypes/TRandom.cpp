@@ -50,6 +50,6 @@ void TRandom::GetRandomByteArray(unsigned char* pArray, unsigned long arrayLengt
 {
     for(unsigned long i = 0; i<arrayLength; i++)
     {
-        pArray[i] = GetRandomNumber(256);
+        pArray[i] = (unsigned char)GetRandomNumber(256);
     }
 }

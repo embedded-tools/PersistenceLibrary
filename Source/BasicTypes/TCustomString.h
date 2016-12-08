@@ -59,7 +59,7 @@ public:
 		CopyFrom(s.ToPChar(), s.Length());
 	}
 
-    TCustomString(TCustomString& s)
+    TCustomString(const TCustomString& s)
         :TString()
     {
         PData = (char*)&Data;

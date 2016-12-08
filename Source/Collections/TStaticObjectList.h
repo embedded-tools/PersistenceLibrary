@@ -29,10 +29,14 @@
  */
 
 template <class T, int N> class TStaticObjectList
+#ifdef TITERATOR_INHERITANCE
+: public TIterator
+#endif
 {
 protected:
     T*    Data[N];
     short DataCount;
+    short DataIterator; 
     short DataMax;
 
 public:
@@ -46,15 +50,22 @@ public:
     bool  Del(T* R);
     T*    Insert (int i);
     void  Insert (int i, T* R);
-    short Count();
     short Capacity();
     short SetCount(short count);
     short SetCountAndCreate(short count);
     void  Clear();
     void  UnallocAndClear();
 
-    T* First();
-    T* Last();
+#ifdef TITERATOR_INHERITANCE
+    virtual void* First();
+    virtual void* Next();
+    virtual short Count();
+#else 
+    void* First();
+    void* Next();
+    short Count();
+#endif			
+
     T* operator [] (short id);
 	T* Items (short id);
 

@@ -23,7 +23,7 @@ class TPosition
 public:
 	TPosition();
 	TPosition(short x, short y);
-	TPosition(TPosition& src);
+	TPosition(const TPosition& src);
 	short X;
 	short Y;
 

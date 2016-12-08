@@ -22,7 +22,7 @@ TPosition::TPosition()
 	this->Y = 0;
 }
 
-TPosition::TPosition(TPosition& src)
+TPosition::TPosition(const TPosition& src)
 {
 	this->X = src.X;
 	this->Y = src.Y;

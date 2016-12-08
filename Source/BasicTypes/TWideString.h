@@ -48,72 +48,72 @@ public:
 	// Constructor
 	TWideString();
 	TWideString(const wchar_t* pChar, unsigned short pCharLen=0);
-	TWideString(TWideString& oString );
+	TWideString(const TWideString& oString );
 
-	unsigned short GetDataMax();
-	unsigned short GetDataStatic();
 
 	// Destructor 
 	~TWideString();
 
+    unsigned short GetBufferSize() const;
+    bool  IsBufferStatic() const;
+
+    unsigned short Length() const;
+
 	//setters
-	void Set(const wchar_t* pChar, unsigned short pCharLen=0);
-	unsigned short SetLength(unsigned short len);
-	void Clear(bool dontReleaseMemory=false);
-	unsigned short Length();
-
-	void CopyFrom (const wchar_t* AData, unsigned short startIndex, unsigned short length);
-
+    void Clear(bool dontReleaseMemory=false);    
+    bool Fill(wchar_t c, unsigned short number);	
+    bool CopyFrom (const wchar_t* AData, unsigned short length=0); 
 
 	//string operations    
-	bool Contains(const wchar_t* pChar);
-	bool Contains(wchar_t c);
-	int IndexOf(const wchar_t* pChar, unsigned short startIndex=0);
-	int IndexOf(wchar_t c, unsigned short startIndex=0);
+    //string operations    
+    bool Contains(const wchar_t* pChar) const;
+    bool Contains(wchar_t c) const;
+    int  IndexOf(wchar_t c, unsigned short startIndex=0) const;    
+    int  IndexOf(const wchar_t* pChar, unsigned short startIndex=0) const;    
+    int  LastIndexOf(wchar_t c) const;
+    int  LastIndexOf(const wchar_t* pChar) const;
+    wchar_t FirstChar() const;
+    wchar_t LastChar() const;
 
-	virtual TWideString Clone();
-	TWideString ToLower();
-	TWideString ToUpper();
-	TWideString TrimStart();
-	TWideString Trim();
-	TWideString TrimEnd();    
-	TWideString SubString(unsigned short startIndex, unsigned short size = 65535);
-	void Replace(wchar_t oldChar, wchar_t newChar);
-	TWideString Replace(const wchar_t* oldString, const wchar_t* newString);
+    operator wchar_t* ();
+    operator const wchar_t*();
+    const wchar_t* ToPWChar() const;
 
-	operator wchar_t* ();
-	operator const wchar_t*();
-	const wchar_t* ToPWChar();
+    TWideString& Trim();
+	TWideString& LowerCase();
+	TWideString& UpperCase();	
+  
+    TWideString& Append(wchar_t c);
+    TWideString& Append(const wchar_t* c);
+    TWideString& Append(TWideString& oString);
+    TWideString& Insert(unsigned short index, wchar_t c);
+    TWideString& Insert(unsigned short index, const wchar_t* s);
+    TWideString& Insert(unsigned short index, TWideString& oString);
+    TWideString& Delete(unsigned short index, unsigned short length=1);    
+    TWideString& Replace(wchar_t oldChar, wchar_t newChar);
+    unsigned short SetLength(unsigned short newLength, bool addSpaces=true);
 
-	TWideString& Add(wchar_t c);
-	TWideString& Add(const wchar_t* c);
-	TWideString& Add(TWideString& oString);
-	TWideString& Insert(unsigned short index, wchar_t c);
-	TWideString& Insert(unsigned short index, const wchar_t* s);
-	TWideString& Insert(unsigned short index, TWideString& oString);
-	TWideString& Delete(unsigned short index, unsigned short length=1);
-
-	TWideString& operator = ( TString& oString );
+	TWideString& operator = ( const TString oString );
     TWideString& operator = ( const char* pChar );
-	TWideString& operator = ( TWideString& oString );
+	TWideString& operator = ( const TWideString oString );
 	TWideString& operator = ( const wchar_t* pChar);      
-	TWideString operator  + ( TWideString& oString);
-	TWideString operator  + ( const wchar_t* pChar);
+	TWideString  operator + ( TWideString& oString);
+	TWideString  operator + ( const wchar_t* pChar);
 	TWideString& operator  += ( TWideString& oString);
 	TWideString& operator  += ( const wchar_t* pChar);
 	TWideString& operator  += ( const wchar_t c);
 
 	//operators
-	bool operator > (const wchar_t* pChar);
-	bool operator < (const wchar_t* pChar);
-	bool operator >= (TWideString& s);
-	bool operator >= (const wchar_t* pChar);
-	bool operator <= (TWideString& s);
-	bool operator <= (const wchar_t* pChar);
-	bool operator == (TWideString& s);
-	bool operator == (const wchar_t* pChar);
-	bool operator != (TWideString& s);
-	bool operator != (const wchar_t* pChar);
+	bool operator > (const wchar_t* pChar) const;
+	bool operator < (const wchar_t* pChar) const;
+	bool operator >= (TWideString& s) const;
+	bool operator >= (const wchar_t* pChar) const;
+	bool operator <= (TWideString& s) const;
+	bool operator <= (const wchar_t* pChar) const;
+	bool operator == (TWideString& s) const;
+	bool operator == (const wchar_t* pChar) const;
+	bool operator != (TWideString& s) const;
+	bool operator != (const wchar_t* pChar) const;
 	wchar_t& operator [] (int index);
 
 };

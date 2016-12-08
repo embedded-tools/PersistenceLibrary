@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-template<class K, class V, int N>
+template<typename K, typename V, int N>
 TStaticDictionary<K,V,N>::TStaticDictionary()
 {
     DataCount  = 0;
@@ -30,13 +30,13 @@ TStaticDictionary<K,V,N>::TStaticDictionary()
     memset((void*)&_Value, 0, sizeof(_Value));
 }
 
-template<class K, class V, int N>
+template<typename K, typename V, int N>
 TStaticDictionary<K,V,N>::~TStaticDictionary()
 {
     Clear();
 }
 
-template<class K, class V, int N>
+template<typename K, typename V, int N>
 void TStaticDictionary<K,V,N>::Add(K key, V value)
 {
 	int oldDataCount = DataCount;
@@ -49,7 +49,7 @@ void TStaticDictionary<K,V,N>::Add(K key, V value)
 };
 
 
-template<class K, class V, int N>
+template<typename K, typename V, int N>
 void TStaticDictionary<K,V,N>::Del(K key)
 {
 	int index = -1;
@@ -69,7 +69,7 @@ void TStaticDictionary<K,V,N>::Del(K key)
     SetCount(DataCount-1);
 };
 
-template<class K, class V, int N>
+template<typename K, typename V, int N>
 bool TStaticDictionary<K,V,N>::ContainsKey (K key)
 {
     bool result=false;
@@ -84,7 +84,7 @@ bool TStaticDictionary<K,V,N>::ContainsKey (K key)
     return result;
 }
 
-template<class K, class V, int N>
+template<typename K, typename V, int N>
 bool TStaticDictionary<K,V,N>::ContainsValue (V value)
 {
     bool result=false;
@@ -99,13 +99,50 @@ bool TStaticDictionary<K,V,N>::ContainsValue (V value)
     return result;
 }
 
-template<class K, class V, int N>
-int TStaticDictionary<K,V,N>::Count()
+
+template<typename K, typename V, int N>
+short TStaticDictionary<K, V, N>::FindKeyIndex(K key)
+{
+    short result = -1;
+    for(int i = 0; i<DataCount; i++)
+    {
+        if (Key[i]==key)
+        {
+            result = i;
+        }
+    }
+    return result;
+}
+
+template<typename K, typename V, int N>
+void* TStaticDictionary<K, V, N>::First()
+{
+    DataIterator = 0;
+    if (DataCount>0)
+    {
+        return &_Key[0];
+    }
+    return NULL;    
+};
+
+template<typename K, typename V, int N>
+void* TStaticDictionary<K, V, N>::Next()
+{
+    DataIterator++;
+    if (DataIterator<DataCount)
+    {
+        return &_Key[DataIterator];
+    }
+    return NULL;
+};
+
+template<typename K, typename V, int N>
+short TStaticDictionary<K,V,N>::Count()
 {
     return DataCount;
 };
 
-template<class K, class V, int N>
+template<typename K, typename V, int N>
 K&  TStaticDictionary<K,V,N>::Key(int index)
 {
 	if ((index>=0) || (index<DataCount))
@@ -118,14 +155,14 @@ K&  TStaticDictionary<K,V,N>::Key(int index)
 }
 
 
-template<class K, class V, int N>
+template<typename K, typename V, int N>
 int TStaticDictionary<K,V,N>::Capacity()
 {
     return DataMax;
 };
 
 
-template<class K, class V, int N>
+template<typename K, typename V, int N>
 int TStaticDictionary<K,V,N>::SetCount(int count)
 {
     if (count<0) count = 0;
@@ -137,13 +174,13 @@ int TStaticDictionary<K,V,N>::SetCount(int count)
     return DataCount;
 };
 
-template<class K, class V, int N>
+template<typename K, typename V, int N>
 void TStaticDictionary<K,V,N>::Clear()
 {
     SetCount(0);    
 };
 
-template<class K, class V, int N>
+template<typename K, typename V, int N>
 V& TStaticDictionary<K,V,N>::operator [] (K key)
 {
 	for(int i2 = 0; i2<DataCount; i2++)
@@ -154,7 +191,7 @@ V& TStaticDictionary<K,V,N>::operator [] (K key)
 		}
 	}
 	static V value;
-	value.Clear();
+    memset(&value, 0, sizeof(value));
     return value;
 }
 

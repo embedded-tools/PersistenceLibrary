@@ -17,9 +17,9 @@
 #include "tstream.h"
 #include <stdlib.h> 
 #include <stdio.h>
-#include "stringutils.h"
+#include "tstring.h"
 #include "tcustomstring.h"
-#include "tshortstring.h"
+#include "stringutils.h"
 
 TStream::TStream()
 {

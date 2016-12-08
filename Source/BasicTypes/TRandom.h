@@ -28,7 +28,7 @@ class TRandom
     public:
 
         static void Randomize(unsigned long newSeed);
-        static unsigned long GetRandomNumber(unsigned long max=4294967295);            
+        static unsigned long GetRandomNumber(unsigned long max=4294967295U);            
         static void GetRandomByteArray(unsigned char* pArray, unsigned long arrayLength);
 };
 

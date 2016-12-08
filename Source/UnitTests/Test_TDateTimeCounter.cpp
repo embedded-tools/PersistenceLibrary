@@ -37,6 +37,7 @@ public:
 
     void Increment()
     {
+		int i,j;
         TDateTimeCounter dtc;
 		dtc.SetDate(2016, 12, 31);
 		dtc.SetTime(23, 59, 59);
@@ -51,7 +52,7 @@ public:
 
         for(int i = 0; i<61; i++)
         {
-			for(int j = 0; j<50; j++)
+			for(j = 0; j<50; j++)
 			{
 				dtc.OnTimerTickMilliSeconds(20);
 			}
@@ -63,9 +64,9 @@ public:
 		ASSERT_EQUALS(1,    (int)dtc.GetMinute());
 		ASSERT_EQUALS(0,    (int)dtc.GetSecond());
 
-		for(int i = 0; i<61; i++)
+		for(i = 0; i<61; i++)
 		{
-			for(int j = 0; j<50; j++)
+			for(j = 0; j<50; j++)
 			{
 				dtc.OnTimerTickMilliSeconds(-20);
 			}

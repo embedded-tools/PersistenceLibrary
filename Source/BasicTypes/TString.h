@@ -48,15 +48,15 @@ public:
     // Constructor
     TString();
     TString(const char* pChar, unsigned short pCharLen=0);
-	TString(TString &s);
+	TString(const TString &s);
 
     // Destructor 
     ~TString();
 
-	unsigned short GetBufferSize();
-	bool  IsBufferStatic();
+	unsigned short GetBufferSize() const;
+	bool  IsBufferStatic() const;
 
-    unsigned short Length();
+    unsigned short Length() const;
 
     //setters
     void Clear(bool dontReleaseMemory=false);    
@@ -64,18 +64,18 @@ public:
     bool CopyFrom (const char* AData, unsigned short length=0);    
     
     //string operations    
-    bool Contains(const char* pChar);
-    bool Contains(char c);
-    int  IndexOf(const char* pChar, unsigned short startIndex=0);
-    int  IndexOf(char c, unsigned short startIndex=0);    
-	int  LastIndexOf(char c);
-	int  LastIndexOf(const char* pChar);
-	char FirstChar();
-	char LastChar();
+    bool Contains(const char* pChar) const;
+    bool Contains(char c) const;
+    int  IndexOf(const char* pChar, unsigned short startIndex=0) const;
+    int  IndexOf(char c, unsigned short startIndex=0) const;    
+	int  LastIndexOf(char c) const;
+	int  LastIndexOf(const char* pChar) const;
+	char FirstChar() const;
+	char LastChar() const;
  
     operator char* ();
     operator const char*();
-	const char* ToPChar();
+	const char* ToPChar() const;
   
     TString& Trim();
     TString& LowerCase();
@@ -90,19 +90,19 @@ public:
     TString& Replace(char oldChar, char newChar);
     unsigned short SetLength(unsigned short newLength, bool addSpaces=true);
 
-	TString& operator = ( TString &s);
+	TString& operator = ( const TString& s);
     TString& operator = ( const char* pChar);
     TString  operator + ( const char* pChar);
     TString& operator += ( const char* pChar);
     TString& operator += ( const char c);
 
     //operators
-    bool operator > (const char* pChar);
-    bool operator < (const char* pChar);
-    bool operator >= (const char* pChar);
-    bool operator <= (const char* pChar);
-    bool operator == (const char* pChar);
-    bool operator != (const char* pChar);
+    bool operator > (const char* pChar) const;
+    bool operator < (const char* pChar) const;
+    bool operator >= (const char* pChar) const;
+    bool operator <= (const char* pChar) const;
+    bool operator == (const char* pChar) const;
+    bool operator != (const char* pChar) const;
     char& operator [] (unsigned short index);
     char& operator [] (int index);
 

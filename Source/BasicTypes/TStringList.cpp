@@ -130,7 +130,7 @@ int TStringList::IndexOf (const char* s)
 
 void TStringList::Insert (int i, const char* s)
 {
-    Insert (0,s);
+    Insert (0, s, 0);
 }
 
 
@@ -424,9 +424,11 @@ const char* TStringList::GetString (int i)
     return ( (char*)(m_stringData+m_substringOffset[i]) );
 }
 
-TString TStringList::GetStringAsObject (int i)
+const TString TStringList::GetStringAsObject (int i)
 {
-    return GetString(i);
+    static TString tmp;
+    tmp = GetString(i);
+    return tmp;
 }
 
 const char* TStringList::GetStringArray()

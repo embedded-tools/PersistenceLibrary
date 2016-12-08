@@ -101,7 +101,8 @@ public:
         ASSERT(s3.Length()==21);
         ASSERT(s3=="ABCDEFGHIJKLMNOPQRST_");
 		
-        TShortString s4 = TShortString("(") + s1 + ")";
+        TShortString s4 = "(";
+        s4 += s1 + ")";
         ASSERT(s4=="(ABCDEFGHIJ)");
 		
         TShortString s5;
@@ -132,7 +133,8 @@ public:
         s5.Trim();
 		ASSERT(s5=="123");
 			
-		TShortString s7 = s4.Trim();
+		TShortString s7 = s4;
+        s7.Trim();
 		ASSERT(s7 =="123");
 		
 		TShortString s8 = "     ";
