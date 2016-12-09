@@ -632,7 +632,7 @@ class Test_StringUtils : public TestFixture<Test_StringUtils>
 		ASSERT_EQUALS((long)1000000,    (long)data[6]);
 		ASSERT_EQUALS((long)10000000,   (long)data[7]);
 		ASSERT_EQUALS((long)2147483647, (long)data[8]);
-		ASSERT_EQUALS((long)4294967295, (long)data[9]);
+		ASSERT_EQUALS(4294967295U,      (long)data[9]);
 
 	}
 };
