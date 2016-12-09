@@ -15,3 +15,89 @@
  */
 
 #include "tshortstring.h"
+
+TShortString::TShortString()
+{
+	PData = (char*)&Data;
+	DataLen = 0;
+	DataMax = SHORTSTRINGLENGTH+1;
+	DataStatic = true;
+	Clear();
+}
+
+TShortString::TShortString(const char* pChar, unsigned short pCharLen)
+	:TString()
+{
+	PData = (char*)&Data;
+	DataLen = 0;
+	DataMax = SHORTSTRINGLENGTH+1;
+	DataStatic = true;
+	CopyFrom(pChar, pCharLen);    
+}
+
+TShortString::TShortString(const TShortString& s)
+	:TString()
+{
+    PData = (char*)&Data;
+    DataLen = 0;
+    DataMax = SHORTSTRINGLENGTH+1;
+    DataStatic = true;
+    CopyFrom(s.ToPChar(), s.Length());    
+}
+
+TShortString& TShortString::operator = (const TShortString& oString )
+{
+    CopyFrom(oString.ToPChar());
+    return *this;
+}
+
+TShortString& TShortString::operator = (const TString& oString )
+{
+	CopyFrom(oString.ToPChar());
+	return *this;
+}
+
+TShortString& TShortString::operator = ( const char* pChar)
+{
+	CopyFrom(pChar);
+	return *this;
+}
+
+bool TShortString::operator == (TShortString& s)
+{
+	if ((ToPChar()==NULL) && (s.ToPChar()==NULL)) return true;
+	if (ToPChar()==NULL) return false;
+	if (s.ToPChar()==NULL) return false;
+	return strcmp(ToPChar(), s.ToPChar()) == 0;
+}
+
+bool TShortString::operator == (const char* pChar)
+{
+    if ((ToPChar()==NULL) && (pChar==NULL)) return true;
+    if ((ToPChar()==NULL) && (*pChar==0)) return true;
+	if (ToPChar()==NULL) return false;
+	if (pChar==NULL) return false;
+    return strcmp(ToPChar(), pChar) == 0;
+}
+
+bool TShortString::operator != (TShortString& s)
+{
+    if ((ToPChar()==NULL) && (s.ToPChar()==NULL)) return false;
+    if (ToPChar()==NULL) return true;
+    if (s.ToPChar()==NULL) return true;
+    return strcmp(ToPChar(), s.ToPChar()) != 0;
+}
+
+bool TShortString::operator != (const char* pChar)
+{
+    if ((ToPChar()==NULL) && (pChar==NULL)) return false;
+    if (ToPChar()==NULL) return true;
+    if (pChar==NULL) return true;
+    return strcmp(ToPChar(), pChar) != 0;
+}
+
+
+int TShortString::MaxLength()
+{
+    return SHORTSTRINGLENGTH-1;
+}
