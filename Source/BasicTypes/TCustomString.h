@@ -29,7 +29,7 @@
 template<int LENGTH>
 class TCustomString : public TString
 {
-private:
+protected:
     unsigned char  Data[LENGTH+1];  
 
 public:

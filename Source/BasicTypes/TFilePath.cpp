@@ -41,57 +41,65 @@ void TFilePath::ChangeSeparator(char separator)
 	m_separator = separator;
 }
 
-const char* TFilePath::ExtractFileName(const char* filename)
+const char* TFilePath::ExtractFileName()
 {
 	const char* result = NULL;
-	int i = StrLen(filename)-1;
+	int i = DataLen-1;
 	while(i >= 0)
 	{
-		if ((filename[i]==92) || (filename[i]=='/')) break;
+		if ((Data[i]==92) || (Data[i]=='/')) break;
+        result = (const char*)(Data + i);
 		i--;
 	};
 	return result;
 };
 
-const char* TFilePath::ExtractFileExt (const char* filename)
+const char* TFilePath::ExtractFileExt ()
 {
 	const char* result = NULL;
-	int i = StrLen(filename);
+	int i = DataLen-1;
 	while(i >= 0)
 	{
-		if (filename[i] == '.')	break;
+		if (Data[i] == '.')	
+        {
+            result = (const char*)(Data + i);
+            break;
+        }        
 		i--;
 	};
 	return result;
 };
 
-TFilePath TFilePath::ExtractFileDirectory(const char* filename)
+TFilePath TFilePath::ExtractFileDirectory()
 {
-	int i = StrLen(filename);
+	int i = DataLen-1;
 	while(i >= 0)
 	{
-		if (filename[i] == '\\') break;
-		if (filename[i] == '/') break;
+		if (Data[i] == '\\') break;
+		if (Data[i] == '/') break;
 		i--;
 	}
-	TFilePath result(filename, i);
+	TFilePath result((const char*)Data, i+1);
 	return result;
 };
 
-TFilePath TFilePath::ExtractRelativePath (const char* dir, const char* basedir)
+/*
+
+//not debugged yet
+TFilePath TFilePath::ExtractRelativePath (const char* basedir)
 {
 	int c,n;
-	char* ss1;
-	char* ss2;
-	char* pp1;
-	char* pp2;
+	unsigned char* ss1;
+	unsigned char* ss2;
+	unsigned char* pp1;
+	unsigned char* pp2;
 
 	TFilePath result;
 
-	pp1=(char*) dir;     ss1=pp1;
-	pp2=(char*) basedir; ss2=pp2;
+	pp1=Data;     ss1=pp1;
+	pp2=(unsigned char*) basedir; ss2=pp2;
 	n=0;
-	for (c=1; c<=StrLen(dir); c++) 
+	for (c=1; c<=DataLen; c++) 
 	{
 		//case insensitive string comparison
 		if ((*ss1 & 0xDF) != (*ss2 & 0xDF)) break;
@@ -122,11 +130,11 @@ TFilePath TFilePath::ExtractRelativePath (const char* dir, const char* basedir)
 			result += "..";
 			result += m_separator;
 		}
-		if (pp1==dir) result=(const char*)pp1;
+		if (pp1==Data) result=(char*)pp1;
 		else result += (const char*)pp1;
 	}
 	return (result);  
-}
+}*/
 
 bool TFilePath::ChangeFileExt (const char* ext)
 {

@@ -23,6 +23,10 @@ class Test_TFilePath : public TestFixture<Test_TFilePath>
 		TEST_CASE( MergingFileNames8 );
         TEST_CASE( MergingFileNames9 );
         TEST_CASE( MergingFileNames10 );
+        TEST_CASE( ExtractFileExt );
+        TEST_CASE( ExtractFileName );
+        TEST_CASE( ExtractFileDirectory );
+
     }
 
 
@@ -148,6 +152,50 @@ class Test_TFilePath : public TestFixture<Test_TFilePath>
         TFilePath path3 = path1 + path2;
         ASSERT(path3=="E:\\DD.EEE");
     }
+
+    void ExtractFileExt()
+    {
+        TFilePath path1 = "A\\BB\\CCC\\DDDD.EEEEE";
+        TString ext1 = path1.ExtractFileExt();
+        ASSERT(ext1==".EEEEE");
+
+        TFilePath path2 = "A\\BB\\CCC\\DDDD";
+        TString ext2 = path2.ExtractFileExt();
+        ASSERT(ext2.Length()==0);
+
+    }
+
+    void ExtractFileName()
+    {
+        TFilePath path1 = "A\\BB\\CCC\\DDDD.EEEEE";
+        TString file1 = path1.ExtractFileName();
+        ASSERT(file1=="DDDD.EEEEE");
+
+        TFilePath path2 = "A\\BB\\CCC\\DDDD";
+        TString file2 = path2.ExtractFileName();
+        ASSERT(file2=="DDDD");
+
+        TFilePath path3 = "DDDD.E";
+        TString file3 = path3.ExtractFileName();
+        ASSERT(file3=="DDDD.E");
+    }
+
+    void ExtractFileDirectory()
+    {
+        TFilePath path1 = "A\\BB\\CCC\\DDDD.EEEEE";
+        TString dir1 = path1.ExtractFileDirectory();
+        ASSERT(dir1=="A\\BB\\CCC\\");
+
+        TFilePath path2 = "A\\BB\\CCC\\";
+        TString dir2 = path2.ExtractFileDirectory();
+        ASSERT(dir2=="A\\BB\\CCC\\");
+
+        TFilePath path3 = "A\\BB\\CCC";
+        TString dir3 = path3.ExtractFileDirectory();
+        ASSERT(dir3=="A\\BB\\");
+
+    }
+
 
 
 };

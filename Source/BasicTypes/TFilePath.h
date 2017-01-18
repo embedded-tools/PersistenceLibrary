@@ -33,11 +33,11 @@ class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
 
 		void ChangeSeparator(char separator);
 
-		const char* ExtractFileName(const char* filename);
-		const char* ExtractFileExt(const char* filename);
+		const char* ExtractFileName();
+		const char* ExtractFileExt();
+		TFilePath   ExtractFileDirectory();
 
-		TFilePath   ExtractFileDirectory(const char* filename);
-		TFilePath   ExtractRelativePath (const char* dir, const char* basedir);
+		//TFilePath   ExtractRelativePath (const char* basedir);
 
 		bool        ChangeFileExt  (const char* pszNewExtension);
 		bool        ChangeFileName (const char* pszNewFilename);

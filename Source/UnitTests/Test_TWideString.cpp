@@ -123,7 +123,7 @@ public:
 		ASSERT(s1==L"!@#$%^&*()_+??+@abyz~abyz");
 		
 		s1.UpperCase();
-		ASSERT(s1==L" !@#$%^&*()_+??+@ABYZ~ABYZ");
+		ASSERT(s1==L"!@#$%^&*()_+??+@ABYZ~ABYZ");
 		
 		
 		TWideString s2 = L"             ";
