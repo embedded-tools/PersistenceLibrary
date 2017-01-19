@@ -1,4 +1,5 @@
 #include "UTF8.h"
+#include <string.h>
 
 
 int UTF8TextToUnicodeText(const char* utf8text, wchar_t* unicodeBuffer, unsigned long unicodeMaxCharacterCount)

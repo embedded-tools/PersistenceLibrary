@@ -50,7 +50,7 @@ public:
 		ASSERT_EQUALS(59,   (int)dtc.GetSecond());
 
 
-        for(int i = 0; i<61; i++)
+        for(i = 0; i<61; i++)
         {
 			for(j = 0; j<50; j++)
 			{
