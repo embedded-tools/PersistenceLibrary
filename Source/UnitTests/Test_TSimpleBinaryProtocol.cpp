@@ -1,5 +1,5 @@
 #include "minicppunit.hxx"
-#include "TSRProtocol.h"
+#include "TSimpleBinaryProtocol.h"
 
 static unsigned char  dataInTheWire[512];
 static unsigned short dataInTheWireLength;
@@ -18,7 +18,7 @@ static unsigned short packetsSent = 0;
 static unsigned short packetErrors = 0;
 
 
-class Test_TSRProtocol : public TestFixture<Test_TSRProtocol>
+class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol>
 {
 
   private:
@@ -27,7 +27,7 @@ class Test_TSRProtocol : public TestFixture<Test_TSRProtocol>
   public:
 
 
-    TEST_FIXTURE( Test_TSRProtocol)
+    TEST_FIXTURE( Test_TSimpleBinaryProtocol)
     {
         TEST_CASE( Construct );
         TEST_CASE( SendPing );
@@ -44,18 +44,18 @@ class Test_TSRProtocol : public TestFixture<Test_TSRProtocol>
         dataInTheWireLength++;
     }
 
-    static void PacketReceived(unsigned short busAddress, ePacketType packetType, short packetId, short command, unsigned short customParam1, unsigned short customParam2, unsigned long dataSize, unsigned char* data )
+    static void PacketReceived(unsigned short busAddress, short command, short customParam1, short customParam2, unsigned short dataSize, unsigned char* data )
     {
 		incomingDataLength = dataSize;
         packetsReceived++;
     }
 
-    static void PacketError(unsigned short busAddress, ePacketType packetType, short packetId, short command, unsigned short customParam1, unsigned short customParam2, unsigned long dataSize, unsigned char* data )
+    static void PacketError(unsigned short busAddress, short command, short customParam1, short customParam2, unsigned short dataSize, unsigned char* data )
     {
         packetErrors++;        
     }
 
-    static void PacketSent(unsigned short busAddress, ePacketType packetType, short packetId, short command, unsigned short customParam1, unsigned short customParam2, unsigned long dataSize, unsigned char* data )
+    static void PacketSent(unsigned short busAddress, short command, short customParam1, short customParam2, unsigned short dataSize, unsigned char* data )
     {
         packetsSent++;
     }
@@ -77,7 +77,7 @@ class Test_TSRProtocol : public TestFixture<Test_TSRProtocol>
 
     void Construct()
     {
-        TSRProtocol prot;
+        TSimpleBinaryProtocol prot;
         prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
    	}
 
@@ -91,52 +91,55 @@ class Test_TSRProtocol : public TestFixture<Test_TSRProtocol>
         packetsSent = 0;
         packetErrors = 0;
 
-        TSRProtocol prot;
+        TSimpleBinaryProtocol prot;
         prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
         prot.SendPing(35);
         for(int i = 0; i<100; i++)
         {
             prot.OnByteSent();
         }
-        ASSERT(dataInTheWireLength==20);
+        ASSERT(dataInTheWireLength==14);
 
         ASSERT(packetsReceived==0);
         ASSERT(packetErrors == 0);
         ASSERT(packetsSent == 1);
-
+        
         unsigned char*  magicByte1    = &dataInTheWire[0];
         unsigned char*  magicByte2    = &dataInTheWire[1];
         unsigned short* deviceAddress = (unsigned short*)&dataInTheWire[2];
-        unsigned char*  packetType    = &dataInTheWire[4];
-        unsigned char*  reserved      = &dataInTheWire[5];
-        unsigned short* packetId      = (unsigned short*)&dataInTheWire[6];
-        unsigned short* command       = (unsigned short*)&dataInTheWire[8];
-        unsigned short* param1        = (unsigned short*)&dataInTheWire[10];
-        unsigned short* param2        = (unsigned short*)&dataInTheWire[12];
-        unsigned long*  dataSize      = (unsigned long*)&dataInTheWire[14];
-        unsigned short* headerCRC     = (unsigned short*)&dataInTheWire[18];
+        unsigned short* command       = (unsigned short*)&dataInTheWire[4];
+        unsigned short* param1        = (unsigned short*)&dataInTheWire[6];
+        unsigned short* param2        = (unsigned short*)&dataInTheWire[8];
+        unsigned short* dataSize      = (unsigned short*)&dataInTheWire[10];
+        unsigned short* headerCRC     = (unsigned short*)&dataInTheWire[12];
 
         ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_1, (long)*magicByte1);
         ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_2, (long)*magicByte2);
         ASSERT_EQUALS(35, (long)*deviceAddress);
-        ASSERT_EQUALS((long)ptCommand, (long)*packetType);
-        ASSERT_EQUALS(0, (long)*reserved);
-        ASSERT_EQUALS(1, (long)*packetId);
         ASSERT_EQUALS(SRPROTOCOL_PING, (long)*command);
         ASSERT_EQUALS(0, (long)*param1);
         ASSERT_EQUALS(0, (long)*param2);
         ASSERT_EQUALS(0, (long)*dataSize);
-        ASSERT_EQUALS(57817, (long)*headerCRC);
+        ASSERT_EQUALS(5427, (long)*headerCRC);
     }
 
     void ReceivePing()
     {
-        TSRProtocol prot;
+        TSimpleBinaryProtocol prot;
         prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
 
         packetsReceived = 0;
         packetsSent = 0;
         packetErrors = 0;
+        for(int i = 0; i<dataInTheWireLength; i++)
+        {
+            prot.OnByteReceived(dataInTheWire[i]);
+        }
+        ASSERT(packetsReceived==0);
+        ASSERT(packetErrors == 0);
+        ASSERT(packetsSent == 0);
+
+        prot.SetBusAddress(35);
         for(int i = 0; i<dataInTheWireLength; i++)
         {
             prot.OnByteReceived(dataInTheWire[i]);
@@ -148,7 +151,7 @@ class Test_TSRProtocol : public TestFixture<Test_TSRProtocol>
 
 	void SendDataViaBuffer()
 	{
-        TSRProtocol prot;
+        TSimpleBinaryProtocol prot;
 		prot.SetDataBuffer(incomingData, incomingDataLength);
         prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
 
@@ -164,7 +167,7 @@ class Test_TSRProtocol : public TestFixture<Test_TSRProtocol>
 		outgoingData[2] = 'T';
 		outgoingData[3] = 'X';
 
-		prot.SendCommand(1234, 111, outgoingDataLength, outgoingData);
+		prot.SendCommand(1234, 111, outgoingData, outgoingDataLength);
 		for(int i = 0; i<100; i++)
 		{
 			prot.OnByteSent();
@@ -173,38 +176,40 @@ class Test_TSRProtocol : public TestFixture<Test_TSRProtocol>
 		unsigned char*  magicByte1    = &dataInTheWire[0];
 		unsigned char*  magicByte2    = &dataInTheWire[1];
 		unsigned short* deviceAddress = (unsigned short*)&dataInTheWire[2];
-		unsigned char*  packetType    = &dataInTheWire[4];
-		unsigned char*  reserved      = &dataInTheWire[5];
-		unsigned short* packetId      = (unsigned short*)&dataInTheWire[6];
-		unsigned short* command       = (unsigned short*)&dataInTheWire[8];
-		unsigned short* param1        = (unsigned short*)&dataInTheWire[10];
-		unsigned short* param2        = (unsigned short*)&dataInTheWire[12];
-		unsigned long*  dataSize      = (unsigned long*)&dataInTheWire[14];
-		unsigned short* headerCRC     = (unsigned short*)&dataInTheWire[18];
+		unsigned short* command       = (unsigned short*)&dataInTheWire[4];
+		unsigned short* param1        = (unsigned short*)&dataInTheWire[6];
+		unsigned short* param2        = (unsigned short*)&dataInTheWire[8];
+		unsigned short* dataSize      = (unsigned short*)&dataInTheWire[10];
+		unsigned short* headerCRC     = (unsigned short*)&dataInTheWire[12];
+        unsigned char   b1            = dataInTheWire[14];
+        unsigned char   b2            = dataInTheWire[15];
+        unsigned char   b3            = dataInTheWire[16];
+        unsigned char   b4            = dataInTheWire[17];
+        unsigned short*  dataCRC       = (unsigned short*)&dataInTheWire[18];
+
 
 		ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_1, (long)*magicByte1);
 		ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_2, (long)*magicByte2);
 		ASSERT_EQUALS(1234, (long)*deviceAddress);
-		ASSERT_EQUALS((long)ptCommand, (long)*packetType);
-		ASSERT_EQUALS(0, (long)*reserved);
-		ASSERT_EQUALS(1, (long)*packetId);
 		ASSERT_EQUALS(111, (long)*command);
 		ASSERT_EQUALS(0, (long)*param1);
 		ASSERT_EQUALS(0, (long)*param2);
 		ASSERT_EQUALS(4, (long)*dataSize);
-		ASSERT_EQUALS(6043, (long)*headerCRC);
+		ASSERT_EQUALS(39258, (long)*headerCRC);
 
-		ASSERT_EQUALS(26,   (long)dataInTheWireLength);
-		ASSERT_EQUALS('D', (long)dataInTheWire[20]);
-		ASSERT_EQUALS('A', (long)dataInTheWire[21]);
-		ASSERT_EQUALS('T', (long)dataInTheWire[22]);
-		ASSERT_EQUALS('X', (long)dataInTheWire[23]);
+		ASSERT_EQUALS(20,  (long)dataInTheWireLength);
+		ASSERT_EQUALS('D', (long)b1);
+		ASSERT_EQUALS('A', (long)b2);
+		ASSERT_EQUALS('T', (long)b3);
+		ASSERT_EQUALS('X', (long)b4);
+        ASSERT_EQUALS(54578, (long)*dataCRC);
 
 	}
 
 	void ReceiveViaDataBuffer()
 	{
-		TSRProtocol prot;
+		TSimpleBinaryProtocol prot;
+        prot.SetBusAddress(1234);
 		prot.SetDataBuffer(incomingData, sizeof(incomingData));
 		prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
 
@@ -233,8 +238,8 @@ class Test_TSRProtocol : public TestFixture<Test_TSRProtocol>
 		eeprom[3] = 44;
 		unsigned long eepromDataLength = 4;
 
-		TSRProtocol prot;
-		prot.SetDataHandlers(WriteDataToEEPROM, ReadDataFromEEPROM);
+		TSimpleBinaryProtocol prot;
+		prot.SetOnFlyDataHandlers(WriteDataToEEPROM, ReadDataFromEEPROM);
 		prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
 
 		dataInTheWireLength = 0;
@@ -242,43 +247,41 @@ class Test_TSRProtocol : public TestFixture<Test_TSRProtocol>
 		packetsSent = 0;
 		packetErrors = 0;
 
-		prot.SendCommand(1234, 111, eepromDataLength, NULL);
+		prot.SendCommand(1234, 111, NULL, eepromDataLength);
 		for(int i = 0; i<100; i++)
 		{
 			prot.OnByteSent();
 		}
 
-		unsigned char*  magicByte1    = &dataInTheWire[0];
-		unsigned char*  magicByte2    = &dataInTheWire[1];
-		unsigned short* deviceAddress = (unsigned short*)&dataInTheWire[2];
-		unsigned char*  packetType    = &dataInTheWire[4];
-		unsigned char*  reserved      = &dataInTheWire[5];
-		unsigned short* packetId      = (unsigned short*)&dataInTheWire[6];
-		unsigned short* command       = (unsigned short*)&dataInTheWire[8];
-		unsigned short* param1        = (unsigned short*)&dataInTheWire[10];
-		unsigned short* param2        = (unsigned short*)&dataInTheWire[12];
-		unsigned long*  dataSize      = (unsigned long*)&dataInTheWire[14];
-		unsigned short* headerCRC     = (unsigned short*)&dataInTheWire[18];
-		unsigned short* dataCRC       = (unsigned short*)&dataInTheWire[24];
+        unsigned char*  magicByte1    = &dataInTheWire[0];
+        unsigned char*  magicByte2    = &dataInTheWire[1];
+        unsigned short* deviceAddress = (unsigned short*)&dataInTheWire[2];
+        unsigned short* command       = (unsigned short*)&dataInTheWire[4];
+        unsigned short* param1        = (unsigned short*)&dataInTheWire[6];
+        unsigned short* param2        = (unsigned short*)&dataInTheWire[8];
+        unsigned short* dataSize      = (unsigned short*)&dataInTheWire[10];
+        unsigned short* headerCRC     = (unsigned short*)&dataInTheWire[12];
+        unsigned char   b1            = dataInTheWire[14];
+        unsigned char   b2            = dataInTheWire[15];
+        unsigned char   b3            = dataInTheWire[16];
+        unsigned char   b4            = dataInTheWire[17];
+        unsigned short*  dataCRC       = (unsigned short*)&dataInTheWire[18];
 
-		ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_1, (long)*magicByte1);
-		ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_2, (long)*magicByte2);
-		ASSERT_EQUALS(1234, (long)*deviceAddress);
-		ASSERT_EQUALS((long)ptCommand, (long)*packetType);
-		ASSERT_EQUALS(0, (long)*reserved);
-		ASSERT_EQUALS(1, (long)*packetId);
-		ASSERT_EQUALS(111, (long)*command);
-		ASSERT_EQUALS(0, (long)*param1);
-		ASSERT_EQUALS(0, (long)*param2);
-		ASSERT_EQUALS(4, (long)*dataSize);
-		ASSERT_EQUALS(6043, (long)*headerCRC);
+        ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_1, (long)*magicByte1);
+        ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_2, (long)*magicByte2);
+        ASSERT_EQUALS(1234, (long)*deviceAddress);
+        ASSERT_EQUALS(111, (long)*command);
+        ASSERT_EQUALS(0, (long)*param1);
+        ASSERT_EQUALS(0, (long)*param2);
+        ASSERT_EQUALS(4, (long)*dataSize);
+        ASSERT_EQUALS(39258, (long)*headerCRC);
 
-		ASSERT_EQUALS(26, (long)dataInTheWireLength);
-		ASSERT_EQUALS(11, (long)dataInTheWire[20]);
-		ASSERT_EQUALS(22, (long)dataInTheWire[21]);
-		ASSERT_EQUALS(33, (long)dataInTheWire[22]);
-		ASSERT_EQUALS(44, (long)dataInTheWire[23]);
-		ASSERT_EQUALS(50521, (long)*dataCRC);
+        ASSERT_EQUALS(20,  (long)dataInTheWireLength);
+        ASSERT_EQUALS(11, (long)b1);
+        ASSERT_EQUALS(22, (long)b2);
+        ASSERT_EQUALS(33, (long)b3);
+        ASSERT_EQUALS(44, (long)b4);
+        ASSERT_EQUALS(56430, (long)*dataCRC);
 
 	}
 
@@ -289,8 +292,9 @@ class Test_TSRProtocol : public TestFixture<Test_TSRProtocol>
 		eeprom[2] = 0;
 		eeprom[3] = 0;
 
-		TSRProtocol prot;
-		prot.SetDataHandlers(WriteDataToEEPROM, ReadDataFromEEPROM);
+		TSimpleBinaryProtocol prot;
+        prot.SetBusAddress(1234);
+		prot.SetOnFlyDataHandlers(WriteDataToEEPROM, ReadDataFromEEPROM);
 		prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
 
 		packetsReceived = 0;
@@ -315,6 +319,6 @@ class Test_TSRProtocol : public TestFixture<Test_TSRProtocol>
 
 };
 
-REGISTER_FIXTURE( Test_TSRProtocol);
+REGISTER_FIXTURE( Test_TSimpleBinaryProtocol);
 
 
