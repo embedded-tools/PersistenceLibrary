@@ -10,12 +10,12 @@ LD      = arm-none-eabi-g++
 
 INC=-I./\
     -I./Source/BasicTypes\
-	-I./Source/Collections\
-	-I./Source/FileUtils\
-	-I./Source/Graphics\
-	-I./Source/Math\
-	-I./Source/Persistence\
-	-I./Source/Protocols\
+    -I./Source/Collections\
+    -I./Source/FileUtils\
+    -I./Source/Graphics\
+    -I./Source/Math\
+    -I./Source/Persistence\
+    -I./Source/Protocols\
     -I./Source/UnitTests\
     -I./Source/UnitTests\PersistenceExample
 
@@ -82,8 +82,7 @@ SRC=	./Source/BasicTypes/StringUtils.cpp\
 	./Source/Persistence/TXMLCache.cpp\
 	./Source/Persistence/TXMLParser.cpp\
 	./Source/Persistence/TXMLTypes.cpp\
-	./Source/Protocols/TProtocol.cpp\
-	./Source/Protocols/TSRProtocol.cpp\
+	./Source/Protocols/TBinaryProtocol.cpp\
  	./Source/UnitTests/Test_LZ77.cpp\
 	./Source/UnitTests/Test_Persistence.cpp\
 	./Source/UnitTests/Test_StringUtils.cpp\
@@ -104,7 +103,7 @@ SRC=	./Source/BasicTypes/StringUtils.cpp\
 	./Source/UnitTests/Test_TMemoryStream.cpp\
 	./Source/UnitTests/Test_TRandom.cpp\
 	./Source/UnitTests/Test_TShortString.cpp\
-	./Source/UnitTests/Test_TSRProtocol.cpp\
+	./Source/UnitTests/Test_TBinaryProtocol.cpp\
 	./Source/UnitTests/Test_TStaticQueue.cpp\
 	./Source/UnitTests/Test_TString.cpp\
 	./Source/UnitTests/Test_TStringList.cpp\
@@ -139,8 +138,8 @@ COBJ = $(CFILES:.c=.o)
 OBJ  = $(CPPOBJ) $(COBJ) $(SOBJ)
     
 all: $(SRC)	
-	@$(CPP) $(INC) $(CPPFILES) -c
-	@$(CC) $(INC) $(CFILES) -c
+	$(CPP) $(INC) $(CPPFILES) -c
+	$(CC) $(INC) $(CFILES) -c
 	#$(LD) $(LDFLAGS) $(OBJ) -o libtest.exe
     
 clean:

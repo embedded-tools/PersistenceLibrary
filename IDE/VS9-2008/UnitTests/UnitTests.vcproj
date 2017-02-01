@@ -298,6 +298,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TBinaryProtocol.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TCachedFileStream.cpp"
 				>
 			</File>
@@ -367,10 +371,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TShortString.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\UnitTests\Test_TSimpleBinaryProtocol.cpp"
 				>
 			</File>
 			<File

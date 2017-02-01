@@ -1,24 +1,17 @@
 #include "minicppunit.hxx"
-#include "TSimpleBinaryProtocol.h"
+#include "TBinaryProtocol.h"
 
 static unsigned char  dataInTheWire[512];
 static unsigned short dataInTheWireLength;
-
-/*
-static unsigned char  outgoingData[512];
-static unsigned long  outgoingDataLength;
-*/
 static unsigned char  eeprom[256];
-
 static unsigned char  incomingData[512];
-static unsigned long  incomingDataLength;
-
+static unsigned short incomingDataLength;
 static unsigned short packetsReceived = 0;
 static unsigned short packetsSent = 0;
 static unsigned short packetErrors = 0;
 
 
-class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol>
+class Test_TBinaryProtocol : public TestFixture<Test_TBinaryProtocol>
 {
 
   private:
@@ -27,7 +20,7 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
   public:
 
 
-    TEST_FIXTURE( Test_TSimpleBinaryProtocol)
+    TEST_FIXTURE( Test_TBinaryProtocol)
     {
         TEST_CASE( Construct );
         TEST_CASE( SendPing );
@@ -44,29 +37,74 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
         dataInTheWireLength++;
     }
 
-    static void PacketReceived(unsigned short busAddress, short command, short customParam1, short customParam2, unsigned short dataSize, unsigned char* data )
+    static void CommandReceived(TBinaryProtocol* sender, unsigned short busAddress, unsigned short command, short customParam1, short customParam2, unsigned short dataSize, unsigned char* data )
     {
+        if (command & 0x8000)
+        {
+            return;
+        }
+        unsigned char* pOutputData = NULL;
+        unsigned short outputDataSize = 0;
+        unsigned short errorCode = 0;
+        switch(command)
+        {
+            case ecLedGreenOn:
+            case ecLedGreenOff:
+            case ecLedGreenToggle:
+            case ecLedRedOn:
+            case ecLedRedOff:
+            case ecLedRedToggle:
+            case ecOutputOn:
+            case ecOutputOff:
+            case ecOutputToggle:
+            case ecBeep:
+            case ecReadConfiguration:
+                {
+                    pOutputData = NULL;
+                    outputDataSize = 0;
+                }
+                break;
+            case ecStoreConfiguration:
+            case ecReadData:
+                {
+                    pOutputData = NULL;
+                    outputDataSize = 0;
+                }
+                break;
+            case ecWriteData:
+            case ecOpenPort:
+            case ecClosePort:
+            case ecWriteToPort:
+            case ecReadFromPort:
+            case ecCustomCommand:
+                {
+
+                }
+                break;
+        }
+        sender->SendCustomResponse(command, errorCode, customParam1, customParam2, pOutputData, outputDataSize);
+
 		incomingDataLength = dataSize;
         packetsReceived++;
     }
 
-    static void PacketError(unsigned short busAddress, short command, short customParam1, short customParam2, unsigned short dataSize, unsigned char* data )
+    static void CommandReceivingError(TBinaryProtocol* sender, unsigned short busAddress, unsigned short command, short customParam1, short customParam2, unsigned short dataSize, unsigned char* data )
     {
         packetErrors++;        
     }
 
-    static void PacketSent(unsigned short busAddress, short command, short customParam1, short customParam2, unsigned short dataSize, unsigned char* data )
+    static void CommandSent(TBinaryProtocol* sender, unsigned short busAddress, unsigned short command, short customParam1, short customParam2, unsigned short dataSize, unsigned char* data )
     {
         packetsSent++;
     }
 
-	static unsigned char ReadDataFromEEPROM(unsigned long address)
+	static unsigned char ReadDataFromEEPROM(unsigned short address)
 	{
 		//reading data from source directly without any buffer
 		return eeprom[address];
 	}
 
-	static void WriteDataToEEPROM(unsigned long address, unsigned char value)
+	static void WriteDataToEEPROM(unsigned short address, unsigned char value)
 	{
 		if (address<0) return;
 		if (address>=sizeof(eeprom)) return;
@@ -77,8 +115,8 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
 
     void Construct()
     {
-        TSimpleBinaryProtocol prot;
-        prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
+        TBinaryProtocol prot;
+        prot.SetEventHandlers(SendByte, CommandReceived, CommandReceivingError, CommandSent);
    	}
 
     void SendPing()
@@ -91,8 +129,8 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
         packetsSent = 0;
         packetErrors = 0;
 
-        TSimpleBinaryProtocol prot;
-        prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
+        TBinaryProtocol prot;
+        prot.SetEventHandlers(SendByte, CommandReceived, CommandReceivingError, CommandSent);
         prot.SendPing(35);
         for(int i = 0; i<100; i++)
         {
@@ -106,27 +144,27 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
         
         unsigned char*  magicByte1    = &dataInTheWire[0];
         unsigned char*  magicByte2    = &dataInTheWire[1];
-        unsigned short* deviceAddress = (unsigned short*)&dataInTheWire[2];
-        unsigned short* command       = (unsigned short*)&dataInTheWire[4];
+        unsigned short* command       = (unsigned short*)&dataInTheWire[2];
+        unsigned short* deviceAddress = (unsigned short*)&dataInTheWire[4];        
         unsigned short* param1        = (unsigned short*)&dataInTheWire[6];
         unsigned short* param2        = (unsigned short*)&dataInTheWire[8];
         unsigned short* dataSize      = (unsigned short*)&dataInTheWire[10];
         unsigned short* headerCRC     = (unsigned short*)&dataInTheWire[12];
 
-        ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_1, (long)*magicByte1);
-        ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_2, (long)*magicByte2);
-        ASSERT_EQUALS(35, (long)*deviceAddress);
-        ASSERT_EQUALS(SRPROTOCOL_PING, (long)*command);
+        ASSERT_EQUALS(BINPROTOCOL_MAGIC_BYTE_1, (long)*magicByte1);
+        ASSERT_EQUALS(BINPROTOCOL_MAGIC_BYTE_2, (long)*magicByte2);
+        ASSERT_EQUALS(BINPROTOCOL_PING, (long)*command);
+        ASSERT_EQUALS(35, (long)*deviceAddress);        
         ASSERT_EQUALS(0, (long)*param1);
         ASSERT_EQUALS(0, (long)*param2);
         ASSERT_EQUALS(0, (long)*dataSize);
-        ASSERT_EQUALS(5427, (long)*headerCRC);
+        ASSERT_EQUALS(52787, (long)*headerCRC);
     }
 
     void ReceivePing()
     {
-        TSimpleBinaryProtocol prot;
-        prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
+        TBinaryProtocol prot;
+        prot.SetEventHandlers(SendByte, CommandReceived, CommandReceivingError, CommandSent);
 
         packetsReceived = 0;
         packetsSent = 0;
@@ -151,9 +189,9 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
 
 	void SendDataViaBuffer()
 	{
-        TSimpleBinaryProtocol prot;
+        TBinaryProtocol prot;
 		prot.SetDataBuffer(incomingData, incomingDataLength);
-        prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
+        prot.SetEventHandlers(SendByte, CommandReceived, CommandReceivingError, CommandSent);
 
 		dataInTheWireLength = 0;
         packetsReceived = 0;
@@ -161,13 +199,13 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
         packetErrors = 0;
 
 		unsigned char outgoingData[4];
-		unsigned long outgoingDataLength = 4;
+		unsigned short outgoingDataLength = 4;
 		outgoingData[0] = 'D';
 		outgoingData[1] = 'A';
 		outgoingData[2] = 'T';
 		outgoingData[3] = 'X';
 
-		prot.SendCommand(1234, 111, outgoingData, outgoingDataLength);
+		prot.SendCustomCommand(111, 1234, 0, 0, outgoingData, outgoingDataLength);
 		for(int i = 0; i<100; i++)
 		{
 			prot.OnByteSent();
@@ -175,8 +213,8 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
 
 		unsigned char*  magicByte1    = &dataInTheWire[0];
 		unsigned char*  magicByte2    = &dataInTheWire[1];
-		unsigned short* deviceAddress = (unsigned short*)&dataInTheWire[2];
-		unsigned short* command       = (unsigned short*)&dataInTheWire[4];
+        unsigned short* command       = (unsigned short*)&dataInTheWire[2];
+		unsigned short* deviceAddress = (unsigned short*)&dataInTheWire[4];		
 		unsigned short* param1        = (unsigned short*)&dataInTheWire[6];
 		unsigned short* param2        = (unsigned short*)&dataInTheWire[8];
 		unsigned short* dataSize      = (unsigned short*)&dataInTheWire[10];
@@ -188,14 +226,14 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
         unsigned short*  dataCRC       = (unsigned short*)&dataInTheWire[18];
 
 
-		ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_1, (long)*magicByte1);
-		ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_2, (long)*magicByte2);
-		ASSERT_EQUALS(1234, (long)*deviceAddress);
+		ASSERT_EQUALS(BINPROTOCOL_MAGIC_BYTE_1, (long)*magicByte1);
+		ASSERT_EQUALS(BINPROTOCOL_MAGIC_BYTE_2, (long)*magicByte2);		
 		ASSERT_EQUALS(111, (long)*command);
+        ASSERT_EQUALS(1234, (long)*deviceAddress);
 		ASSERT_EQUALS(0, (long)*param1);
 		ASSERT_EQUALS(0, (long)*param2);
 		ASSERT_EQUALS(4, (long)*dataSize);
-		ASSERT_EQUALS(39258, (long)*headerCRC);
+		ASSERT_EQUALS(51802, (long)*headerCRC);
 
 		ASSERT_EQUALS(20,  (long)dataInTheWireLength);
 		ASSERT_EQUALS('D', (long)b1);
@@ -208,10 +246,10 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
 
 	void ReceiveViaDataBuffer()
 	{
-		TSimpleBinaryProtocol prot;
+		TBinaryProtocol prot;
         prot.SetBusAddress(1234);
 		prot.SetDataBuffer(incomingData, sizeof(incomingData));
-		prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
+		prot.SetEventHandlers(SendByte, CommandReceived, CommandReceivingError, CommandSent);
 
 		packetsReceived = 0;
 		packetsSent = 0;
@@ -236,18 +274,18 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
 		eeprom[1] = 22;
 		eeprom[2] = 33;
 		eeprom[3] = 44;
-		unsigned long eepromDataLength = 4;
+		unsigned short eepromDataLength = 4;
 
-		TSimpleBinaryProtocol prot;
+		TBinaryProtocol prot;
 		prot.SetOnFlyDataHandlers(WriteDataToEEPROM, ReadDataFromEEPROM);
-		prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
+		prot.SetEventHandlers(SendByte, CommandReceived, CommandReceivingError, CommandSent);
 
 		dataInTheWireLength = 0;
 		packetsReceived = 0;
 		packetsSent = 0;
 		packetErrors = 0;
 
-		prot.SendCommand(1234, 111, NULL, eepromDataLength);
+		prot.SendCustomCommand(111, 1234, 0, 0, NULL, eepromDataLength);
 		for(int i = 0; i<100; i++)
 		{
 			prot.OnByteSent();
@@ -255,8 +293,8 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
 
         unsigned char*  magicByte1    = &dataInTheWire[0];
         unsigned char*  magicByte2    = &dataInTheWire[1];
-        unsigned short* deviceAddress = (unsigned short*)&dataInTheWire[2];
-        unsigned short* command       = (unsigned short*)&dataInTheWire[4];
+        unsigned short* command       = (unsigned short*)&dataInTheWire[2];
+        unsigned short* deviceAddress = (unsigned short*)&dataInTheWire[4];        
         unsigned short* param1        = (unsigned short*)&dataInTheWire[6];
         unsigned short* param2        = (unsigned short*)&dataInTheWire[8];
         unsigned short* dataSize      = (unsigned short*)&dataInTheWire[10];
@@ -267,14 +305,14 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
         unsigned char   b4            = dataInTheWire[17];
         unsigned short*  dataCRC       = (unsigned short*)&dataInTheWire[18];
 
-        ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_1, (long)*magicByte1);
-        ASSERT_EQUALS(SRPROTOCOL_MAGIC_BYTE_2, (long)*magicByte2);
-        ASSERT_EQUALS(1234, (long)*deviceAddress);
+        ASSERT_EQUALS(BINPROTOCOL_MAGIC_BYTE_1, (long)*magicByte1);
+        ASSERT_EQUALS(BINPROTOCOL_MAGIC_BYTE_2, (long)*magicByte2);        
         ASSERT_EQUALS(111, (long)*command);
+        ASSERT_EQUALS(1234, (long)*deviceAddress);
         ASSERT_EQUALS(0, (long)*param1);
         ASSERT_EQUALS(0, (long)*param2);
         ASSERT_EQUALS(4, (long)*dataSize);
-        ASSERT_EQUALS(39258, (long)*headerCRC);
+        ASSERT_EQUALS(51802, (long)*headerCRC);
 
         ASSERT_EQUALS(20,  (long)dataInTheWireLength);
         ASSERT_EQUALS(11, (long)b1);
@@ -292,10 +330,10 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
 		eeprom[2] = 0;
 		eeprom[3] = 0;
 
-		TSimpleBinaryProtocol prot;
+		TBinaryProtocol prot;
         prot.SetBusAddress(1234);
 		prot.SetOnFlyDataHandlers(WriteDataToEEPROM, ReadDataFromEEPROM);
-		prot.SetEventHandlers(SendByte, PacketReceived, PacketError, PacketSent);
+		prot.SetEventHandlers(SendByte, CommandReceived, CommandReceivingError, CommandSent);
 
 		packetsReceived = 0;
 		packetsSent = 0;
@@ -319,6 +357,6 @@ class Test_TSimpleBinaryProtocol : public TestFixture<Test_TSimpleBinaryProtocol
 
 };
 
-REGISTER_FIXTURE( Test_TSimpleBinaryProtocol);
+REGISTER_FIXTURE( Test_TBinaryProtocol);
 
 

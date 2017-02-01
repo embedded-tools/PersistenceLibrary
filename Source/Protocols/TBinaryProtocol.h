@@ -14,16 +14,40 @@
  *
  */
 
-#ifndef TSRPROTOCOL___H
-#define TSRPROTOCOL___H
-#define SRPROTOCOL_MAGIC_BYTE_1 0x05
-#define SRPROTOCOL_MAGIC_BYTE_2 0x0B
-#define SRPROTOCOL_QUEUE_LENGTH 16
-#define SRPROTOCOL_PING 0
-#define SRPROTOCOL_TIMEOUT 30000
+#ifndef TBINPROTOCOL___H
+#define TBINPROTOCOL___H
 
+#define BINPROTOCOL_MAGIC_BYTE_1 0x05
+#define BINPROTOCOL_MAGIC_BYTE_2 0x0B
+#define BINPROTOCOL_QUEUE_LENGTH 16
+#define BINPROTOCOL_PING 0
+#define BINPROTOCOL_TIMEOUT 30000
 
 #include <stdlib.h>
+
+typedef enum eCommand
+{
+    ecPing = 0,
+    ecLedGreenOn = 0x11,
+    ecLedGreenOff = 0x12,
+    ecLedGreenToggle = 0x13,
+    ecLedRedOn = 0x21,
+    ecLedRedOff = 0x22,
+    ecLedRedToggle = 0x23,
+    ecOutputOn = 0x31,
+    ecOutputOff = 0x32,
+    ecOutputToggle = 0x33,
+    ecBeep = 0x41,
+    ecReadConfiguration = 0x51,
+    ecStoreConfiguration = 0x52,
+    ecReadData = 0x61,    
+    ecWriteData = 0x62,
+    ecOpenPort = 0x71,
+    ecClosePort = 0x72,
+    ecWriteToPort = 0x73,
+    ecReadFromPort = 0x74,
+    ecCustomCommand = 0x80
+} ECOMMAND;
 
 typedef enum eExpectedInputData
 { 
@@ -65,13 +89,16 @@ typedef enum eProtocolError
 	peDataBufferTooSmall
 } EPROTOCOLERROR;
 
-typedef unsigned char (*ReadByteFromStorage)(unsigned long address);
-typedef void (*WriteByteToStorage)  (unsigned long address, unsigned char value);
-typedef void (*SendByteCallback)    (unsigned char c);
-typedef void (*PacketHeaderCallback) (unsigned short busAddress,   short command, short customParam1, short customParam2, unsigned short dataSize, bool &acceptCommand);
-typedef void (*PacketCompleteCallback) (unsigned short busAddress, short command, short customParam1, short customParam2, unsigned short dataSize, unsigned char* data );
+class TBinaryProtocol;
 
-class TSimpleBinaryProtocol
+typedef unsigned char (*ReadByteFromStorage)(unsigned short address);
+typedef void (*WriteByteToStorage)  (unsigned short address, unsigned char value);
+typedef void (*SleepCallback)  (unsigned short timeout);
+typedef void (*SendByteCallback)    (unsigned char c);
+typedef void (*CommandHeaderReceivedCallback) (short busAddress,   unsigned short command, short customParam1, short customParam2, unsigned short dataSize, bool &acceptCommand);
+typedef void (*CommandReceivedCallback) (TBinaryProtocol* sender, unsigned short busAddress, unsigned short command, short customParam1, short customParam2, unsigned short dataSize, unsigned char* data );
+
+class TBinaryProtocol
 {
 private:
 	short m_idleCounter;       
@@ -82,19 +109,21 @@ private:
 	unsigned short      m_incomingCommand;
     short               m_incomingCustomParam;
     short               m_incomingCustomParam2;
-	unsigned long       m_incomingDataSize;    
+	unsigned short      m_incomingDataSize;    
 	//18 bytes + 2 magic bytes = 20 bytes
 
     unsigned char       m_incomingDataMode;
 	WriteByteToStorage  m_incomingDataHandler;
     unsigned char*      m_incomingDataBuffer;
     unsigned short      m_incomingDataBufferSize;
-	unsigned long       m_incomingDataCounter;
+	unsigned short      m_incomingDataCounter;
 	bool                m_incomingCommandAccepted;
 	unsigned short      m_incomingTimeout;
 	unsigned short      m_incomingFletcherCRC;
     unsigned short      m_incomingFletcherCRC_sum1;
     unsigned short      m_incomingFletcherCRC_sum2;
+    bool                m_incomingPacketReady;
+    bool                m_incomingAcknowledge;
 	// 
 	eExpectedInputData  m_outgoingStateMachine;
     unsigned short      m_outgoingBusAddress;
@@ -102,55 +131,80 @@ private:
     unsigned short      m_outgoingCustomParam;
     unsigned short      m_outgoingCustomParam2;
     unsigned char*      m_outgoingDataBuffer;
-	unsigned long       m_outgoingDataBufferSize;
-    //unsigned short      m_outgoingFletcherCRC;
+	unsigned short      m_outgoingDataBufferSize;
     unsigned short      m_outgoingFletcherCRC_sum1;
     unsigned short      m_outgoingFletcherCRC_sum2;	
 	//18 bytes + 2 magic bytes = 20 bytes
 
 	ReadByteFromStorage m_outgoingDataHandler;
-	unsigned long       m_outgoingDataCounter;
+	unsigned short      m_outgoingDataCounter;
 	unsigned short      m_outgoingTimeout;
 	bool                m_outgoingDataSending;
 	//
 	eProtocolError      m_lastError;
 
 	SendByteCallback       m_callbackSendByte;    
-	PacketHeaderCallback   m_callbackHeaderReceived;
-	PacketCompleteCallback m_callbackCommandReceived;
-	PacketCompleteCallback m_callbackPacketError;  
-	PacketCompleteCallback m_callbacCommandSent;    
+    SleepCallback          m_callbackSleep;
+	CommandHeaderReceivedCallback  m_callbackHeaderReceived;
+	CommandReceivedCallback m_callbackCommandReceived;
+	CommandReceivedCallback m_callbackCommandReceivingError;  
+	CommandReceivedCallback m_callbackCommandSent;        
 
     void SendByte(unsigned char c);
-	bool SendPacket (unsigned short busAddress, short command, short customParam1, short customParam2, unsigned long dataSize, unsigned char* data );
+    bool SendPacket (unsigned short command, unsigned short errorCode, short customParam1, short customParam2, unsigned short dataSize, unsigned char* data );
 	void SetLastError(eProtocolError err);
 
+    void SendCommand(unsigned short busAddress, unsigned short command, unsigned char* pData, unsigned short dataSize);
+    void SendCommandEx(unsigned short busAddress, unsigned short command, short customParam1, short customParam2, unsigned char* pData, unsigned short dataSize );    
+
+    unsigned short GetIncomingFletcherCRC();
+        
+    unsigned short GetOutgoingFletcherCRC();
+
+    virtual bool WaitForResponse(unsigned short command, unsigned char* pOutput=NULL, unsigned short* pOutputLength=NULL, unsigned short maxOutputLength=0);
 public:
 
-	TSimpleBinaryProtocol();
+	TBinaryProtocol();
 	void SetBusAddress (unsigned short busAddress);
 
     //read/write mode functions
     void SetDataMode(eSRDataMode dataMode);
-    void SetDataBuffer(unsigned char* incomingDataBuffer, unsigned long incomingDataBufferSize);
+    void SetDataBuffer(unsigned char* incomingDataBuffer, unsigned short incomingDataBufferSize);
 	void SetOnFlyDataHandlers(WriteByteToStorage incomingDataHandler, ReadByteFromStorage outgoingDataHandler);
+    void SetSleepCallback(SleepCallback sleepFunction);
 
     //events
-    void SetEventHandlers(SendByteCallback sendByteHandler, PacketCompleteCallback packetReceivedHandler, PacketCompleteCallback packetErrorHandler, PacketCompleteCallback packetSentHandler);
+    void SetEventHandlers(SendByteCallback sendByteHandler, CommandReceivedCallback packetReceivedHandler, CommandReceivedCallback packetErrorHandler, CommandReceivedCallback packetSentHandler);
 
 	void OnByteReceived(unsigned char c); 
-    unsigned short GetIncomingFletcherCRC();
-	void OnByteSent();    
-    unsigned short GetOutgoingFletcherCRC();
 	void OnTimer(unsigned short intervalMS=20);
+    void OnByteSent();
 
-	void SendPing(unsigned short busAddress);
-	void SendCommand(unsigned short busAddress, short command, unsigned char* pData, unsigned short dataSize);
-	void SendCommandEx(unsigned short busAddress, short command, short customParam1, short customParam2, unsigned char* pData, unsigned short dataSize );
-	void SendAck(unsigned short busAdress, unsigned short packetId);
-	void SendAckOfAck(unsigned short busAddress, unsigned short packetId);
-
-	eProtocolError GetLastError();
+    eProtocolError GetLastError();
+  
+    bool SendPing(unsigned short deviceAddress);
+    bool LedGreenOn(unsigned short deviceAddress, unsigned short ledNumber);
+    bool LedGreenOff(unsigned short deviceAddress, unsigned short ledNumber);
+    bool LedGreenToggle(unsigned short deviceAddress, unsigned short ledNumber);
+    bool LedRedOn(unsigned short deviceAddress, unsigned short ledNumber);
+    bool LedRedOff(unsigned short deviceAddress, unsigned short ledNumber);
+    bool LedRedToggle(unsigned short deviceAddress, unsigned short ledNumber);
+    bool OutputOn(unsigned short deviceAddress, unsigned short outputNumber);
+    bool OutputOff(unsigned short deviceAddress, unsigned short outputNumber);
+    bool OutputToggle(unsigned short deviceAddress, unsigned short outputNumber);
+    bool Beep(unsigned short deviceAddress, unsigned short frequency, unsigned short length);
+    bool ReadConfiguration(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pOutput, unsigned char maxOutputLength);
+    bool StoreConfiguration(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pData);
+    bool ReadData(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pOutput, unsigned short maxOutputLength);
+    bool WriteData(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pOutput);
+    bool OpenPort(unsigned short deviceAddress, unsigned short portAddress);
+    bool ClosePort(unsigned short deviceAddress, unsigned short portAddress);
+    bool WriteToPort(unsigned short deviceAddress, unsigned char* pData, unsigned short dataLength);
+    bool ReadFromPort(unsigned short deviceAddress, unsigned short timeout, unsigned char* pData, unsigned short* pDataLength, const unsigned short maxDataLength);
+    bool SendCustomCommand(unsigned short deviceAddress, unsigned short command, unsigned short customParam1, unsigned short customParam2, 
+                           unsigned char* pInputData=NULL, unsigned short inputDataLength=0,
+                           unsigned char* pOutputData=NULL, unsigned short* pOutputDataLength=NULL, unsigned short maxOutputDataLength=0);
+    void SendCustomResponse(unsigned short command, unsigned short errorCode, short customParam1, short customParam2, unsigned char* pData, unsigned short dataSize);
 
 };
 
