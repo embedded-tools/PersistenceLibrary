@@ -194,6 +194,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\FileUtils\TEEPROMStream.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\FileUtils\TFileLog.cpp"
 				>
 				<FileConfiguration
@@ -334,6 +338,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\FileUtils\TROMStream.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\FileUtils\TStream.cpp"
 				>
 				<FileConfiguration
@@ -403,6 +411,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\FileUtils\TEEPROMStream.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\FileUtils\TFileLog.h"
 				>
 			</File>
@@ -428,6 +440,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\FileUtils\TMemoryStream.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\FileUtils\TROMStream.h"
 				>
 			</File>
 			<File
