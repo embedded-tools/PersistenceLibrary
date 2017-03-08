@@ -15,3 +15,26 @@
  */
 
 #include "tfilelog.h"
+#include <stdio.h>
+
+const char* TFileLog::m_filename = NULL;
+
+TFileLog::TFileLog(const char* filename, void(*GetTimeHandler)(TTime &time))
+: TLog(WriteToFile, GetTimeHandler)
+{
+    //const char* m_filename;
+    m_filename = filename;
+}
+
+void TFileLog::WriteToFile(const char* pszText, int cbText)
+{
+    FILE* file = fopen(m_filename, "ab");
+    if (file!=NULL)
+    {
+        fwrite(pszText, 1, cbText, file);
+        fclose(file);    
+    }
+}
+
+    
+        

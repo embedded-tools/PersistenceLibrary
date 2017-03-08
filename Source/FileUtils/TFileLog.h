@@ -13,11 +13,21 @@
  * It is provided "as is" without express or implied warranty.
  *
  */
-
 #ifndef TFILELOG___H
 #define TFILELOG___H
 
+#include "TLog.h"
 
+class TFileLog : public TLog
+{
+    protected:
+        static const char* m_filename;
+        static void WriteToFile(const char* pszText, int cbText);        
+
+    public:
+        TFileLog(const char* filename, void(*GetTimeHandler)(TTime &time));
+
+};
 
 
 #endif
