@@ -298,8 +298,24 @@ TFilePath& TFilePath::operator += ( const char* pChar )
 
 	if (LastChar()>=' ')
 	{
-		if ((LastChar()!='\\') && (LastChar()!='/'))
-		{
+        bool fileFound = false;
+        for(int i = DataLen; i>=0; i--)
+        {
+            if ((PData[i]=='\\') || (PData[i]=='/')) 
+            {
+                if (fileFound)
+                {
+                    SetLength(i+1);
+                }
+                break;
+            }
+            if (PData[i]=='.')
+            {
+                fileFound = true;
+            }
+        }
+		if ((LastChar()!='\\') && (LastChar()!='/') && (!fileFound))
+		{            
 			SetLength(DataLen+1,false);
 			if (PData!=NULL)
 			{
