@@ -362,6 +362,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TLog.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TMemoryStream.cpp"
 				>
 			</File>

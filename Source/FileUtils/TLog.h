@@ -22,7 +22,7 @@
 enum LogType { ltDebug, ltInfo, ltWarning, ltError, ltException };
 
 
-class TLogger
+class TLog
 {
 	protected:
 
@@ -31,7 +31,7 @@ class TLogger
 
 	public:
 
-		TLogger(void(*WriteToLog)(const char* pszText, int cbText), void(*GetTimeHandler)(TTime &time));
+		TLog(void(*WriteToLog)(const char* pszText, int cbText), void(*GetTimeHandler)(TTime &time));
 
 		void Log(LogType logType, short threadId, const char* message, short messageLength=-1);
 

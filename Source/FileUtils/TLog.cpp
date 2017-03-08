@@ -18,13 +18,13 @@
 #include <string.h>
 #include <stdio.h>
 		
-TLogger::TLogger(void(*WriteToLog)(const char* pszText, int cbText), void(*GetTimeHandler)(TTime &time))
+TLog::TLog(void(*WriteToLog)(const char* pszText, int cbText), void(*GetTimeHandler)(TTime &time))
 {
 	m_writeToLogHandler = WriteToLog;
 	m_getCurrentTimeHandler = GetTimeHandler;
 }
 
-void TLogger::Log(LogType logType, short threadId, const char* message, short messageLength)
+void TLog::Log(LogType logType, short threadId, const char* message, short messageLength)
 {
 	char text[25];
 	short textLength = 0;
@@ -43,31 +43,33 @@ void TLogger::Log(LogType logType, short threadId, const char* message, short me
 		TTime currentTime(0,0,0);
 		m_getCurrentTimeHandler(currentTime);
 		textLength = currentTime.PrintTimeFull(text, sizeof(text));
-		m_writeToLogHandler(text, textLength);
+	    m_writeToLogHandler(text, textLength);
 
 		text[0] = '\t';
 		textLength = 1;
-		m_writeToLogHandler(text, textLength);
+        m_writeToLogHandler(text, textLength);    
 	}	
 
 	textLength = sprintf(text, "%05i\t", threadId);
 	m_writeToLogHandler(text, textLength);
 
-	const char* logTypeString = "Unknown";
+	const char* logTypeString = "Unknown  \t\"";
 	switch (logType)
 	{
-		case ltDebug:	  logTypeString = "Debug    \t"; break;
-		case ltInfo:	  logTypeString = "Info     \t"; break;
-		case ltWarning:   logTypeString = "Warning  \t"; break;
-		case ltError:     logTypeString = "Error    \t"; break;
-		case ltException: logTypeString = "Exception\t"; break;
+		case ltDebug:	  logTypeString = "Debug    \t\""; break;
+		case ltInfo:	  logTypeString = "Info     \t\""; break;
+		case ltWarning:   logTypeString = "Warning  \t\""; break;
+		case ltError:     logTypeString = "Error    \t\""; break;
+		case ltException: logTypeString = "Exception\t\""; break;
 	}
+    char quota = '\"';
 	m_writeToLogHandler(logTypeString, strlen(logTypeString));
-	m_writeToLogHandler(message, messageLength);
+    m_writeToLogHandler(message, messageLength);
 
-	char crlf[2];
-	crlf[0] = 13;
-	crlf[1] = 10;
-	m_writeToLogHandler(crlf, 2);
+    char crlf[3];
+    crlf[0] = '\"';
+    crlf[1] = 13;
+    crlf[2] = 10;
+    m_writeToLogHandler(crlf, 3);
 
 }
