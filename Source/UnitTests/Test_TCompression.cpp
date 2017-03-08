@@ -7,6 +7,7 @@
 #include "tcustomstring.h"
 #include "TLZ77Streamed.h"
 
+
 class Test_TCompression : public TestFixture<Test_TCompression>
 {
   private:
@@ -19,6 +20,8 @@ class Test_TCompression : public TestFixture<Test_TCompression>
     {		
         TEST_CASE( WriteUsers );
         TEST_CASE( ReadUsers );
+        TEST_CASE( CompressBitmap );
+        TEST_CASE( DecompressBitmap );
 
     }
 
@@ -116,8 +119,8 @@ class Test_TCompression : public TestFixture<Test_TCompression>
 		cs->WriteLine("</DataSet>");
 
         totalLength = cs->GetPosition();
-        cs->Close();
-        fs->Close();
+        cs->Close(); delete cs;
+        fs->Close(); delete fs;
 	}
 
     void ReadUsers()
@@ -128,8 +131,8 @@ class Test_TCompression : public TestFixture<Test_TCompression>
         char* buf = (char*)malloc(150000);
         int realLength = cs->ReadBuffer(buf, 150000);
         
-        cs->Close();
-        fs->Close();
+        cs->Close(); delete cs;
+        fs->Close(); delete fs;
 
         FILE* hFile = fopen("LZ77Streamed2.xml", "wb");
         fwrite(buf, 1, realLength, hFile);
@@ -141,6 +144,41 @@ class Test_TCompression : public TestFixture<Test_TCompression>
 
     }
 
+    void CompressBitmap()
+    {
+        TFileStream inputFile  ("..\\..\\..\\TestData\\Squares.bmp", efmOpenRead);
+        TFileStream outputFile ("..\\..\\..\\TestData\\Squares.tmp", efmCreate);
+        TLZ77Streamed compressor(&outputFile);
+
+        unsigned char readingBuffer[256];
+        long bytesRead = 0;
+        while(!inputFile.Eof())
+        {
+            bytesRead = inputFile.ReadBuffer(readingBuffer, sizeof(readingBuffer));
+            compressor.WriteBuffer(readingBuffer, bytesRead);            
+        }
+        inputFile.Close(); 
+        compressor.Close();
+        outputFile.Close();  
+    }
+
+    void DecompressBitmap()
+    {
+        TFileStream inputFile  ("..\\..\\..\\TestData\\Squares.tmp", efmOpenRead);
+        TFileStream outputFile ("..\\..\\..\\TestData\\Squares2.bmp", efmCreate);
+        TLZ77Streamed decompressor (&inputFile);
+
+        unsigned char readingBuffer[256];
+        long bytesRead = 0;
+        while(!decompressor.Eof())
+        {
+            bytesRead = decompressor.ReadBuffer(readingBuffer, sizeof(readingBuffer));            
+            outputFile.WriteBuffer(readingBuffer, bytesRead);            
+        }
+        inputFile.Close();
+        decompressor.Close();
+        outputFile.Close();  
+    }
 };
 
 REGISTER_FIXTURE( Test_TCompression);
