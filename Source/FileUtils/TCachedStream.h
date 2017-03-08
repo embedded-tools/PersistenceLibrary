@@ -38,7 +38,8 @@ public:
 
 	TCachedStream(TStream* mainStream, void* cache, int cacheSize);
 	TCachedStream(TStream* mainStream, int cacheSize=512);
-	~TCachedStream();
+	virtual ~TCachedStream();
+
     virtual long ReadBuffer   (void* Buffer, long Count);
     virtual long WriteBuffer  (void* Buffer, long Count);
     virtual long Seek (long Offset, ESeekOrigin Origin);

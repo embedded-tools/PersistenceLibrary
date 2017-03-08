@@ -45,6 +45,33 @@ TLZ77Streamed::TLZ77Streamed(TStream* mainStream, int cacheSize, int slidingWind
     FReadingBlockOffset = 0;
     FReadingBlockLength = 0;
 }
+
+TLZ77Streamed::~TLZ77Streamed()
+{
+    Close();
+    if (FCacheOwned)
+    {
+        if (FSlidingWindow)
+        {
+            free(FSlidingWindow);
+        }        
+    }
+    FSlidingWindow = NULL;
+    FCache=NULL;
+    FCacheOwned = false;
+    FCachePosition = 0;
+    FCacheSize = 0;
+    FCacheMaxSize = 0;
+}
+
+long TLZ77Streamed::GetSize()
+{
+    if (FCachePosition==FCacheSize)
+    {
+        DoReadOperation();
+    }    
+    return TCachedStream::GetSize();
+}
  
 void TLZ77Streamed::MoveSlidingWindow()
 {
@@ -78,8 +105,8 @@ void TLZ77Streamed::StoreByte(unsigned char b)
     FParentStream->WriteByte(b);
     if (b==LZ77_MAGIC_BYTE)
     {        
-        WriteByte(0x00);
-        WriteByte(0x00);
+        FParentStream->WriteByte(0x00);
+        FParentStream->WriteByte(0x00);
     }
 }
 
@@ -113,15 +140,14 @@ bool TLZ77Streamed::DoWriteOperation()
         bool found = false;
 
         srcB = srcA;
-        char b0 = srcB[0];
-        char b1 = srcB[1];
-        char b2 = srcB[2];
-        char b3 = srcB[3];
+        unsigned char b0 = srcB[0];
+        unsigned char b1 = srcB[1];
+        unsigned char b2 = srcB[2];
+        unsigned char b3 = srcB[3];
 
-        int maxOffSet = FCacheSize + FSlidingWindowSize;
-        if (maxOffSet>=FSlidingWindowMaxSize) maxOffSet = FSlidingWindowMaxSize;
-
-        for(short offset = 1; offset <= maxOffSet; offset++)
+        int maxOffset = position + FSlidingWindowSize;
+        if (maxOffset>FSlidingWindowMaxSize) maxOffset = FSlidingWindowMaxSize;
+        for(short offset = 1; offset<=maxOffset; offset++)
         {
             srcB--;
             b3 = b2;
@@ -157,7 +183,7 @@ bool TLZ77Streamed::DoWriteOperation()
                                 longestPattern_Length = currentPattern_Length;
                                 longestPattern_Offset = offset;
                             }
-                            if ((offset==1) && (currentPattern_Length>5))
+                            if ((offset==1) && (currentPattern_Length>=8))
                             {
                                 //performance optimization for long sequences of the same byte
                                 //(e.g. 32, 32, 32, 32, 32, 32, 32, 32, 32... )
@@ -171,7 +197,7 @@ bool TLZ77Streamed::DoWriteOperation()
         if (longestPattern_Length>0)
         {            
             bool useEscSeq = longestPattern_Length>=6;
-            if ((longestPattern_Offset==1) && (b0==LZ77_MAGIC_BYTE))
+            if (b0==LZ77_MAGIC_BYTE)
             {
                 useEscSeq = true;
             }
@@ -195,7 +221,7 @@ bool TLZ77Streamed::DoWriteOperation()
             a0 = srcA[0];
             a1 = srcA[1];
             a2 = srcA[2];
-            a3  = srcA[3];
+            a3 = srcA[3];
         } else {
             StoreByte(a0);
 

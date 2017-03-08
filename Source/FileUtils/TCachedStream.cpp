@@ -35,11 +35,17 @@ TCachedStream::TCachedStream(TStream* mainStream, void* cache, int cacheSize)
 TCachedStream::TCachedStream(TStream* mainStream, int cacheSize)
 {
 	FParentStream = mainStream;
-	FCache = (unsigned char*) malloc(cacheSize);
+    if (cacheSize>0)
+    {
+	    FCache = (unsigned char*) malloc(cacheSize);
+        FCacheOwned = true;
+    } else {
+        FCache = NULL;
+        FCacheOwned = false;
+    }
 	FCachePosition = 0;	
 	FCacheSize = 0;
-	FCacheMaxSize = cacheSize;
-	FCacheOwned = true;
+	FCacheMaxSize = cacheSize;	
 
 	FCanRead = mainStream->CanRead();
 	FCanWrite = mainStream->CanWrite();
@@ -53,9 +59,16 @@ TCachedStream::~TCachedStream()
 	Close();
 	if (FCacheOwned)
 	{
-		free(FCache);
-		FCache=NULL;
+        if (FCache)
+        {
+		    free(FCache);
+        }
 	}
+    FCache=NULL;
+    FCacheOwned = false;
+    FCachePosition = 0;
+    FCacheSize = 0;
+    FCacheMaxSize = 0;
 }
 
 void TCachedStream::Close()
@@ -64,6 +77,7 @@ void TCachedStream::Close()
 	if (FParentStream!=NULL)
 	{ 
 		FParentStream->Close();
+        FParentStream = NULL;
 	}
 }
 
@@ -83,15 +97,16 @@ void TCachedStream::FlushCache()
 
 long TCachedStream::ReadBuffer (void* data, long dataLength)
 {
-	//fill the cache if cache is empty
+    /*
 	if (FCacheSize==0)
 	{
+        //fill the cache if cache is empty
 		bool res = DoReadOperation();	
         if (!res)
         { 
             return 0;
         }
-	}
+	}*/
 
    if (dataLength<1) 
    {
@@ -233,6 +248,6 @@ long TCachedStream::GetPosition()
 
 long TCachedStream::GetSize()
 {
-	return 0;
+	return FPosition+FCacheSize;
 }
 

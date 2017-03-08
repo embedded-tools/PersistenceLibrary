@@ -20,11 +20,12 @@ TFileStream::TFileStream(const char* filename, EFileMode fileMode)
 {
 	switch(fileMode)
 	{
-		case efmCreate:			FHandle = fopen(filename,"wb");  FCanRead=false; FCanWrite=true;  FCanSeek=false; break;
-		case efmOpenRead:		FHandle = fopen(filename,"rb");  FCanRead=true;  FCanWrite=false; FCanSeek=true;  break;
-		case efmOpenReadWrite:  FHandle = fopen(filename,"rb+"); FCanRead=true;  FCanWrite=true;  FCanSeek=true;  break;
-		case efmOpenWrite:		FHandle = fopen(filename,"wb");  FCanRead=false; FCanWrite=true;  FCanSeek=false; break;
-		default:				FHandle = NULL;					 FCanRead=false; FCanWrite=false; FCanSeek=false; break;
+		case efmCreate:			FHandle = fopen(filename,"wb");  FCanRead=false;       FCanWrite=FHandle!=0;  FCanSeek=false; break;
+		case efmOpenRead:		FHandle = fopen(filename,"rb");  FCanRead=FHandle!=0;  FCanWrite=false;       FCanSeek=FHandle!=0;  break;
+		case efmOpenReadWrite:  FHandle = fopen(filename,"rb+"); FCanRead=FHandle!=0;  FCanWrite=FHandle!=0;  FCanSeek=FHandle!=0;  break;
+		case efmOpenWrite:		FHandle = fopen(filename,"wb");  FCanRead=false;       FCanWrite=FHandle!=0;  FCanSeek=false; break;
+		default:				FHandle = NULL;					 FCanRead=false;       FCanWrite=false;       FCanSeek=false; break;
 
     }
 }
+

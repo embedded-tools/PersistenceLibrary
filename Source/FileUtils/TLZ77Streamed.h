@@ -36,16 +36,20 @@ class TLZ77Streamed : public TCachedStream
         short FReadingBlockLength;
 
 	protected:
-        bool DoReadOperation();
-        bool DoWriteOperation();
+        virtual bool DoReadOperation();
+        virtual bool DoWriteOperation();        
+
         void MoveSlidingWindow();
         void StorePattern(short offset, short length);
-        void StoreByte(unsigned char b);
+        void StoreByte(unsigned char b);        
 
     public:
 
         TLZ77Streamed(TStream* mainStream, void* slidingWindowAndCache, int cacheSize, int slidingWindowSize);
         TLZ77Streamed(TStream* mainStream, int cacheSize=512, int slidingWindowSize=3584);
+        ~TLZ77Streamed();
+
+        virtual long GetSize();
 
 };
 
