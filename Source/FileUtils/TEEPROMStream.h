@@ -32,18 +32,17 @@ private:
 
 public:
 	
-	TEEPROMStream(unsigned short (*ReadFromEEPROM)(unsigned char* pOutputBuffer, unsigned short outputBufferLength),
-		          unsigned short (*WriteToEEPROM) (unsigned char* pInputBuffer, unsigned short inputBufferLength)
-			     );
+    TEEPROMStream(  long memoryBlockAddress, long memoryBlockSize,
+                    unsigned short (*ReadFromEEPROM)(unsigned char* pOutputBuffer, unsigned short outputBufferLength),
+                    unsigned short (*WriteToEEPROM) (unsigned char* pInputBuffer, unsigned short inputBufferLength)
+                  );
 
-	long ReadBuffer   (void* Buffer, long Count);
-	long WriteBuffer  (void* Buffer, long Count);
-	long Seek	      (long Offset, ESeekOrigin Origin);
-	long GetPosition();	
-	long GetSize();
-
-	void OpenMemoryBlockForReading(long memoryBlockAddress, long memoryBlockSize);
-	void OpenMemoryBlockForWriting(long memoryBlockAddress, long memoryBlockSize);
+    virtual void Close();
+    virtual long ReadBuffer   (void* Buffer, long Count);
+    virtual long WriteBuffer  (void* Buffer, long Count);
+    virtual long Seek (long Offset, ESeekOrigin Origin)=0;
+    virtual long GetPosition()=0;
+    virtual long GetSize()=0;
 };
 
 

@@ -17,16 +17,19 @@
 #include "TEEPROMStream.h"
          
          
-TEEPROMStream::TEEPROMStream(unsigned short (*ReadFromEEPROM)(unsigned char* pOutputBuffer, unsigned short outputBufferLength),
+TEEPROMStream::TEEPROMStream(long memoryBlockAddress, long memoryBlockSize,
+                             unsigned short (*ReadFromEEPROM)(unsigned char* pOutputBuffer, unsigned short outputBufferLength),
 							 unsigned short (*WriteToEEPROM) (unsigned char* pInputBuffer, unsigned short inputBufferLength)
 							)
 {
+    m_memoryBlockAddress = memoryBlockAddress;
+    m_memoryBlockSize = memoryBlockSize;
 	m_ReadFromEEPROM_Function = ReadFromEEPROM;
 	m_WriteToEEPROM_Function  = WriteToEEPROM;
 
-	FCanRead  = false;
-	FCanWrite = false;
-	FCanSeek  = false;
+    FCanRead  = true;
+    FCanWrite = true;
+    FCanSeek  = true;
 }
 
 
@@ -34,7 +37,7 @@ long TEEPROMStream::ReadBuffer   (void* Buffer, long Count)
 {
 	if (m_ReadFromEEPROM_Function)
 	{
-		return m_ReadFromEEPROM_Function((unsigned char*)Buffer, Count);
+		return m_ReadFromEEPROM_Function((unsigned char*)Buffer, (unsigned short)Count);
 	}
 	return 0;
 }
@@ -43,30 +46,9 @@ long TEEPROMStream::WriteBuffer  (void* Buffer, long Count)
 {
 	if (m_WriteToEEPROM_Function)
 	{
-		return m_WriteToEEPROM_Function((unsigned char*)Buffer, Count);
+		return m_WriteToEEPROM_Function((unsigned char*)Buffer, (unsigned short)Count);
 	}
 	return 0;
-}
-
-void TEEPROMStream::OpenMemoryBlockForReading(long memoryBlockAddress, long memoryBlockSize)
-{
-	m_memoryBlockAddress = memoryBlockAddress;
-	m_memoryBlockSize = memoryBlockSize;
-
-	FCanRead  = true;
-	FCanWrite = false;
-	FCanSeek  = true;
-
-}
-
-void TEEPROMStream::OpenMemoryBlockForWriting(long memoryBlockAddress, long memoryBlockSize)
-{
-	m_memoryBlockAddress = memoryBlockAddress;
-	m_memoryBlockSize = memoryBlockSize;
-
-	FCanRead  = false;
-	FCanWrite = true;
-	FCanSeek  = true;
 }
 
 long TEEPROMStream::Seek (long Offset, ESeekOrigin Origin)

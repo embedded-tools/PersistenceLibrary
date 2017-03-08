@@ -1,5 +1,5 @@
 /*
- * Persistence Library / FileUtils / TStringList
+ * Persistence Library / FileUtils / TEEPROMStream
  *
  * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
  *
@@ -13,3 +13,31 @@
  * It is provided "as is" without express or implied warranty.
  *
  */
+
+#ifndef TEEPROMSTREAM___H
+#define TEEPROMSTREAM___H
+
+#include "tstream.h"
+
+class TROMStream : public TStream
+{
+private:
+
+	long m_memoryBlockAddress;
+	long m_memoryBlockSize;
+	long m_currentAddress;
+
+public:
+	
+    TROMStream(  long memoryBlockAddress, long memoryBlockSize );
+
+    virtual void Close();
+    virtual long ReadBuffer   (void* Buffer, long Count);
+    virtual long WriteBuffer  (void* Buffer, long Count);
+    virtual long Seek (long Offset, ESeekOrigin Origin);
+    virtual long GetPosition()=0;
+    virtual long GetSize()=0;
+};
+
+
+#endif
