@@ -26,9 +26,8 @@ class Test_TFilePath : public TestFixture<Test_TFilePath>
         TEST_CASE( ExtractFileExt );
         TEST_CASE( ExtractFileName );
         TEST_CASE( ExtractFileDirectory );
-
+        TEST_CASE( AddFile );
     }
-
 
     void CreateDestroy()
     {
@@ -193,7 +192,19 @@ class Test_TFilePath : public TestFixture<Test_TFilePath>
         TFilePath path3 = "A\\BB\\CCC";
         TString dir3 = path3.ExtractFileDirectory();
         ASSERT(dir3=="A\\BB\\");
+    }
 
+    void AddFile()
+    {
+        TFilePath path1 = "A\\BB\\CCC";
+
+        TFilePath name1 = path1 + "File1.txt";
+        TFilePath name2 = name1 + "File2.txt";
+        TFilePath name3 = name2 + "File3.txt";
+
+        ASSERT(name1=="A\\BB\\CCC\\File1.txt");
+        ASSERT(name2=="A\\BB\\CCC\\File2.txt");
+        ASSERT(name3=="A\\BB\\CCC\\File3.txt");
     }
 
 
