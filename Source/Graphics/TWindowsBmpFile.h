@@ -28,9 +28,10 @@ struct TBitmapHeader
     unsigned long  ulBitmapHeaderSize;
     unsigned long  ulWidth;
     unsigned long  ulHeight;
-	//end of os/2 bitmap header
     unsigned short usPlanes;
     unsigned short usBitsPerPixel;
+	//end of os/2 bitmap header
+
     unsigned long  ulCompression;
     unsigned long  ulBitmapDataSize;
     unsigned long  ulPixelsPerMeterHorizontal;
@@ -40,8 +41,8 @@ struct TBitmapHeader
 	//end of windows bmp header
 
 	/*
-    unsigned long* pbColorPallete;
-    unsigned long* pbBitmapData;
+    unsigned long* pbColorPallete; //not part of bmp header
+    unsigned long* pbBitmapData;   //not part of bmp header
 	*/
 
     

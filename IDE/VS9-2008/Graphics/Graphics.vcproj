@@ -44,6 +44,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..\..\..\Source\Graphics;..\..\..\Source\Math"
 				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -117,7 +118,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\Source\Graphics"
+				AdditionalIncludeDirectories="..\..\..\Source\Graphics;..\..\..\Source\Math"
 				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -493,6 +494,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\Graphics\TSize.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\Graphics\TWindowsBmpFile.cpp"
 				>
 				<FileConfiguration
@@ -574,6 +579,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\Graphics\TFontFormat.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\Graphics\TGraphicsData.h"
 				>
 			</File>
@@ -587,6 +596,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\Graphics\TRectangle.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Graphics\TSize.h"
 				>
 			</File>
 			<File

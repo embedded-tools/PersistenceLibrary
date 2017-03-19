@@ -29,7 +29,7 @@ public:
 	short Width();
 	short Height();
 
-	TRectangle& operator = (TRectangle &scr);
+	TRectangle& operator = (const TRectangle &scr);
 
 
 

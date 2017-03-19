@@ -136,7 +136,7 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
     void AddItems4()
     {
         TSortedDictionary<short, long> dict;
-		long i;
+		short i;
 
         for (i = 10; i<200; i++)
         {
@@ -158,7 +158,7 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
     void ContainsKey()
     {
         TSortedDictionary<short, long> dict;
-		long i;
+		short i;
 
         for (i = 0; i<1000; i+=2)
         {

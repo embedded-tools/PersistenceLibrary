@@ -18,6 +18,8 @@ class Test_TFixedPoint1024 : public TestFixture<Test_TFixedPoint1024>
         TEST_CASE( Round );
         TEST_CASE( Frac );
         TEST_CASE( Compare );
+        TEST_CASE( Sqrt );
+        TEST_CASE( Sqrt3 );
     }
 
 
@@ -119,6 +121,22 @@ class Test_TFixedPoint1024 : public TestFixture<Test_TFixedPoint1024>
         TFixedPoint1024 y(3,4);
 
         ASSERT(x.Frac()==y);
+    }
+
+    void Sqrt()
+    {
+        TFixedPoint1024 x(121);
+        TFixedPoint1024 y;
+        y = x.Sqrt();
+        ASSERT(y.Round()==11);
+    }
+
+    void Sqrt3()
+    {
+        TFixedPoint1024 x(121);
+        TFixedPoint1024 y;
+        y = x.Sqrt3();
+        ASSERT(y.Round()==5);
     }
 
     void Compare()

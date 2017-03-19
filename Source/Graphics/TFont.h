@@ -22,12 +22,31 @@
 
 class TFont
 {
+	private:		
+		ePixelFormat		    m_fontPixelFormat;
+		TFontDataAlignment      m_fontDataAlignment;
+		unsigned char		    m_fontCharacterCount;
+		const unsigned char*	m_fontData;
+		unsigned short		    m_fontDataLength;			
+		const unsigned short*	m_fontIndexData;
+		unsigned short		    m_fontIndexDataLength;
+        unsigned short          m_fontWidth;
+        unsigned short          m_fontHeight;
+        unsigned short          m_fontBitsPerRow;
+		unsigned short*         m_specialCharsTable;
 
-public:
-	TFont(const unsigned char* fontData, unsigned long fontDataSize);
+        void CalculateBitsPerRow(ePixelFormat fontFormat, const unsigned short width, const unsigned short height, TFontDataAlignment fontDataAlignment);
+
+	public:
+
+	TFont();
 	virtual ~TFont();
 	
-	TFontCharacter GetCharacter(char character);
+    void LoadMonospacedFont(ePixelFormat fontFormat, const unsigned short width, const unsigned short height, const unsigned char* pData, unsigned short dataLength, TFontDataAlignment fontDataAlignment, unsigned char characterCount);
+    void LoadVariableLengthFont(ePixelFormat fontFormat, const unsigned short width, const unsigned short height, const unsigned char* pData, unsigned short dataLength, TFontDataAlignment fontDataAlignment, const unsigned short* pIndexData, unsigned short indexDataLength);
+
+    
+    bool GetCharacter(char ascii, TFontCharacter& charData);
 
 };
 

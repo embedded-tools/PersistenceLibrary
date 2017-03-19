@@ -27,16 +27,16 @@ TRectangle::TRectangle()
 TRectangle::TRectangle(const TRectangle &src)
 {
 	this->Left = src.Left;
-	this->Right = src.Right;
-	this->Top  = src.Top;
+    this->Top  = src.Top;
+	this->Right = src.Right;	
 	this->Bottom = src.Bottom;
 }
 
-TRectangle::TRectangle(short left, short right, short top, short bottom)
+TRectangle::TRectangle(short left, short top, short right, short bottom)
 {
 	Left   = left;
-	Right  = right;
-	Top    = top;
+    Top    = top;
+	Right  = right;	
 	Bottom = bottom;
 }
 
@@ -50,7 +50,7 @@ short TRectangle::Height()
 	return Bottom-Top;
 }
 
-TRectangle& TRectangle::operator = (TRectangle &src)
+TRectangle& TRectangle::operator = (const TRectangle &src)
 {
 	this->Left = src.Left;
 	this->Right = src.Right;

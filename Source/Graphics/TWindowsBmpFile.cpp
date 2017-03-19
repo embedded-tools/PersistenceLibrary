@@ -175,12 +175,17 @@ bool TWindowsBmpFile::SaveToWindowsBmp(const char* filename)
     TBitmapHeader header;
 	int bytesWritten = 0;
 	unsigned char tmp = 0;
+    if (m_colorPalette==NULL)
+    {
+        m_colorPaletteSize = 0;
+        m_colorCount = 0;
+    }
 
     header.usMagicBytes = 0x4D42;
-    header.ulTotalLength = sizeof(header) + m_bytesPerLine * m_bitmapHeight + m_colorPaletteSize;
+    header.ulTotalLength = 54 + m_colorPaletteSize + m_bytesPerLine * m_bitmapHeight;
     header.ulReserved = 0;
-    header.ulBitmapDataOffset = sizeof(header) - 2 + m_colorPaletteSize;
-    header.ulBitmapHeaderSize = sizeof(header) - 16;
+    header.ulBitmapDataOffset = 54 + m_colorCount*4;
+    header.ulBitmapHeaderSize = 40;
     header.ulWidth = m_bitmapWidth;
     header.ulHeight = m_bitmapHeight;
     header.usPlanes = 1;
@@ -207,7 +212,7 @@ bool TWindowsBmpFile::SaveToWindowsBmp(const char* filename)
     bytesWritten += fwrite(&header.ulReserved,    1, 4, hFile);
     bytesWritten += fwrite(&header.ulBitmapDataOffset, 1, 4, hFile);
     bytesWritten += fwrite(&header.ulBitmapHeaderSize, 1, 4, hFile);
-    bytesWritten += fwrite(&header.ulWidth, 1, 4, hFile);
+    bytesWritten += fwrite(&header.ulWidth,  1, 4, hFile);
     bytesWritten += fwrite(&header.ulHeight, 1, 4, hFile);
     bytesWritten += fwrite(&header.usPlanes, 1, 2, hFile);
     bytesWritten += fwrite(&header.usBitsPerPixel, 1, 2, hFile);

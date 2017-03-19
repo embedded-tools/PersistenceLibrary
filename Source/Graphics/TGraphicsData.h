@@ -25,8 +25,10 @@ class TGraphicsData
 {
 
 public:
-	TGraphicsData(short width, short height, ePixelFormat pixelFormat);
+	TGraphicsData(short width, short height, ePixelFormat pixelFormat, TColorRGB backgroundColor=0);
 	virtual ~TGraphicsData();
+
+    void            Clear();
 
 	short           GetWidth();
 	short           GetHeight();
@@ -40,13 +42,15 @@ public:
 	TColorRGB		GetTransparentColor();
 	bool            IsTransparentColorUsed();
 	void		    SetTransparentColor(TColorRGB color);
-	TColorRGB       GetPixel(short x, short y);
-	void            SetPixel(short x, short y, TColorRGB color);
+	TColorRGB       GetPixelColor(short x, short y);
+    unsigned char   GetPixelColorIndex(short x, short y);
+	void            SetPixelColor(short x, short y, TColorRGB color);
+    void            SetPixelColorIndex(short x, short y, unsigned char colorIndex);
 	void			ClearTransparentColor();
 
-	bool LoadFromROM (const unsigned char* image);
-	bool LoadFromFile(const char* filename);
-	bool ImportFromBMP (const unsigned char* filename);
+	bool LoadFromROM   (const unsigned char* image);
+	bool LoadFromFile  (const char* filename);    
+    bool SaveToFile    (const char* filename); 
 
 protected:
 	

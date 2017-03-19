@@ -213,6 +213,10 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath="..\..\..\Source\Math\TFixedPoint16M.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -224,6 +228,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\Math\TFixedPoint128.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Math\TFixedPoint16M.h"
 				>
 			</File>
 			<File

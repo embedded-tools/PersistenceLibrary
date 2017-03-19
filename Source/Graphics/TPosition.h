@@ -27,7 +27,7 @@ public:
 	short X;
 	short Y;
 
-	TPosition& operator=(TPosition &pos);
+	TPosition& operator=(const TPosition &pos);
 
 };
 

@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\Source\UnitTests\PersistenceExample;..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols"
+				AdditionalIncludeDirectories="..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample;..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols"
 				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -260,6 +260,30 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Fonts"
+				>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\Amata13.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\BookmanOldStyle.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\BrushScript12.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\Robotron.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Source Files"
@@ -355,6 +379,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TFixedPoint128.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TFixedPoint16M.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TFont.cpp"
 				>
 			</File>
 			<File
@@ -642,6 +674,30 @@
 							PreprocessorDefinitions=""
 						/>
 					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="Fonts"
+				>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\Amata13.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\BookmanOldStyle.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\BrushScript12.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\Robotron.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.cpp"
+					>
 				</File>
 			</Filter>
 		</Filter>

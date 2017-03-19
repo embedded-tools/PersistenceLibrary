@@ -19,16 +19,27 @@
 
 #include <stdlib.h>
 #include "TRectangle.h"
+#include "TFontDataAlignment.h"
+#include "TColorRGB.h"
+#include "TSize.h"
+#include "EPixelFormat.h"
 
-class TFontCharacter
-{
+struct TFontCharacter
+{    
+private: 
+	ePixelFormat            m_charPixelFormat;
+    unsigned short          m_charWidth;
+    unsigned short          m_charHeight;
+    const unsigned char*    m_charData;
+    unsigned short          m_charDataLength;
+    TFontDataAlignment      m_charDataAlignment;	
 
 public:
-	TFontCharacter();
-	virtual ~TFontCharacter();
 
-	void GetPixelColor(short x, short y);
-	TRectangle GetSize();
+	void        LoadSingleCharacter(ePixelFormat pixelFormat, const unsigned short width, const unsigned short height, const unsigned char* pData, unsigned short dataLength, TFontDataAlignment dataAlignment);
+	TColorRGB	GetPixelColor(short x, short y);
+	int         ScanLine(unsigned short lineIndex, unsigned char* pLine, unsigned short maxLineSize);
+	TSize       GetSize();
 
 };
 

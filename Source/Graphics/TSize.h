@@ -1,5 +1,5 @@
 /*
- * Persistence Library / Graphics / TPosition
+ * Persistence Library / Graphics / TRectangle
  *
  * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
  *
@@ -14,29 +14,21 @@
  *
  */
 
-#include "TPosition.h"
+#ifndef TSIZE___H
+#define TSIZE___H
 
-TPosition::TPosition()
+class TSize
 {
-	this->X = 0;
-	this->Y = 0;
-}
+public:
+    short Width;
+    short Height;
 
-TPosition::TPosition(const TPosition& src)
-{
-	this->X = src.X;
-	this->Y = src.Y;
-}
+	TSize();
+	TSize(const TSize &src);
+    TSize(short width, short height);	
+	TSize& operator = (const TSize &scr);
 
-TPosition::TPosition(short x, short y)
-{
-    this->X = x;
-    this->Y = y;
-}
+};
 
-TPosition& TPosition::operator=(const TPosition &pos)
-{
-	this->X = pos.X;
-	this->Y = pos.Y;
-	return *this;
-}
+#endif
+

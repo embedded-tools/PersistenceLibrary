@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include <string.h>
 
-TGraphicsData::TGraphicsData(short width, short height, ePixelFormat pixelFormat)
+TGraphicsData::TGraphicsData(short width, short height, ePixelFormat pixelFormat, TColorRGB backgroundColor)
 :	m_bitmapData(NULL),
 	m_bitmapNeedsUnalloc(false),
 	m_bitmapDataSize(0),
@@ -48,10 +48,42 @@ TGraphicsData::TGraphicsData(short width, short height, ePixelFormat pixelFormat
 	m_bytesPerLine       = width * bitsPerPixel / 8;
 	m_bitmapDataSize     = m_bytesPerLine * height;
 	m_bitmapData         = (unsigned char*)malloc(m_bitmapDataSize);
+    memset(m_bitmapData, 0, m_bitmapDataSize);
 	m_bitmapNeedsUnalloc = true;
 }
 
+void TGraphicsData::Clear()
+{
+    if (m_bitmapData)
+    {
+        if (m_bitmapNeedsUnalloc)
+        {
+            free(m_bitmapData);            
+        }
+        m_bitmapData = NULL;
+    }
+    m_bitmapWidth = 0;
+    m_bitmapHeight = 0;    
+    m_bytesPerLine = 0;
+    m_planes = 0;
+    m_pixelFormat = pfNone;
 
+    m_bitmapNeedsUnalloc = false;
+    if (m_colorPalette)
+    {
+        if (m_colorPaletteNeedsUnalloc)
+        {
+            free(m_colorPalette);
+        }
+        m_colorPalette = NULL;
+    }
+    m_colorPaletteSize = 0;
+    m_colorPaletteNeedsUnalloc = false;
+    m_colorCount = 0;
+    m_flipImage = false;
+    m_readOnly = false;
+    
+}
 
 TGraphicsData::~TGraphicsData()
 {
@@ -131,9 +163,9 @@ unsigned char* TGraphicsData::ScanLine(short line)
     }   
 }
 
-TColorRGB TGraphicsData::GetPixel(short x, short y)
+TColorRGB TGraphicsData::GetPixelColor(short x, short y)
 {
-	TColorRGB color;
+	static    TColorRGB color(0xFF000000);
 	short     colorIndex;
 
 	unsigned char* pp = ScanLine(y);
@@ -195,8 +227,8 @@ TColorRGB TGraphicsData::GetPixel(short x, short y)
 						color.R = *pp++;
 						break;
 
-		case pfBGR4ColorsPalette:
-						switch(x & 7)
+		case pfBGR4ColorsPalette:        
+						switch(x & 3)
 						{
 							case 0: colorIndex = ((*pp) & 0xC0) >> 6; break;
 							case 1: colorIndex = ((*pp) & 0x30) >> 4; break;
@@ -209,13 +241,12 @@ TColorRGB TGraphicsData::GetPixel(short x, short y)
 						color.R = *pp++;
 						break;
 
+        case pfBGR8ColorsPalette:
 		case pfBGR16ColorsPalette:
-						switch(x & 7)
+						switch(x & 1)
 						{
-							case 0: colorIndex = ((*pp) & 0xC0) >> 6; break;
-							case 1: colorIndex = ((*pp) & 0x30) >> 4; break;
-							case 2: colorIndex = ((*pp) & 0x0C) >> 2; break;
-							case 3: colorIndex = ((*pp) & 0x03);      break;
+							case 0: colorIndex = ((*pp) & 0xF0) >> 4; break;
+							case 1: colorIndex = ((*pp) & 0x0F); break;
 						}
 						pp = m_colorPalette + colorIndex*3;
 						color.B = *pp++;
@@ -234,7 +265,211 @@ TColorRGB TGraphicsData::GetPixel(short x, short y)
 	return color;
 }
 
-void            SetPixel(short x, short y, TColorRGB color);
+unsigned char TGraphicsData::GetPixelColorIndex(short x, short y)
+{
+    if ((m_pixelFormat!=pfBGR2ColorsPalette)  &&
+        (m_pixelFormat!=pfBGR4ColorsPalette)  &&
+        (m_pixelFormat!=pfBGR8ColorsPalette)  &&
+        (m_pixelFormat!=pfBGR16ColorsPalette) &&
+        (m_pixelFormat!=pfBGR256ColorsPalette))
+    {
+        return 0;
+    }
+
+    unsigned char* pp = ScanLine(y);
+    if (pp==NULL) return 0;
+
+    pp+= (x * GetBitsPerPixel()) / 8;
+
+    unsigned char colorIndex = 0;
+    switch(m_pixelFormat)
+    {
+        case pfBGR2ColorsPalette:
+            switch(x & 7)
+            {
+                case 0: colorIndex = ((*pp) & 0x80)? 1 : 0; break;
+                case 1: colorIndex = ((*pp) & 0x40)? 1 : 0; break;
+                case 2: colorIndex = ((*pp) & 0x20)? 1 : 0; break;
+                case 3: colorIndex = ((*pp) & 0x10)? 1 : 0; break;
+                case 4: colorIndex = ((*pp) & 0x08)? 1 : 0; break; 
+                case 5: colorIndex = ((*pp) & 0x04)? 1 : 0; break;
+                case 6: colorIndex = ((*pp) & 0x02)? 1 : 0; break;
+                case 7: colorIndex = ((*pp) & 0x01)? 1 : 0; break;
+            }
+            break;
+
+        case pfBGR4ColorsPalette:
+        case pfBGR8ColorsPalette:
+            switch(x & 7)
+            {
+                case 0: colorIndex = ((*pp) & 0xC0) >> 6; break;
+                case 1: colorIndex = ((*pp) & 0x30) >> 4; break;
+                case 2: colorIndex = ((*pp) & 0x0C) >> 2; break;
+                case 3: colorIndex = ((*pp) & 0x03);      break;
+            }
+            break;
+
+        case pfBGR16ColorsPalette:
+            switch(x & 2)
+            {
+                case 0: colorIndex = ((*pp) & 0xF0) >> 4; break;
+                case 1: colorIndex = ((*pp) & 0x0F); break;
+            }
+            break;
+
+        case pfBGR256ColorsPalette:
+            {
+                colorIndex = *pp; 
+            }
+            break;
+    }   
+    return colorIndex;
+}
+
+void TGraphicsData::SetPixelColor(short x, short y, TColorRGB color)
+{
+    if ((m_pixelFormat==pfBGR2ColorsPalette) ||
+        (m_pixelFormat==pfBGR4ColorsPalette) ||
+        (m_pixelFormat==pfBGR8ColorsPalette) ||
+        (m_pixelFormat==pfBGR16ColorsPalette) ||
+        (m_pixelFormat==pfBGR256ColorsPalette))
+    {
+        return;
+    }
+
+    unsigned char* pp = ScanLine(y);
+    if (pp==NULL) return;
+
+    pp+= (x * GetBitsPerPixel()) / 8;
+
+    switch(m_pixelFormat)
+    {
+        case pfRGB332:  
+            {
+                unsigned char b = color.R & 0xE0 + ((color.G & 0xE0)>>3) + (color.B>>6);
+                *pp++ = b;
+            }
+            break;
+
+        case pfRGB555:  
+            {
+                unsigned char b1 = ((color.R & 0xF8)>>1) + ((color.G & 0xC0)>>6);
+                unsigned char b2 = ((color.G & 0x38)<<2) + ((color.B & 0xF8)>>3);
+                *pp++ = b1;
+                *pp++ = b2;
+            }
+            break;
+
+        case pfRGB565:
+            {
+                unsigned char b1 = (color.R  & 0xF8) + ((color.G & 0xE0)>>5);
+                unsigned char b2 = ((color.G & 0x1C)<<2) + ((color.B & 0xF8)>>3);
+                *pp++ = b1;
+                *pp++ = b2;
+            }
+            break;
+
+        case pfRGB888:	
+            {
+                *pp++ = color.R;
+                *pp++ = color.G;
+                *pp++ = color.B;
+            }
+            break;
+
+        case pfRGBX8888:
+        case pfRGBA8888:
+            {
+                *pp++ = color.R;
+                *pp++ = color.G;
+                *pp++ = color.B;
+                *pp++ = color.A;
+            }
+            break;
+
+        case pfBGR888:  
+            {
+                *pp++ = color.B;
+                *pp++ = color.G;
+                *pp++ = color.R;
+            }
+            break;
+
+        case pfBGRA8888:
+            {
+                *pp++ = color.B;
+                *pp++ = color.G;
+                *pp++ = color.R;
+                *pp++ = color.A;
+            }
+            break;
+    }
+}
+
+void TGraphicsData::SetPixelColorIndex(short x, short y, unsigned char colorIndex)
+{
+    if ((m_pixelFormat!=pfBGR2ColorsPalette)  &&
+        (m_pixelFormat!=pfBGR4ColorsPalette)  &&
+        (m_pixelFormat!=pfBGR8ColorsPalette)  &&
+        (m_pixelFormat!=pfBGR16ColorsPalette) &&
+        (m_pixelFormat!=pfBGR256ColorsPalette))
+    {
+        return;
+    }
+
+    unsigned char* pp = ScanLine(y);
+    pp+= (x * GetBitsPerPixel()) / 8;
+
+    unsigned char mask = 0;
+
+    switch(m_pixelFormat)
+    {
+        case pfBGR2ColorsPalette:
+            {
+                switch(x&7)
+                {
+                    case 0: *pp = *pp & 0x7F + ((colorIndex & 1)<<7); break;
+                    case 1: *pp = *pp & 0xBF + ((colorIndex & 1)<<6); break;
+                    case 2: *pp = *pp & 0xDF + ((colorIndex & 1)<<5); break;
+                    case 3: *pp = *pp & 0xEF + ((colorIndex & 1)<<4); break;
+                    case 4: *pp = *pp & 0xF7 + ((colorIndex & 1)<<3); break;
+                    case 5: *pp = *pp & 0xFB + ((colorIndex & 1)<<2); break;
+                    case 6: *pp = *pp & 0xFD + ((colorIndex & 1)<<1); break;
+                    case 7: *pp = *pp & 0xFE + ((colorIndex & 1)); break;
+                }                
+            }
+            break;
+
+        case pfBGR8ColorsPalette:
+        case pfBGR4ColorsPalette:
+            {
+                switch(x&7)
+                {
+                    case 0: *pp = *pp & 0x3F + ((colorIndex & 3)<<6); break;
+                    case 1: *pp = *pp & 0xCF + ((colorIndex & 3)<<4); break;
+                    case 2: *pp = *pp & 0xF3 + ((colorIndex & 3)<<2); break;
+                    case 3: *pp = *pp & 0xFC + ((colorIndex & 3)); break;
+                }                
+            }
+            break;
+
+        case pfBGR16ColorsPalette:
+            {
+                switch(x&7)
+                {
+                    case 0: *pp = *pp & 0x0F + ((colorIndex & 15)<<4); break;
+                    case 1: *pp = *pp & 0xF0 + ((colorIndex & 15)); break;
+                }                
+            }
+            break;
+
+        case pfBGR256ColorsPalette:
+            {
+                *pp = colorIndex;
+            }
+            break;
+    }
+}
 
 unsigned char*  TGraphicsData::GetPalette()
 {
@@ -278,8 +513,10 @@ bool TGraphicsData::LoadFromROM (const unsigned char* image)
 	unsigned short flags            = 0;
     unsigned short bitsperpixel     = 0;
 
-	if (image[0]!='B') return false;
-	if (image[1]!='M') return false;
+    Clear();
+
+	if (image[0]!='G') return false;
+	if (image[1]!='D') return false;
 
 	m_bitmapData					= (unsigned char*)image + (*headerOffsets++);
 	m_bitmapDataSize				= totalLength - bitmapOffset; 
@@ -306,8 +543,9 @@ bool TGraphicsData::LoadFromROM (const unsigned char* image)
 	if (m_colorPaletteSize>0)
 	{
 		m_colorPalette = (unsigned char*)headerParams;
+        m_colorPaletteNeedsUnalloc = false;
 		m_colorCount = (unsigned short)(m_colorPaletteSize / 3);
-		
+       		
 	} else {
 		m_colorPaletteSize = 0;
 		m_colorPalette = NULL;
@@ -326,6 +564,8 @@ bool TGraphicsData::LoadFromFile (const char* filename)
 	unsigned short bitsperpixel = 0;
 	unsigned short bytesRead    = 0;
 
+    Clear();
+
 	FILE* file = fopen(filename, "rb");
 	if (file==NULL)
 	{
@@ -333,12 +573,12 @@ bool TGraphicsData::LoadFromFile (const char* filename)
 	}
 	fread(&magicByte1, 1, 1, file);
 	fread(&magicByte2, 1, 1, file);
-	if (magicByte1!='B')
+	if (magicByte1!='G')
 	{
 		fclose(file);
 		return false;
 	}
-	if (magicByte2!='M')
+	if (magicByte2!='D')
 	{
 		fclose(file);
 		return false;
@@ -402,3 +642,66 @@ bool TGraphicsData::LoadFromFile (const char* filename)
 	return true;
 }
 
+bool TGraphicsData::SaveToFile (const char* filename)
+{
+    unsigned char magicByte1    = 'G';
+    unsigned char magicByte2    = 'D';
+    unsigned long headerSize    = 14;    
+    unsigned long bitmapOffset  = m_colorPaletteSize + headerSize + 18;
+    unsigned long totalLength   = bitmapOffset + m_bitmapDataSize;    
+    unsigned short flags        = m_transparentColorUsed?0x0100:0 + m_flipImage?0x0200:0;
+    unsigned short bitsPerPixel = 0;
+    switch(m_pixelFormat)
+    {
+        case pfNone: bitsPerPixel = 0; break;
+        case pfBGR2ColorsPalette: bitsPerPixel = 1; break;
+        case pfBGR4ColorsPalette: bitsPerPixel = 2; break;
+        case pfBGR8ColorsPalette: bitsPerPixel = 3; break;
+        case pfBGR16ColorsPalette: bitsPerPixel = 4; break;
+        case pfBGR256ColorsPalette: bitsPerPixel = 8; break;
+        case pfRGB332: bitsPerPixel = 8; break;
+        case pfRGB555: bitsPerPixel = 15; break;
+        case pfRGB565: bitsPerPixel = 16; break;
+        case pfRGB888: bitsPerPixel = 24; break;
+        case pfRGBA8888: bitsPerPixel = 32; break;
+        case pfRGBX8888: bitsPerPixel = 32; break;
+        case pfBGR888:   bitsPerPixel = 24; break;
+        case pfBGRA8888: bitsPerPixel = 32; break;
+        case pfDXT1: bitsPerPixel = 2; break;
+        case pfDXT3: bitsPerPixel = 4; break;
+    }
+
+    if (m_colorPalette==NULL)
+    {
+        m_colorCount = 0;
+        m_colorPaletteSize =0;
+    }
+
+    FILE* file = fopen(filename, "wb");
+    if (file==NULL)
+    {
+        return false;
+    }
+    fwrite(&magicByte1, 1, 1, file);
+    fwrite(&magicByte2, 1, 1, file);
+    fwrite(&totalLength, 1, 4, file);
+    fwrite(&m_transparentColor, 1, 4, file);
+    fwrite(&bitmapOffset, 1, 4, file);
+    fwrite(&headerSize, 1, 4, file);
+    fwrite(&m_bitmapWidth, 1, 2, file);
+    fwrite(&m_bitmapHeight, 1, 2, file);
+    fwrite(&m_planes, 1, 2, file);
+    fwrite(&bitsPerPixel, 1, 2, file);
+    fwrite(&flags, 1, 2, file);
+
+    if (m_colorPaletteSize>0)
+    {
+        if (m_colorPalette)
+        {
+            fwrite(m_colorPalette, 1, m_colorPaletteSize, file);
+        }		
+    }
+    fwrite(m_bitmapData, 1, m_bitmapDataSize, file);
+    fclose(file);
+    return true;
+}
