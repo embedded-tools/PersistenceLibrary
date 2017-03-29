@@ -1,4 +1,11 @@
-Converts Keil MDK-ARM 4 project to ARM GCC makefile.
+Converts Keil MDK-ARM 4 project (.uvproj) to ARM GCC makefile.
+Supports ARM Cortex MCUs (M0, M3, M4) by ST and NXP.
+Tested with:
+  NXP LCP11C24
+  ST  STM32F010  
+  ST  STM32F103
+  ST  STM32F207
+  ST  STM32F429
 
 Syntax:
 
