@@ -37,7 +37,14 @@ TFilePath::TFilePath(const char* text, unsigned short textLength)
 }
 
 void TFilePath::ChangeSeparator(char separator)
-{
+{	
+	for(int i = 0; i<DataLen; i++)
+	{
+		if ((PData[i]=='\\') || (PData[i]=='/') || (PData[i]==m_separator))
+		{
+			PData[i]=separator;
+		}
+	}	
 	m_separator = separator;
 }
 
@@ -249,6 +256,21 @@ bool TFilePath::DeleteLastDir()
     return true;
 }
 
+void TFilePath::DeleteDoubleSlash()
+{
+	for(int i = 1; i<DataLen; i++)
+	{
+		if ((PData[i-1]==m_separator) && (PData[i]==m_separator))
+		{
+			for(int j = i; j<DataLen; j++)
+			{
+				PData[j-1] = PData[j];
+			}						
+			DataLen--;
+		}
+	}
+}
+
 
 
 TFilePath TFilePath::operator = ( TFilePath& oString )
@@ -256,8 +278,8 @@ TFilePath TFilePath::operator = ( TFilePath& oString )
 	CopyFrom(oString.ToPChar());
 	for(int i = 0; i<DataLen; i++)
 	{
-		if (i=='\\') m_separator='\\';
-		if (i=='/') m_separator='/';
+		if (PData[i]=='\\') m_separator='\\';
+		if (PData[i]=='/') m_separator='/';
 	}
 	return *this;    
 }
@@ -267,8 +289,8 @@ TFilePath& TFilePath::operator = ( TString& oString )
 	CopyFrom(oString.ToPChar());
 	for(int i = 0; i<DataLen; i++)
 	{
-		if (i=='\\') m_separator='\\';
-		if (i=='/') m_separator='/';
+		if (PData[i]=='\\') m_separator='\\';
+		if (PData[i]=='/') m_separator='/';
 	}
 	return *this;
 }
@@ -276,6 +298,11 @@ TFilePath& TFilePath::operator = ( TString& oString )
 TFilePath& TFilePath::operator = ( const char* pChar)
 {
 	CopyFrom(pChar);
+	for(int i = 0; i<DataLen; i++)
+	{
+		if (PData[i]=='\\') m_separator='\\';
+		if (PData[i]=='/') m_separator='/';
+	}
 	return *this;
 }
 
@@ -392,16 +419,7 @@ TFilePath& TFilePath::operator += ( const char* pChar )
 		memcpy(&PData[oldLength], pChar, newLength-oldLength);
 		if (PData)
 		{
-			for(int i = 0; i<DataLen; i++)
-			{
-				if ((PData[i]=='\\') || (PData[i]=='/'))
-				{
-					if (PData[i]!=m_separator)
-					{
-						PData[i]=m_separator;
-					}
-				}
-			}	
+			ChangeSeparator(m_separator);
 		}
 	}
 	return *this;
@@ -410,10 +428,15 @@ TFilePath& TFilePath::operator += ( const char* pChar )
 TFilePath&	TFilePath::operator += ( const char c)
 {
 	int oldLength = DataLen;
+	char cc = c;
+	if ((cc=='\\') || (cc=='//'))
+	{
+		cc = m_separator;
+	}
 	SetLength(DataLen+1, false);
 	if (DataLen>oldLength)
 	{
-		PData[DataLen-1] = c;
+		PData[DataLen-1] = cc;
 	}
 	return *this;
 }

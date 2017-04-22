@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="UnitTests"
 	ProjectGUID="{3B4700CD-77F5-4190-AE31-22C5C4627894}"
 	RootNamespace="UnitTests"
@@ -139,7 +139,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\..\Source\UnitTests\PersistenceExample;..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols"
+				AdditionalIncludeDirectories="..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample;..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols"
 				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="0"

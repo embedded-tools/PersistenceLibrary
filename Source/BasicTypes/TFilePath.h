@@ -44,6 +44,8 @@ class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
 
 		void		DeleteFileName();
 		bool		DeleteLastDir();
+		void		DeleteDoubleSlash();
+
 		TFilePath	operator = ( TFilePath& oString );
 		TFilePath&	operator = ( TString& oString );
 		TFilePath&	operator = ( const char* pChar);
