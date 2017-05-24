@@ -68,23 +68,29 @@ void TFont::CalculateBitsPerRow(ePixelFormat fontFormat, const unsigned short wi
     }
     switch (fontFormat)
     {
-    case pfBGR2ColorsPalette:  m_fontBitsPerRow = n; break;
-    case pfBGR4ColorsPalette:  m_fontBitsPerRow = n*2; break;
-    case pfBGR8ColorsPalette: 
-    case pfBGR16ColorsPalette: m_fontBitsPerRow = n*4; break;
-    case pfBGR256ColorsPalette: m_fontBitsPerRow = n*8;    break;
+        case pfBGR2ColorsPalette:  m_fontBitsPerRow = n; break;
+        case pfBGR4ColorsPalette:  m_fontBitsPerRow = n*2; break;
+        case pfBGR8ColorsPalette: 
+        case pfBGR16ColorsPalette: m_fontBitsPerRow = n*4; break;
+        case pfBGR256ColorsPalette: m_fontBitsPerRow = n*8;    break;
 
-    case pfRGB332: m_fontBitsPerRow = n*8; break;
-    case pfRGB555: 
-    case pfRGB565: m_fontBitsPerRow = n*16; break;
-    case pfBGR888:
-    case pfRGB888: m_fontBitsPerRow = n*24; break;            
-    case pfBGRA8888:
-    case pfRGBA8888: 
-    case pfRGBX8888: m_fontBitsPerRow = n*32; break;              
-    default: m_fontBitsPerRow = 0; break;
+        case pfRGB332: m_fontBitsPerRow = n*8; break;
+        case pfRGB555: 
+        case pfRGB565: m_fontBitsPerRow = n*16; break;
+        case pfBGR888:
+        case pfRGB888: m_fontBitsPerRow = n*24; break;            
+        case pfBGRA8888:
+        case pfRGBA8888: 
+        case pfRGBX8888: m_fontBitsPerRow = n*32; break;              
+        default: m_fontBitsPerRow = 0; break;
     }
-
+    if (
+        (fontDataAlignment==ffHorizontalAligned) ||
+        (fontDataAlignment==ffVerticalAligned)
+        )
+    {
+        while(m_fontBitsPerRow&7) m_fontBitsPerRow++;
+    }
 }
 
 
