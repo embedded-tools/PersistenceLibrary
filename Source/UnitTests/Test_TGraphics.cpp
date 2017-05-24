@@ -165,23 +165,23 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 		res = bmp2.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches___2colors.bmp");
 		bmp2.SaveToWindowsBmp("Watches___2colors-3.bmp");
 
-		pixel1 = bmp2.GetPixel(395,0);
+		pixel1 = bmp2.GetPixelColor(395,0);
 
 		TPosition pos(24,40);		
 		conv.CopyRect(videoRam, pos, bmp4);		
 		TPosition pos2(244,105);
 		conv.CopyRect(videoRam, pos2, bmp2);
 
-		pixel2 = videoRam.GetPixel(639,105);
+		pixel2 = videoRam.GetPixelColor(639,105);
 
 		TWindowsBmpFile tmpData(640, 480, pfRGB888);
 		TPosition       tmpPos(0,0);
 		TRectangle      tmpRect(0, 640, 0, 480);
 
 		conv.CopyRect(tmpData, tmpPos, videoRam, tmpRect);
-		pixel3 = videoRam.GetPixel(595,105);
-		pixel4 = tmpData.GetPixel(596,105);
-		pixel5 = tmpData.GetPixel(639,105);
+		pixel3 = videoRam.GetPixelColor(595,105);
+		pixel4 = tmpData.GetPixelColor(596,105);
+		pixel5 = tmpData.GetPixelColor(639,105);
 
 
 		tmpData.SaveToWindowsBmp("ConvertPalette1and2ToRGB565.bmp");
