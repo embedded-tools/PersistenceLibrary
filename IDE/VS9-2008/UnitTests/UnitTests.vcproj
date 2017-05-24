@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="UnitTests"
 	ProjectGUID="{3B4700CD-77F5-4190-AE31-22C5C4627894}"
 	RootNamespace="UnitTests"
@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Debug"
+			OutputDirectory=".\"
 			IntermediateDirectory=".\obj"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
@@ -73,12 +73,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="basictypesd.lib collectionsd.lib fileutilsd.lib mathd.lib persistenced.lib protocolsd.lib odbc32.lib odbccp32.lib"
-				OutputFile=".\Debug/UnitTests.exe"
+				OutputFile=".\UnitTestsD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/UnitTests.pdb"
+				ProgramDatabaseFile=".\UnitTests.pdb"
 				SubSystem="1"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -110,7 +110,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Release"
+			OutputDirectory=".\"
 			IntermediateDirectory=".\obj"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
@@ -165,12 +165,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="basictypes.lib collections.lib fileutils.lib math.lib persistence.lib protocols.lib odbc32.lib odbccp32.lib"
-				OutputFile=".\Release/UnitTests.exe"
+				OutputFile=".\UnitTests.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Release/UnitTests.pdb"
+				ProgramDatabaseFile=".\UnitTests.pdb"
 				SubSystem="1"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -268,7 +268,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\UnitTests\Fonts\BookmanOldStyle.h"
+					RelativePath="..\..\..\Source\UnitTests\Fonts\Bookman50.h"
 					>
 				</File>
 				<File
@@ -684,7 +684,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\Source\UnitTests\Fonts\BookmanOldStyle.cpp"
+					RelativePath="..\..\..\Source\UnitTests\Fonts\Bookman50.cpp"
 					>
 				</File>
 				<File

@@ -3,7 +3,7 @@
 #include "TFont.h"
 #include "Amata13.h"
 #include "Robotron.h"
-#include "BookmanOldStyle.h"
+#include "Bookman50.h"
 #include "BrushScript12.h"
 #include "ZXSpectrum.h"
 #include "TGraphicsData.h"
@@ -158,7 +158,7 @@ class Test_TFont : public TestFixture<Test_TFont>
     void PrintVariableLengthFont3()
     {
         TFont font;
-        font.LoadVariableLengthFont(pfBGR2ColorsPalette, BookmanOldStyle_Width, BookmanOldStyle_Height, BookmanOldStyle, sizeof(BookmanOldStyle), BookmanOldStyle_DataAlignment, BookmanOldStyle_Index, sizeof(BookmanOldStyle_Index));
+        font.LoadVariableLengthFont(pfBGR2ColorsPalette, Bookman50_Width, Bookman50_Height, Bookman50, sizeof(Bookman50), Bookman50_DataAlignment, Bookman50_Index, sizeof(Bookman50_Index));
 
         TGraphicsData vram(800, 600, pfRGB888, 0xFF00FF);
         TCanvas canvas(&vram);
@@ -166,7 +166,7 @@ class Test_TFont : public TestFixture<Test_TFont>
 
         canvas.DrawText(font, "the quick brown fox jumps over the lazy dog!", position);
         position.Y += 100;
-        canvas.DrawText(font, "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG", position);
+        canvas.DrawText(font, "A QUICK BRO W N FOX JUMPS OVER THE LAZY DOG", position);
         position.Y += 100;
         canvas.DrawTextVertical(font, "HELLO!", position);
 
