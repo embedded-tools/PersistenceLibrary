@@ -358,10 +358,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\UnitTests\Test_TDictionary.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_Template.cpp"
 				>
 			</File>
@@ -407,6 +403,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TShortString.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TSortedDictionary.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TStaticDictionary.cpp"
 				>
 			</File>
 			<File

@@ -29,9 +29,6 @@
  *  it is needed to decrease memory fragmentation.
  */
 template <typename KEY, typename VALUE> class TSortedDictionary 
-#ifdef TITERATOR_INHERITANCE
-: public TIterator
-#endif
 {
 
 private:
@@ -61,15 +58,7 @@ public:
 	
 	KEY&  Keys(int index);
 
-#ifdef TITERATOR_INHERITANCE
-    virtual void* First();
-    virtual void* Next();
-    virtual short Count();
-#else 
-    void* First();
-    void* Next();
-    short Count();
-#endif						
+    short Count();	
 	
     bool  ContainsKey(KEY key);
 	short FindKeyIndex(KEY key);

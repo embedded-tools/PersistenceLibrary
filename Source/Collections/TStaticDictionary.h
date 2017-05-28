@@ -26,10 +26,7 @@
  *
  *  Static dictionary avoids memory fragmentation on embedded system with low RAM size.
  */
-template <typename K, typename V, int N> class TStaticDictionary
-#ifdef TITERATOR_INHERITANCE
-: public TIterator
-#endif
+template <typename K, typename V, int N> class TStaticDictionary 
 {
 protected:
 
@@ -40,7 +37,6 @@ protected:
     short  DataMax;   
 
     int  Capacity();
-    int  SetCount(int count);
 
 public:
 
@@ -50,19 +46,10 @@ public:
 
     void Add(K key, V value);
     void Del(K key);	
-    bool ContainsKey (K key);
-	bool ContainsValue (V value);
-    short FindKeyIndex(K key);
- 
-#ifdef TITERATOR_INHERITANCE
-    virtual void* First();
-    virtual void* Next();
-    virtual short Count();
-#else 
-    void* First();
-    void* Next();
     short Count();
-#endif				
+
+    bool ContainsKey (K key);
+	bool ContainsValue (V value);    
 
 	K&   Key(int index);
     void Clear();

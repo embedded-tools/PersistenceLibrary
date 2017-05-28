@@ -245,21 +245,6 @@ VALUE&   TSortedDictionary<KEY, VALUE>::operator [] (KEY key)
 }
 
 template<typename KEY, typename VALUE>
-void* TSortedDictionary<KEY, VALUE>::First()
-{
-	DataIterator=0;
-	if (DataCount==0) return NULL;
-	return (void*)&Key[DataIterator++];
-}
-
-template<typename KEY, typename VALUE>
-void* TSortedDictionary<KEY, VALUE>::Next()
-{
-	if (DataIterator>DataCount) return NULL;
-	return (void*)&Key[DataIterator++];
-}
-
-template<typename KEY, typename VALUE>
 KEY&  TSortedDictionary<KEY,VALUE>::Keys(int index)
 {
 	if ((index>=0) || (index<DataCount))

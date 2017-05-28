@@ -40,11 +40,11 @@ template<typename K, typename V, int N>
 void TStaticDictionary<K,V,N>::Add(K key, V value)
 {
 	int oldDataCount = DataCount;
-    SetCount(DataCount+1);
-	if (oldDataCount!=DataCount)
-	{
-		_Key[DataCount-1]   = key;
-		_Value[DataCount-1] = value;
+    if (DataCount<DataMax)
+    {
+		_Key[DataCount]   = key;
+		_Value[DataCount] = value;
+        DataCount++;
 	}
 };
 
@@ -66,7 +66,7 @@ void TStaticDictionary<K,V,N>::Del(K key)
         _Key[j]=_Key[j+1];
 		_Value[j]=_Value[j+1];
     }
-    SetCount(DataCount-1);
+    DataCount--;
 };
 
 template<typename K, typename V, int N>
@@ -99,43 +99,6 @@ bool TStaticDictionary<K,V,N>::ContainsValue (V value)
     return result;
 }
 
-
-template<typename K, typename V, int N>
-short TStaticDictionary<K, V, N>::FindKeyIndex(K key)
-{
-    short result = -1;
-    for(int i = 0; i<DataCount; i++)
-    {
-        if (Key[i]==key)
-        {
-            result = i;
-        }
-    }
-    return result;
-}
-
-template<typename K, typename V, int N>
-void* TStaticDictionary<K, V, N>::First()
-{
-    DataIterator = 0;
-    if (DataCount>0)
-    {
-        return &_Key[0];
-    }
-    return NULL;    
-};
-
-template<typename K, typename V, int N>
-void* TStaticDictionary<K, V, N>::Next()
-{
-    DataIterator++;
-    if (DataIterator<DataCount)
-    {
-        return &_Key[DataIterator];
-    }
-    return NULL;
-};
-
 template<typename K, typename V, int N>
 short TStaticDictionary<K,V,N>::Count()
 {
@@ -150,7 +113,6 @@ K&  TStaticDictionary<K,V,N>::Key(int index)
 		return _Key[index];
 	}
 	static K result;
-	result.Clear();
 	return result;
 }
 
@@ -161,23 +123,10 @@ int TStaticDictionary<K,V,N>::Capacity()
     return DataMax;
 };
 
-
-template<typename K, typename V, int N>
-int TStaticDictionary<K,V,N>::SetCount(int count)
-{
-    if (count<0) count = 0;
-	if (count>=DataMax)
-	{
-        count = DataMax;
-	}
-    DataCount = count;
-    return DataCount;
-};
-
 template<typename K, typename V, int N>
 void TStaticDictionary<K,V,N>::Clear()
 {
-    SetCount(0);    
+    DataCount = 0;   
 };
 
 template<typename K, typename V, int N>
@@ -190,6 +139,12 @@ V& TStaticDictionary<K,V,N>::operator [] (K key)
 			return _Value[i2];
 		}
 	}
+    if (DataCount<DataMax)
+    {
+        _Key[DataCount] = key;
+        return _Value[DataCount++];
+    }        
+
 	static V value;
     memset(&value, 0, sizeof(value));
     return value;

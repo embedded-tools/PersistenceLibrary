@@ -9,12 +9,11 @@ class Test_TStaticDictionary : public TestFixture<Test_TStaticDictionary>
     TEST_FIXTURE( Test_TStaticDictionary)
     {
         TEST_CASE( ConstructDestruct );        
-		TEST_CASE( AddItems0);
 		TEST_CASE( AddItems1);
 		TEST_CASE( AddItems2);
-		TEST_CASE( AddItems3);
-        TEST_CASE( AddItems4);
+        TEST_CASE( DelItems);
         TEST_CASE( ContainsKey );
+        TEST_CASE( ContainsValue );
         TEST_CASE( Clear );        
     }
 
@@ -37,151 +36,134 @@ class Test_TStaticDictionary : public TestFixture<Test_TStaticDictionary>
 		short index1, index2, index3, index4;
 		TStaticDictionary<char, long, 8> dict;
 
-        /*
         dict[1] = 10000000;
-		index1 = dict.FindKeyIndex(1);
-		ASSERT(index1==0);
+		ASSERT(dict.Key(0)==1);
         ASSERT(dict[1]==10000000);
 
         dict[2] = 20000000;
-		index1 = dict.FindKeyIndex(1);
-		index2 = dict.FindKeyIndex(2);
-		ASSERT(index1==0);		
-		ASSERT(index2==1);
+		ASSERT(dict.Key(0)==1);		
+		ASSERT(dict.Key(1)==2);
         ASSERT(dict[1]==10000000);
         ASSERT(dict[2]==20000000);
 
         dict[3] = 30000000;
-		index1 = dict.FindKeyIndex(1);
-		index2 = dict.FindKeyIndex(2);
-		index3 = dict.FindKeyIndex(3);
-		ASSERT(index1==0);		
-		ASSERT(index2==1);
-		ASSERT(index3==2);
+        ASSERT(dict.Key(0)==1);		
+        ASSERT(dict.Key(1)==2);
+        ASSERT(dict.Key(2)==3);
         ASSERT(dict[1]==10000000);
         ASSERT(dict[2]==20000000);
         ASSERT(dict[3]==30000000);
 
-		dict[4] = 40000000;
-		index1 = dict.FindKeyIndex(1);
-		index2 = dict.FindKeyIndex(2);
-		index3 = dict.FindKeyIndex(3);
-		index4 = dict.FindKeyIndex(4);
-		ASSERT(index1==0);		
-		ASSERT(index2==1);
-		ASSERT(index3==2);
-		ASSERT(index4==3);
+		dict[40] = 40000000;
+        ASSERT(dict.Key(0)==1);		
+        ASSERT(dict.Key(1)==2);
+        ASSERT(dict.Key(2)==3);
+        ASSERT(dict.Key(3)==40);
         ASSERT(dict[1]==10000000);
         ASSERT(dict[2]==20000000);
         ASSERT(dict[3]==30000000);
-        ASSERT(dict[4]==40000000);
-        */
+        ASSERT(dict[40]==40000000);        
 	}
 
-	void AddItems2()
-	{
-		short index1, index2, index3, index4;
-		TStaticDictionary<short, char, 8> dict;
-
-/*
-		dict[4] = 40;
-		index4 = dict.FindKeyIndex(4);
-		ASSERT(index4==0);
-
-		dict[3] = 30;
-		index3 = dict.FindKeyIndex(3);
-		index4 = dict.FindKeyIndex(4);		
-		ASSERT(index3==0);
-		ASSERT(index4==1);
-
-		dict[2] = 20;
-		index2 = dict.FindKeyIndex(2);
-		index3 = dict.FindKeyIndex(3);
-		index4 = dict.FindKeyIndex(4);		
-		ASSERT(index2==0);
-		ASSERT(index3==1);
-		ASSERT(index4==2);
-
-		dict[1] = 10;
-		index1 = dict.FindKeyIndex(1);
-		index2 = dict.FindKeyIndex(2);
-		index3 = dict.FindKeyIndex(3);
-		index4 = dict.FindKeyIndex(4);		
-		ASSERT(index1==0);
-		ASSERT(index2==1);
-		ASSERT(index3==2);
-		ASSERT(index4==3);
-*/
-
-	}
-
-	void AddItems3()
-	{
-		TStaticDictionary<short, char, 8> dict;
-
-/*
-        ASSERT_EQUALS(0, (long)dict.Count());
-        ASSERT(!dict.ContainsKey(1));
-
-        dict[1] = 11;
-        ASSERT_EQUALS(1, (long)dict.Count());
-        ASSERT(dict.ContainsKey(1));
-        ASSERT_EQUALS(11, (long)dict[1]);
-
-        dict[1] = 12;
-        ASSERT_EQUALS(1, (long)dict.Count());
-        ASSERT(dict.ContainsKey(1));
-        ASSERT_EQUALS(12, (long)dict[1]);
-
-        dict[1] = 13;
-        ASSERT_EQUALS(1, (long)dict.Count());
-        ASSERT(dict.ContainsKey(1));
-        ASSERT_EQUALS(13, (long)dict[1]);
-*/
-	}
-
-    void AddItems4()
+    void AddItems2()
     {
-        /*
-        TStaticDictionary<short, long> dict;
-		long i;
+        short index1, index2, index3, index4;
+        TStaticDictionary<char, long, 4> dict;
 
-        for (i = 10; i<200; i++)
-        {
-            dict[i+1000] = i+2000;
-        }
-        for (i = 0; i<10; i++)
-        {
-            dict[i+1000] = i+2000;
-        }                                                                                                         
-        ASSERT_EQUALS(200, (long)dict.Count());
+        dict.Add(1, 10000000);
+        ASSERT(dict.Key(0)==1);
+        ASSERT(dict[1]==10000000);
 
-        for (i = 10; i<200; i++)
-        {
-            dict[i+1000] = i+2000;
-        }
-        ASSERT_EQUALS(200, (long)dict.Count());
-        */
+        dict.Add(2,20000000);
+        ASSERT(dict.Key(0)==1);		
+        ASSERT(dict.Key(1)==2);
+        ASSERT(dict[1]==10000000);
+        ASSERT(dict[2]==20000000);
+
+        dict.Add(3,30000000);
+        ASSERT(dict.Key(0)==1);		
+        ASSERT(dict.Key(1)==2);
+        ASSERT(dict.Key(2)==3);
+        ASSERT(dict[1]==10000000);
+        ASSERT(dict[2]==20000000);
+        ASSERT(dict[3]==30000000);
+
+        dict.Add(4,40000000);
+        dict.Add(5,50000000);
+        dict.Add(6,60000000);
+        ASSERT(dict.Count()==4);
+        ASSERT(dict.Key(0)==1);		
+        ASSERT(dict.Key(1)==2);
+        ASSERT(dict.Key(2)==3);
+        ASSERT(dict.Key(3)==4);        
+        ASSERT(dict[1]==10000000);
+        ASSERT(dict[2]==20000000);
+        ASSERT(dict[3]==30000000);
+        ASSERT(dict[4]==40000000);        
     }
 
-    void ContainsKey()
+    void DelItems()
     {
-        /*
-        TStaticDictionary<short, long> dict;
+        TStaticDictionary<char, long, 8> dict;
+        dict[10] = 10000;
+        dict[20] = 20000;
+        dict[30] = 30000;
+        dict[40] = 40000;
+        dict[50] = 50000;
+        ASSERT(dict.Count()==5);
+
+        dict.Del(30);
+
+        ASSERT(dict.Count()==4);
+        ASSERT(dict.Key(0)==10);
+        ASSERT(dict.Key(1)==20);
+        ASSERT(dict.Key(2)==40);
+        ASSERT(dict.Key(3)==50);
+
+        dict.Del(1);
+        ASSERT(dict.Count()==4);
+        ASSERT(dict.Key(0)==10);
+        ASSERT(dict.Key(1)==20);
+        ASSERT(dict.Key(2)==40);
+        ASSERT(dict.Key(3)==50);
+
+        dict.Del(10);
+        ASSERT(dict.Count()==3);
+        ASSERT(dict.Key(0)==20);
+        ASSERT(dict.Key(1)==40);
+        ASSERT(dict.Key(2)==50);
+
+        dict.Del(50);
+        ASSERT(dict.Count()==2);
+        ASSERT(dict.Key(0)==20);
+        ASSERT(dict.Key(1)==40);
+
+        dict.Del(20);
+        ASSERT(dict.Count()==1);
+        ASSERT(dict.Key(0)==40);
+
+        dict.Del(0);
+        ASSERT(dict.Count()==1);
+
+        dict.Del(40);
+        ASSERT(dict.Count()==0);
+
+    }
+
+
+    void ContainsKey()
+    {        
+        TStaticDictionary<short, long, 10> dict;
 		long i;
 
-        for (i = 0; i<1000; i+=2)
+        for (i = 1; i<=10; i++)
         {
             dict[i] = i+1000000;
         }
-        for (i = 1; i<1000; i+=2)
-        {
-            dict[i] = i+1000000;
-        }
-        ASSERT_EQUALS(1000, (long)dict.Count());
+        ASSERT_EQUALS(10, (long)dict.Count());
 
         int missing = 0;
-        for (i = 1; i<1000; i++)
+        for (i = 1; i<=10; i++)
         {
             if (!dict.ContainsKey(i))
             {
@@ -189,9 +171,32 @@ class Test_TStaticDictionary : public TestFixture<Test_TStaticDictionary>
                 break;
             }
         }
-        ASSERT(missing==0);
-        //*/
+        ASSERT(missing==0);        
     }
+
+    void ContainsValue()
+    {        
+        TStaticDictionary<short, long, 10> dict;
+        long i;
+
+        for (i = 1; i<=10; i++)
+        {
+            dict[i] = i+1000000;
+        }
+        ASSERT_EQUALS(10, (long)dict.Count());
+
+        int missing = 0;
+        for (i = 1; i<=10; i++)
+        {
+            if (!dict.ContainsValue(i+1000000))
+            {
+                missing = i;
+                break;
+            }
+        }
+        ASSERT(missing==0);        
+    }
+
 
     void Clear()
     {
