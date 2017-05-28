@@ -45,7 +45,15 @@ TGraphicsData::TGraphicsData(short width, short height, ePixelFormat pixelFormat
 	m_bitmapWidth        = width;
 	m_bitmapHeight       = height;	
 	m_planes             = 1;	
-	m_bytesPerLine       = width * bitsPerPixel / 8;
+    int tmp = width;
+    if ((pixelFormat==pfDXT1) || (pixelFormat==pfDXT3))
+    {
+        while(tmp & 3)
+        {
+            tmp++;
+        }
+    }
+	m_bytesPerLine       = (tmp * bitsPerPixel + 7) / 8;
 	m_bitmapDataSize     = m_bytesPerLine * height;
 	m_bitmapData         = (unsigned char*)malloc(m_bitmapDataSize);
     memset(m_bitmapData, 0, m_bitmapDataSize);
@@ -518,9 +526,9 @@ bool TGraphicsData::LoadFromROM (const unsigned char* image)
 	if (image[0]!='G') return false;
 	if (image[1]!='D') return false;
 
-	m_bitmapData					= (unsigned char*)image + (*headerOffsets++);
-	m_bitmapDataSize				= totalLength - bitmapOffset; 
-	m_bitmapNeedsUnalloc			= false;
+	m_bitmapData			= (unsigned char*)image + (*headerOffsets++);
+	m_bitmapDataSize		= totalLength - bitmapOffset; 
+	m_bitmapNeedsUnalloc    = false;
 	
 	if (headerSize != 14)
 	{
@@ -534,10 +542,11 @@ bool TGraphicsData::LoadFromROM (const unsigned char* image)
 	m_planes       = *headerParams++;
 	bitsperpixel   = *headerParams++;
 	flags          = *headerParams++;
-
+        
 	m_pixelFormat  = (ePixelFormat)(flags & 255);
 	m_transparentColorUsed	= (flags & 0x0100) ? true : false;
 	m_flipImage				= (flags & 0x0200) ? true : false;
+    m_bytesPerLine          = m_bitmapDataSize / m_bitmapHeight;
 
 	m_colorPaletteSize = totalLength - headerSize - 18;	
 	if (m_colorPaletteSize>0)
@@ -615,9 +624,11 @@ bool TGraphicsData::LoadFromFile (const char* filename)
 		m_colorPalette = (unsigned char*)malloc(m_colorPaletteSize);			
 		if (m_colorPalette)
 		{
+            m_colorPaletteNeedsUnalloc = true;
 			fread(m_colorPalette, 1, m_colorPaletteSize, file);
 			m_colorCount = (unsigned short)(m_colorPaletteSize / 3);
 		} else {
+            //not enough memory
 			m_colorCount = 0;
 			m_colorPaletteSize = 0;
 			fclose(file);
@@ -629,13 +640,15 @@ bool TGraphicsData::LoadFromFile (const char* filename)
 	}
 	m_bitmapDataSize = totalLength - bitmapOffset; 
 	m_bitmapData	 = (unsigned char*)malloc(m_bitmapDataSize);
+    m_bytesPerLine   = m_bitmapDataSize/m_bitmapHeight;
 	if (m_bitmapData==NULL)
 	{
+        //not enough memory
 		m_bitmapDataSize = 0;
 		fclose(file);
 		return false;
 	}
-	m_bitmapNeedsUnalloc			= false;
+	m_bitmapNeedsUnalloc = true;
 
 	fread(m_bitmapData, 1, m_bitmapDataSize, file);
 	fclose(file);
