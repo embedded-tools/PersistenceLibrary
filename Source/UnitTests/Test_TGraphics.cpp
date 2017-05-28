@@ -130,7 +130,7 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 
 		TWindowsBmpFile tmpData(640, 480, pfRGB888);
 		TPosition       tmpPos(0,0);
-		conv.CopyRect(tmpData, tmpPos, videoRam, TRectangle(0, 640, 0, 480));
+		conv.CopyRect(tmpData, tmpPos, videoRam, TRectangle(0, 0, 640, 480));
 		tmpData.SaveToWindowsBmp("ConvertPalette16ToRGB565.bmp");
 	}
 
@@ -176,7 +176,7 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 
 		TWindowsBmpFile tmpData(640, 480, pfRGB888);
 		TPosition       tmpPos(0,0);
-		TRectangle      tmpRect(0, 640, 0, 480);
+		TRectangle      tmpRect(0, 0, 640, 480);
 
 		conv.CopyRect(tmpData, tmpPos, videoRam, tmpRect);
 		pixel3 = videoRam.GetPixelColor(595,105);
@@ -191,7 +191,7 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 	void ConvertDXT1toRGB888()
 	{
 		TWindowsBmpFile bmp;
-		bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches__16colorsMcolors.bmp");
+		bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches16Mcolors.bmp");
 
 		TGraphicsData dxt (bmp.GetWidth(), bmp.GetHeight(), pfDXT1);
 		
@@ -202,15 +202,15 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 		converter.CopyRect(dxt, pos, bmp);
 
 		TWindowsBmpFile vram(600, 400, pfRGB888, 0xFF0080);
-		converter.CopyRect(vram, TPosition(0,0), dxt, TRectangle(0,dxt.GetWidth(), 0, dxt.GetHeight()));
-		converter.CopyRect(vram, TPosition(2,350), dxt, TRectangle(0,dxt.GetWidth(), 0, dxt.GetHeight()));
+		converter.CopyRect(vram, TPosition(0,0), dxt, TRectangle(0,0, dxt.GetWidth(), dxt.GetHeight()));
+		converter.CopyRect(vram, TPosition(12,350), dxt, TRectangle(0,0, dxt.GetWidth(), dxt.GetHeight()));
 		vram.SaveToWindowsBmp("ConvertDXT1toRGB888.bmp");
 	}
 
 	void ConvertDXT1toRGB565()
 	{
 		TWindowsBmpFile bmp;
-		bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches__16colorsMcolors.bmp");
+		bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches16Mcolors.bmp");
 
 		TGraphicsData dxt (bmp.GetWidth(), bmp.GetHeight(), pfDXT1);
 
@@ -221,12 +221,12 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 		converter.CopyRect(dxt, pos, bmp);
 
 		TWindowsBmpFile vram(600, 400, pfRGB565, 0xFF0080);
-		converter.CopyRect(vram, TPosition(0,0), dxt, TRectangle(0,dxt.GetWidth(), 0, dxt.GetHeight()));
-		converter.CopyRect(vram, TPosition(2,350), dxt, TRectangle(0,dxt.GetWidth(), 0, dxt.GetHeight()));
+		converter.CopyRect(vram, TPosition(0,0), dxt, TRectangle(0,0, dxt.GetWidth(), dxt.GetHeight()));
+		converter.CopyRect(vram, TPosition(12,350), dxt, TRectangle(0,0, dxt.GetWidth(), dxt.GetHeight()));
 
 		TWindowsBmpFile tmpData(640, 480, pfRGB888);
 		TPosition       tmpPos(0,0);
-		TRectangle      tmpRect(0, 640, 0, 480);
+		TRectangle      tmpRect(0, 0, 640, 480);
 		converter.CopyRect(tmpData, tmpPos, vram, tmpRect);
 		tmpData.SaveToWindowsBmp("ConvertDXT1toRGB565.bmp");
 
@@ -252,8 +252,8 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 		
 		TWindowsBmpFile vram(600, 400, pfRGB888,0x80FF00);
 		
-		converter.CopyRect(vram, TPosition(3,3), dxt, TRectangle(0,dxt.GetWidth(), 0, dxt.GetHeight()));
-		converter.CopyRect(vram, TPosition(10,300), dxt, TRectangle(0,dxt.GetWidth(), 0, dxt.GetHeight()));
+		converter.CopyRect(vram, TPosition(3,3), dxt, TRectangle(0,0, dxt.GetWidth(), dxt.GetHeight()));
+		converter.CopyRect(vram, TPosition(10,300), dxt, TRectangle(0,0, dxt.GetWidth(), dxt.GetHeight()));
 		
 		vram.SaveToWindowsBmp("ConvertTransparentDXT1toRGB888.bmp");
 
@@ -278,12 +278,12 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 
 		TWindowsBmpFile vram(600, 400, pfRGB565,0x80FF00);
 
-		converter.CopyRect(vram, TPosition(3,3), dxt, TRectangle(0,dxt.GetWidth(), 0, dxt.GetHeight()));
-		converter.CopyRect(vram, TPosition(10,300), dxt, TRectangle(0,dxt.GetWidth(), 0, dxt.GetHeight()));
+		converter.CopyRect(vram, TPosition(3,3), dxt, TRectangle(0,0, dxt.GetWidth(), dxt.GetHeight()));
+		converter.CopyRect(vram, TPosition(10,300), dxt, TRectangle(0,0, dxt.GetWidth(), dxt.GetHeight()));
 
 		TWindowsBmpFile tmpData(640, 480, pfRGB888);
 		TPosition       tmpPos(0,0);
-		TRectangle      tmpRect(0, 640, 0, 480);
+		TRectangle      tmpRect(0, 0, 640, 480);
 		converter.CopyRect(tmpData, tmpPos, vram, tmpRect);
 
 		tmpData.SaveToWindowsBmp("ConvertTransparentDXT1toRGB565.bmp");

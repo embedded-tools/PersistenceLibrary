@@ -23,7 +23,7 @@ class TRectangle
 public:
 	TRectangle();
 	TRectangle(const TRectangle &src);
-	TRectangle(short left, short right, short width, short height);
+	TRectangle(short left, short top, short right, short bottom);
 
 	short Left,Top,Right,Bottom;
 	short Width();

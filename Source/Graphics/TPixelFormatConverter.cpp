@@ -864,7 +864,7 @@ TColorRGB TPixelFormatConverter::DecodeColor(const unsigned char* sourceData, un
 
 bool TPixelFormatConverter::CopyRect(TGraphicsData& target, TPosition targetPosition, TGraphicsData& source)
 {
-	TRectangle sourceArea(0, source.GetWidth(), 0, source.GetHeight());
+	TRectangle sourceArea(0, 0, source.GetWidth(), source.GetHeight());
 	return CopyRect(target, targetPosition, source, sourceArea);
 }
 
@@ -899,8 +899,8 @@ bool TPixelFormatConverter::CopyRect(TGraphicsData& target, TPosition targetPosi
 	if (sourceArea.Right>source.GetWidth()) sourceArea.Right = source.GetWidth();
 	if (sourceArea.Bottom>source.GetHeight()) sourceArea.Bottom = source.GetHeight();
 
-	TRectangle targetArea(targetPosition.X, targetPosition.X+sourceArea.Width(),
-		                  targetPosition.Y, targetPosition.Y+sourceArea.Height());
+	TRectangle targetArea(targetPosition.X, targetPosition.Y,
+                          targetPosition.X+sourceArea.Width(), targetPosition.Y+sourceArea.Height());
 	if (targetArea.Left>target.GetWidth()) return true;
 	if (targetArea.Top>target.GetHeight()) return true;
 	if (targetArea.Right>target.GetWidth())   targetArea.Right = target.GetWidth();
