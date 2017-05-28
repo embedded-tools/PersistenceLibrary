@@ -633,7 +633,7 @@ void TPixelFormatConverter::DXT1toRGB888 (unsigned char* targetData, const unsig
 	while(pixelCount>0)
 	{		
 		
-		unsigned char color[12];
+		unsigned char color[12]; //four colors * (r + g + b)
 		color[0] =  (sourceData[4]&0xF8);
 		color[1] = ((sourceData[4]&0x07)<<5) + ((sourceData[5]&0xE0)>>3);
 		color[2] =  (sourceData[5]<<3);
@@ -766,32 +766,16 @@ bool TPixelFormatConverter::ConvertBMPtoDXT(TGraphicsData& target, TGraphicsData
 
     unsigned long  colorKey= 0x10000;
     short cy  = 0;
+
     while(cy<height)
     {
         tgt = target.ScanLine(cy/4);
-        src = source.ScanLine(cy); callback((unsigned char*)tmpBuffer1, src, width, 0);
-        cy++;
-        if (cy<height)
-        {
-            src = source.ScanLine(cy); callback((unsigned char*)tmpBuffer2, src, width, 0);
-            cy++;
-        } else {
-            memset(tmpBuffer2, 0, bytesPerLine);
-        }
-        if (cy<height)
-        {
-            src = source.ScanLine(cy); callback((unsigned char*)tmpBuffer3, src, width, 0);
-            cy++;
-        } else {
-            memset(tmpBuffer3, 0, bytesPerLine);
-        }
-        if (cy<height)
-        {
-            src = source.ScanLine(cy); callback((unsigned char*)tmpBuffer4, src, width, 0);
-            cy++;
-        } else {
-            memset(tmpBuffer4, 0, bytesPerLine);
-        }
+
+        if (cy<height) src = source.ScanLine(cy); callback((unsigned char*)tmpBuffer1, src, width, 0); cy++;
+        if (cy<height) src = source.ScanLine(cy); callback((unsigned char*)tmpBuffer2, src, width, 0); cy++;
+        if (cy<height) src = source.ScanLine(cy); callback((unsigned char*)tmpBuffer3, src, width, 0); cy++;
+        if (cy<height) src = source.ScanLine(cy); callback((unsigned char*)tmpBuffer4, src, width, 0); cy++;
+        
         unsigned char* p1 = tmpBuffer1;
         unsigned char* p2 = tmpBuffer2;
         unsigned char* p3 = tmpBuffer3;
@@ -800,22 +784,22 @@ bool TPixelFormatConverter::ConvertBMPtoDXT(TGraphicsData& target, TGraphicsData
         TDxtBlockCreator dxtBlock;
         for(short cx=0; cx<width; cx+=4)
         {
-            dxtBlock.Pixel[0].rgb  = TColorRGB(p1[0], p1[1], p1[2]); p1+=3;			
-            dxtBlock.Pixel[1].rgb  = TColorRGB(p1[0], p1[1], p1[2]); p1+=3;
-            dxtBlock.Pixel[2].rgb  = TColorRGB(p1[0], p1[1], p1[2]); p1+=3;
-            dxtBlock.Pixel[3].rgb  = TColorRGB(p1[0], p1[1], p1[2]); p1+=3;
-            dxtBlock.Pixel[4].rgb  = TColorRGB(p2[0], p2[1], p2[2]); p2+=3;
-            dxtBlock.Pixel[5].rgb  = TColorRGB(p2[0], p2[1], p2[2]); p2+=3;
-            dxtBlock.Pixel[6].rgb  = TColorRGB(p2[0], p2[1], p2[2]); p2+=3;
-            dxtBlock.Pixel[7].rgb  = TColorRGB(p2[0], p2[1], p2[2]); p2+=3;
-            dxtBlock.Pixel[8].rgb  = TColorRGB(p3[0], p3[1], p3[2]); p3+=3;
-            dxtBlock.Pixel[9].rgb  = TColorRGB(p3[0], p3[1], p3[2]); p3+=3;
-            dxtBlock.Pixel[10].rgb = TColorRGB(p3[0], p3[1], p3[2]); p3+=3;
-            dxtBlock.Pixel[11].rgb = TColorRGB(p3[0], p3[1], p3[2]); p3+=3;
-            dxtBlock.Pixel[12].rgb = TColorRGB(p4[0], p4[1], p4[2]); p4+=3;
-            dxtBlock.Pixel[13].rgb = TColorRGB(p4[0], p4[1], p4[2]); p4+=3;
-            dxtBlock.Pixel[14].rgb = TColorRGB(p4[0], p4[1], p4[2]); p4+=3;
-            dxtBlock.Pixel[15].rgb = TColorRGB(p4[0], p4[1], p4[2]); p4+=3;
+            dxtBlock.Pixel[0].rgb  = TColorRGB(p1[0], p1[1], p1[2]); if ((cx+1)<width) p1+=3;			
+            dxtBlock.Pixel[1].rgb  = TColorRGB(p1[0], p1[1], p1[2]); if ((cx+2)<width) p1+=3;
+            dxtBlock.Pixel[2].rgb  = TColorRGB(p1[0], p1[1], p1[2]); if ((cx+3)<width) p1+=3;
+            dxtBlock.Pixel[3].rgb  = TColorRGB(p1[0], p1[1], p1[2]); if ((cx+4)<width) p1+=3;
+            dxtBlock.Pixel[4].rgb  = TColorRGB(p2[0], p2[1], p2[2]); if ((cx+1)<width) p2+=3;
+            dxtBlock.Pixel[5].rgb  = TColorRGB(p2[0], p2[1], p2[2]); if ((cx+2)<width) p2+=3;
+            dxtBlock.Pixel[6].rgb  = TColorRGB(p2[0], p2[1], p2[2]); if ((cx+3)<width) p2+=3;
+            dxtBlock.Pixel[7].rgb  = TColorRGB(p2[0], p2[1], p2[2]); if ((cx+4)<width) p2+=3;
+            dxtBlock.Pixel[8].rgb  = TColorRGB(p3[0], p3[1], p3[2]); if ((cx+1)<width) p3+=3;
+            dxtBlock.Pixel[9].rgb  = TColorRGB(p3[0], p3[1], p3[2]); if ((cx+2)<width) p3+=3;
+            dxtBlock.Pixel[10].rgb = TColorRGB(p3[0], p3[1], p3[2]); if ((cx+3)<width) p3+=3;
+            dxtBlock.Pixel[11].rgb = TColorRGB(p3[0], p3[1], p3[2]); if ((cx+4)<width) p3+=3;
+            dxtBlock.Pixel[12].rgb = TColorRGB(p4[0], p4[1], p4[2]); if ((cx+1)<width) p4+=3;
+            dxtBlock.Pixel[13].rgb = TColorRGB(p4[0], p4[1], p4[2]); if ((cx+2)<width) p4+=3;
+            dxtBlock.Pixel[14].rgb = TColorRGB(p4[0], p4[1], p4[2]); if ((cx+3)<width) p4+=3;
+            dxtBlock.Pixel[15].rgb = TColorRGB(p4[0], p4[1], p4[2]); if ((cx+4)<width) p4+=3;
             dxtBlock.TransparentColor = target.GetTransparentColor();
             dxtBlock.TransparentColorUsed = target.IsTransparentColorUsed();
 
