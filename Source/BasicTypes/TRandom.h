@@ -20,6 +20,14 @@
 #define TRANDOM_PRIME_1 696132157
 #define TRANDOM_PRIME_2 791941417
 
+/************************************************************************/
+/* Very simple class for generating random numbers similar to standard
+/* function "rand()" in <stdlib>
+/*
+/* You can use this class if you can't afford to include <stdlib> because 
+/* of small ROM
+/*
+/************************************************************************/
 class TRandom
 {
     private:

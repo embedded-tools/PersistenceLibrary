@@ -17,6 +17,14 @@
 #ifndef TCOLLECTIONS____H
 #define TCOLLECTIONS____H
 
-#define TITERATOR_INHERITANCE
+#include "TIterator.h"
+#include "TList.h"
+#include "TObjectList.h"
+
+#include "TSortedDictionary.h"
+#include "TStaticDictionary.h"
+#include "TStaticList.h"
+#include "TStaticObjectList.h"
+#include "TStaticQueue.h"
 
 #endif

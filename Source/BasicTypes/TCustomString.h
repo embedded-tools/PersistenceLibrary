@@ -24,6 +24,8 @@
  *  
  *  There are no memory reallocations, therefore it prevents memory fragmentation on systems with
  *  very small RAM (e.g. 32kB or less)
+ *
+ *  TCustomString intentionally does not use any virtual methods to avoid problems when it is used with Atmel AVR.
  */
 
 template<int LENGTH>

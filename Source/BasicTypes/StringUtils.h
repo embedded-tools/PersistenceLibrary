@@ -18,23 +18,15 @@
 #define STRINGUTILS___H
 
 /**
- *  String helper methods. All of them is possible to replace by printf syntaxes,
- *  but sometimes you can not afford to include printf functions (e.g. if ROM is not 
- *  big enough).
+ *  String helper methods for conversion between text and numeric data types.
  *
- *  If you have plenty of RAM and ROM, always use printf or sprintf instead!!!
+ *  Using of these functions does not any make sense if you have plenty of both ROM and RAM,
+ *  in such case use printf, sprintf, scanf or sscanf instead!!!
  */
 
 unsigned short StrLen(const char* s);
 short StrPos (const char* substring, const char* string, short startIndex=0);
 short StrPos (char c, const char* string, short startIndex=0);
-
-/*
-void (*StringResultCallback)(const char* subString, unsigned short subStringLength);
-void Split(const char* string, char separator, StringResultCallback callback);
-void Trim (const char* string, bool trimLeft, bool trimRight, StringResultCallback callback);
-*/
-
 
 bool ByteToStr (short Value, char* buffer, unsigned short bufferSize);
 bool UByteToStr (short Value, char* buffer, unsigned short bufferSize);

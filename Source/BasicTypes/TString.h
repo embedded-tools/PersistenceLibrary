@@ -32,6 +32,9 @@
  *  memory reallocation at all). This way class decreases memory 
  *  fragmentation.
  *
+ *  TString intentionally does not use any virtual methods to avoid
+ *  problems when it is used with Atmel AVR.
+ *
  */
 
 class TString

@@ -17,6 +17,11 @@
 #ifndef TENUMERATION___H
 #define TENUMERATION___H
 
+/* Notice - iterator inheritance does not work on 8-bit Atmel AVR MCUs,
+            in such case you need to comment define statement below     */
+
+#define TITERATOR_INHERITANCE
+
 /**
  *	TIterator is an interface implemented by all collection classes
  *

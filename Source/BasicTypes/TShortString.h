@@ -30,6 +30,9 @@
  *  
  *  TShortString prevents memory fragmentation, all string data are held in static
  *  char array with predefined size.
+ *
+ *  TShortString intentionally does not use any virtual methods to avoid
+ *  problems when it is used with Atmel AVR.
  */
 
 class TShortString : public TString
