@@ -115,6 +115,13 @@ short TStaticList<T, N>::Count()
 };
 
 template<class T, int N>
+short TStaticList<T, N>::MaxCount()
+{
+    return N;
+};
+
+
+template<class T, int N>
 short TStaticList<T, N>::Capacity()
 {
     return DataMax;

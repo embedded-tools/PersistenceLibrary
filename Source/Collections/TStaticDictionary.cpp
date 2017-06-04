@@ -106,6 +106,12 @@ short TStaticDictionary<K,V,N>::Count()
 };
 
 template<typename K, typename V, int N>
+short TStaticDictionary<K,V,N>::MaxCount()
+{
+    return N;
+};
+
+template<typename K, typename V, int N>
 K&  TStaticDictionary<K,V,N>::Key(int index)
 {
 	if ((index>=0) || (index<DataCount))
@@ -115,6 +121,18 @@ K&  TStaticDictionary<K,V,N>::Key(int index)
 	static K result;
 	return result;
 }
+
+template<typename K, typename V, int N>
+V&  TStaticDictionary<K,V,N>::Value(int index)
+{
+    if ((index>=0) || (index<DataCount))
+    {
+        return _Value[index];
+    }
+    static V result;
+    return result;
+}
+
 
 
 template<typename K, typename V, int N>
@@ -126,7 +144,7 @@ int TStaticDictionary<K,V,N>::Capacity()
 template<typename K, typename V, int N>
 void TStaticDictionary<K,V,N>::Clear()
 {
-    DataCount = 0;   
+    DataCount = 0;
 };
 
 template<typename K, typename V, int N>

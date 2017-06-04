@@ -47,11 +47,13 @@ public:
     void Add(K key, V value);
     void Del(K key);	
     short Count();
+    short MaxCount();
 
     bool ContainsKey (K key);
 	bool ContainsValue (V value);    
 
 	K&   Key(int index);
+    V&   Value(int index);
     void Clear();
 
     V& operator [] (K key);

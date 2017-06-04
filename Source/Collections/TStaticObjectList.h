@@ -65,6 +65,7 @@ public:
     void* Next();
     short Count();
 #endif			
+    short MaxCount();
 
     T* operator [] (short id);
 	T* Items (short id);

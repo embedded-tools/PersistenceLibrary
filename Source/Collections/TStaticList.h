@@ -61,7 +61,8 @@ public:
     void* First();
     void* Next();
     short Count();
-#endif			
+#endif		
+    short MaxCount();
 
     T&  operator [] (short index);
 
