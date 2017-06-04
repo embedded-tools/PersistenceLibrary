@@ -18,6 +18,7 @@
 
 TShortString::TShortString()
 {
+    Data[0] = 0;
 	PData = (char*)&Data;
 	DataLen = 0;
 	DataMax = SHORTSTRINGLENGTH+1;

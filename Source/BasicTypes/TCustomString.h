@@ -38,6 +38,7 @@ public:
     TCustomString()
         :TString()
 	{
+        Data[0] = 0;
         PData = (char*)&Data;
 		DataMax = LENGTH+1;
 		DataStatic = true;
