@@ -433,9 +433,11 @@ void TSerializedItem::SerializeUIDArray (const char* arrayName, void* objectList
 					{
 						selectedList->Add(item);
 					}
-					char* dest = (char*)textUIDs.ToPChar();
-					char* src  = dest + n + 1;
-					textUIDs.CopyFrom(src);
+                    for(int i = 0; i<textUIDs.Length()-n-1; i++)
+                    {
+                        textUIDs[i] = textUIDs[i+n+1];
+                    }
+                    textUIDs.SetLength(textUIDs.Length()-n-1);
 					n=textUIDs.IndexOf(';');
 				}	
 				UID = StrToULongInt(textUIDs);

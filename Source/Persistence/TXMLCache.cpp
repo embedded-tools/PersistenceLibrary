@@ -20,6 +20,7 @@ TXMLCache::TXMLCache()
 {   
 	currentXmlDepth = 0;
 	lastXmlTalker = NULL;
+    lastName.Clear();
 }
 
 TXMLCache::~TXMLCache()
@@ -43,8 +44,14 @@ void TXMLCache::RestoreTalker(TXMLParserInterface* parser)
 void TXMLCache::Clear()
 {
 	lastName.Clear();
-	Attributes.Clear();
-	Values.Clear();
+	Attributes.Clear();   
+
+	for(int i =0; i<Values.MaxCount(); i++)
+    {
+        Values.Key(i).Clear();
+        Values.Value(i).Clear();
+    }
+    Values.Clear();
 }
 
 void TXMLCache::OnStartElement ( TXMLParserInterface* Parser, const char *elementName, TXMLParamMap &aAttributes)
@@ -82,12 +89,7 @@ void TXMLCache::OnCharacterData( TXMLParserInterface* Parser, const char* value)
 	} else {
 		if (arrayValue.Length()>0) arrayValue += ';';
 		arrayValue += value;
-		if (Values.ContainsKey((const char*)&lastName))
-		{
-			Values[(const char*)&lastName] = arrayValue;
-		} else {
-			Values.Add((const char*)&lastName, arrayValue);
-		}
+		Values[lastName] = arrayValue;
 	}	
 }
 
