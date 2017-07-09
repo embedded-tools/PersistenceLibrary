@@ -25,28 +25,30 @@
 
 #include <stdlib.h>
 
-typedef enum eCommand
+typedef enum eBinaryCommand
 {
-    ecPing = 0,
-    ecLedGreenOn = 0x11,
-    ecLedGreenOff = 0x12,
-    ecLedGreenToggle = 0x13,
-    ecLedRedOn = 0x21,
-    ecLedRedOff = 0x22,
-    ecLedRedToggle = 0x23,
-    ecOutputOn = 0x31,
-    ecOutputOff = 0x32,
-    ecOutputToggle = 0x33,
-    ecBeep = 0x41,
-    ecReadConfiguration = 0x51,
-    ecStoreConfiguration = 0x52,
-    ecReadData = 0x61,    
-    ecWriteData = 0x62,
-    ecOpenPort = 0x71,
-    ecClosePort = 0x72,
-    ecWriteToPort = 0x73,
-    ecReadFromPort = 0x74,
-    ecCustomCommand = 0x80
+    bcPing = 0,
+    bcLedGreenOn = 0x11,
+    bcLedGreenOff = 0x12,
+    bcLedGreenToggle = 0x13,
+    bcLedRedOn = 0x21,
+    bcLedRedOff = 0x22,
+    bcLedRedToggle = 0x23,
+    bcOutputOn = 0x31,
+    bcOutputOff = 0x32,
+    bcOutputToggle = 0x33,
+    bcBeep = 0x41,
+    bcReadConfiguration = 0x51,
+    bcStoreConfiguration = 0x52,
+    bcReadData = 0x61,    
+    bcWriteData = 0x62,
+    bcReadDataFromExternalMemory = 0x61,    
+    bcWriteDataToExternalMemory = 0x62,
+    bcOpenPort = 0x71,
+    bcClosePort = 0x72,
+    bcWriteToPort = 0x73,
+    bcReadFromPort = 0x74,
+    bcCustomCommand = 0x80
 } ECOMMAND;
 
 typedef enum eExpectedInputData
@@ -74,7 +76,7 @@ typedef enum eExpectedInputData
 
 typedef enum eSRDataMode
 {
-    dmReadWriteToDataBuffer,
+    dmReadWriteToTemporaryBufferFirst,
     dmReadWriteOnFly
 } ESRDATAMODE;
 
@@ -197,6 +199,9 @@ public:
     bool StoreConfiguration(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pData);
     bool ReadData(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pOutput, unsigned short maxOutputLength);
     bool WriteData(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pOutput);
+    bool ReadExternalData(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pOutput, unsigned short maxOutputLength);
+    bool WriteExternalData(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pOutput);
+
     bool OpenPort(unsigned short deviceAddress, unsigned short portAddress);
     bool ClosePort(unsigned short deviceAddress, unsigned short portAddress);
     bool WriteToPort(unsigned short deviceAddress, unsigned char* pData, unsigned short dataLength);

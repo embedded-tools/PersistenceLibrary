@@ -601,68 +601,68 @@ bool TBinaryProtocol::WaitForResponse(unsigned short command, unsigned char* pOu
 
 bool TBinaryProtocol::SendPing(unsigned short deviceAddress)
 {
-    SendPacket(ecPing, deviceAddress, 0, 0, 0, NULL);
-    return WaitForResponse(ecPing);
+    SendPacket(bcPing, deviceAddress, 0, 0, 0, NULL);
+    return WaitForResponse(bcPing);
 }
 
 bool TBinaryProtocol::LedGreenOn(unsigned short deviceAddress, unsigned short ledNumber)
 {
-    SendPacket(ecLedGreenOn, deviceAddress, ledNumber, 0, 0, NULL);
-    return WaitForResponse(ecLedGreenOn);
+    SendPacket(bcLedGreenOn, deviceAddress, ledNumber, 0, 0, NULL);
+    return WaitForResponse(bcLedGreenOn);
 }
 
 bool TBinaryProtocol::LedGreenOff(unsigned short deviceAddress, unsigned short ledNumber)
 {
-    SendPacket(ecLedGreenOff, deviceAddress, ledNumber, 0, 0, NULL);
-    return WaitForResponse(ecLedGreenOff);
+    SendPacket(bcLedGreenOff, deviceAddress, ledNumber, 0, 0, NULL);
+    return WaitForResponse(bcLedGreenOff);
 }
 
 bool TBinaryProtocol::LedGreenToggle(unsigned short deviceAddress, unsigned short ledNumber)
 {
-    SendPacket(ecLedGreenToggle, deviceAddress, ledNumber, 0, 0, NULL);
-    return WaitForResponse(ecLedGreenToggle);
+    SendPacket(bcLedGreenToggle, deviceAddress, ledNumber, 0, 0, NULL);
+    return WaitForResponse(bcLedGreenToggle);
 }
 
 bool TBinaryProtocol::LedRedOn(unsigned short deviceAddress, unsigned short ledNumber)
 {
-    SendPacket(ecLedRedOn, deviceAddress, ledNumber, 0, 0, NULL);
-    return WaitForResponse(ecLedRedOn);
+    SendPacket(bcLedRedOn, deviceAddress, ledNumber, 0, 0, NULL);
+    return WaitForResponse(bcLedRedOn);
 }
 
 bool TBinaryProtocol::LedRedOff(unsigned short deviceAddress, unsigned short ledNumber)
 {
-    SendPacket(ecLedRedOff, deviceAddress, ledNumber, 0, 0, NULL);
-    return WaitForResponse(ecLedRedOff);
+    SendPacket(bcLedRedOff, deviceAddress, ledNumber, 0, 0, NULL);
+    return WaitForResponse(bcLedRedOff);
 }
 
 bool TBinaryProtocol::LedRedToggle(unsigned short deviceAddress, unsigned short ledNumber)
 {
-    SendPacket(ecLedRedToggle, deviceAddress, ledNumber, 0, 0, NULL);
-    return WaitForResponse(ecLedRedToggle);
+    SendPacket(bcLedRedToggle, deviceAddress, ledNumber, 0, 0, NULL);
+    return WaitForResponse(bcLedRedToggle);
 }
 
 bool TBinaryProtocol::OutputOn(unsigned short deviceAddress, unsigned short outputNumber)
 {
-    SendPacket(ecOutputOn, deviceAddress, outputNumber, 0, 0, NULL);
-    return WaitForResponse(ecOutputOn);
+    SendPacket(bcOutputOn, deviceAddress, outputNumber, 0, 0, NULL);
+    return WaitForResponse(bcOutputOn);
 }
 
 bool TBinaryProtocol::OutputOff(unsigned short deviceAddress, unsigned short outputNumber)
 {
-    SendPacket(ecOutputOff, deviceAddress, outputNumber, 0, 0, NULL);
-    return WaitForResponse(ecOutputOff);
+    SendPacket(bcOutputOff, deviceAddress, outputNumber, 0, 0, NULL);
+    return WaitForResponse(bcOutputOff);
 }
 
 bool TBinaryProtocol::OutputToggle(unsigned short deviceAddress, unsigned short outputNumber)
 {
-    SendPacket(ecOutputToggle, deviceAddress, outputNumber, 0, 0, NULL);
-    return WaitForResponse(ecOutputToggle);
+    SendPacket(bcOutputToggle, deviceAddress, outputNumber, 0, 0, NULL);
+    return WaitForResponse(bcOutputToggle);
 }
 
 bool TBinaryProtocol::Beep(unsigned short deviceAddress, unsigned short frequency, unsigned short length)
 {
-    SendPacket(ecBeep, deviceAddress, frequency, length, 0, NULL);
-    return WaitForResponse(ecOutputToggle);
+    SendPacket(bcBeep, deviceAddress, frequency, length, 0, NULL);
+    return WaitForResponse(bcOutputToggle);
 }
 
 bool TBinaryProtocol::ReadConfiguration(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pOutput, unsigned char maxOutputLength)
@@ -670,8 +670,8 @@ bool TBinaryProtocol::ReadConfiguration(unsigned short deviceAddress, unsigned s
     bool result;
     unsigned short realLength = 0;
 
-    SendPacket(ecReadConfiguration, deviceAddress, address, length, 0, NULL);    
-    result = WaitForResponse(ecReadConfiguration, pOutput, &realLength, maxOutputLength);
+    SendPacket(bcReadConfiguration, deviceAddress, address, length, 0, NULL);    
+    result = WaitForResponse(bcReadConfiguration, pOutput, &realLength, maxOutputLength);
     if (realLength<length)
     {
         return false;
@@ -681,8 +681,8 @@ bool TBinaryProtocol::ReadConfiguration(unsigned short deviceAddress, unsigned s
 
 bool TBinaryProtocol::StoreConfiguration(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pData)
 {
-    SendPacket(ecStoreConfiguration, deviceAddress, address, 0, length, pData);
-    return WaitForResponse(ecStoreConfiguration);
+    SendPacket(bcStoreConfiguration, deviceAddress, address, 0, length, pData);
+    return WaitForResponse(bcStoreConfiguration);
 }
 
 bool TBinaryProtocol::ReadData(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pOutput, unsigned short maxOutputLength)
@@ -690,8 +690,8 @@ bool TBinaryProtocol::ReadData(unsigned short deviceAddress, unsigned short addr
     bool result;
     unsigned short realLength = 0;
 
-    SendPacket(ecReadData, deviceAddress, address, length, 0, NULL);
-    result = WaitForResponse(ecReadData, pOutput, &realLength, maxOutputLength);
+    SendPacket(bcReadData, deviceAddress, address, length, 0, NULL);
+    result = WaitForResponse(bcReadData, pOutput, &realLength, maxOutputLength);
     if (realLength<length)
     {
         return false;
@@ -701,33 +701,53 @@ bool TBinaryProtocol::ReadData(unsigned short deviceAddress, unsigned short addr
 
 bool TBinaryProtocol::WriteData(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pOutput)
 {
-    SendPacket(ecWriteData, deviceAddress, address, 0, length, pOutput);
-    return WaitForResponse(ecWriteData);
+    SendPacket(bcWriteData, deviceAddress, address, 0, length, pOutput);
+    return WaitForResponse(bcWriteData);
+}
+
+bool TBinaryProtocol::ReadExternalData(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pOutput, unsigned short maxOutputLength)
+{
+    bool result;
+    unsigned short realLength = 0;
+
+    SendPacket(bcReadDataFromExternalMemory, deviceAddress, address, length, 0, NULL);
+    result = WaitForResponse(bcReadData, pOutput, &realLength, maxOutputLength);
+    if (realLength<length)
+    {
+        return false;
+    }
+    return result;
+}
+
+bool TBinaryProtocol::WriteExternalData(unsigned short deviceAddress, unsigned short address, unsigned short length, unsigned char* pOutput)
+{
+    SendPacket(bcWriteDataToExternalMemory, deviceAddress, address, 0, length, pOutput);
+    return WaitForResponse(bcWriteData);
 
 }
 
 bool TBinaryProtocol::OpenPort(unsigned short deviceAddress, unsigned short portAddress)
 {
-    SendPacket(ecOpenPort, deviceAddress, portAddress, 0, 0, NULL);
-    return WaitForResponse(ecOpenPort);
+    SendPacket(bcOpenPort, deviceAddress, portAddress, 0, 0, NULL);
+    return WaitForResponse(bcOpenPort);
 }
 
 bool TBinaryProtocol::ClosePort(unsigned short deviceAddress, unsigned short portAddress)
 {
-    SendPacket(ecClosePort, deviceAddress, portAddress, 0, 0, NULL);
-    return WaitForResponse(ecClosePort);
+    SendPacket(bcClosePort, deviceAddress, portAddress, 0, 0, NULL);
+    return WaitForResponse(bcClosePort);
 }
 
 bool TBinaryProtocol::WriteToPort(unsigned short deviceAddress, unsigned char* pData, unsigned short dataLength)
 {
-    SendPacket(ecWriteToPort, deviceAddress, 0, 0, dataLength, pData);
-    return WaitForResponse(ecWriteToPort);
+    SendPacket(bcWriteToPort, deviceAddress, 0, 0, dataLength, pData);
+    return WaitForResponse(bcWriteToPort);
 }
 
 bool TBinaryProtocol::ReadFromPort(unsigned short deviceAddress, unsigned short timeout, unsigned char* pOutput, unsigned short* pOutputLength, const unsigned short maxDataLength)
 {
-    SendPacket(ecReadFromPort, deviceAddress,  timeout, 0, 0, NULL);
-    return WaitForResponse(ecReadFromPort, pOutput, pOutputLength, maxDataLength);    
+    SendPacket(bcReadFromPort, deviceAddress,  timeout, 0, 0, NULL);
+    return WaitForResponse(bcReadFromPort, pOutput, pOutputLength, maxDataLength);    
 }
 
 bool TBinaryProtocol::SendCustomCommand(unsigned short command, unsigned short deviceAddress, unsigned short customParam1, unsigned short customParam2, 

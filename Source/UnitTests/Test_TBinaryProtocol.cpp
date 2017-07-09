@@ -48,35 +48,35 @@ class Test_TBinaryProtocol : public TestFixture<Test_TBinaryProtocol>
         unsigned short errorCode = 0;
         switch(command)
         {
-            case ecLedGreenOn:
-            case ecLedGreenOff:
-            case ecLedGreenToggle:
-            case ecLedRedOn:
-            case ecLedRedOff:
-            case ecLedRedToggle:
-            case ecOutputOn:
-            case ecOutputOff:
-            case ecOutputToggle:
-            case ecBeep:
-            case ecReadConfiguration:
+            case bcLedGreenOn:
+            case bcLedGreenOff:
+            case bcLedGreenToggle:
+            case bcLedRedOn:
+            case bcLedRedOff:
+            case bcLedRedToggle:
+            case bcOutputOn:
+            case bcOutputOff:
+            case bcOutputToggle:
+            case bcBeep:
+            case bcReadConfiguration:
                 {
                     pOutputData = NULL;
                     outputDataSize = 0;
                 }
                 break;
-            case ecStoreConfiguration:
-            case ecReadData:
+            case bcStoreConfiguration:
+            case bcReadData:
                 {
                     pOutputData = NULL;
                     outputDataSize = 0;
                 }
                 break;
-            case ecWriteData:
-            case ecOpenPort:
-            case ecClosePort:
-            case ecWriteToPort:
-            case ecReadFromPort:
-            case ecCustomCommand:
+            case bcWriteData:
+            case bcOpenPort:
+            case bcClosePort:
+            case bcWriteToPort:
+            case bcReadFromPort:
+            case bcCustomCommand:
                 {
 
                 }
