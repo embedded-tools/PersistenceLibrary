@@ -53,7 +53,7 @@ class TWindowsBmpFile : public TGraphicsData
 {  
 public:
 	TWindowsBmpFile();
-    TWindowsBmpFile(short width, short height, ePixelFormat pixelFormat, unsigned long backgroundColor=0); 
+    TWindowsBmpFile(short width, short height, ePixelFormat pixelFormat, unsigned long backgroundColor=0, bool flipImage=true); 
     bool LoadFromWindowsBmp(const char* filename);	
     bool SaveToWindowsBmp(const char* filename);
 

@@ -70,7 +70,6 @@ void TFont::CalculateBitsPerRow(ePixelFormat fontFormat, const unsigned short wi
     {
         case pfBGR2ColorsPalette:  m_fontBitsPerRow = n; break;
         case pfBGR4ColorsPalette:  m_fontBitsPerRow = n*2; break;
-        case pfBGR8ColorsPalette: 
         case pfBGR16ColorsPalette: m_fontBitsPerRow = n*4; break;
         case pfBGR256ColorsPalette: m_fontBitsPerRow = n*8;    break;
 

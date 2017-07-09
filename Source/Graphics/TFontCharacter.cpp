@@ -39,7 +39,6 @@ int TFontCharacter::ScanLine(unsigned short lineIndex, unsigned char* pLine, uns
 	{
 		case pfBGR2ColorsPalette:   bitsPerPixel = 1;
 		case pfBGR4ColorsPalette:   bitsPerPixel = 2;
-		case pfBGR8ColorsPalette:   bitsPerPixel = 4;
 		case pfBGR16ColorsPalette:  bitsPerPixel = 4;
 		case pfBGR256ColorsPalette: bitsPerPixel = 8;
 		case pfBGR888: bitsPerPixel = 24;
@@ -76,7 +75,6 @@ TColorRGB TFontCharacter::GetPixelColor(short x, short y)
 	{
 		case pfBGR2ColorsPalette:   bitsPerPixel = 1; break;
 	    case pfBGR4ColorsPalette:   bitsPerPixel = 2; break;
-		case pfBGR8ColorsPalette:   bitsPerPixel = 4; break;
 		case pfBGR16ColorsPalette:  bitsPerPixel = 4; break;
 		case pfBGR256ColorsPalette: bitsPerPixel = 8; break;
 		case pfBGR888: bitsPerPixel = 24; break;
@@ -114,8 +112,6 @@ TColorRGB TFontCharacter::GetPixelColor(short x, short y)
     switch(m_charPixelFormat)
     {
         case pfBGR2ColorsPalette:   tmp = m_charData[offset]; tmp = tmp << (n & 7);     return converter.DecodeColor(&tmp, 1, m_charPixelFormat);
-        case pfBGR4ColorsPalette:  
-        case pfBGR8ColorsPalette:   tmp = m_charData[offset]; tmp = tmp << ((n & 3)*2); return converter.DecodeColor(&tmp, 1, m_charPixelFormat);
         case pfBGR16ColorsPalette:  tmp = m_charData[offset]; tmp = tmp << ((n & 1)*4); return converter.DecodeColor(&tmp, 1, m_charPixelFormat);
         case pfBGR256ColorsPalette: tmp = m_charData[offset]; return converter.DecodeColor(&tmp, 1, m_charPixelFormat);
     }

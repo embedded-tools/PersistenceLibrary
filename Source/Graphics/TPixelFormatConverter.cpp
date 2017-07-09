@@ -42,7 +42,6 @@ FormatConverterFunction TPixelFormatConverter::GetFormatConverter(ePixelFormat t
         {
             case pfBGR2ColorsPalette: return BGRPalette2toRGB565;
             case pfBGR4ColorsPalette: return BGRPalette4toRGB565;
-            case pfBGR8ColorsPalette:
             case pfBGR16ColorsPalette: return BGRPalette16toRGB565;
             case pfBGR256ColorsPalette: return BGRPalette256toRGB565;
             case pfRGB565: return RGB565toRGB565;
@@ -58,7 +57,6 @@ FormatConverterFunction TPixelFormatConverter::GetFormatConverter(ePixelFormat t
         {
             case pfBGR2ColorsPalette:  return BGRPalette2toRGB888;
             case pfBGR4ColorsPalette: return BGRPalette4toRGB888;
-            case pfBGR8ColorsPalette:
             case pfBGR16ColorsPalette:  return BGRPalette16toRGB888;
             case pfBGR256ColorsPalette: return BGRPalette256toRGB888;
             case pfRGB565:   return RGB565toRGB888;

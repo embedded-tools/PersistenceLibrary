@@ -438,6 +438,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TWindowsBmpFile.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TXMLDoc.cpp"
 				>
 			</File>

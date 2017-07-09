@@ -22,7 +22,6 @@ enum ePixelFormat
     pfNone,
     pfBGR2ColorsPalette,
 	pfBGR4ColorsPalette,
-	pfBGR8ColorsPalette,
 	pfBGR16ColorsPalette,
 	pfBGR256ColorsPalette,
 	pfRGB332,

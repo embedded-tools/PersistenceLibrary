@@ -249,7 +249,6 @@ TColorRGB TGraphicsData::GetPixelColor(short x, short y)
 						color.R = *pp++;
 						break;
 
-        case pfBGR8ColorsPalette:
 		case pfBGR16ColorsPalette:
 						switch(x & 1)
 						{
@@ -277,7 +276,6 @@ unsigned char TGraphicsData::GetPixelColorIndex(short x, short y)
 {
     if ((m_pixelFormat!=pfBGR2ColorsPalette)  &&
         (m_pixelFormat!=pfBGR4ColorsPalette)  &&
-        (m_pixelFormat!=pfBGR8ColorsPalette)  &&
         (m_pixelFormat!=pfBGR16ColorsPalette) &&
         (m_pixelFormat!=pfBGR256ColorsPalette))
     {
@@ -307,8 +305,7 @@ unsigned char TGraphicsData::GetPixelColorIndex(short x, short y)
             break;
 
         case pfBGR4ColorsPalette:
-        case pfBGR8ColorsPalette:
-            switch(x & 7)
+            switch(x & 3)
             {
                 case 0: colorIndex = ((*pp) & 0xC0) >> 6; break;
                 case 1: colorIndex = ((*pp) & 0x30) >> 4; break;
@@ -318,7 +315,7 @@ unsigned char TGraphicsData::GetPixelColorIndex(short x, short y)
             break;
 
         case pfBGR16ColorsPalette:
-            switch(x & 2)
+            switch(x & 1)
             {
                 case 0: colorIndex = ((*pp) & 0xF0) >> 4; break;
                 case 1: colorIndex = ((*pp) & 0x0F); break;
@@ -338,7 +335,6 @@ void TGraphicsData::SetPixelColor(short x, short y, TColorRGB color)
 {
     if ((m_pixelFormat==pfBGR2ColorsPalette) ||
         (m_pixelFormat==pfBGR4ColorsPalette) ||
-        (m_pixelFormat==pfBGR8ColorsPalette) ||
         (m_pixelFormat==pfBGR16ColorsPalette) ||
         (m_pixelFormat==pfBGR256ColorsPalette))
     {
@@ -418,14 +414,14 @@ void TGraphicsData::SetPixelColorIndex(short x, short y, unsigned char colorInde
 {
     if ((m_pixelFormat!=pfBGR2ColorsPalette)  &&
         (m_pixelFormat!=pfBGR4ColorsPalette)  &&
-        (m_pixelFormat!=pfBGR8ColorsPalette)  &&
         (m_pixelFormat!=pfBGR16ColorsPalette) &&
         (m_pixelFormat!=pfBGR256ColorsPalette))
     {
         return;
     }
-
     unsigned char* pp = ScanLine(y);
+    if (pp==NULL) return;
+
     pp+= (x * GetBitsPerPixel()) / 8;
 
     unsigned char mask = 0;
@@ -436,37 +432,36 @@ void TGraphicsData::SetPixelColorIndex(short x, short y, unsigned char colorInde
             {
                 switch(x&7)
                 {
-                    case 0: *pp = *pp & 0x7F + ((colorIndex & 1)<<7); break;
-                    case 1: *pp = *pp & 0xBF + ((colorIndex & 1)<<6); break;
-                    case 2: *pp = *pp & 0xDF + ((colorIndex & 1)<<5); break;
-                    case 3: *pp = *pp & 0xEF + ((colorIndex & 1)<<4); break;
-                    case 4: *pp = *pp & 0xF7 + ((colorIndex & 1)<<3); break;
-                    case 5: *pp = *pp & 0xFB + ((colorIndex & 1)<<2); break;
-                    case 6: *pp = *pp & 0xFD + ((colorIndex & 1)<<1); break;
-                    case 7: *pp = *pp & 0xFE + ((colorIndex & 1)); break;
+                    case 0: *pp = (*pp & 0x7F) + ((colorIndex & 1)<<7); break;
+                    case 1: *pp = (*pp & 0xBF) + ((colorIndex & 1)<<6); break;
+                    case 2: *pp = (*pp & 0xDF) + ((colorIndex & 1)<<5); break;
+                    case 3: *pp = (*pp & 0xEF) + ((colorIndex & 1)<<4); break;
+                    case 4: *pp = (*pp & 0xF7) + ((colorIndex & 1)<<3); break;
+                    case 5: *pp = (*pp & 0xFB) + ((colorIndex & 1)<<2); break;
+                    case 6: *pp = (*pp & 0xFD) + ((colorIndex & 1)<<1); break;
+                    case 7: *pp = (*pp & 0xFE) + ((colorIndex & 1)); break;
                 }                
             }
             break;
 
-        case pfBGR8ColorsPalette:
         case pfBGR4ColorsPalette:
             {
-                switch(x&7)
+                switch(x&3)
                 {
-                    case 0: *pp = *pp & 0x3F + ((colorIndex & 3)<<6); break;
-                    case 1: *pp = *pp & 0xCF + ((colorIndex & 3)<<4); break;
-                    case 2: *pp = *pp & 0xF3 + ((colorIndex & 3)<<2); break;
-                    case 3: *pp = *pp & 0xFC + ((colorIndex & 3)); break;
+                    case 0: *pp = (*pp & 0x3F) + ((colorIndex & 3)<<6); break;
+                    case 1: *pp = (*pp & 0xCF) + ((colorIndex & 3)<<4); break;
+                    case 2: *pp = (*pp & 0xF3) + ((colorIndex & 3)<<2); break;
+                    case 3: *pp = (*pp & 0xFC) + ((colorIndex & 3)); break;
                 }                
             }
             break;
 
         case pfBGR16ColorsPalette:
             {
-                switch(x&7)
+                switch(x&1)
                 {
-                    case 0: *pp = *pp & 0x0F + ((colorIndex & 15)<<4); break;
-                    case 1: *pp = *pp & 0xF0 + ((colorIndex & 15)); break;
+                    case 0: *pp = (*pp & 0x0F) + ((colorIndex & 15)<<4); break;
+                    case 1: *pp = (*pp & 0xF0) + ((colorIndex & 15)); break;
                 }                
             }
             break;
@@ -482,6 +477,35 @@ void TGraphicsData::SetPixelColorIndex(short x, short y, unsigned char colorInde
 unsigned char*  TGraphicsData::GetPalette()
 {
 	return m_colorPalette;
+}
+
+TColorRGB TGraphicsData::GetPaletteColor(unsigned char colorIndex)
+{
+    TColorRGB result;
+    if (m_colorPalette)
+    {
+        if (colorIndex<m_colorCount)
+        {
+            result.B = m_colorPalette[0];
+            result.G = m_colorPalette[1];
+            result.R = m_colorPalette[2];
+        }
+    }
+    return result;
+}
+
+void  TGraphicsData::SetPaletteColor(unsigned char colorIndex, TColorRGB colorValue)
+{    
+    if (m_colorPalette)
+    {
+        if (colorIndex<m_colorCount)
+        {
+            TColorRGB* paletterColor = (TColorRGB*)(m_colorPalette + colorIndex*3);
+            paletterColor->B = colorValue.B;
+            paletterColor->G = colorValue.G;
+            paletterColor->R = colorValue.R;
+        }
+    }
 }
 
 short TGraphicsData::GetColorCount()
@@ -669,7 +693,6 @@ bool TGraphicsData::SaveToFile (const char* filename)
         case pfNone: bitsPerPixel = 0; break;
         case pfBGR2ColorsPalette: bitsPerPixel = 1; break;
         case pfBGR4ColorsPalette: bitsPerPixel = 2; break;
-        case pfBGR8ColorsPalette: bitsPerPixel = 3; break;
         case pfBGR16ColorsPalette: bitsPerPixel = 4; break;
         case pfBGR256ColorsPalette: bitsPerPixel = 8; break;
         case pfRGB332: bitsPerPixel = 8; break;

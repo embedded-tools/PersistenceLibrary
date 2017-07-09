@@ -46,6 +46,8 @@ public:
     unsigned char   GetPixelColorIndex(short x, short y);
 	void            SetPixelColor(short x, short y, TColorRGB color);
     void            SetPixelColorIndex(short x, short y, unsigned char colorIndex);
+    TColorRGB       GetPaletteColor(unsigned char colorIndex);
+    void            SetPaletteColor(unsigned char colorIndex, TColorRGB colorValue);
 	void			ClearTransparentColor();
 
 	bool LoadFromROM   (const unsigned char* image);

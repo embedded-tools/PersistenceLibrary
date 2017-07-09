@@ -26,11 +26,17 @@ TWindowsBmpFile::TWindowsBmpFile()
 
 }
 
-TWindowsBmpFile::TWindowsBmpFile(short width, short height, ePixelFormat pixelFormat, unsigned long backgroundColor)
+TWindowsBmpFile::TWindowsBmpFile(short width, short height, ePixelFormat pixelFormat, unsigned long backgroundColor, bool flipImage)
     :TGraphicsData(0,0,pixelFormat)
 {
 	TColorRGB tmpColor;
 	unsigned char convertedBackgroundColor[4];
+
+    if (pixelFormat==pfBGR4ColorsPalette)
+    {
+        //windows bitmap does not support 2 bits per pixel
+        return;
+    }
 
     m_bitmapWidth  = width;
     m_bitmapHeight = height;
@@ -40,10 +46,59 @@ TWindowsBmpFile::TWindowsBmpFile(short width, short height, ePixelFormat pixelFo
     m_bitmapDataSize = m_bytesPerLine * height;
     m_bitmapData = (unsigned char*)malloc(m_bitmapDataSize);
     m_bitmapNeedsUnalloc = true;
-	m_flipImage = true;
+	m_flipImage = flipImage;
 	
 	switch(m_pixelFormat)
 	{
+        case pfBGR2ColorsPalette:
+            {
+                m_colorCount = 2;
+                m_colorPaletteSize = m_colorCount * 3;
+                m_colorPalette = (unsigned char*)malloc(m_colorPaletteSize);
+                m_colorPalette[0] = 0;    m_colorPalette[1] = 0;    m_colorPalette[2] = 0; 
+                m_colorPalette[3] = 0xFF; m_colorPalette[4] = 0xFF; m_colorPalette[5] = 0xFF;         
+            }
+            break;
+        case pfBGR4ColorsPalette:
+            {
+                m_colorCount = 4;
+                m_colorPaletteSize = m_colorCount * 3;
+                m_colorPalette = (unsigned char*)malloc(m_colorPaletteSize);
+                m_colorPalette[0] = 0;    m_colorPalette[1] = 0;     m_colorPalette[2] = 0;
+                m_colorPalette[3] = 0x50; m_colorPalette[4] = 0x55;  m_colorPalette[5] = 0x55;
+                m_colorPalette[6] = 0xAA; m_colorPalette[7] = 0xAA;  m_colorPalette[8] = 0xAA;
+                m_colorPalette[9] = 0xFF; m_colorPalette[10] = 0xFF; m_colorPalette[11]= 0xFF;
+            }
+            break;
+        case pfBGR16ColorsPalette:
+            {
+                m_colorCount = 16;
+                m_colorPaletteSize = m_colorCount * 3;
+                m_colorPalette = (unsigned char*)malloc(m_colorPaletteSize);
+                int n = 0;
+                for(int i = 0; i<m_colorCount; i++)
+                {
+                    m_colorPalette[n++] = i*16+8;
+                    m_colorPalette[n++] = i*16+8;
+                    m_colorPalette[n++] = i*16+8;
+                }
+            }
+            break;
+        case pfBGR256ColorsPalette:
+            {
+                m_colorCount = 256;
+                m_colorPaletteSize = m_colorCount * 3;
+                m_colorPalette = (unsigned char*)malloc(m_colorPaletteSize);
+                int n = 0;
+                for(int i = 0; i<m_colorCount; i++)
+                {
+                    m_colorPalette[n++] = i;
+                    m_colorPalette[n++] = i;
+                    m_colorPalette[n++] = i;
+                }
+            }
+            break;
+
 		case pfBGR888:
 		case pfBGRA8888: memcpy(convertedBackgroundColor, (void*)&backgroundColor, 4); break;
 		case pfRGB888:
