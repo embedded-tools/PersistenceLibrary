@@ -43,7 +43,7 @@ TWindowsBmpFile::TWindowsBmpFile(short width, short height, ePixelFormat pixelFo
     m_bitmapWidth  = width;
     m_bitmapHeight = height;
     m_pixelFormat  = pixelFormat;
-    m_bytesPerLine = width * GetBitsPerPixel() / 8;
+    m_bytesPerLine = (width * GetBitsPerPixel()+7) / 8;
     while (m_bytesPerLine & 3) m_bytesPerLine++;
     m_bitmapDataSize = m_bytesPerLine * height;
     m_bitmapData = (unsigned char*)malloc(m_bitmapDataSize);
