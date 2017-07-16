@@ -474,6 +474,21 @@ void TGraphicsData::SetPixelColorIndex(short x, short y, unsigned char colorInde
     }
 }
 
+unsigned char* TGraphicsData::CreatePalette(unsigned short colorCount)
+{
+    m_colorCount = colorCount;
+    m_colorPaletteSize = m_colorCount * 3;
+    m_colorPalette = (unsigned char*)malloc(m_colorPaletteSize);
+    if (m_colorPalette==NULL)
+    {
+        m_colorPaletteSize = 0;
+        m_colorCount = 0;
+    } else {
+        memset(m_colorPalette, 0x80, m_colorPaletteSize);
+    }    
+    return m_colorPalette;
+}
+
 unsigned char*  TGraphicsData::GetPalette()
 {
 	return m_colorPalette;

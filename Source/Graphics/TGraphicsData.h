@@ -37,6 +37,7 @@ public:
 	unsigned long   GetBytesTotal();
     short           GetBitsPerPixel();
 	unsigned char*  ScanLine(short line);
+    unsigned char*  CreatePalette(unsigned short colorCount);
 	unsigned char*  GetPalette();
 	short           GetColorCount();
 	TColorRGB		GetTransparentColor();

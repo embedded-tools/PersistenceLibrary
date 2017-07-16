@@ -32,6 +32,8 @@ TWindowsBmpFile::TWindowsBmpFile(short width, short height, ePixelFormat pixelFo
 	TColorRGB tmpColor;
 	unsigned char convertedBackgroundColor[4];
 
+    memset(convertedBackgroundColor, 0, sizeof(convertedBackgroundColor));
+
     if (pixelFormat==pfBGR4ColorsPalette)
     {
         //windows bitmap does not support 2 bits per pixel
@@ -52,50 +54,58 @@ TWindowsBmpFile::TWindowsBmpFile(short width, short height, ePixelFormat pixelFo
 	{
         case pfBGR2ColorsPalette:
             {
-                m_colorCount = 2;
-                m_colorPaletteSize = m_colorCount * 3;
-                m_colorPalette = (unsigned char*)malloc(m_colorPaletteSize);
-                m_colorPalette[0] = 0;    m_colorPalette[1] = 0;    m_colorPalette[2] = 0; 
-                m_colorPalette[3] = 0xFF; m_colorPalette[4] = 0xFF; m_colorPalette[5] = 0xFF;         
+                CreatePalette(2);
+                if (m_colorPalette)
+                {
+                    m_colorPalette[0] = 0;    m_colorPalette[1] = 0;    m_colorPalette[2] = 0; 
+                    m_colorPalette[3] = 0xFF; m_colorPalette[4] = 0xFF; m_colorPalette[5] = 0xFF;         
+                }
+                convertedBackgroundColor[0] = backgroundColor;
             }
             break;
         case pfBGR4ColorsPalette:
             {
-                m_colorCount = 4;
-                m_colorPaletteSize = m_colorCount * 3;
-                m_colorPalette = (unsigned char*)malloc(m_colorPaletteSize);
-                m_colorPalette[0] = 0;    m_colorPalette[1] = 0;     m_colorPalette[2] = 0;
-                m_colorPalette[3] = 0x50; m_colorPalette[4] = 0x55;  m_colorPalette[5] = 0x55;
-                m_colorPalette[6] = 0xAA; m_colorPalette[7] = 0xAA;  m_colorPalette[8] = 0xAA;
-                m_colorPalette[9] = 0xFF; m_colorPalette[10] = 0xFF; m_colorPalette[11]= 0xFF;
+                CreatePalette(4);
+                if (m_colorPalette)
+                {
+                    m_colorPalette[0] = 0;    m_colorPalette[1] = 0;     m_colorPalette[2] = 0;
+                    m_colorPalette[3] = 0x50; m_colorPalette[4] = 0x55;  m_colorPalette[5] = 0x55;
+                    m_colorPalette[6] = 0xAA; m_colorPalette[7] = 0xAA;  m_colorPalette[8] = 0xAA;
+                    m_colorPalette[9] = 0xFF; m_colorPalette[10] = 0xFF; m_colorPalette[11]= 0xFF;
+                }
+                convertedBackgroundColor[0] = backgroundColor;
             }
             break;
         case pfBGR16ColorsPalette:
             {
-                m_colorCount = 16;
-                m_colorPaletteSize = m_colorCount * 3;
-                m_colorPalette = (unsigned char*)malloc(m_colorPaletteSize);
-                int n = 0;
-                for(int i = 0; i<m_colorCount; i++)
+                CreatePalette(16);
+                if (m_colorPalette)
                 {
-                    m_colorPalette[n++] = i*16+8;
-                    m_colorPalette[n++] = i*16+8;
-                    m_colorPalette[n++] = i*16+8;
+                    int n = 0;
+                    for(int i = 0; i<m_colorCount; i++)
+                    {
+                        m_colorPalette[n++] = i*16+8;
+                        m_colorPalette[n++] = i*16+8;
+                        m_colorPalette[n++] = i*16+8;
+                    }
                 }
+                convertedBackgroundColor[0] = backgroundColor;
             }
             break;
         case pfBGR256ColorsPalette:
             {
-                m_colorCount = 256;
-                m_colorPaletteSize = m_colorCount * 3;
-                m_colorPalette = (unsigned char*)malloc(m_colorPaletteSize);
-                int n = 0;
-                for(int i = 0; i<m_colorCount; i++)
+                CreatePalette(256);
+                if (m_colorPalette)
                 {
-                    m_colorPalette[n++] = i;
-                    m_colorPalette[n++] = i;
-                    m_colorPalette[n++] = i;
+                    int n = 0;
+                    for(int i = 0; i<m_colorCount; i++)
+                    {
+                        m_colorPalette[n++] = i;
+                        m_colorPalette[n++] = i;
+                        m_colorPalette[n++] = i;
+                    }
                 }
+                convertedBackgroundColor[0] = backgroundColor;
             }
             break;
 
