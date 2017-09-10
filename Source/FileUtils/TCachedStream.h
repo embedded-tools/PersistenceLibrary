@@ -22,12 +22,12 @@
 class TCachedStream: public TStream
 {
 protected:
-	unsigned char* FCache;
-	bool           FCacheOwned;
-	int            FCachePosition;	
-	int            FCacheSize;
-	int            FCacheMaxSize;
-	int            FPosition;
+	unsigned char* m_cache;
+	bool           m_cacheOwned;
+	int            m_cachePosition;	
+	int            m_cacheSize;
+	int            m_cacheMaxSize;
+	int            m_position;
 
 	virtual bool DoWriteOperation();
 	virtual bool DoReadOperation();

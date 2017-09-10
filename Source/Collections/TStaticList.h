@@ -1,7 +1,7 @@
 /*
  * Persistence Library / Collections / TStaticList
  *
- * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
+ * Copyright (c) 2016 Ondrej Sterba <osterba@inbox.com>
  *
  * https://github.com/embedded-tools/PersistenceLibrary
  *
@@ -34,10 +34,10 @@ template <typename T, int N> class TStaticList
 {
 protected:
 
-    T      Data[N];
-    short  DataCount;
-    short  DataIterator; 
-    short  DataMax;
+    T      m_dataArray[N];
+    short  m_dataCount;
+    short  m_dataIterator; 
+    short  m_dataMaxCount;
 
 public:
 

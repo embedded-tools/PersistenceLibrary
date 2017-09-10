@@ -25,39 +25,39 @@
 template<class T>
 TObjectList<T>::TObjectList()
 {
-    DataCount  = 0;
-    DataMax    = 0;
-	DataStatic = false;
-    PData      = NULL;
+    m_dataPointerCount  = 0;
+    m_dataPointerMaxCount    = 0;
+	m_dataStatic = false;
+    m_dataPointerArray      = NULL;
 }
 
 template<class T>
 TObjectList<T>::~TObjectList()
 {
     Clear();
-	if (!DataStatic)
+	if (!m_dataStatic)
 	{
-		if (PData!=NULL) free(PData);
-		PData=NULL;
+		if (m_dataPointerArray!=NULL) free(m_dataPointerArray);
+		m_dataPointerArray=NULL;
 	}    
 }
 
 template<class T> T* TObjectList<T>::Add()
 {
-    SetCount(DataCount+1);
+    SetCount(m_dataPointerCount+1);
     T* result = new T();
-    PData[DataCount-1]=result;
+    m_dataPointerArray[m_dataPointerCount-1]=result;
     return result;
 };
 
 template<class T>
 bool TObjectList<T>::Add(T* R)
 {    
-	int oldCount = DataCount;
-    int newCount = SetCount(DataCount+1);
+	int oldCount = m_dataPointerCount;
+    int newCount = SetCount(m_dataPointerCount+1);
     if (newCount>0)
     {
-        PData[newCount-1]=R;
+        m_dataPointerArray[newCount-1]=R;
     }
 	return oldCount!=newCount;
 };
@@ -67,22 +67,22 @@ template<class T>
 bool TObjectList<T>::Del(int id)
 {
     if (id<0) return false;
-    if (id>=DataCount) return false;
+    if (id>=m_dataPointerCount) return false;
     
-    for (int j=id;j<DataCount-1;j++)
+    for (int j=id;j<m_dataPointerCount-1;j++)
     {
-        PData[j]=PData[j+1];
+        m_dataPointerArray[j]=m_dataPointerArray[j+1];
     }
-    SetCount(DataCount-1);
+    SetCount(m_dataPointerCount-1);
 	return true;
 };
 
 template<class T>
 bool TObjectList<T>::Del(T* R)
 {
-    for (int i=0;i<DataCount;i++)
+    for (int i=0;i<m_dataPointerCount;i++)
     {
-        if (PData[i]==R)
+        if (m_dataPointerArray[i]==R)
         {
             Del(i);
             return true;
@@ -94,31 +94,31 @@ bool TObjectList<T>::Del(T* R)
 template<class T>
 T* TObjectList<T>::Insert (int i)
 {
-    SetCount(DataCount+1);
+    SetCount(m_dataPointerCount+1);
 
     if (i<0) i=0;
-    if (i<DataCount)
+    if (i<m_dataPointerCount)
     {
-        memmove(&PData[i+1],&PData[i],(DataCount-1-i)*4);
+        memmove(&m_dataPointerArray[i+1],&m_dataPointerArray[i],(m_dataPointerCount-1-i)*4);
     } else {
-       i = DataCount-1;
+       i = m_dataPointerCount-1;
     }
     T* result = new T();
-    PData[i]=result;
+    m_dataPointerArray[i]=result;
     return result;
 };
 
 template<class T>
 void TObjectList<T>::Insert (int i, T* R)
 {
-    SetCount(DataCount+1);
+    SetCount(m_dataPointerCount+1);
 
     if (i<0) i=0;
-    if (i<DataCount)
+    if (i<m_dataPointerCount)
     {
-        memmove(&PData[i+1],&PData[i],(DataCount-1-i)*4);
+        memmove(&m_dataPointerArray[i+1],&m_dataPointerArray[i],(m_dataPointerCount-1-i)*4);
     }
-    PData[i]=R;
+    m_dataPointerArray[i]=R;
 };
 
 template<class T>
@@ -126,9 +126,9 @@ bool  TObjectList<T>::Contains(T* R)
 {
 	int i;
 	bool result = false;
-    for (i=0; i<DataCount-1;i++)
+    for (i=0; i<m_dataPointerCount-1;i++)
     {
-        if (PData[i]==R)
+        if (m_dataPointerArray[i]==R)
 		{
 			result = true;
 		}
@@ -139,100 +139,100 @@ bool  TObjectList<T>::Contains(T* R)
 template<class T>
 short TObjectList<T>::Count()
 {
-    return DataCount;
+    return m_dataPointerCount;
 };
 
 template<class T>
 short TObjectList<T>::Capacity()
 {
-    return DataMax;
+    return m_dataPointerMaxCount;
 }
 
 template<class T>
 short TObjectList<T>::SetCount(short count)
 {
-	if (!DataStatic)
+	if (!m_dataStatic)
 	{
 		if (count == 0)
 		{
-			if (PData!=NULL)
+			if (m_dataPointerArray!=NULL)
 			{
-				free(PData);
+				free(m_dataPointerArray);
 			}
-			PData = NULL;
-			DataCount = 0;
-			DataMax = 0;
-			return DataCount;
+			m_dataPointerArray = NULL;
+			m_dataPointerCount = 0;
+			m_dataPointerMaxCount = 0;
+			return m_dataPointerCount;
 		}
-		if (count>DataMax)
+		if (count>m_dataPointerMaxCount)
 		{			
-			while (DataMax<count)
+			while (m_dataPointerMaxCount<count)
 			{
-				if (DataMax*sizeof(T)<1024)
+				if (m_dataPointerMaxCount*sizeof(T)<1024)
 				{
-					DataMax += DataMax;					
-					if (DataMax<8) DataMax = 8;
+					m_dataPointerMaxCount += m_dataPointerMaxCount;					
+					if (m_dataPointerMaxCount<8) m_dataPointerMaxCount = 8;
 				} else {
-					DataMax += 1024/sizeof(T);
+					m_dataPointerMaxCount += 1024/sizeof(T);
 				}
 			}
-			if (PData==NULL)
+			if (m_dataPointerArray==NULL)
 			{
-				PData = (T**) malloc(DataMax*sizeof(T*));
-				if (PData==NULL)
+				m_dataPointerArray = (T**) malloc(m_dataPointerMaxCount*sizeof(T*));
+				if (m_dataPointerArray==NULL)
 				{
-					DataCount=0;
-					DataMax=0;
+					m_dataPointerCount=0;
+					m_dataPointerMaxCount=0;
 					return 0;                
 				}
-				memset(PData, 0, DataMax*sizeof(T*));
+				memset(m_dataPointerArray, 0, m_dataPointerMaxCount*sizeof(T*));
 			} else {
-				PData = (T**) realloc(PData,DataMax*sizeof(T*));
-				if (PData==NULL)
+				m_dataPointerArray = (T**) realloc(m_dataPointerArray,m_dataPointerMaxCount*sizeof(T*));
+				if (m_dataPointerArray==NULL)
 				{
-					DataCount=0;
-					DataMax=0;
+					m_dataPointerCount=0;
+					m_dataPointerMaxCount=0;
 					return 0;
 				}
-				for(int i = DataCount; i<DataMax; i++)
+				for(int i = m_dataPointerCount; i<m_dataPointerMaxCount; i++)
 				{
-					PData[i] = NULL;
+					m_dataPointerArray[i] = NULL;
 				}
 			}
 		}
 	}
-    DataCount = count;
-    return DataCount;
+    m_dataPointerCount = count;
+    return m_dataPointerCount;
 };
 
 template<class T>
 short TObjectList<T>::SetCountAndCreate(short count)
 {
     SetCount(count);
-    for (short i=0;i<DataCount;i++) 
+    for (short i=0;i<m_dataPointerCount;i++) 
     {
-        PData[i]=new T();
+        m_dataPointerArray[i]=new T();
     }
-    return DataCount;
+    return m_dataPointerCount;
 };
 
 template<class T>
 void TObjectList<T>::SetCapacity(short reservedCapacity)
 {
-    DataCount = 0;
-    DataMax   = reservedCapacity;
-    if (PData==NULL)
+    m_dataPointerCount = 0;
+    m_dataPointerMaxCount   = reservedCapacity;
+    if (m_dataPointerArray==NULL)
     {
-        PData = (T**) malloc(reservedCapacity*sizeof(T*));
-        memset(PData, 0, reservedCapacity*sizeof(T*));
+        m_dataPointerArray = (T**) malloc(reservedCapacity*sizeof(T*));
+        memset(m_dataPointerArray, 0, reservedCapacity*sizeof(T*));
     } else {
-        PData = (T**) realloc(PData, DataMax*sizeof(T*));
-        for(int i = DataCount; i<DataMax; i++)
+        m_dataPointerArray = (T**) realloc(m_dataPointerArray, m_dataPointerMaxCount*sizeof(T*));
+        for(int i = m_dataPointerCount; i<m_dataPointerMaxCount; i++)
         {
-            PData[i] = NULL;
+            m_dataPointerArray[i] = NULL;
         }
     }
-    DataCount = 0;
+    m_dataPointerCount = 0;
 }
 
 
@@ -240,37 +240,37 @@ template<class T>
 void TObjectList<T>::Clear()
 {
     SetCount(0);    
-	memset(PData, DataMax*sizeof(T*), 0);
+	memset(m_dataPointerArray, m_dataPointerMaxCount*sizeof(T*), 0);
 };
 
 template<class T>
 void TObjectList<T>::UnallocAndClear()
 {
-    for(short i=0; i<DataCount; i++)
+    for(short i=0; i<m_dataPointerCount; i++)
     {
-        if (PData[i]!=NULL)
+        if (m_dataPointerArray[i]!=NULL)
         {
-            delete PData[i];
-            PData[i] = NULL;
+            delete m_dataPointerArray[i];
+            m_dataPointerArray[i] = NULL;
         }
     }
     SetCount(0);    
-	memset(PData, DataMax*sizeof(T*), 0);
+	memset(m_dataPointerArray, m_dataPointerMaxCount*sizeof(T*), 0);
 };
 
 template<class T>
 void* TObjectList<T>::First()
 {
-	DataIterator = 0;
-	if (DataCount==0) return NULL;
-    return PData[DataIterator++];
+	m_dataIterator = 0;
+	if (m_dataPointerCount==0) return NULL;
+    return m_dataPointerArray[m_dataIterator++];
 };
 
 template<class T>
 void* TObjectList<T>::Next()
 {
-	if (DataIterator>DataCount) return NULL;
-    return PData[DataIterator++];
+	if (m_dataIterator>m_dataPointerCount) return NULL;
+    return m_dataPointerArray[m_dataIterator++];
 };
 
 template<class T>
@@ -280,11 +280,11 @@ T* TObjectList<T>::operator [] (short id)
     {
         return NULL;
     }
-    if (id>=DataCount)
+    if (id>=m_dataPointerCount)
     {
         return NULL;
     }
-    return PData[id];
+    return m_dataPointerArray[id];
 }
 
 template<class T>
@@ -294,11 +294,11 @@ T* TObjectList<T>::Items (short id)
     {
         return NULL;
     }
-    if (id>=DataCount)
+    if (id>=m_dataPointerCount)
     {
         return NULL;
     }
-    return PData[id];
+    return m_dataPointerArray[id];
 }
 
 
@@ -306,9 +306,9 @@ T* TObjectList<T>::Items (short id)
 template<class T>
 short TObjectList<T>::IndexOf(T* R)
 {
-    for (int i=0; i<DataCount; i++)
+    for (int i=0; i<m_dataPointerCount; i++)
     {
-        if (R == PData[i])
+        if (R == m_dataPointerArray[i])
         {
             return i;
         }

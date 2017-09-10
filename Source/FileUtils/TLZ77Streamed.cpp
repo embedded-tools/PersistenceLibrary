@@ -19,54 +19,54 @@
 TLZ77Streamed::TLZ77Streamed(TStream* mainStream, void* slidingWindowAndCache, int cacheSize, int slidingWindowSize)
     :TCachedStream(mainStream, 0)
 {
-    FSlidingWindow = (unsigned char*)slidingWindowAndCache;
-    FSlidingWindowSize = 0;
-    FSlidingWindowMaxSize = slidingWindowSize;
-    FCache = FSlidingWindow + slidingWindowSize;
-    FCachePosition = 0;	
-    FCacheSize = 0;
-    FCacheMaxSize = cacheSize;
-    FCacheOwned = false;
-    FReadingBlockOffset = 0;
-    FReadingBlockLength = 0;
+    m_slidingWindow = (unsigned char*)slidingWindowAndCache;
+    m_slidingWindowSize = 0;
+    m_slidingWindowMaxSize = slidingWindowSize;
+    m_cache = m_slidingWindow + slidingWindowSize;
+    m_cachePosition = 0;	
+    m_cacheSize = 0;
+    m_cacheMaxSize = cacheSize;
+    m_cacheOwned = false;
+    m_readingBlockOffset = 0;
+    m_readingBlockLength = 0;
 }
 
 TLZ77Streamed::TLZ77Streamed(TStream* mainStream, int cacheSize, int slidingWindowSize)
     :TCachedStream(mainStream, 0)
 {
-    FSlidingWindow = (unsigned char*)malloc(slidingWindowSize+cacheSize);
-    FSlidingWindowSize = 0;
-    FSlidingWindowMaxSize = slidingWindowSize;
-    FCache = FSlidingWindow + slidingWindowSize;
-    FCachePosition = 0;	
-    FCacheSize = 0;
-    FCacheMaxSize = cacheSize;
-    FCacheOwned = true;
-    FReadingBlockOffset = 0;
-    FReadingBlockLength = 0;
+    m_slidingWindow = (unsigned char*)malloc(slidingWindowSize+cacheSize);
+    m_slidingWindowSize = 0;
+    m_slidingWindowMaxSize = slidingWindowSize;
+    m_cache = m_slidingWindow + slidingWindowSize;
+    m_cachePosition = 0;	
+    m_cacheSize = 0;
+    m_cacheMaxSize = cacheSize;
+    m_cacheOwned = true;
+    m_readingBlockOffset = 0;
+    m_readingBlockLength = 0;
 }
 
 TLZ77Streamed::~TLZ77Streamed()
 {
     Close();
-    if (FCacheOwned)
+    if (m_cacheOwned)
     {
-        if (FSlidingWindow)
+        if (m_slidingWindow)
         {
-            free(FSlidingWindow);
+            free(m_slidingWindow);
         }        
     }
-    FSlidingWindow = NULL;
-    FCache=NULL;
-    FCacheOwned = false;
-    FCachePosition = 0;
-    FCacheSize = 0;
-    FCacheMaxSize = 0;
+    m_slidingWindow = NULL;
+    m_cache=NULL;
+    m_cacheOwned = false;
+    m_cachePosition = 0;
+    m_cacheSize = 0;
+    m_cacheMaxSize = 0;
 }
 
 long TLZ77Streamed::GetSize()
 {
-    if (FCachePosition==FCacheSize)
+    if (m_cachePosition==m_cacheSize)
     {
         DoReadOperation();
     }    
@@ -75,50 +75,50 @@ long TLZ77Streamed::GetSize()
  
 void TLZ77Streamed::MoveSlidingWindow()
 {
-    if ((FCacheSize==0) || (FSlidingWindowMaxSize==0))
+    if ((m_cacheSize==0) || (m_slidingWindowMaxSize==0))
     {
         return;
     }
-    memcpy(FSlidingWindow, FSlidingWindow+FCacheSize, FSlidingWindowMaxSize);
+    memcpy(m_slidingWindow, m_slidingWindow+m_cacheSize, m_slidingWindowMaxSize);
 
-    FSlidingWindowSize+=FCacheSize;
-    if (FSlidingWindowSize>FSlidingWindowMaxSize)
+    m_slidingWindowSize+=m_cacheSize;
+    if (m_slidingWindowSize>m_slidingWindowMaxSize)
     {
-        FSlidingWindowSize = FSlidingWindowMaxSize;
+        m_slidingWindowSize = m_slidingWindowMaxSize;
     }
-    FPosition += FCacheSize;
-    FCacheSize = 0;
-    FCachePosition = 0;
+    m_position += m_cacheSize;
+    m_cacheSize = 0;
+    m_cachePosition = 0;
 }
 
 void TLZ77Streamed::StorePattern(short offset, short length)
 {
-    FParentStream->WriteByte(LZ77_MAGIC_BYTE);
-    FParentStream->WriteByte((unsigned char)length);
-    FParentStream->WriteByte((unsigned char)(length>>8));
-    FParentStream->WriteByte((unsigned char)offset);
-    FParentStream->WriteByte((unsigned char)(offset>>8));
+    m_parentStream->WriteByte(LZ77_MAGIC_BYTE);
+    m_parentStream->WriteByte((unsigned char)length);
+    m_parentStream->WriteByte((unsigned char)(length>>8));
+    m_parentStream->WriteByte((unsigned char)offset);
+    m_parentStream->WriteByte((unsigned char)(offset>>8));
 }
 
 void TLZ77Streamed::StoreByte(unsigned char b)
 {
-    FParentStream->WriteByte(b);
+    m_parentStream->WriteByte(b);
     if (b==LZ77_MAGIC_BYTE)
     {        
-        FParentStream->WriteByte(0x00);
-        FParentStream->WriteByte(0x00);
+        m_parentStream->WriteByte(0x00);
+        m_parentStream->WriteByte(0x00);
     }
 }
 
 
 bool TLZ77Streamed::DoWriteOperation()
 {
-    if (FParentStream==NULL)
+    if (m_parentStream==NULL)
     {
         return false;
     }
-    unsigned char* srcA = FCache;
-    unsigned char* srcB = FCache;    
+    unsigned char* srcA = m_cache;
+    unsigned char* srcB = m_cache;    
 
     unsigned char a0 = srcA[0];
     unsigned char a1 = srcA[1];
@@ -135,7 +135,7 @@ bool TLZ77Streamed::DoWriteOperation()
     unsigned short longestPattern_Length = 0;
 
     short position = 0;
-    while(position<FCacheSize)
+    while(position<m_cacheSize)
     {
         bool found = false;
 
@@ -145,8 +145,8 @@ bool TLZ77Streamed::DoWriteOperation()
         unsigned char b2 = srcB[2];
         unsigned char b3 = srcB[3];
 
-        int maxOffset = position + FSlidingWindowSize;
-        if (maxOffset>FSlidingWindowMaxSize) maxOffset = FSlidingWindowMaxSize;
+        int maxOffset = position + m_slidingWindowSize;
+        if (maxOffset>m_slidingWindowMaxSize) maxOffset = m_slidingWindowMaxSize;
         for(short offset = 1; offset<=maxOffset; offset++)
         {
             srcB--;
@@ -168,7 +168,7 @@ bool TLZ77Streamed::DoWriteOperation()
                             unsigned char* srcBB = srcB + 4;
                             currentPattern_Length = 4;
 //end of performance optimization
-                            for(int search = 4; search<(FCacheSize-position); search++)
+                            for(int search = 4; search<(m_cacheSize-position); search++)
                             {
                                 if (*srcAA!=*srcBB)
                                 {                    
@@ -237,8 +237,8 @@ bool TLZ77Streamed::DoWriteOperation()
     }
     MoveSlidingWindow();
 
-    FCachePosition =  0;
-    FCacheSize = 0;
+    m_cachePosition =  0;
+    m_cacheSize = 0;
     return true;
 }
 
@@ -248,44 +248,44 @@ bool TLZ77Streamed::DoReadOperation()
 
     MoveSlidingWindow();
     
-    while(FCacheSize<FCacheMaxSize-5)
+    while(m_cacheSize<m_cacheMaxSize-5)
     {
-        if (FReadingBlockLength!=0)
+        if (m_readingBlockLength!=0)
         {
-            FCache[FCacheSize] = FCache[FCacheSize-FReadingBlockOffset];
-            FReadingBlockLength--;
-            FCacheSize++;
+            m_cache[m_cacheSize] = m_cache[m_cacheSize-m_readingBlockOffset];
+            m_readingBlockLength--;
+            m_cacheSize++;
             continue;
         }
-        bool res = FParentStream->ReadByte(c);
+        bool res = m_parentStream->ReadByte(c);
         if (!res) return false;
 
         if (c==LZ77_MAGIC_BYTE)
         {
-            res = FParentStream->ReadWord(FReadingBlockLength);
+            res = m_parentStream->ReadWord(m_readingBlockLength);
             if (!res) 
             {
                 return false;
             }
 
-            if (FReadingBlockLength==0)
+            if (m_readingBlockLength==0)
             {
-                FCache[FCacheSize] = c;
-                FCacheSize++;
+                m_cache[m_cacheSize] = c;
+                m_cacheSize++;
             } else {
-                res = FParentStream->ReadWord(FReadingBlockOffset);
+                res = m_parentStream->ReadWord(m_readingBlockOffset);
                 if (!res) 
                 {
                     return false;
                 }
-                if ( (FReadingBlockOffset>FSlidingWindowMaxSize) || (FReadingBlockOffset<0) )                      
+                if ( (m_readingBlockOffset>m_slidingWindowMaxSize) || (m_readingBlockOffset<0) )                      
                 {
                     return false;
                 }
             }
         } else {
-            FCache[FCacheSize] = c;
-            FCacheSize++;
+            m_cache[m_cacheSize] = c;
+            m_cacheSize++;
         }            
     }    
     return true;

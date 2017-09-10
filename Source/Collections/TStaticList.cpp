@@ -25,9 +25,9 @@
 template<class T, int N>
 TStaticList<T, N>::TStaticList()
 {
-    DataCount  = 0;
-    DataMax = N;
-	memset((void*)&Data, 0, sizeof(Data));
+    m_dataCount  = 0;
+    m_dataMaxCount = N;
+	memset((void*)&m_dataArray, 0, sizeof(m_dataArray));
 }
 
 template<class T, int N>
@@ -39,11 +39,11 @@ TStaticList<T, N>::~TStaticList()
 template<class T, int N>
 void TStaticList<T, N>::Add(T R)
 {
-	short oldDataCount = DataCount;
-    SetCount(DataCount+1);
-	if (oldDataCount!=DataCount)
+	short oldm_dataCount = m_dataCount;
+    SetCount(m_dataCount+1);
+	if (oldm_dataCount!=m_dataCount)
 	{
-		Data[DataCount-1]  = R;
+		m_dataArray[m_dataCount-1]  = R;
 	}
 };
 
@@ -51,39 +51,39 @@ void TStaticList<T, N>::Add(T R)
 template<class T, int N>
 void TStaticList<T, N>::Del(short index)
 {
-    if ( (index<0) || (index>=DataCount) )
+    if ( (index<0) || (index>=m_dataCount) )
     {
         //invalid index -> nothing will be deleted
         return;
     }
-    for (short j=index;j<DataCount-1;j++)
+    for (short j=index;j<m_dataCount-1;j++)
     {
-        Data[j]=Data[j+1];
+        m_dataArray[j]=m_dataArray[j+1];
     }
-    SetCount(DataCount-1);
+    SetCount(m_dataCount-1);
 };
 
 template<class T, int N>
 void TStaticList<T, N>::Insert (short index, T x)
 {
     if (index<0) index = 0;
-    if (index>DataCount) index = DataCount;
+    if (index>m_dataCount) index = m_dataCount;
 
-    SetCount(DataCount+1);
-    if (index<DataCount-1)
+    SetCount(m_dataCount+1);
+    if (index<m_dataCount-1)
     {
-        memmove(&Data[index+1],&Data[index],(DataCount-1-index)*sizeof(T));
+        memmove(&m_dataArray[index+1],&m_dataArray[index],(m_dataCount-1-index)*sizeof(T));
     }
-    Data[index]=x ;
+    m_dataArray[index]=x ;
 };
 
 template<class T, int N>
 bool TStaticList<T, N>::Contains (T x)
 {
     bool result=false;
-    for(short i = 0; i<DataCount; i++)
+    for(short i = 0; i<m_dataCount; i++)
     {
-        if (Data[i]==x)
+        if (m_dataArray[i]==x)
         {
             result = true;
             break;
@@ -96,9 +96,9 @@ template<class T, int N>
 short TStaticList<T, N>::IndexOf (T x)
 {
     bool result=-1;
-    for(short i = 0; i<DataCount; i++)
+    for(short i = 0; i<m_dataCount; i++)
     {
-        if (Data[i]==x)
+        if (m_dataArray[i]==x)
         {
             result = i;
             break;
@@ -111,7 +111,7 @@ short TStaticList<T, N>::IndexOf (T x)
 template<class T, int N>
 short TStaticList<T, N>::Count()
 {
-    return DataCount;
+    return m_dataCount;
 };
 
 template<class T, int N>
@@ -124,7 +124,7 @@ short TStaticList<T, N>::MaxCount()
 template<class T, int N>
 short TStaticList<T, N>::Capacity()
 {
-    return DataMax;
+    return m_dataMaxCount;
 };
 
 
@@ -133,12 +133,12 @@ short TStaticList<T, N>::SetCount(short count)
 {
     if (count<0) count = 0;
 
-	if (count>=DataMax)
+	if (count>=m_dataMaxCount)
 	{
-		 count = DataMax;
+		 count = m_dataMaxCount;
 	}
-    DataCount = count;
-    return DataCount;
+    m_dataCount = count;
+    return m_dataCount;
 };
 
 template<class T, int N>
@@ -150,10 +150,10 @@ void TStaticList<T, N>::Clear()
 template<class T, int N>
 void* TStaticList<T, N>::First()
 {
-    DataIterator = 0;
-    if (DataCount>0)
+    m_dataIterator = 0;
+    if (m_dataCount>0)
     {
-        return Data[0];
+        return m_dataArray[0];
     }
     return NULL;    
 };
@@ -161,10 +161,10 @@ void* TStaticList<T, N>::First()
 template<class T, int N>
 void* TStaticList<T, N>::Next()
 {
-    DataIterator++;
-    if (DataIterator<DataCount)
+    m_dataIterator++;
+    if (m_dataIterator<m_dataCount)
     {
-        return Data[DataIterator];
+        return m_dataArray[m_dataIterator];
     }
     return NULL;
 };
@@ -172,9 +172,9 @@ void* TStaticList<T, N>::Next()
 template<class T, int N>
 T& TStaticList<T, N>::operator [] (short index)
 {	
-    if ((index>=0) && (index<DataCount))
+    if ((index>=0) && (index<m_dataCount))
     {
-		return Data[index];
+		return m_dataArray[index];
     };
 
 	static T buf;

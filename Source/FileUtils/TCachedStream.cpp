@@ -18,76 +18,76 @@
 
 TCachedStream::TCachedStream(TStream* mainStream, void* cache, int cacheSize)
 {
-	FParentStream = mainStream;
-	FCache = (unsigned char*) cache;
-	FCachePosition = 0;	
-	FCacheSize = 0;
-	FCacheMaxSize = cacheSize;
-	FCacheOwned = false;			
+	m_parentStream = mainStream;
+	m_cache = (unsigned char*) cache;
+	m_cachePosition = 0;	
+	m_cacheSize = 0;
+	m_cacheMaxSize = cacheSize;
+	m_cacheOwned = false;			
 
-	FCanRead = mainStream->CanRead();
-	FCanWrite = mainStream->CanWrite();
-	FCanSeek = false;
+	m_canRead = mainStream->CanRead();
+	m_canWrite = mainStream->CanWrite();
+	m_canSeek = false;
 
-	FPosition = 0;
+	m_position = 0;
 }
 
 TCachedStream::TCachedStream(TStream* mainStream, int cacheSize)
 {
-	FParentStream = mainStream;
+	m_parentStream = mainStream;
     if (cacheSize>0)
     {
-	    FCache = (unsigned char*) malloc(cacheSize);
-        FCacheOwned = true;
+	    m_cache = (unsigned char*) malloc(cacheSize);
+        m_cacheOwned = true;
     } else {
-        FCache = NULL;
-        FCacheOwned = false;
+        m_cache = NULL;
+        m_cacheOwned = false;
     }
-	FCachePosition = 0;	
-	FCacheSize = 0;
-	FCacheMaxSize = cacheSize;	
+	m_cachePosition = 0;	
+	m_cacheSize = 0;
+	m_cacheMaxSize = cacheSize;	
 
-	FCanRead = mainStream->CanRead();
-	FCanWrite = mainStream->CanWrite();
-	FCanSeek = false;
+	m_canRead = mainStream->CanRead();
+	m_canWrite = mainStream->CanWrite();
+	m_canSeek = false;
 
-	FPosition = 0;
+	m_position = 0;
 }
 
 TCachedStream::~TCachedStream()
 {
 	Close();
-	if (FCacheOwned)
+	if (m_cacheOwned)
 	{
-        if (FCache)
+        if (m_cache)
         {
-		    free(FCache);
+		    free(m_cache);
         }
 	}
-    FCache=NULL;
-    FCacheOwned = false;
-    FCachePosition = 0;
-    FCacheSize = 0;
-    FCacheMaxSize = 0;
+    m_cache=NULL;
+    m_cacheOwned = false;
+    m_cachePosition = 0;
+    m_cacheSize = 0;
+    m_cacheMaxSize = 0;
 }
 
 void TCachedStream::Close()
 {
 	FlushCache();
-	if (FParentStream!=NULL)
+	if (m_parentStream!=NULL)
 	{ 
-		FParentStream->Close();
-        FParentStream = NULL;
+		m_parentStream->Close();
+        m_parentStream = NULL;
 	}
 }
 
 void TCachedStream::FlushCache()
 {
-	if (FCanWrite)
+	if (m_canWrite)
 	{
-		if (FCacheSize>0)
+		if (m_cacheSize>0)
 		{
-			if (FCacheSize==FCachePosition)
+			if (m_cacheSize==m_cachePosition)
 			{
 				DoWriteOperation();
 			}
@@ -114,11 +114,11 @@ long TCachedStream::ReadBuffer (void* data, long dataLength)
       return 0;
    }
    
-   if ( (((long)FCachePosition)+dataLength) <= (long)FCacheSize)
+   if ( (((long)m_cachePosition)+dataLength) <= (long)m_cacheSize)
    {
       //if all data are inside cache, just copy all data at once
-      memcpy(data, FCache+FCachePosition, dataLength);
-      FCachePosition+=dataLength;
+      memcpy(data, m_cache+m_cachePosition, dataLength);
+      m_cachePosition+=dataLength;
       return dataLength;     
              
    } else {
@@ -129,11 +129,11 @@ long TCachedStream::ReadBuffer (void* data, long dataLength)
       while (dataLength>0)
       {
          //if all data from cache has been read...
-         if (FCachePosition==FCacheSize)
+         if (m_cachePosition==m_cacheSize)
          {
             //...read the next part
 			DoReadOperation();  
-            if (FCacheSize==0)
+            if (m_cacheSize==0)
             {
                 //"end of file" was reached
                 break;
@@ -142,18 +142,18 @@ long TCachedStream::ReadBuffer (void* data, long dataLength)
 
          //count the size of data which are available at the moment
          int templen = dataLength;
-         int maxavailable = FCacheSize-FCachePosition;
+         int maxavailable = m_cacheSize-m_cachePosition;
          if (templen>maxavailable) 
          {
             templen = maxavailable;
          }         
          
          //copy the part of data to destination buffer
-         memcpy(pDst, (void*)(FCache+FCachePosition), templen);         
+         memcpy(pDst, (void*)(m_cache+m_cachePosition), templen);         
          pDst = pDst + templen;
          dataLength-= templen;        
          bytesread+=templen;         
-         FCachePosition+=templen;
+         m_cachePosition+=templen;
       }      
       return bytesread;
    }
@@ -167,11 +167,11 @@ long TCachedStream::WriteBuffer(void* pData, long dataLength)
    }
 
    //current datasize in cache + datalength is lower that maximum cache size
-   if ( (((long)FCacheSize)+dataLength) < (long)FCacheMaxSize )
+   if ( (((long)m_cacheSize)+dataLength) < (long)m_cacheMaxSize )
    {
-      memcpy(FCache+FCachePosition, pData, dataLength);
-      FCachePosition+=dataLength;    
-	  FCacheSize    +=dataLength;
+      memcpy(m_cache+m_cachePosition, pData, dataLength);
+      m_cachePosition+=dataLength;    
+	  m_cacheSize    +=dataLength;
       return dataLength;
       
    } else {
@@ -179,21 +179,21 @@ long TCachedStream::WriteBuffer(void* pData, long dataLength)
       unsigned char* pSrc = (unsigned char*)pData;
       while (dataLength>0)   
       {
-		 int maxavailablecache = FCacheMaxSize-FCachePosition;
+		 int maxavailablecache = m_cacheMaxSize-m_cachePosition;
          int templen = dataLength;
          if (templen>maxavailablecache)
          {
             templen=maxavailablecache;
          }
-         memcpy((void*)(FCache+FCachePosition), pSrc, templen);
+         memcpy((void*)(m_cache+m_cachePosition), pSrc, templen);
 
          pSrc += templen;
          dataLength-=templen;         
          byteswritten+=templen;
-         FCachePosition+=templen;
-		 FCacheSize+=templen;
+         m_cachePosition+=templen;
+		 m_cacheSize+=templen;
 
-         if (FCacheSize==FCacheMaxSize)
+         if (m_cacheSize==m_cacheMaxSize)
          {
 			bool res = DoWriteOperation();
 			if (res==false)
@@ -208,29 +208,29 @@ long TCachedStream::WriteBuffer(void* pData, long dataLength)
 
 bool TCachedStream::DoWriteOperation()
 {   
-	if (FParentStream==NULL)
+	if (m_parentStream==NULL)
 	{
 		return false;
 	}
-	int byteswritten = FParentStream->WriteBuffer((void*)FCache, FCacheSize);
+	int byteswritten = m_parentStream->WriteBuffer((void*)m_cache, m_cacheSize);
 
-	FPosition += FCacheSize;
-	FCachePosition =  0;
-	FCacheSize = 0;
+	m_position += m_cacheSize;
+	m_cachePosition =  0;
+	m_cacheSize = 0;
 	
-	bool result = (byteswritten == FCacheMaxSize);   
+	bool result = (byteswritten == m_cacheMaxSize);   
 	return result;
 }
 
 bool TCachedStream::DoReadOperation()
 {   
-	if (FParentStream==NULL)
+	if (m_parentStream==NULL)
 	{
 		return false;
 	}
-	FPosition += FCacheSize;
-	FCacheSize = FParentStream->ReadBuffer((void*)FCache, FCacheMaxSize);
-	FCachePosition = 0;
+	m_position += m_cacheSize;
+	m_cacheSize = m_parentStream->ReadBuffer((void*)m_cache, m_cacheMaxSize);
+	m_cachePosition = 0;
 
 	return true;
 }
@@ -243,11 +243,11 @@ long TCachedStream::Seek (long Offset, ESeekOrigin Origin)
 
 long TCachedStream::GetPosition()
 {
-	return FPosition+FCachePosition;
+	return m_position+m_cachePosition;
 }
 
 long TCachedStream::GetSize()
 {
-	return FPosition+FCacheSize;
+	return m_position+m_cacheSize;
 }
 

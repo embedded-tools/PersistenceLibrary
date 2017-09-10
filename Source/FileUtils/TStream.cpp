@@ -23,43 +23,43 @@
 
 TStream::TStream()
 {
-    FParentStream = NULL;
-	FCanRead  = false;
-	FCanWrite = false;
-	FCanSeek  = false;
+    m_parentStream = NULL;
+	m_canRead  = false;
+	m_canWrite = false;
+	m_canSeek  = false;
 }
 
 void TStream::Close()
 {
-    if (FParentStream!=NULL)
+    if (m_parentStream!=NULL)
     {
-        FParentStream->Close();
+        m_parentStream->Close();
     }
 }
 
 long TStream::ReadBuffer   (void* Buffer, long Count)
 {
-    if (FParentStream!=NULL)
+    if (m_parentStream!=NULL)
     {
-        return FParentStream->ReadBuffer(Buffer, Count);
+        return m_parentStream->ReadBuffer(Buffer, Count);
     }
     return 0;
 }
 
 long TStream::WriteBuffer (void* Buffer, long Count)
 {
-    if (FParentStream!=NULL)
+    if (m_parentStream!=NULL)
     {
-        return FParentStream->WriteBuffer(Buffer, Count);
+        return m_parentStream->WriteBuffer(Buffer, Count);
     }    
     return 0;
 }
 
 long TStream::Seek (long Offset, ESeekOrigin Origin)
 {
-    if (FParentStream!=NULL)
+    if (m_parentStream!=NULL)
     {
-        return FParentStream->Seek(Offset, Origin);
+        return m_parentStream->Seek(Offset, Origin);
     }   
     return -1;
 }

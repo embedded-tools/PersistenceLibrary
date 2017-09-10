@@ -1,7 +1,7 @@
 /*
  * Persistence Library / Collections / TIterator
  *
- * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
+ * Copyright (c) 2016 Ondrej Sterba <osterba@inbox.com>
  *
  * https://github.com/embedded-tools/PersistenceLibrary
  * 

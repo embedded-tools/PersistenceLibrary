@@ -27,9 +27,9 @@ TEEPROMStream::TEEPROMStream(long memoryBlockAddress, long memoryBlockSize,
 	m_ReadFromEEPROM_Function = ReadFromEEPROM;
 	m_WriteToEEPROM_Function  = WriteToEEPROM;
 
-    FCanRead  = true;
-    FCanWrite = true;
-    FCanSeek  = true;
+    m_canRead  = true;
+    m_canWrite = true;
+    m_canSeek  = true;
 }
 
 
@@ -94,11 +94,11 @@ long TEEPROMStream::GetPosition()
 
 long TEEPROMStream::GetSize()
 {
-	if (FCanWrite)
+	if (m_canWrite)
 	{
 		return m_currentAddress-m_memoryBlockAddress;
 	}
-	if (FCanRead)
+	if (m_canRead)
 	{
 		return m_memoryBlockSize;
 	}

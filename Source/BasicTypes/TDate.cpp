@@ -1,7 +1,7 @@
 /*
  * Persistence Library / Basic types / TDate
  *
- * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
+ * Copyright (c) 2016 Ondrej Sterba <osterba@inbox.com>
  *
  * https://github.com/embedded-tools/PersistenceLibrary
  *
@@ -34,7 +34,7 @@ TDate::TDate(unsigned short year, unsigned char month, unsigned char day)
 TDate::TDate(const char* date)
     : m_year(1900), m_month(1), m_day(1)
 {
-    if (date!=NULL)
+    if (date)
     {
         if (date[0]!=0)
         {

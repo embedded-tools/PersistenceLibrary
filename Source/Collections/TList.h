@@ -1,7 +1,7 @@
 /*
  * Persistence Library / Collections / TList
  *
- * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
+ * Copyright (c) 2016 Ondrej Sterba <osterba@inbox.com>
  *
  * https://github.com/embedded-tools/PersistenceLibrary
  * 
@@ -34,13 +34,13 @@ template <typename T> class TList
 {
 protected:
 
-    T*		PData;		   
-    short	DataCount;     //number of items (really inserted to list)
-    short	DataMax;       //number of items preallocated in memory
-	short	DataIterator;  //index of current item (used by iterator)
-	bool	DataStatic;    //flag TRUE means that data was allocated 
-								   //dynamically therefore need to unalloc
-
+    T*		m_dataArray;		   
+    short	m_dataCount;     //number of items (really inserted to list)
+    short	m_dataMaxCount;       //number of items preallocated in memory
+	short	m_dataIterator;  //index of current item (used by iterator)
+	bool	m_dataStatic;    //flag TRUE means that data was allocated statically
+                             //therefore no unallocation is needed
+							 
     TList(TList<T> &list){};
 
 public:

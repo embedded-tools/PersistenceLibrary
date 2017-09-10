@@ -585,7 +585,7 @@ bool TGraphicsData::LoadFromROM (const unsigned char* image)
 	m_pixelFormat  = (ePixelFormat)(flags & 255);
 	m_transparentColorUsed	= (flags & 0x0100) ? true : false;
 	m_flipImage				= (flags & 0x0200) ? true : false;
-    m_bytesPerLine          = m_bitmapDataSize / m_bitmapHeight;
+    m_bytesPerLine          = (short)(m_bitmapDataSize / m_bitmapHeight);
 
 	m_colorPaletteSize = totalLength - headerSize - 18;	
 	if (m_colorPaletteSize>0)
@@ -679,7 +679,7 @@ bool TGraphicsData::LoadFromFile (const char* filename)
 	}
 	m_bitmapDataSize = totalLength - bitmapOffset; 
 	m_bitmapData	 = (unsigned char*)malloc(m_bitmapDataSize);
-    m_bytesPerLine   = m_bitmapDataSize/m_bitmapHeight;
+    m_bytesPerLine   = (short)(m_bitmapDataSize/m_bitmapHeight);
 	if (m_bitmapData==NULL)
 	{
         //not enough memory

@@ -1,7 +1,7 @@
 /*
  * Persistence Library / Collections / TStaticObjectList
  *
- * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
+ * Copyright (c) 2016 Ondrej Sterba <osterba@inbox.com>
  *
  * https://github.com/embedded-tools/PersistenceLibrary
  *
@@ -34,10 +34,10 @@ template <class T, int N> class TStaticObjectList
 #endif
 {
 protected:
-    T*    Data[N];
-    short DataCount;
-    short DataIterator; 
-    short DataMax;
+    T*    m_dataPointerArray[N];
+    short m_dataPointerCount;
+    short m_dataIterator; 
+    short m_dataPointerMaxCount;
 
 public:
 
@@ -68,7 +68,7 @@ public:
     short MaxCount();
 
     T* operator [] (short id);
-	T* Items (short id);
+	T* Item (short id);
 
     short IndexOf(T* R);
 

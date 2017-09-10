@@ -22,9 +22,9 @@ TROMStream::TROMStream(long memoryBlockAddress, long memoryBlockSize)
     m_memoryBlockAddress = memoryBlockAddress;
     m_memoryBlockSize = memoryBlockSize;
 
-    FCanRead  = true;
-    FCanWrite = false;
-    FCanSeek  = true;
+    m_canRead  = true;
+    m_canWrite = false;
+    m_canSeek  = true;
 }
 
 
@@ -89,11 +89,11 @@ long TROMStream::GetPosition()
 
 long TROMStream::GetSize()
 {
-	if (FCanWrite)
+	if (m_canWrite)
 	{
 		return m_currentAddress-m_memoryBlockAddress;
 	}
-	if (FCanRead)
+	if (m_canRead)
 	{
 		return m_memoryBlockSize;
 	}

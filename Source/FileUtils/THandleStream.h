@@ -24,8 +24,8 @@ class THandleStream:public TStream
 {
 private:
 protected:
-    FILE* FHandle;
-	int   FSize;
+    FILE* m_fileHandle;
+	int   m_fileSize;
     
 public:
     THandleStream(void);

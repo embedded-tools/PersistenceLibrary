@@ -1,7 +1,7 @@
 /*
  * Persistence Library / Collections / TObjectList
  *
- * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
+ * Copyright (c) 2016 Ondrej Sterba <osterba@inbox.com>
  *
  * https://github.com/embedded-tools/PersistenceLibrary
  *
@@ -35,11 +35,11 @@ template <class T> class TObjectList
 {
 
 protected:
-    T**		PData;
-    short	DataCount;     //number of items (really inserted to list)
-    short	DataMax;       //number of items preallocated in memory
-	short	DataIterator;  //index of current item (used by iterator)
-	bool	DataStatic;    //flag TRUE means that data was allocated 
+    T**		m_dataPointerArray;
+    short	m_dataPointerCount;     //number of items (really inserted to list)
+    short	m_dataPointerMaxCount;  //number of items preallocated in memory
+	short	m_dataIterator;           //index of current item (used by iterator)
+	bool	m_dataStatic;    //flag TRUE means that data was allocated 
 	                           //dynamically therefore need to unalloc
     TObjectList(TObjectList<T> &list){};
 

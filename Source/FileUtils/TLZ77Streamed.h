@@ -29,11 +29,11 @@
 class TLZ77Streamed : public TCachedStream
 {
     private:
-        unsigned char* FSlidingWindow;
-        short FSlidingWindowSize;
-        short FSlidingWindowMaxSize;
-        short FReadingBlockOffset;
-        short FReadingBlockLength;
+        unsigned char* m_slidingWindow;
+        short m_slidingWindowSize;
+        short m_slidingWindowMaxSize;
+        short m_readingBlockOffset;
+        short m_readingBlockLength;
 
 	protected:
         virtual bool DoReadOperation();

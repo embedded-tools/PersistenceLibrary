@@ -1,7 +1,7 @@
 /*
  * Persistence Library / Basic types / TShortString 
  *
- * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
+ * Copyright (c) 2016 Ondrej Sterba <osterba@inbox.com>
  *
  * https://github.com/embedded-tools/PersistenceLibrary
  *
@@ -16,9 +16,7 @@
 
 #ifndef TSHORTSTRING___H
 #define TSHORTSTRING___H
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
+
 #include "tstring.h"
 
 #define SHORTSTRINGLENGTH 40

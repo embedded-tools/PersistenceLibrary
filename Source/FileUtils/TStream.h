@@ -37,10 +37,10 @@ class TStream
 private:
 protected:
 
-    TStream* FParentStream;
-	bool FCanRead;
-	bool FCanWrite;
-	bool FCanSeek;
+    TStream* m_parentStream;
+	bool m_canRead;
+	bool m_canWrite;
+	bool m_canSeek;
 
 public:
     TStream();
@@ -52,9 +52,9 @@ public:
 	virtual long GetPosition()=0;
 	virtual long GetSize()=0;
 
-	bool CanRead() { return FCanRead; };
-	bool CanWrite() { return FCanWrite; };
-	bool CanSeek() { return FCanWrite; };
+	bool CanRead() { return m_canRead; };
+	bool CanWrite() { return m_canWrite; };
+	bool CanSeek() { return m_canWrite; };
 
 	bool Eof();
 

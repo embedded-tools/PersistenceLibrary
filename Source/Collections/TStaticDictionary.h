@@ -1,7 +1,7 @@
 /*
  * Persistence Library / Collections / TStaticDictionary
  *
- * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
+ * Copyright (c) 2016 Ondrej Sterba <osterba@inbox.com>
  *
  * https://github.com/embedded-tools/PersistenceLibrary
  *
@@ -30,18 +30,19 @@ template <typename K, typename V, int N> class TStaticDictionary
 {
 protected:
 
-	K      _Key[N];
-	V      _Value[N];
-    short  DataCount;
-    short  DataIterator; 
-    short  DataMax;   
+	K      m_keyArray[N];
+	V      m_valueArray[N];
+    short  m_dataCount;
+    short  m_dataIterator; 
+    short  m_dataMaxCount;   
 
     int  Capacity();
 
+    TStaticDictionary(TStaticDictionary<K, V, N> &dictionary);
+
 public:
 
-	TStaticDictionary();
-	TStaticDictionary(TStaticDictionary<K, V, N> &dictionary);
+	TStaticDictionary();	
 	~TStaticDictionary();
 
     void Add(K key, V value);

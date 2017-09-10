@@ -60,7 +60,7 @@ TWindowsBmpFile::TWindowsBmpFile(short width, short height, ePixelFormat pixelFo
                     m_colorPalette[0] = 0;    m_colorPalette[1] = 0;    m_colorPalette[2] = 0; 
                     m_colorPalette[3] = 0xFF; m_colorPalette[4] = 0xFF; m_colorPalette[5] = 0xFF;         
                 }
-                convertedBackgroundColor[0] = backgroundColor;
+                convertedBackgroundColor[0] = (unsigned char)backgroundColor;
             }
             break;
         case pfBGR4ColorsPalette:
@@ -73,7 +73,7 @@ TWindowsBmpFile::TWindowsBmpFile(short width, short height, ePixelFormat pixelFo
                     m_colorPalette[6] = 0xAA; m_colorPalette[7] = 0xAA;  m_colorPalette[8] = 0xAA;
                     m_colorPalette[9] = 0xFF; m_colorPalette[10] = 0xFF; m_colorPalette[11]= 0xFF;
                 }
-                convertedBackgroundColor[0] = backgroundColor;
+                convertedBackgroundColor[0] = (unsigned char)backgroundColor;
             }
             break;
         case pfBGR16ColorsPalette:
@@ -89,7 +89,7 @@ TWindowsBmpFile::TWindowsBmpFile(short width, short height, ePixelFormat pixelFo
                         m_colorPalette[n++] = i*16+8;
                     }
                 }
-                convertedBackgroundColor[0] = backgroundColor;
+                convertedBackgroundColor[0] = (unsigned char) backgroundColor;
             }
             break;
         case pfBGR256ColorsPalette:
@@ -105,7 +105,7 @@ TWindowsBmpFile::TWindowsBmpFile(short width, short height, ePixelFormat pixelFo
                         m_colorPalette[n++] = i;
                     }
                 }
-                convertedBackgroundColor[0] = backgroundColor;
+                convertedBackgroundColor[0] = (unsigned char)backgroundColor;
             }
             break;
 

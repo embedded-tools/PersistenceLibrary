@@ -25,9 +25,9 @@
 template<class T, int N>
 TStaticObjectList<T, N>::TStaticObjectList()
 {
-    DataCount  = 0;
-    DataMax    = 0;
-    memset(&Data, sizeof(T)*N, 0);
+    m_dataPointerCount  = 0;
+    m_dataPointerMaxCount    = 0;
+    memset(&m_dataPointerArray, sizeof(T)*N, 0);
 }
 
 template<class T, int N>
@@ -38,20 +38,20 @@ TStaticObjectList<T, N>::~TStaticObjectList()
 
 template<class T, int N> T* TStaticObjectList<T, N>::Add()
 {
-    SetCount(DataCount+1);
+    SetCount(m_dataPointerCount+1);
     T* result = new T();
-    Data[DataCount-1]=result;
+    m_dataPointerArray[m_dataPointerCount-1]=result;
     return result;
 };
 
 template<class T, int N>
 bool TStaticObjectList<T, N>::Add(T* R)
 {    
-	int oldCount = DataCount;
-    int newCount = SetCount(DataCount+1);
+	int oldCount = m_dataPointerCount;
+    int newCount = SetCount(m_dataPointerCount+1);
     if (newCount>0)
     {
-        Data[newCount-1]=R;
+        m_dataPointerArray[newCount-1]=R;
     }
 	return oldCount!=newCount;
 };
@@ -61,22 +61,22 @@ template<class T, int N>
 bool TStaticObjectList<T, N>::Del(int id)
 {
     if (id<0) return false;
-    if (id>=DataCount) return false;
+    if (id>=m_dataPointerCount) return false;
     
-    for (int j=id;j<DataCount-1;j++)
+    for (int j=id;j<m_dataPointerCount-1;j++)
     {
-        Data[j]=Data[j+1];
+        m_dataPointerArray[j]=m_dataPointerArray[j+1];
     }
-    SetCount(DataCount-1);
+    SetCount(m_dataPointerCount-1);
 	return true;
 };
 
 template<class T, int N>
 bool TStaticObjectList<T, N>::Del(T* R)
 {
-    for (int i=0;i<DataCount;i++)
+    for (int i=0;i<m_dataPointerCount;i++)
     {
-        if (Data[i]==R)
+        if (m_dataPointerArray[i]==R)
         {
             Del(i);
             return true;
@@ -88,37 +88,37 @@ bool TStaticObjectList<T, N>::Del(T* R)
 template<class T, int N>
 T* TStaticObjectList<T, N>::Insert (int i)
 {
-    SetCount(DataCount+1);
+    SetCount(m_dataPointerCount+1);
 
     if (i<0) i=0;
-    if (i<DataCount)
+    if (i<m_dataPointerCount)
     {
-        memmove(&Data[i+1],&Data[i],(DataCount-1-i)*4);
+        memmove(&m_dataPointerArray[i+1],&m_dataPointerArray[i],(m_dataPointerCount-1-i)*4);
     } else {
-       i = DataCount-1;
+       i = m_dataPointerCount-1;
     }
     T* result = new T();
-    Data[i]=result;
+    m_dataPointerArray[i]=result;
     return result;
 };
 
 template<class T, int N>
 void TStaticObjectList<T, N>::Insert (int i, T* R)
 {
-    SetCount(DataCount+1);
+    SetCount(m_dataPointerCount+1);
 
     if (i<0) i=0;
-    if (i<DataCount)
+    if (i<m_dataPointerCount)
     {
-        memmove(&Data[i+1],&Data[i],(DataCount-1-i)*4);
+        memmove(&m_dataPointerArray[i+1],&m_dataPointerArray[i],(m_dataPointerCount-1-i)*4);
     }
-    Data[i]=R;
+    m_dataPointerArray[i]=R;
 };
 
 template<class T, int N>
 short TStaticObjectList<T, N>::Count()
 {
-    return DataCount;
+    return m_dataPointerCount;
 };
 
 template<class T, int N>
@@ -130,57 +130,57 @@ short TStaticObjectList<T, N>::MaxCount()
 template<class T, int N>
 short TStaticObjectList<T, N>::Capacity()
 {
-    return DataMax;
+    return m_dataPointerMaxCount;
 }
 
 template<class T, int N>
 short TStaticObjectList<T, N>::SetCount(short count)
 {
     if (count<0) count = 0;   
-    DataCount = count;
-    return DataCount;
+    m_dataPointerCount = count;
+    return m_dataPointerCount;
 };
 
 template<class T, int N>
 short TStaticObjectList<T, N>::SetCountAndCreate(short count)
 {
     SetCount(count);
-    for (short i=0;i<DataCount;i++) 
+    for (short i=0;i<m_dataPointerCount;i++) 
     {
-        Data[i]=new T();
+        m_dataPointerArray[i]=new T();
     }
-    return DataCount;
+    return m_dataPointerCount;
 };
 
 template<class T, int N>
 void TStaticObjectList<T, N>::Clear()
 {
     SetCount(0);    
-	memset(Data, DataMax*sizeof(T*), 0);
+	memset(m_dataPointerArray, m_dataPointerMaxCount*sizeof(T*), 0);
 };
 
 template<class T, int N>
 void TStaticObjectList<T, N>::UnallocAndClear()
 {
-    for(short i=0; i<DataCount; i++)
+    for(short i=0; i<m_dataPointerCount; i++)
     {
-        if (Data[i]!=NULL)
+        if (m_dataPointerArray[i]!=NULL)
         {
-            delete Data[i];
-            Data[i] = NULL;
+            delete m_dataPointerArray[i];
+            m_dataPointerArray[i] = NULL;
         }
     }
     SetCount(0);    
-	memset(Data, DataMax*sizeof(T*), 0);
+	memset(m_dataPointerArray, m_dataPointerMaxCount*sizeof(T*), 0);
 };
 
 template<class T, int N>
 void* TStaticObjectList<T, N>::First()
 {
-    DataIterator = 0;
-    if (DataCount>0)
+    m_dataIterator = 0;
+    if (m_dataPointerCount>0)
     {
-        return Data[0];
+        return m_dataPointerArray[0];
     }
     return NULL;    
 };
@@ -188,10 +188,10 @@ void* TStaticObjectList<T, N>::First()
 template<class T, int N>
 void* TStaticObjectList<T, N>::Next()
 {
-    DataIterator++;
-    if (DataIterator<DataCount)
+    m_dataIterator++;
+    if (m_dataIterator<m_dataPointerCount)
     {
-        return Data[DataIterator];
+        return m_dataPointerArray[m_dataIterator];
     }
     return NULL;
 };
@@ -203,25 +203,25 @@ T* TStaticObjectList<T, N>::operator [] (short id)
     {
         return NULL;
     }
-    if (id>=DataCount)
+    if (id>=m_dataPointerCount)
     {
         return NULL;
     }
-    return Data[id];
+    return m_dataPointerArray[id];
 }
 
 template<class T, int N>
-T* TStaticObjectList<T, N>::Items (short id)
+T* TStaticObjectList<T, N>::Item (short id)
 {
     if (id<0)
     {
         return NULL;
     }
-    if (id>=DataCount)
+    if (id>=m_dataPointerCount)
     {
         return NULL;
     }
-    return Data[id];
+    return m_dataPointerArray[id];
 }
 
 
@@ -229,9 +229,9 @@ T* TStaticObjectList<T, N>::Items (short id)
 template<class T, int N>
 short TStaticObjectList<T, N>::IndexOf(T* R)
 {
-    for (int i=0; i<DataCount; i++)
+    for (int i=0; i<m_dataPointerCount; i++)
     {
-        if (R == Data[i])
+        if (R == m_dataPointerArray[i])
         {
             return i;
         }

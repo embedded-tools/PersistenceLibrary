@@ -25,11 +25,11 @@
 template<class T>
 TList<T>::TList()
 {
-	DataStatic = false;
-    DataCount  = 0;
-    DataMax    = 0;
-	DataStatic = false;
-    PData       = NULL;	
+	m_dataStatic = false;
+    m_dataCount  = 0;
+    m_dataMaxCount    = 0;
+	m_dataStatic = false;
+    m_dataArray       = NULL;	
 }
 
 template<class T>
@@ -42,10 +42,10 @@ TList<T>::~TList()
 template<class T>
 void* TList<T>::First()
 {
-	DataIterator = 0;
-	if (DataIterator<DataCount)
+	m_dataIterator = 0;
+	if (m_dataIterator<m_dataCount)
 	{
-		return &PData[DataIterator];
+		return &m_dataArray[m_dataIterator];
 	}
 	return NULL;
 }
@@ -53,10 +53,10 @@ void* TList<T>::First()
 template<class T>
 void* TList<T>::Next()
 {
-	DataIterator++;
-	if (DataIterator<DataCount)
+	m_dataIterator++;
+	if (m_dataIterator<m_dataCount)
 	{
-		return &PData[DataIterator];
+		return &m_dataArray[m_dataIterator];
 	}
 	return NULL;
 }
@@ -64,17 +64,17 @@ void* TList<T>::Next()
 template<class T>
 short TList<T>::Count()
 {
-	return DataCount;
+	return m_dataCount;
 }
 
 template<class T>
 void TList<T>::Add(T R)
 {
-	short oldDataCount = DataCount;
-    SetCount(DataCount+1);
-	if (oldDataCount!=DataCount)
+	short oldm_dataCount = m_dataCount;
+    SetCount(m_dataCount+1);
+	if (oldm_dataCount!=m_dataCount)
 	{
-		PData[DataCount-1]  = R;
+		m_dataArray[m_dataCount-1]  = R;
 	}
 };
 
@@ -82,39 +82,39 @@ void TList<T>::Add(T R)
 template<class T>
 void TList<T>::Del(short index)
 {
-    if ( (index<0) || (index>=DataCount) )
+    if ( (index<0) || (index>=m_dataCount) )
     {
         //invalid index -> nothing will be deleted
         return;
     }
-    for (short j=index;j<DataCount-1;j++)
+    for (short j=index;j<m_dataCount-1;j++)
     {
-        PData[j]=PData[j+1];
+        m_dataArray[j]=m_dataArray[j+1];
     }
-    SetCount(DataCount-1);
+    SetCount(m_dataCount-1);
 };
 
 template<class T>
 void TList<T>::Insert (short index, T x)
 {
     if (index<0) index = 0;
-    if (index>DataCount) index = DataCount;
+    if (index>m_dataCount) index = m_dataCount;
 
-    SetCount(DataCount+1);
-    if (index<DataCount-1)
+    SetCount(m_dataCount+1);
+    if (index<m_dataCount-1)
     {
-        memmove(&PData[index+1],&PData[index],(DataCount-1-index)*sizeof(T));
+        memmove(&m_dataArray[index+1],&m_dataArray[index],(m_dataCount-1-index)*sizeof(T));
     }
-    PData[index]=x ;
+    m_dataArray[index]=x ;
 };
 
 template<class T>
 bool TList<T>::Contains (T x)
 {
     bool result=false;
-    for(short i = 0; i<DataCount; i++)
+    for(short i = 0; i<m_dataCount; i++)
     {
-        if (PData[i]==x)
+        if (m_dataArray[i]==x)
         {
             result = true;
             break;
@@ -127,9 +127,9 @@ template<class T>
 short TList<T>::IndexOf (T x)
 {
     bool result=-1;
-    for(short i = 0; i<DataCount; i++)
+    for(short i = 0; i<m_dataCount; i++)
     {
-        if (PData[i]==x)
+        if (m_dataArray[i]==x)
         {
             result = i;
             break;
@@ -141,7 +141,7 @@ short TList<T>::IndexOf (T x)
 template<class T>
 short TList<T>::Capacity()
 {
-    return DataMax;
+    return m_dataMaxCount;
 };
 
 
@@ -150,69 +150,69 @@ short TList<T>::SetCount(short count)
 {
     if (count<0) count = 0;
 
-	if (!DataStatic)
+	if (!m_dataStatic)
 	{
 		if (count == 0)
 		{
-			if (PData!=NULL)
+			if (m_dataArray!=NULL)
 			{
-				free(PData);
+				free(m_dataArray);
 			}
-			PData = NULL;
-			DataCount = 0;
-			DataMax = 0;
-			return DataCount;
+			m_dataArray = NULL;
+			m_dataCount = 0;
+			m_dataMaxCount = 0;
+			return m_dataCount;
 		}
 
-		if (count>DataMax)
+		if (count>m_dataMaxCount)
 		{
-			while (DataMax<count)
+			while (m_dataMaxCount<count)
 			{
-				if (DataMax*sizeof(T)<1024)
+				if (m_dataMaxCount*sizeof(T)<1024)
 				{
-					DataMax += DataMax;
-					if (DataMax<8) DataMax = 8;
+					m_dataMaxCount += m_dataMaxCount;
+					if (m_dataMaxCount<8) m_dataMaxCount = 8;
 				} else {
-					DataMax += 1024/sizeof(T);
+					m_dataMaxCount += 1024/sizeof(T);
 				}
 			}
-			if (PData==NULL)
+			if (m_dataArray==NULL)
 			{
-				PData = (T*) malloc(DataMax*sizeof(T));
-				memset((void*)PData, 0, DataMax*sizeof(T));
+				m_dataArray = (T*) malloc(m_dataMaxCount*sizeof(T));
+				memset((void*)m_dataArray, 0, m_dataMaxCount*sizeof(T));
 			} else {
 
-				PData = (T*) realloc(PData,DataMax*sizeof(T));
-				memset((void*)(PData+count), 0, (DataMax-count)*sizeof(T));
+				m_dataArray = (T*) realloc(m_dataArray,m_dataMaxCount*sizeof(T));
+				memset((void*)(m_dataArray+count), 0, (m_dataMaxCount-count)*sizeof(T));
 			}
 		}
 	} else {
-		if (count>=DataMax)
+		if (count>=m_dataMaxCount)
 		{
-			 count = DataMax;
+			 count = m_dataMaxCount;
 		}
 	}
-    DataCount = count;
-    return DataCount;
+    m_dataCount = count;
+    return m_dataCount;
 };
 
 template<class T>
 void TList<T>::SetCapacity(short reservedCapacity)
 {
-	if (!DataStatic)
+	if (!m_dataStatic)
 	{
-		DataCount = 0;
-		DataMax   = 0;
-		if (PData!=NULL)
+		m_dataCount = 0;
+		m_dataMaxCount   = 0;
+		if (m_dataArray!=NULL)
 		{
-			free(PData);
-			PData = NULL;
+			free(m_dataArray);
+			m_dataArray = NULL;
 		}
 		if (reservedCapacity>0)
 		{
-			PData = (T*) malloc(reservedCapacity*sizeof(T));
-			memset((void*) PData, 0, reservedCapacity*sizeof(T));
-			DataMax = reservedCapacity;
+			m_dataArray = (T*) malloc(reservedCapacity*sizeof(T));
+			memset((void*) m_dataArray, 0, reservedCapacity*sizeof(T));
+			m_dataMaxCount = reservedCapacity;
 		}
 	}
 }
@@ -227,9 +227,9 @@ void TList<T>::Clear()
 template<class T>
 T& TList<T>::operator [] (short index)
 {	
-    if ((index>=0) && (index<DataCount))
+    if ((index>=0) && (index<m_dataCount))
     {
-		return PData[index];
+		return m_dataArray[index];
     };
 
 	static T buf;

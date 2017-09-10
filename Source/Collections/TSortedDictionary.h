@@ -1,7 +1,7 @@
 /*
  * Persistence Library / Collections / TSortedDictionary
  *
- * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
+ * Copyright (c) 2016 Ondrej Sterba <osterba@inbox.com>
  *
  * https://github.com/embedded-tools/PersistenceLibrary
  *
@@ -32,11 +32,11 @@ template <typename KEY, typename VALUE> class TSortedDictionary
 {
 
 private:
-    KEY*   Key;
-    VALUE* Data;
-    short  DataCount;
-    short  DataMax;
-	short  DataIterator;
+    KEY*   m_keyArray;
+    VALUE* m_valueArray;
+    short  m_dataCount;
+    short  m_dataMaxCount;
+	short  m_dataIterator;
 
     short  SetCount(short count);
     void   SetCapacity(short capacity);
@@ -45,10 +45,11 @@ private:
     short FindKeyIndexRec(KEY key, short min, short max);   
 	short FindNearestKeyIndex(KEY key);
 
+    TSortedDictionary(TSortedDictionary<KEY,VALUE> &dictionary);
+
 public:
 
-    TSortedDictionary(short capacity=8);
-    TSortedDictionary(TSortedDictionary<KEY,VALUE> &dictionary);
+    TSortedDictionary(short capacity=8);    
     ~TSortedDictionary();
 
     void  Clear();    

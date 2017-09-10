@@ -24,10 +24,10 @@
 template<typename K, typename V, int N>
 TStaticDictionary<K,V,N>::TStaticDictionary()
 {
-    DataCount  = 0;
-    DataMax = N;
-    memset((void*)&_Key,   0, sizeof(_Key));
-    memset((void*)&_Value, 0, sizeof(_Value));
+    m_dataCount  = 0;
+    m_dataMaxCount = N;
+    memset((void*)&m_keyArray,   0, sizeof(m_keyArray));
+    memset((void*)&m_valueArray, 0, sizeof(m_valueArray));
 }
 
 template<typename K, typename V, int N>
@@ -39,12 +39,12 @@ TStaticDictionary<K,V,N>::~TStaticDictionary()
 template<typename K, typename V, int N>
 void TStaticDictionary<K,V,N>::Add(K key, V value)
 {
-	int oldDataCount = DataCount;
-    if (DataCount<DataMax)
+	int oldm_dataCount = m_dataCount;
+    if (m_dataCount<m_dataMaxCount)
     {
-		_Key[DataCount]   = key;
-		_Value[DataCount] = value;
-        DataCount++;
+		m_keyArray[m_dataCount]   = key;
+		m_valueArray[m_dataCount] = value;
+        m_dataCount++;
 	}
 };
 
@@ -53,29 +53,29 @@ template<typename K, typename V, int N>
 void TStaticDictionary<K,V,N>::Del(K key)
 {
 	int index = -1;
-	for(int i = 0; i<DataCount; i++)
+	for(int i = 0; i<m_dataCount; i++)
 	{
-		if (_Key[i] == key) 
+		if (m_keyArray[i] == key) 
 		{
 			index = i;
 		}
 	}
 	if (index==-1) return;		
-    for (int j=index;j<DataCount-1;j++)
+    for (int j=index;j<m_dataCount-1;j++)
     {
-        _Key[j]=_Key[j+1];
-		_Value[j]=_Value[j+1];
+        m_keyArray[j]=m_keyArray[j+1];
+		m_valueArray[j]=m_valueArray[j+1];
     }
-    DataCount--;
+    m_dataCount--;
 };
 
 template<typename K, typename V, int N>
 bool TStaticDictionary<K,V,N>::ContainsKey (K key)
 {
     bool result=false;
-    for(int i = 0; i<DataCount; i++)
+    for(int i = 0; i<m_dataCount; i++)
     {
-        if (_Key[i]==key)
+        if (m_keyArray[i]==key)
         {
             result = true;
             break;
@@ -88,9 +88,9 @@ template<typename K, typename V, int N>
 bool TStaticDictionary<K,V,N>::ContainsValue (V value)
 {
     bool result=false;
-    for(int i = 0; i<DataCount; i++)
+    for(int i = 0; i<m_dataCount; i++)
     {
-        if (_Value[i]==value)
+        if (m_valueArray[i]==value)
         {
             result = true;
             break;
@@ -102,7 +102,7 @@ bool TStaticDictionary<K,V,N>::ContainsValue (V value)
 template<typename K, typename V, int N>
 short TStaticDictionary<K,V,N>::Count()
 {
-    return DataCount;
+    return m_dataCount;
 };
 
 template<typename K, typename V, int N>
@@ -114,9 +114,9 @@ short TStaticDictionary<K,V,N>::MaxCount()
 template<typename K, typename V, int N>
 K&  TStaticDictionary<K,V,N>::Key(int index)
 {
-	if ((index>=0) || (index<DataCount))
+	if ((index>=0) || (index<m_dataCount))
 	{
-		return _Key[index];
+		return m_keyArray[index];
 	}
 	static K result;
 	return result;
@@ -125,9 +125,9 @@ K&  TStaticDictionary<K,V,N>::Key(int index)
 template<typename K, typename V, int N>
 V&  TStaticDictionary<K,V,N>::Value(int index)
 {
-    if ((index>=0) || (index<DataCount))
+    if ((index>=0) || (index<m_dataCount))
     {
-        return _Value[index];
+        return m_valueArray[index];
     }
     static V result;
     return result;
@@ -138,29 +138,29 @@ V&  TStaticDictionary<K,V,N>::Value(int index)
 template<typename K, typename V, int N>
 int TStaticDictionary<K,V,N>::Capacity()
 {
-    return DataMax;
+    return m_dataMaxCount;
 };
 
 template<typename K, typename V, int N>
 void TStaticDictionary<K,V,N>::Clear()
 {
-    DataCount = 0;
+    m_dataCount = 0;
 };
 
 template<typename K, typename V, int N>
 V& TStaticDictionary<K,V,N>::operator [] (K key)
 {
-	for(int i2 = 0; i2<DataCount; i2++)
+	for(int i2 = 0; i2<m_dataCount; i2++)
 	{
-		if (_Key[i2] == key)
+		if (m_keyArray[i2] == key)
 		{
-			return _Value[i2];
+			return m_valueArray[i2];
 		}
 	}
-    if (DataCount<DataMax)
+    if (m_dataCount<m_dataMaxCount)
     {
-        _Key[DataCount] = key;
-        return _Value[DataCount++];
+        m_keyArray[m_dataCount] = key;
+        return m_valueArray[m_dataCount++];
     }        
 
 	static V value;

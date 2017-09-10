@@ -22,11 +22,11 @@
 class TMemoryStream:public TStream
 {
 private:
-	char* FMemory;
-	bool  FMemoryOwned;
+	char* m_memory;
+	bool  m_memoryOwner;
 
-	long  FSize, FCapacity;
-	long  FPosition;    
+	long  m_size, m_capacity;
+	long  m_position;    
 
 	long  SetSize(long size);
 

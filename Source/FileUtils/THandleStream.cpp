@@ -21,13 +21,13 @@
 /////////////////////////////
 THandleStream::THandleStream(FILE* AHandle)
 {
-    FHandle = AHandle;
-	FSize   = 0;
+    m_fileHandle = AHandle;
+	m_fileSize   = 0;
 }
 
 THandleStream::THandleStream()
 {
-	FSize   = 0;
+	m_fileSize   = 0;
 }
 
 
@@ -38,48 +38,48 @@ THandleStream::~THandleStream()
 
 void THandleStream::Close()
 {
-    if (FHandle!=NULL)
+    if (m_fileHandle!=NULL)
     {
-        fclose(FHandle);
-        FHandle=NULL;
+        fclose(m_fileHandle);
+        m_fileHandle=NULL;
     }
 }
 
 long THandleStream::ReadBuffer(void* Buffer, long Count)
 {
-    unsigned short result = (unsigned short)fread(Buffer,1,Count,FHandle);
+    unsigned short result = (unsigned short)fread(Buffer,1,Count,m_fileHandle);
     return result;
 }
 
 long THandleStream::WriteBuffer(void* Buffer, long Count)
 {
-    unsigned short result = (unsigned short)fwrite(Buffer,1,Count,FHandle);
+    unsigned short result = (unsigned short)fwrite(Buffer,1,Count,m_fileHandle);
     return result;
 }
 
 long THandleStream::Seek(long Offset, ESeekOrigin origin)
 {
-    fseek(FHandle, Offset, origin);
-	int position = ftell(FHandle);
+    fseek(m_fileHandle, Offset, origin);
+	int position = ftell(m_fileHandle);
 	return position;
 }
 
 long THandleStream::GetPosition()
 {
-	int position = ftell(FHandle);
+	int position = ftell(m_fileHandle);
 	return position;
 }
 
 long THandleStream::GetSize()
 {
-	if ((FSize==0) || (FCanWrite))
+	if ((m_fileSize==0) || (m_canWrite))
 	{
-		int pos  = ftell(FHandle);
-		fseek(FHandle,0,esoFromEnd);
-		int size = ftell(FHandle);
-		fseek(FHandle,pos, esoFromBeginning);
-		FSize = size;
+		int pos  = ftell(m_fileHandle);
+		fseek(m_fileHandle,0,esoFromEnd);
+		int size = ftell(m_fileHandle);
+		fseek(m_fileHandle,pos, esoFromBeginning);
+		m_fileSize = size;
 	}	
-	return FSize;
+	return m_fileSize;
 }
 

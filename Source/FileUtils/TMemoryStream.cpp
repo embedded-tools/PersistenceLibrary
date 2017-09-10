@@ -18,41 +18,41 @@
 
 TMemoryStream::TMemoryStream(void* rewriteableBuffer, short rewriteableBufferLength)
 {
-	FMemory = (char*) rewriteableBuffer;
-	FMemoryOwned = false;
-	FSize = 0;
-	FCapacity = rewriteableBufferLength;
-	FPosition = 0;
+	m_memory = (char*) rewriteableBuffer;
+	m_memoryOwner = false;
+	m_size = 0;
+	m_capacity = rewriteableBufferLength;
+	m_position = 0;
 
-	FCanRead = true;
-	FCanWrite = true;
-	FCanSeek = true;	
+	m_canRead = true;
+	m_canWrite = true;
+	m_canSeek = true;	
 }
 
 TMemoryStream::TMemoryStream(const char* readOnlyBuffer, short readOnlyBufferLength)
 {
-	FMemory = (char*) readOnlyBuffer;
-	FMemoryOwned = false;
-	FSize = readOnlyBufferLength;
-	FCapacity = readOnlyBufferLength;
-	FPosition = 0;
+	m_memory = (char*) readOnlyBuffer;
+	m_memoryOwner = false;
+	m_size = readOnlyBufferLength;
+	m_capacity = readOnlyBufferLength;
+	m_position = 0;
 
-	FCanRead  = true;
-	FCanWrite = false;
-	FCanSeek  = true;
+	m_canRead  = true;
+	m_canWrite = false;
+	m_canSeek  = true;
 }
 
 TMemoryStream::TMemoryStream(short capacity)
 {
-	FMemory = (char*) malloc(capacity);
-	FMemoryOwned = true;
-	FSize = 0;
-	FCapacity = capacity;
-	FPosition = 0;
+	m_memory = (char*) malloc(capacity);
+	m_memoryOwner = true;
+	m_size = 0;
+	m_capacity = capacity;
+	m_position = 0;
 
-	FCanRead = true;
-	FCanWrite = true;
-	FCanSeek = true;
+	m_canRead = true;
+	m_canWrite = true;
+	m_canSeek = true;
 }
 
 TMemoryStream::~TMemoryStream()
@@ -62,13 +62,13 @@ TMemoryStream::~TMemoryStream()
 
 void TMemoryStream::Close()
 {
-	FSize = 0;
-	if (FMemoryOwned)
+	m_size = 0;
+	if (m_memoryOwner)
 	{
-		if (FMemory) free(FMemory);
-		FMemory = NULL;
-		FSize = 0;
-		FCapacity = 0;
+		if (m_memory) free(m_memory);
+		m_memory = NULL;
+		m_size = 0;
+		m_capacity = 0;
 	}
 }
 
@@ -76,17 +76,17 @@ void TMemoryStream::Close()
 long TMemoryStream::ReadBuffer(void* Buffer, long Count)
 {
     if (Count==0) return 0;
-    if (FMemory==NULL) return 0;
+    if (m_memory==NULL) return 0;
     
-    int Result = FSize - FPosition;
+    int Result = m_size - m_position;
     if (Result > 0) 
     {
         if (Result > Count)
             Result = Count;
 
-        char* p=FMemory+FPosition;
+        char* p=m_memory+m_position;
         memcpy(Buffer, p, Result);      
-        FPosition+=Result;
+        m_position+=Result;
         return Result;
     }
     return 0;
@@ -94,24 +94,24 @@ long TMemoryStream::ReadBuffer(void* Buffer, long Count)
 
 long TMemoryStream::WriteBuffer(void* Buffer, long Count)
 {    
-	if (FPosition<0) return 0;
+	if (m_position<0) return 0;
 	if (Count<1) return 0;
 
-    int newSize = FPosition + Count;
+    int newSize = m_position + Count;
 
 	SetSize(newSize);
-	if (FSize!=newSize)
+	if (m_size!=newSize)
 	{
 		return 0;
 	}
-    if (FMemory==NULL)
+    if (m_memory==NULL)
     {
         return 0;
     }
 
-    char* p=FMemory+FPosition;
+    char* p=m_memory+m_position;
     memcpy(p,Buffer, Count);
-	FPosition = newSize;
+	m_position = newSize;
     return Count;
 }
 
@@ -119,78 +119,78 @@ long TMemoryStream::Seek(long Offset, ESeekOrigin origin)
 {
     switch (origin)
     {
-		case esoFromBeginning:	FPosition  = Offset;  break;
-		case esoFromCurrent:	FPosition += Offset;  break;
-		case esoFromEnd:		FPosition  = FSize + Offset; break;
+		case esoFromBeginning:	m_position  = Offset;  break;
+		case esoFromCurrent:	m_position += Offset;  break;
+		case esoFromEnd:		m_position  = m_size + Offset; break;
     }     
-    return FPosition;
+    return m_position;
 }
 
 long TMemoryStream::SetSize(long newSize)
 {
-	if (!FMemoryOwned) 
+	if (!m_memoryOwner) 
 	{
-		if (newSize<FCapacity) 
+		if (newSize<m_capacity) 
 		{
-			FSize = newSize;
+			m_size = newSize;
 		} else {
-			FSize = FCapacity;
+			m_size = m_capacity;
 		}
-		return FSize;
+		return m_size;
 	}
 
 	if (newSize==0)
     {
-        free(FMemory);
-        FMemory = NULL;
-		FSize = 0;
-        FCapacity = 0;
+        free(m_memory);
+        m_memory = NULL;
+		m_size = 0;
+        m_capacity = 0;
         return 0;
     }
 
-	if (newSize>FCapacity)
+	if (newSize>m_capacity)
 	{
-		while(newSize>FCapacity)
+		while(newSize>m_capacity)
 		{
-			if (FCapacity<512)
+			if (m_capacity<512)
 			{
-				FCapacity+=64;
+				m_capacity+=64;
 			} else {
 				{
-					FCapacity+=256;
+					m_capacity+=256;
 				}
 			}
 		}
-		if (FMemory!=NULL)
+		if (m_memory!=NULL)
 		{
-			FMemory = (char*)realloc(FMemory, FCapacity);
+			m_memory = (char*)realloc(m_memory, m_capacity);
 		} else {
-			FMemory =(char*) malloc(FCapacity);
-			memset(FMemory, 0, FCapacity);
+			m_memory =(char*) malloc(m_capacity);
+			memset(m_memory, 0, m_capacity);
 		}
-		if (FMemory == NULL)
+		if (m_memory == NULL)
 		{
-			FSize = 0;
-			FCapacity = 0;
+			m_size = 0;
+			m_capacity = 0;
 		}
 	}
-	FSize = newSize;
+	m_size = newSize;
 
-	return FSize;
+	return m_size;
     
 }
 
 long TMemoryStream::GetPosition()
 {
-	return FPosition;
+	return m_position;
 }
 
 long TMemoryStream::GetSize()
 {
-	return FSize;
+	return m_size;
 }
 
 void* TMemoryStream::ToPtr()
 {
-	return FMemory;
+	return m_memory;
 }

@@ -1,7 +1,7 @@
 /*
  * Persistence Library / Basic types / TDate
  *
- * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
+ * Copyright (c) 2016 Ondrej Sterba <osterba@inbox.com>
  *
  * https://github.com/embedded-tools/PersistenceLibrary
  *
@@ -16,8 +16,6 @@
 
 #ifndef TDATE___H
 #define TDATE___H
-
-#include <stdlib.h>
 
 /**
  *  TDate is very simple class for storing date a adding or substracting intervals (days, months, years) to this date.
