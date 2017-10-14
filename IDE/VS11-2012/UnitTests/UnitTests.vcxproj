@@ -58,8 +58,8 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\Source\UnitTests\PersistenceExample;E:\tvorba-emb\PersistenceLibrary\Source\BasicTypes;E:\tvorba-emb\PersistenceLibrary\Source\Collections;E:\tvorba-emb\PersistenceLibrary\Source\FileUtils;E:\tvorba-emb\PersistenceLibrary\Source\Graphics;E:\tvorba-emb\PersistenceLibrary\Source\Math;E:\tvorba-emb\PersistenceLibrary\Source\Persistence;E:\tvorba-emb\PersistenceLibrary\Source\Protocols;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Source\UnitTests\PersistenceExample;E:\tvorba-emb\PersistenceLibrary\Source\BasicTypes;E:\tvorba-emb\PersistenceLibrary\Source\Collections;E:\tvorba-emb\PersistenceLibrary\Source\FileUtils;E:\tvorba-emb\PersistenceLibrary\Source\Graphics;E:\tvorba-emb\PersistenceLibrary\Source\Math;E:\tvorba-emb\PersistenceLibrary\Source\Persistence;E:\tvorba-emb\PersistenceLibrary\Source\Protocols;..\..\..\Source\UnitTests\Fonts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -101,7 +101,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -111,13 +111,14 @@
       <ProgramDataBaseFileName>.\obj/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalIncludeDirectories>..\..\..\Source\UnitTests\PersistenceExample;..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\UnitTests\Fonts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>collections.lib;fileutils.lib;persistence.lib;strings.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>basictypes.lib;collections.lib;fileutils.lib;math.lib;persistence.lib;protocols.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\Release/UnitTests.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ProgramDatabaseFile>.\Release/UnitTests.pdb</ProgramDatabaseFile>
@@ -125,6 +126,7 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -132,6 +134,11 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Amata13.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Bookman50.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\BrushScript12.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Robotron.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.h" />
     <ClInclude Include="..\..\..\Source\UnitTests\UnitTests.h" />
     <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\BaseClass.h" />
     <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassA.h" />
@@ -145,10 +152,16 @@
     <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\MainObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Amata13.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Bookman50.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\BrushScript12.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Robotron.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\minicppunit.cxx" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_LZ77.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_Persistence.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_StringUtils.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TBinaryProtocol.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedFileStream.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedMemoryStream.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TColor.cpp" />
@@ -157,22 +170,26 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TDate.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TDateTime.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TDateTimeCounter.cpp" />
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TDictionary.cpp" />
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_Template.cpp" />
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TEncoding.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFilePath.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFileStream.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint1024.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint128.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint16M.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFont.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TGraphics.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TLog.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TMemoryStream.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TRandom.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TShortString.cpp" />
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TSRProtocol.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TSortedDictionary.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStaticDictionary.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TStaticQueue.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TString.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TStringList.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TTextFile.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TTime.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TWideString.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TWindowsBmpFile.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLDoc.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLParser.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\UnitTests.cpp" />

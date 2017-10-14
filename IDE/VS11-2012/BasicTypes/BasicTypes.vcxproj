@@ -10,6 +10,35 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Source\BasicTypes\StringUtils.h" />
+    <ClInclude Include="..\..\..\Source\BasicTypes\TCustomString.h" />
+    <ClInclude Include="..\..\..\Source\BasicTypes\TDate.h" />
+    <ClInclude Include="..\..\..\Source\BasicTypes\TDateTime.h" />
+    <ClInclude Include="..\..\..\Source\BasicTypes\TDateTimeCounter.h" />
+    <ClInclude Include="..\..\..\Source\BasicTypes\TFilePath.h" />
+    <ClInclude Include="..\..\..\Source\BasicTypes\TRandom.h" />
+    <ClInclude Include="..\..\..\Source\BasicTypes\TShortString.h" />
+    <ClInclude Include="..\..\..\Source\BasicTypes\TString.h" />
+    <ClInclude Include="..\..\..\Source\BasicTypes\TStringList.h" />
+    <ClInclude Include="..\..\..\Source\BasicTypes\TTime.h" />
+    <ClInclude Include="..\..\..\Source\BasicTypes\TWideString.h" />
+    <ClInclude Include="..\..\..\Source\BasicTypes\UTF8.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Source\BasicTypes\StringUtils.cpp" />
+    <ClCompile Include="..\..\..\Source\BasicTypes\TDate.cpp" />
+    <ClCompile Include="..\..\..\Source\BasicTypes\TDateTime.cpp" />
+    <ClCompile Include="..\..\..\Source\BasicTypes\TDateTimeCounter.cpp" />
+    <ClCompile Include="..\..\..\Source\BasicTypes\TFilePath.cpp" />
+    <ClCompile Include="..\..\..\Source\BasicTypes\TRandom.cpp" />
+    <ClCompile Include="..\..\..\Source\BasicTypes\TShortString.cpp" />
+    <ClCompile Include="..\..\..\Source\BasicTypes\TString.cpp" />
+    <ClCompile Include="..\..\..\Source\BasicTypes\TStringList.cpp" />
+    <ClCompile Include="..\..\..\Source\BasicTypes\TTime.cpp" />
+    <ClCompile Include="..\..\..\Source\BasicTypes\TWideString.cpp" />
+    <ClCompile Include="..\..\..\Source\BasicTypes\UTF8.c" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{30E0F53B-D83C-47AD-B87A-3435F5AEFF05}</ProjectGuid>
   </PropertyGroup>
@@ -98,7 +127,7 @@
       <Culture>0x0405</Culture>
     </ResourceCompile>
     <Lib>
-      <OutputFile>.\Release\BasicTypes.lib</OutputFile>
+      <OutputFile>..\lib\BasicTypes.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <Bscmake>
@@ -106,33 +135,6 @@
       <OutputFile>.\Release/BasicTypes.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\Source\BasicTypes\StringUtils.cpp" />
-    <ClCompile Include="..\..\..\Source\BasicTypes\TDate.cpp" />
-    <ClCompile Include="..\..\..\Source\BasicTypes\TDateTime.cpp" />
-    <ClCompile Include="..\..\..\Source\BasicTypes\TDateTimeCounter.cpp" />
-    <ClCompile Include="..\..\..\Source\BasicTypes\TEncoding.cpp" />
-    <ClCompile Include="..\..\..\Source\BasicTypes\TFilePath.cpp" />
-    <ClCompile Include="..\..\..\Source\BasicTypes\TRandom.cpp" />
-    <ClCompile Include="..\..\..\Source\BasicTypes\TShortString.cpp" />
-    <ClCompile Include="..\..\..\Source\BasicTypes\TString.cpp" />
-    <ClCompile Include="..\..\..\Source\BasicTypes\TTime.cpp" />
-    <ClCompile Include="..\..\..\Source\BasicTypes\TWideString.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\Source\BasicTypes\StringUtils.h" />
-    <ClInclude Include="..\..\..\Source\BasicTypes\TCustomString.h" />
-    <ClInclude Include="..\..\..\Source\BasicTypes\TDate.h" />
-    <ClInclude Include="..\..\..\Source\BasicTypes\TDateTime.h" />
-    <ClInclude Include="..\..\..\Source\BasicTypes\TDateTimeCounter.h" />
-    <ClInclude Include="..\..\..\Source\BasicTypes\TEncoding.h" />
-    <ClInclude Include="..\..\..\Source\BasicTypes\TFilePath.h" />
-    <ClInclude Include="..\..\..\Source\BasicTypes\TRandom.h" />
-    <ClInclude Include="..\..\..\Source\BasicTypes\TShortString.h" />
-    <ClInclude Include="..\..\..\Source\BasicTypes\TString.h" />
-    <ClInclude Include="..\..\..\Source\BasicTypes\TTime.h" />
-    <ClInclude Include="..\..\..\Source\BasicTypes\TWideString.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

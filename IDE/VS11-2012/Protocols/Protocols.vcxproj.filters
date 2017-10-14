@@ -11,18 +11,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Source\Protocols\TProtocol.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\Protocols\TSRProtocol.cpp">
+    <ClCompile Include="..\..\..\Source\Protocols\TBinaryProtocol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Source\Protocols\TProtocol.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\Protocols\TSRProtocol.h">
+    <ClInclude Include="..\..\..\Source\Protocols\TBinaryProtocol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

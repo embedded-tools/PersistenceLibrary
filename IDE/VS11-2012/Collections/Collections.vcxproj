@@ -63,13 +63,14 @@
       <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalIncludeDirectories>..\..\..\Source\Collections;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Lib>
-      <OutputFile>.\Release\Collections.lib</OutputFile>
+      <OutputFile>..\lib\Collections.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <Bscmake>

@@ -14,6 +14,9 @@
     <Filter Include="Source Files\Persistence Example">
       <UniqueIdentifier>{f8b9a842-a0a7-451a-9582-aa38c3011642}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Fonts">
+      <UniqueIdentifier>{56354845-27be-4e9b-adcf-6d41ff5924f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\UnitTests\UnitTests.h">
@@ -49,96 +52,24 @@
     <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\MainObject.h">
       <Filter>Header Files\PersistenceExample</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Amata13.h">
+      <Filter>Source Files\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Bookman50.h">
+      <Filter>Source Files\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\BrushScript12.h">
+      <Filter>Source Files\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Robotron.h">
+      <Filter>Source Files\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.h">
+      <Filter>Source Files\Fonts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\UnitTests\minicppunit.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_LZ77.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_Persistence.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_StringUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedFileStream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedMemoryStream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TColor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCompression.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCustomString.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TDate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TDateTime.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TDateTimeCounter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TDictionary.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_Template.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TEncoding.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFilePath.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFileStream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint1024.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint128.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TGraphics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TMemoryStream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TShortString.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TSRProtocol.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStaticQueue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TString.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStringList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TTime.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TWideString.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLDoc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\UnitTests.cpp">
@@ -173,6 +104,123 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\MainObject.cpp">
       <Filter>Source Files\Persistence Example</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_LZ77.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_Persistence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_StringUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TBinaryProtocol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedFileStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedMemoryStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TColor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCompression.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCustomString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TDate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TDateTime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TDateTimeCounter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFilePath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFileStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint16M.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint128.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint1024.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFont.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TGraphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TMemoryStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TRandom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TShortString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TSortedDictionary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStaticDictionary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStaticQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStringList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TTextFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TTime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TWideString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TWindowsBmpFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLDoc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Amata13.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Bookman50.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\BrushScript12.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Robotron.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.cpp">
+      <Filter>Source Files\Fonts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

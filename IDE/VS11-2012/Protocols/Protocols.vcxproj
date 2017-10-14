@@ -10,6 +10,12 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Source\Protocols\TBinaryProtocol.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Source\Protocols\TBinaryProtocol.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B51F88F6-1359-4CCA-8D32-EFD50A1666D5}</ProjectGuid>
   </PropertyGroup>
@@ -64,6 +70,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalIncludeDirectories>..\..\Source\Protocols</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -92,13 +99,14 @@
       <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalIncludeDirectories>..\..\Source\Protocols</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0405</Culture>
     </ResourceCompile>
     <Lib>
-      <OutputFile>.\Release\Protocols.lib</OutputFile>
+      <OutputFile>..\lib\Protocols.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <Bscmake>
@@ -106,14 +114,6 @@
       <OutputFile>.\Release/Protocols.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\Source\Protocols\TProtocol.cpp" />
-    <ClCompile Include="..\..\..\Source\Protocols\TSRProtocol.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\Source\Protocols\TProtocol.h" />
-    <ClInclude Include="..\..\..\Source\Protocols\TSRProtocol.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

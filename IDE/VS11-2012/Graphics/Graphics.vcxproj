@@ -53,7 +53,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -63,13 +63,14 @@
       <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalIncludeDirectories>..\..\..\Source\Graphics;..\..\..\Source\Math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0405</Culture>
     </ResourceCompile>
     <Lib>
-      <OutputFile>.\Release\Graphics.lib</OutputFile>
+      <OutputFile>..\lib\Graphics.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <Bscmake>
@@ -80,8 +81,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\Source\Graphics;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Source\Graphics;..\..\..\Source\Math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -123,6 +124,7 @@
     <ClCompile Include="..\..\..\Source\Graphics\TPixelFormatConverter.cpp" />
     <ClCompile Include="..\..\..\Source\Graphics\TPosition.cpp" />
     <ClCompile Include="..\..\..\Source\Graphics\TRectangle.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TSize.cpp" />
     <ClCompile Include="..\..\..\Source\Graphics\TWindowsBmpFile.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +146,7 @@
     <ClInclude Include="..\..\..\Source\Graphics\TPixelFormatConverter.h" />
     <ClInclude Include="..\..\..\Source\Graphics\TPosition.h" />
     <ClInclude Include="..\..\..\Source\Graphics\TRectangle.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TSize.h" />
     <ClInclude Include="..\..\..\Source\Graphics\TVerticalAlign.h" />
     <ClInclude Include="..\..\..\Source\Graphics\TWindowsBmpFile.h" />
   </ItemGroup>

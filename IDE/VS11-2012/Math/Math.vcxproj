@@ -92,13 +92,14 @@
       <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalIncludeDirectories>..\..\..\Source\Math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0405</Culture>
     </ResourceCompile>
     <Lib>
-      <OutputFile>.\Release\Math.lib</OutputFile>
+      <OutputFile>..\lib\Math.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <Bscmake>
@@ -109,10 +110,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\Math\TFixedPoint1024.cpp" />
     <ClCompile Include="..\..\..\Source\Math\TFixedPoint128.cpp" />
+    <ClCompile Include="..\..\..\Source\Math\TFixedPoint16M.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\Math\TFixedPoint1024.h" />
     <ClInclude Include="..\..\..\Source\Math\TFixedPoint128.h" />
+    <ClInclude Include="..\..\..\Source\Math\TFixedPoint16M.h" />
     <ClInclude Include="..\..\..\Source\Math\TFixedPointError.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

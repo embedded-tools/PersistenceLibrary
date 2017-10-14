@@ -17,6 +17,9 @@
     <ClCompile Include="..\..\..\Source\Math\TFixedPoint128.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\Math\TFixedPoint16M.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\Math\TFixedPoint1024.h">
@@ -26,6 +29,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Source\Math\TFixedPointError.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Math\TFixedPoint16M.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

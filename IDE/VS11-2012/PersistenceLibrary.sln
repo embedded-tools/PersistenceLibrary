@@ -8,10 +8,16 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FileUtils", "FileUtils\FileUtils.vcxproj", "{7BEA2081-BBEA-4B13-B3E9-5F8BCBEA9C2C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics", "Graphics\Graphics.vcxproj", "{5E58B6C6-8D64-4B50-A191-DB500D3D572F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A2C407C4-67B6-4827-BDDB-CDD5AFFB299F} = {A2C407C4-67B6-4827-BDDB-CDD5AFFB299F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "Math\Math.vcxproj", "{A2C407C4-67B6-4827-BDDB-CDD5AFFB299F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Persistence", "Persistence\Persistence.vcxproj", "{7977D3CD-1B4C-496C-ACDE-205379FA4FD0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7BEA2081-BBEA-4B13-B3E9-5F8BCBEA9C2C} = {7BEA2081-BBEA-4B13-B3E9-5F8BCBEA9C2C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Protocols", "Protocols\Protocols.vcxproj", "{B51F88F6-1359-4CCA-8D32-EFD50A1666D5}"
 EndProject

@@ -63,13 +63,14 @@
       <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Persistence;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0809</Culture>
     </ResourceCompile>
     <Lib>
-      <OutputFile>.\Release\Persistence.lib</OutputFile>
+      <OutputFile>..\lib\Persistence.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
     <Bscmake>
@@ -80,7 +81,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>E:\tvorba-emb\PersistenceLibrary\Source\BasicTypes;E:\tvorba-emb\PersistenceLibrary\Source\Collections;E:\tvorba-emb\PersistenceLibrary\Source\FileUtils;E:\tvorba-emb\PersistenceLibrary\Source\Persistence;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Persistence;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
