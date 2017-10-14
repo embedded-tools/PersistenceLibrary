@@ -160,12 +160,21 @@ V& TStaticDictionary<K,V,N>::operator [] (K key)
     if (m_dataCount<m_dataMaxCount)
     {
         m_keyArray[m_dataCount] = key;
+
+		//sets default value
+		m_valueArray[m_dataCount] = m_defaultValue;
         return m_valueArray[m_dataCount++];
     }        
 
 	static V value;
     memset(&value, 0, sizeof(value));
     return value;
+}
+
+template<typename K, typename V, int N>
+V* TStaticDictionary<K,V,N>::GetDefaultValue()
+{
+	return &m_defaultValue;	
 }
 
 #endif

@@ -1,7 +1,7 @@
 /*
  * Persistence Library / Collections / TStaticDictionary
  *
- * Copyright (c) 2016 Ondrej Sterba <osterba@inbox.com>
+ * Copyright (c) 2016 Ondrej Sterba <osterba at atlas.cz>
  *
  * https://github.com/embedded-tools/PersistenceLibrary
  *
@@ -32,6 +32,8 @@ protected:
 
 	K      m_keyArray[N];
 	V      m_valueArray[N];
+	V      m_defaultValue;
+
     short  m_dataCount;
     short  m_dataIterator; 
     short  m_dataMaxCount;   
@@ -58,6 +60,7 @@ public:
     void Clear();
 
     V& operator [] (K key);
+	V*   GetDefaultValue();
 
 
 };

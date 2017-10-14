@@ -18,6 +18,7 @@
 #define TDICTIONARY_INL
 
 #include "TSortedDictionary.h"
+#include <string.h>
 
 template <typename KEY, typename VALUE>
 TSortedDictionary<KEY, VALUE>::TSortedDictionary(short capacity)
@@ -26,6 +27,7 @@ TSortedDictionary<KEY, VALUE>::TSortedDictionary(short capacity)
     m_dataMaxCount   = 0;
     m_valueArray  = NULL;
     m_keyArray   = NULL;
+	memset(&m_defaultValue, 0, sizeof(m_defaultValue));
 
     if (capacity>0)
     {
@@ -229,13 +231,17 @@ VALUE&   TSortedDictionary<KEY, VALUE>::operator [] (KEY key)
 	}
     if (found)
 	{
-		//yes
+		//yes - item exists, can be returned as the result;
 		return m_valueArray[i];
 	}
     
+	//no - new item needs to be inserted
 	//found index is a position where new item must be inserted
     if (InsertKey(i, key))
 	{
+		//sets default value
+		m_valueArray[i] = m_defaultValue;
+		
 		//returns reference to dictionary item
 		return m_valueArray[i];    
 	}
@@ -245,7 +251,13 @@ VALUE&   TSortedDictionary<KEY, VALUE>::operator [] (KEY key)
 }
 
 template<typename KEY, typename VALUE>
-KEY&  TSortedDictionary<KEY,VALUE>::Keys(int index)
+VALUE* TSortedDictionary<KEY,VALUE>::GetDefaultValue()
+{
+	return &m_defaultValue;	
+}
+
+template<typename KEY, typename VALUE>
+KEY&  TSortedDictionary<KEY,VALUE>::Key(int index)
 {
 	if ((index>=0) || (index<m_dataCount))
 	{

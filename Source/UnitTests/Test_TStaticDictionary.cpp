@@ -2,13 +2,20 @@
 
 #include "TStaticDictionary.h"
 
+struct MyTestStruct2
+{
+	bool enabled;
+	int  a,b;
+};
+
 class Test_TStaticDictionary : public TestFixture<Test_TStaticDictionary>
 {
   public:
 
     TEST_FIXTURE( Test_TStaticDictionary)
     {
-        TEST_CASE( ConstructDestruct );        
+        TEST_CASE( ConstructDestruct );    
+		TEST_CASE( DefaultValue );  
 		TEST_CASE( AddItems1);
 		TEST_CASE( AddItems2);
         TEST_CASE( DelItems);
@@ -24,6 +31,24 @@ class Test_TStaticDictionary : public TestFixture<Test_TStaticDictionary>
         TStaticDictionary<char, short, 8> dict2;
         TStaticDictionary<long, long,  8>  dict3;
 	}   
+
+	void DefaultValue()
+	{
+		TStaticDictionary<short, MyTestStruct2, 4> dict;
+
+		MyTestStruct2* def = dict.GetDefaultValue();
+		def->a = 5;
+		def->b = 10;
+		def->enabled = false;
+
+		dict[51].enabled = true;
+		ASSERT_EQUALS(5,  dict[51].a);
+		ASSERT_EQUALS(10, dict[51].b);
+
+		dict[100].a = 0;
+		ASSERT_EQUALS(10, dict[100].b);
+		ASSERT(!dict[100].enabled);
+	}
     
 	void AddItems0()
 	{
@@ -33,7 +58,6 @@ class Test_TStaticDictionary : public TestFixture<Test_TStaticDictionary>
 
 	void AddItems1()
 	{
-		short index1, index2, index3, index4;
 		TStaticDictionary<char, long, 8> dict;
 
         dict[1] = 10000000;
@@ -67,7 +91,6 @@ class Test_TStaticDictionary : public TestFixture<Test_TStaticDictionary>
 
     void AddItems2()
     {
-        short index1, index2, index3, index4;
         TStaticDictionary<char, long, 4> dict;
 
         dict.Add(1, 10000000);

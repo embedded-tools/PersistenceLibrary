@@ -2,6 +2,12 @@
 
 #include "TSortedDictionary.h"
 
+struct MyTestStruct1
+{
+	bool enabled;
+	int  a,b;
+};
+
 class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
 {
   public:
@@ -9,6 +15,7 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
     TEST_FIXTURE( Test_TSortedDictionary)
     {
         TEST_CASE( ConstructDestruct );
+		TEST_CASE( DefaultValue );
 		TEST_CASE( AddItems0);
 		TEST_CASE( AddItems1);
 		TEST_CASE( AddItems2);
@@ -23,6 +30,24 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
         TSortedDictionary<short, char> dict;
         TSortedDictionary<char, short> dict2;
         TSortedDictionary<long, long>  dict3;
+	}
+
+	void DefaultValue()
+	{
+		TSortedDictionary<short, MyTestStruct1> dict;
+
+		MyTestStruct1* def = dict.GetDefaultValue();
+		def->a = 5;
+		def->b = 10;
+		def->enabled = false;
+		
+		dict[51].enabled = true;
+		ASSERT_EQUALS(5,  dict[51].a);
+		ASSERT_EQUALS(10, dict[51].b);
+
+		dict[100].a = 0;
+		ASSERT_EQUALS(10, dict[100].b);
+		ASSERT(!dict[100].enabled);
 	}
 
 	void AddItems0()

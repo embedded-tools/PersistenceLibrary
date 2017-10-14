@@ -34,6 +34,8 @@ template <typename KEY, typename VALUE> class TSortedDictionary
 private:
     KEY*   m_keyArray;
     VALUE* m_valueArray;
+	VALUE  m_defaultValue;
+	
     short  m_dataCount;
     short  m_dataMaxCount;
 	short  m_dataIterator;
@@ -56,8 +58,9 @@ public:
     short Capacity();    
 
     VALUE& operator [] (KEY key);
-	
-	KEY&  Keys(int index);
+	VALUE* GetDefaultValue();
+	 
+	KEY&   Key(int index);
 
     short Count();	
 	
