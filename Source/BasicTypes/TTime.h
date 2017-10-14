@@ -17,8 +17,6 @@
 #ifndef TTIME___H
 #define TTIME___H
 
-#include <stdlib.h>
-
 /**
  *  TDate is very simple class for storing time a adding or substracting intervals (seconds, minutes, hours) to this date.
  *
@@ -40,6 +38,7 @@ public:
     unsigned char GetMinute();
     unsigned char GetSecond();
     unsigned short GetMillisecond(); 
+	unsigned long  GetTotalMilliseconds();
 
 	void SetHour(unsigned char hour);
 	void SetMinute(unsigned char minute);

@@ -182,7 +182,7 @@ class Test_TDate : public TestFixture<Test_TDate>
  		ASSERT_EQUALS(1096, days);
 
 		days = date7.GetTotalDays();
-		ASSERT_EQUALS(1096, days);
+		ASSERT_EQUALS(65535, days);
 
 	}
 

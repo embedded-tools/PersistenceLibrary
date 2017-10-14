@@ -16,6 +16,7 @@ class Test_TTime : public TestFixture<Test_TTime>
         TEST_CASE( AddSecond );
         TEST_CASE( AddMinute );
         TEST_CASE( AddHour );
+		TEST_CASE( GetTotalMilliseconds );
     }
 
     void ConstructDestruct()
@@ -141,6 +142,19 @@ class Test_TTime : public TestFixture<Test_TTime>
         ASSERT(time4.GetMinute()==50);
         ASSERT(time4.GetSecond()==45);
     }
+
+	void GetTotalMilliseconds()
+	{
+		TTime time1(12,0,0);
+		TTime time2(23,59,59,999);
+
+		int ms1 = time1.GetTotalMilliseconds();
+		int ms2 = time2.GetTotalMilliseconds();
+		int dif = ms2 - ms1;
+
+		ASSERT_EQUALS(43199999, dif);
+
+	}
 };
 
 REGISTER_FIXTURE( Test_TTime);

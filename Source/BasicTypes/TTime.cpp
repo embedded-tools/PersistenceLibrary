@@ -26,7 +26,9 @@ TTime::TTime(unsigned char hour, unsigned char minute, unsigned char second, uns
 TTime::TTime(const char* time)
     : m_hour(0), m_minute(0), m_milliseconds(0)
 {
-    if (time!=NULL)
+	//it assumes that <stdio.h> and sscanf function is not available on low end MCUs
+	//like Atmel AVR Mega or Atmel AVR Tiny. Always use sscanf if possible!!!
+    if (time!=0)
     {
         if (time[0]!=0)
         {
@@ -63,6 +65,13 @@ unsigned short TTime::GetMillisecond()
 {
     return m_milliseconds % 1000;
 }
+
+unsigned long TTime::GetTotalMilliseconds()
+{
+	unsigned long result = (m_hour * 3600  + m_minute * 60) * 1000 + m_milliseconds;
+	return result;
+}
+
 
 
 void TTime::SetHour(unsigned char hour)
@@ -205,7 +214,11 @@ TTime TTime::AddMilliSeconds(short milliSeconds)
 
 unsigned short TTime::PrintTime(char* pbOutputString, unsigned short cbOutputString)
 {    
+	if (pbOutputString==0) return 0;
     if (cbOutputString<9) return 0;
+
+	//it assumes that <stdio.h> and sprintf function is not available on low end MCUs
+	//like Atmel AVR Mega or Atmel AVR Tiny. Always use sprintf if possible!!!
  
     pbOutputString[0] = m_hour / 10 + '0';
     pbOutputString[1] = m_hour % 10 + '0';
@@ -224,7 +237,11 @@ unsigned short TTime::PrintTime(char* pbOutputString, unsigned short cbOutputStr
 
 unsigned short TTime::PrintTimeFull(char* pbOutputString, unsigned short cbOutputString)
 {
+	if (pbOutputString==0) return 0;
     if (cbOutputString<13) return 0;
+
+	//it assumes that <stdio.h> and sprintf function is not available on low end MCUs
+	//like Atmel AVR Mega or Atmel AVR Tiny. Always use sprintf if possible!!!
 
     pbOutputString[0] = m_hour / 10 + '0';
     pbOutputString[1] = m_hour % 10 + '0';
