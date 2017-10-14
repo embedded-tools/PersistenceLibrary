@@ -36,6 +36,8 @@ TDate::TDate(const char* date)
 {
     if (date)
     {
+		//it assumes that <stdio.h> and sscanf function is not available on low end MCUs
+		//like Atmel AVR Mega or Atmel AVR Tiny. Always use sscanf if possible!!!
         if (date[0]!=0)
         {
             if ( (date[4]=='-') && (date[7]=='-') && ((date[10]==0) || (date[10]=='T')) )
@@ -61,6 +63,27 @@ unsigned char TDate::GetMonth()
 unsigned short TDate::GetYear()
 {
     return m_year;
+}
+
+unsigned short TDate::GetTotalDays()
+{
+	unsigned short result = (m_year-1970)*365 + (m_year-1969)/4;
+	if (m_month>11) result+=30;
+	if (m_month>10) result+=31;
+	if (m_month>9)  result+=30;
+	if (m_month>8)  result+=31;
+	if (m_month>7)  result+=31;
+	if (m_month>6)  result+=30;
+	if (m_month>5)  result+=31;
+	if (m_month>4)  result+=30;
+	if (m_month>3)  result+=31;
+	if (m_month>2)  result+=(m_year%4)?28:29;
+	if (m_month>1)  result+=31;
+	result+=m_day - 1;
+
+	//max. range is 1.1.1970 to 5.6.2149 (0 to 65535)
+
+	return result;
 }
 
 unsigned char TDate::DaysInMonth(unsigned short month, unsigned short year)
@@ -188,7 +211,11 @@ TDate TDate::AddDay(short days)
 
 unsigned short TDate::PrintDate(char* pbOutputString, unsigned short cbOutputString)
 {    
+	if (pbOutputString==0) return false;
     if (cbOutputString<11) return false;
+
+	//it assumes that <stdio.h> and sprintf function is not available on low end MCUs
+	//like Atmel AVR Mega or Atmel AVR Tiny. Always use sprintf if possible!!!
 
     pbOutputString[0] = (m_year  / 1000) % 10 + '0';
     pbOutputString[1] = (m_year / 100)  % 10 + '0';     
@@ -203,3 +230,4 @@ unsigned short TDate::PrintDate(char* pbOutputString, unsigned short cbOutputStr
     pbOutputString[10] = 0;
     return 11;
 }
+

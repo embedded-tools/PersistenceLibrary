@@ -39,12 +39,20 @@ class TDate
         unsigned char  GetDay();
         unsigned char  GetMonth();
         unsigned short GetYear();
+		unsigned short GetTotalDays();
         
         TDate AddYear(short seconds = 1);
         TDate AddMonth(short months = 1);
         TDate AddDay(short days = 1);        
 
         unsigned short PrintDate (char* pbOutputString, unsigned short cbOutputString);
+
+		bool operator >  (const TDate &date);
+		bool operator >= (const TDate &date);
+		bool operator == (const TDate &date);
+		bool operator != (const TDate &date);
+		bool operator <= (const TDate &date);
+		bool operator < (const TDate &date);
         
 };
 
