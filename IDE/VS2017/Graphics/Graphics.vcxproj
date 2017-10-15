@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5E58B6C6-8D64-4B50-A191-DB500D3D572F}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeaderOutputFile>.\Release/Graphics.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalIncludeDirectories>..\..\..\Source\Graphics;..\..\..\Source\Math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0405</Culture>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>..\lib\Graphics.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release/Graphics.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\Source\Graphics;..\..\..\Source\Math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\Debug/Graphics.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0405</Culture>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>..\lib\GraphicsD.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug/Graphics.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Source\Graphics\TCachedWindowsBmpFile.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TCanvas.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TColorConverter.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TColorRGB.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TColorYUV.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TDisplay320x240x65536.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TDxtBlockCreator.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TFilter3x3.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TFilter5x5.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TFilter7x7.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TFont.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TFontCharacter.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TGraphicsData.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TPixelFormatConverter.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TPosition.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TRectangle.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TSize.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TWindowsBmpFile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Source\Graphics\ePixelFormat.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TAlign.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TCachedWindowsBmpFile.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TCanvas.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TColorConverter.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TColorRGB.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TColorYUV.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TDisplay320x240x65536.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TDxtBlockCreator.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TFilter3x3.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TFilter5x5.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TFilter7x7.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TFont.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TFontCharacter.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TGraphicsData.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TPixelFormatConverter.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TPosition.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TRectangle.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TSize.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TVerticalAlign.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TWindowsBmpFile.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

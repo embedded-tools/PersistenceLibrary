@@ -1,7 +1,7 @@
 #ifndef TFONTFORMAT___H
 #define TFONTFORMAT___H
 
-typedef enum TFontDataAlignment
+enum TFontDataAlignment
 {
 	ffHorizontalAligned,
 	ffHorizontal,
