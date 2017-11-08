@@ -65,7 +65,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\..\..\Source\UnitTests\PersistenceExample" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\..\..\Source\UnitTests\PersistenceExample" /I "..\..\..\Source\UnitTests\Fonts" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x809 /d "_DEBUG"
 # ADD RSC /l 0x809 /d "_DEBUG"
@@ -199,6 +199,10 @@ SOURCE=..\..\..\Source\UnitTests\Test_StringUtils.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\UnitTests\Test_TBinaryProtocol.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\UnitTests\Test_TCachedFileStream.cpp
 # End Source File
 # Begin Source File
@@ -231,14 +235,6 @@ SOURCE=..\..\..\Source\UnitTests\Test_TDateTimeCounter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\Source\UnitTests\Test_TDictionary.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\UnitTests\Test_Template.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\Source\UnitTests\Test_TFilePath.cpp
 # End Source File
 # Begin Source File
@@ -255,7 +251,19 @@ SOURCE=..\..\..\Source\UnitTests\Test_TFixedPoint128.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\UnitTests\Test_TFixedPoint16M.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Test_TFont.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\UnitTests\Test_TGraphics.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Test_TLog.cpp
 # End Source File
 # Begin Source File
 
@@ -263,11 +271,19 @@ SOURCE=..\..\..\Source\UnitTests\Test_TMemoryStream.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\UnitTests\Test_TRandom.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\UnitTests\Test_TShortString.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\Source\UnitTests\Test_TSRProtocol.cpp
+SOURCE=..\..\..\Source\UnitTests\Test_TSortedDictionary.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Test_TStaticDictionary.cpp
 # End Source File
 # Begin Source File
 
@@ -292,6 +308,10 @@ SOURCE=..\..\..\Source\UnitTests\Test_TTime.cpp
 # Begin Source File
 
 SOURCE=..\..\..\Source\UnitTests\Test_TWideString.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Test_TWindowsBmpFile.cpp
 # End Source File
 # Begin Source File
 

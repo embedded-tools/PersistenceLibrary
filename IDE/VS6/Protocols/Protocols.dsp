@@ -63,8 +63,8 @@ LIB32=link.exe -lib
 # PROP Output_Dir "Debug"
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ  /c
-# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR /YX /FD /GZ  /c
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x405 /d "_DEBUG"
 # ADD RSC /l 0x405 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -85,11 +85,7 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\..\Source\Protocols\TProtocol.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\Protocols\TSRProtocol.cpp
+SOURCE=..\..\..\Source\Protocols\TBinaryProtocol.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -97,11 +93,7 @@ SOURCE=..\..\..\Source\Protocols\TSRProtocol.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\Source\Protocols\TProtocol.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\Protocols\TSRProtocol.h
+SOURCE=..\..\..\Source\Protocols\TBinaryProtocol.h
 # End Source File
 # End Group
 # End Target

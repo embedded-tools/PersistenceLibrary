@@ -164,12 +164,13 @@ class Test_TBinaryProtocol : public TestFixture<Test_TBinaryProtocol>
     void ReceivePing()
     {
         TBinaryProtocol prot;
+        int i;
         prot.SetEventHandlers(SendByte, CommandReceived, CommandReceivingError, CommandSent);
 
         packetsReceived = 0;
         packetsSent = 0;
         packetErrors = 0;
-        for(int i = 0; i<dataInTheWireLength; i++)
+        for(i = 0; i<dataInTheWireLength; i++)
         {
             prot.OnByteReceived(dataInTheWire[i]);
         }
@@ -178,7 +179,7 @@ class Test_TBinaryProtocol : public TestFixture<Test_TBinaryProtocol>
         ASSERT(packetsSent == 0);
 
         prot.SetBusAddress(35);
-        for(int i = 0; i<dataInTheWireLength; i++)
+        for(i = 0; i<dataInTheWireLength; i++)
         {
             prot.OnByteReceived(dataInTheWire[i]);
         }
