@@ -17,13 +17,16 @@
 #ifndef TCOLLECTIONS____H
 #define TCOLLECTIONS____H
 
-#include "TIterator.h"
+#include "TDictionary.h"
+#include "TEnumerable.h"
+#include "TEnumerator.h"
 #include "TList.h"
 #include "TObjectList.h"
-
+#include "TPair.h"
+#include "TQueue.h"
+#include "TSafeArray.h"
 #include "TSortedDictionary.h"
 #include "TStaticDictionary.h"
 #include "TStaticList.h"
-#include "TQueue.h"
 
 #endif

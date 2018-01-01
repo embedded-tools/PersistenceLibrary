@@ -21,7 +21,6 @@
 #include "tstream.h"
 #include "TSerializer.h"
 #include "TSerializedBaseCollection.h"
-#include "tstaticobjectlist.h"
 #include "TXMLTalkerInterface.h"
 #include "ESerializationMode.h"
 
@@ -37,7 +36,7 @@ class TMainSerializer : TXMLTalkerInterface
 		bool  xmlSerializationComplete;
 	protected:
 
-		TStaticObjectList<TSerializedBaseCollection,32> registeredManagers;
+		TObjectList<TSerializedBaseCollection> registeredManagers;
 		
 		virtual bool Serialize(unsigned short version)=0;
 		virtual void Clear()=0;

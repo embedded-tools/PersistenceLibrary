@@ -155,10 +155,13 @@ void TSerializedBaseCollection::SerializeBody(unsigned short version)
 		case esmXMLOutput:
 			{						
 				//gets first item
-				TSerializedItem* item = (TSerializedItem*)First();
+			
+				TEnumerator<TSerializedItem*> it = GetEnumerator();
+
 				version = GetVersion();
-				while(item!=NULL)
+				while(it.MoveNext())
 				{
+					TSerializedItem* item = it.Current();
 					char text[16];
 
 					TSerializer::DataStream->WritePlainText("<");
@@ -180,9 +183,6 @@ void TSerializedBaseCollection::SerializeBody(unsigned short version)
 					TSerializer::DataStream->WritePlainText("</");
 					TSerializer::DataStream->WritePlainText(ElementName);
 					TSerializer::DataStream->WritePlainText(">\r\n");				
-
-					//gets next item until all items are serialized
-					item = (TSerializedItem*) Next();
 				}
 			}
 			break;
@@ -224,11 +224,13 @@ void TSerializedBaseCollection::SerializeBody(unsigned short version)
 
 		case esmBinaryOutput:
 			{
-				TSerializedItem* item = (TSerializedItem*)First();
+				TEnumerator<TSerializedItem*> it = GetEnumerator();
 
 				version = GetVersion();
-				while(item!=NULL)
+				while(it.MoveNext())
 				{
+					TSerializedItem* item = it.Current();
+
 					unsigned short subType = item->GetSubType();
 					TSerializer::DataStream->WriteChar((char)ELEMENT_FLAG);
 					TSerializer::DataStream->WriteULong(item->GetUID());
@@ -238,7 +240,6 @@ void TSerializedBaseCollection::SerializeBody(unsigned short version)
 						
 						item->Serialize(version);
 					}
-					item = (TSerializedItem*) Next();
 				}
 				TSerializer::DataStream->WriteChar((char)MANAGER_END_FLAG);
 			}
@@ -247,14 +248,15 @@ void TSerializedBaseCollection::SerializeBody(unsigned short version)
 		case esmXSDOutput:
 			{
 				WriteXsdManagerBegin(ElementName, false);
-				TSerializedItem* item = (TSerializedItem*) First();
-				if (item==NULL)
+
+				TEnumerator<TSerializedItem*> it = GetEnumerator();
+				if (!it.MoveNext())
 				{
 					TSerializedItem* item = CreateItem(0,0);
 					item->Serialize(GetVersion());
 					delete item;
 				} else {
-					item->Serialize(GetVersion());
+					it.Current()->Serialize(GetVersion());
 				}
 				WriteXsdManagerEnd(true, false);
 			}
@@ -399,14 +401,13 @@ bool TSerializedBaseCollection::LoadItem()
 
 TSerializedItem* TSerializedBaseCollection::FindItem(unsigned int uid)
 {
-	TSerializedItem* item = (TSerializedItem*) First();
-	while(item!=NULL)
+	TEnumerator<TSerializedItem*> it = GetEnumerator();
+	while(it.MoveNext())
 	{
-		if (item->GetUID()==uid)
+		if (it.Current()->GetUID()==uid)
 		{
-			return item;
+			return it.Current();
 		}
-		item = (TSerializedItem*) Next();
 	}
 	return NULL;
 }

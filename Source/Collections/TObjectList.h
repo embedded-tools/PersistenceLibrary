@@ -64,6 +64,7 @@ public:
     
     T* operator [] (short id);
 	T* Items (short id);
+	T** Data();
 
     short IndexOf(T* R);
 

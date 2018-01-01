@@ -21,7 +21,6 @@
 #include "TSerializedItem.h"
 #include "TCustomString.h"
 #include "TXMLTalkerInterface.h"
-#include "titerator.h"
 #include "tobjectlist.h"
 #include "EItemState.h"
 
@@ -29,11 +28,7 @@
 #define MANAGER_END_FLAG 0xF1
 #define ELEMENT_FLAG 0xF2
 
-#ifndef TITERATOR_INHERITANCE
-   #error Iterator inheritance must be turned on, see TIterator.h file
-#endif
-
-class TSerializedBaseCollection : public TXMLTalkerInterface, public TIterator, public TSerializedItem
+class TSerializedBaseCollection : public TXMLTalkerInterface, public TEnumerable<TSerializedItem*>, public TSerializedItem
 {
 	private:
 		static TCustomString<XMLMAXNAMESIZE> lastName;

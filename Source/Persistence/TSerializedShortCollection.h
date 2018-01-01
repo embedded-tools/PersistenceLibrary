@@ -18,34 +18,27 @@
 #define TSERIALIZEDSHORTCOLLECTION___H
 
 #include "TSerializedBaseCollection.h"
-#include "tstaticobjectlist.h"
+#include "TObjectList.h"
 
 template<class ITEM>
 class TSerializedShortCollection : public TSerializedBaseCollection
 {
 	private:
-		TStaticObjectList<ITEM, 32> itemCollection;
+		TObjectList<ITEM> itemCollection;
+	
+	protected:
 
-		unsigned short iteratorIndex;
-
-		virtual void* First()
+		virtual TEnumerator<TSerializedItem*> GetEnumerator()
 		{
-			iteratorIndex = 0;
-			if (iteratorIndex>=itemCollection.Count()) return NULL;
-			return (TSerializedItem*) itemCollection[iteratorIndex];
-		};
-
-		virtual void* Next()
-		{
-			iteratorIndex++;
-			if (iteratorIndex>=itemCollection.Count()) return NULL;
-			return (TSerializedItem*) itemCollection[iteratorIndex];
-		};	
-
-		virtual short Count()
-		{
-			return itemCollection.Count();
-		};
+			if (itemCollection.Count()==0)
+			{
+				TEnumerator<TSerializedItem*> enumerator(NULL, NULL);
+				return enumerator;
+			} else {
+				TEnumerator<TSerializedItem*> enumerator((TSerializedItem**)itemCollection.Data(), (TSerializedItem**)itemCollection.Data()+itemCollection.Count());
+				return enumerator;
+			}			
+		}
 	
 	public:
 

@@ -327,6 +327,12 @@ short TObjectList<T>::IndexOf(T* R)
     return -1;
 }
 
+template<class T>
+T** TObjectList<T>::Data()
+{
+	return m_dataPointerArray;
+}
+
 #ifdef STL_STYLE
 
 template<typename T>
