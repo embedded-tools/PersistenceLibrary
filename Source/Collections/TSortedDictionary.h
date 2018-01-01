@@ -14,8 +14,8 @@
  *
  */
 
-#ifndef TDICTIONARY___H
-#define TDICTIONARY___H
+#ifndef TSORTEDDICTIONARY___H
+#define TSORTEDDICTIONARY___H
 
 #include <stdlib.h>
 #include "TEnumerator.h" 
