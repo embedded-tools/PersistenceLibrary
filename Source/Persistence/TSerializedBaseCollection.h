@@ -48,9 +48,9 @@ class TSerializedBaseCollection : public TXMLTalkerInterface, public TIterator, 
 		TCustomString<XMLMAXNAMESIZE> newItemType;				
 		
 		virtual TSerializedItem*  CreateItem(unsigned int uid=0, unsigned short subType=0)=0;
-		virtual bool	AddItem   (TSerializedItem* item)=0;
-		virtual bool	RemoveItem(TSerializedItem* item)=0;
-		virtual void    Clear     ()=0;
+		virtual bool AddItem   (TSerializedItem* item)=0;
+		virtual bool RemoveItem(TSerializedItem* item)=0;
+		virtual void Clear     ()=0;
 
 		virtual void OnStartElement ( TXMLParserInterface* Parser, const char *pszName, TXMLParamMap &attributes);
 		virtual void OnEndElement   ( TXMLParserInterface* Parser, const char *pszName);

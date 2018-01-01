@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="Collections"
 	ProjectGUID="{40F9B515-20BE-4083-8863-F58ADDC88A7A}"
 	RootNamespace="Collections"
@@ -45,7 +45,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\..\..\Source\Collections"
-				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB"
+				PreprocessorDefinitions="STL_STYLE;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
@@ -119,7 +119,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\..\Source\Collections"
-				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB"
+				PreprocessorDefinitions="STL_STYLE;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -174,6 +174,18 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
+				RelativePath="..\..\..\Source\Collections\TDictionary.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Collections\TEnumerable.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Collections\TEnumerator.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\Collections\TList.cpp"
 				>
 				<FileConfiguration
@@ -196,6 +208,10 @@
 			<File
 				RelativePath="..\..\..\Source\Collections\TObjectList.cpp"
 				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Collections\TQueue.cpp"
+				>
 				<FileConfiguration
 					Name="Release|Win32"
 					>
@@ -212,6 +228,10 @@
 						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Collections\TSafeArray.cpp"
+				>
 			</File>
 			<File
 				RelativePath="..\..\..\Source\Collections\TSortedDictionary.cpp"
@@ -273,46 +293,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath="..\..\..\Source\Collections\TStaticObjectList.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\Collections\TStaticQueue.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -320,6 +300,18 @@
 			>
 			<File
 				RelativePath="..\..\..\Source\Collections\Collections.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Collections\TDictionary.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Collections\TEnumerable.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Collections\TEnumerator.h"
 				>
 			</File>
 			<File
@@ -335,6 +327,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\Collections\TPair.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Collections\TQueue.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Collections\TSafeArray.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\Collections\TSortedDictionary.h"
 				>
 			</File>
@@ -344,14 +348,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\Collections\TStaticList.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\Collections\TStaticObjectList.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\Collections\TStaticQueue.h"
 				>
 			</File>
 		</Filter>

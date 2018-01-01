@@ -28,7 +28,7 @@ bool TXMLTagDynamicPool::DeleteXMLTag(TXMLTag* tag)
 {
 	if (Tags.Contains(tag))
 	{
-		Tags.Del(tag);
+		Tags.Remove(tag);
 		return true;
 	}
 	return false;

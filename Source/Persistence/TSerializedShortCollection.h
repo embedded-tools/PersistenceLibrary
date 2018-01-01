@@ -82,7 +82,7 @@ class TSerializedShortCollection : public TSerializedBaseCollection
 
 		virtual bool RemoveItem(TSerializedItem* item)
 		{
-			if ( itemCollection.Del((ITEM*)item) )
+			if ( itemCollection.Remove((ITEM*)item) )
 			{
 				delete item;
 				return true;

@@ -27,7 +27,6 @@ TObjectList<T>::TObjectList()
 {
     m_dataPointerCount  = 0;
     m_dataPointerMaxCount    = 0;
-	m_dataStatic = false;
     m_dataPointerArray      = NULL;
 }
 
@@ -35,36 +34,55 @@ template<class T>
 TObjectList<T>::~TObjectList()
 {
     Clear();
-	if (!m_dataStatic)
-	{
-		if (m_dataPointerArray!=NULL) free(m_dataPointerArray);
-		m_dataPointerArray=NULL;
-	}    
+	if (m_dataPointerArray!=NULL) free(m_dataPointerArray);
+	m_dataPointerArray=NULL;
 }
 
-template<class T> T* TObjectList<T>::Add()
+template<class T> 
+TEnumerator<T*> TObjectList<T>::GetEnumerator()
 {
-    SetCount(m_dataPointerCount+1);
-    T* result = new T();
-    m_dataPointerArray[m_dataPointerCount-1]=result;
-    return result;
+	if (m_dataPointerArray)
+	{
+		TEnumerator<T*> enumerator(&m_dataPointerArray[0], &m_dataPointerArray[m_dataPointerCount]);
+		return enumerator;
+	} else {
+		TEnumerator<T*> enumerator(NULL, NULL);
+		return enumerator;
+	}
+}
+
+template<class T> 
+T* TObjectList<T>::Add()
+{
+    if (SetCount(m_dataPointerCount+1))
+	{		
+		if (m_dataPointerCount>0)
+		{
+			T* result = new T();
+			m_dataPointerArray[m_dataPointerCount-1]=result;
+			return result;	
+		}				
+	}
+	return NULL;
 };
 
 template<class T>
 bool TObjectList<T>::Add(T* R)
 {    
-	int oldCount = m_dataPointerCount;
-    int newCount = SetCount(m_dataPointerCount+1);
-    if (newCount>0)
-    {
-        m_dataPointerArray[newCount-1]=R;
+    if (SetCount(m_dataPointerCount+1))
+	{
+		if (m_dataPointerCount>0)
+		{
+			m_dataPointerArray[m_dataPointerCount-1]=R;
+			return true;
+		}		
     }
-	return oldCount!=newCount;
+	return false;
 };
 
 
 template<class T>
-bool TObjectList<T>::Del(int id)
+bool TObjectList<T>::RemoveAt(int id)
 {
     if (id<0) return false;
     if (id>=m_dataPointerCount) return false;
@@ -73,18 +91,17 @@ bool TObjectList<T>::Del(int id)
     {
         m_dataPointerArray[j]=m_dataPointerArray[j+1];
     }
-    SetCount(m_dataPointerCount-1);
-	return true;
+    return SetCount(m_dataPointerCount-1);
 };
 
 template<class T>
-bool TObjectList<T>::Del(T* R)
+bool TObjectList<T>::Remove(T* R)
 {
     for (int i=0;i<m_dataPointerCount;i++)
     {
         if (m_dataPointerArray[i]==R)
         {
-            Del(i);
+            RemoveAt(i);
             return true;
         }
     }
@@ -94,7 +111,14 @@ bool TObjectList<T>::Del(T* R)
 template<class T>
 T* TObjectList<T>::Insert (int i)
 {
-    SetCount(m_dataPointerCount+1);
+    if (!SetCount(m_dataPointerCount+1))
+	{
+		return NULL;
+	}
+	if (m_dataPointerArray==NULL)
+	{
+		return NULL;
+	}
 
     if (i<0) i=0;
     if (i<m_dataPointerCount)
@@ -111,7 +135,14 @@ T* TObjectList<T>::Insert (int i)
 template<class T>
 void TObjectList<T>::Insert (int i, T* R)
 {
-    SetCount(m_dataPointerCount+1);
+	if (!SetCount(m_dataPointerCount+1))
+	{
+		return NULL;
+	}
+	if (m_dataPointerArray==NULL)
+	{
+		return NULL;
+	}
 
     if (i<0) i=0;
     if (i<m_dataPointerCount)
@@ -149,98 +180,94 @@ short TObjectList<T>::Capacity()
 }
 
 template<class T>
-short TObjectList<T>::SetCount(short count)
+bool TObjectList<T>::SetCount(short count)
 {
-	if (!m_dataStatic)
+	if (count == 0)
 	{
-		if (count == 0)
+		if (m_dataPointerArray)
 		{
-			if (m_dataPointerArray!=NULL)
-			{
-				free(m_dataPointerArray);
-			}
-			m_dataPointerArray = NULL;
-			m_dataPointerCount = 0;
-			m_dataPointerMaxCount = 0;
-			return m_dataPointerCount;
+			free(m_dataPointerArray);
 		}
-		if (count>m_dataPointerMaxCount)
-		{			
-			while (m_dataPointerMaxCount<count)
+		m_dataPointerArray = NULL;
+		m_dataPointerCount = 0;
+		m_dataPointerMaxCount = 0;
+		return false;
+	}
+	if (count>m_dataPointerMaxCount)
+	{			
+		short newCapacity = m_dataPointerMaxCount;
+		while (newCapacity<count)
+		{
+			if (newCapacity>=16384)
 			{
-				if (m_dataPointerMaxCount*sizeof(T)<1024)
-				{
-					m_dataPointerMaxCount += m_dataPointerMaxCount;					
-					if (m_dataPointerMaxCount<8) m_dataPointerMaxCount = 8;
-				} else {
-					m_dataPointerMaxCount += 1024/sizeof(T);
-				}
-			}
-			if (m_dataPointerArray==NULL)
-			{
-				m_dataPointerArray = (T**) malloc(m_dataPointerMaxCount*sizeof(T*));
-				if (m_dataPointerArray==NULL)
-				{
-					m_dataPointerCount=0;
-					m_dataPointerMaxCount=0;
-					return 0;                
-				}
-				memset(m_dataPointerArray, 0, m_dataPointerMaxCount*sizeof(T*));
+				newCapacity = 32767;
 			} else {
-				m_dataPointerArray = (T**) realloc(m_dataPointerArray,m_dataPointerMaxCount*sizeof(T*));
-				if (m_dataPointerArray==NULL)
-				{
-					m_dataPointerCount=0;
-					m_dataPointerMaxCount=0;
-					return 0;
-				}
-				for(int i = m_dataPointerCount; i<m_dataPointerMaxCount; i++)
-				{
-					m_dataPointerArray[i] = NULL;
-				}
+				newCapacity += newCapacity;
+				if (newCapacity<8) newCapacity = 8;
 			}
+		}
+		if (!SetCapacity(newCapacity))
+		{
+			return false;
 		}
 	}
     m_dataPointerCount = count;
-    return m_dataPointerCount;
+    return true;
 };
 
 template<class T>
-short TObjectList<T>::SetCountAndCreate(short count)
+bool TObjectList<T>::SetCountAndCreate(short count)
 {
-    SetCount(count);
-    for (short i=0;i<m_dataPointerCount;i++) 
-    {
+    if (!SetCount(count))
+	{
+		return false;
+	}
+	for (short i=0;i<m_dataPointerCount;i++) 
+	{
         m_dataPointerArray[i]=new T();
     }
-    return m_dataPointerCount;
+    return true;
 };
 
 template<class T>
-void TObjectList<T>::SetCapacity(short reservedCapacity)
+bool TObjectList<T>::SetCapacity(short reservedCapacity)
 {
-    m_dataPointerCount = 0;
     m_dataPointerMaxCount   = reservedCapacity;
-    if (m_dataPointerArray==NULL)
-    {
-        m_dataPointerArray = (T**) malloc(reservedCapacity*sizeof(T*));
-        memset(m_dataPointerArray, 0, reservedCapacity*sizeof(T*));
-    } else {
-        m_dataPointerArray = (T**) realloc(m_dataPointerArray, m_dataPointerMaxCount*sizeof(T*));
-        for(int i = m_dataPointerCount; i<m_dataPointerMaxCount; i++)
-        {
-            m_dataPointerArray[i] = NULL;
-        }
-    }
-    m_dataPointerCount = 0;
+	if (m_dataPointerArray==NULL)
+	{
+		m_dataPointerArray = (T**) malloc(m_dataPointerMaxCount*sizeof(T*));
+		if (m_dataPointerArray==NULL)
+		{
+			m_dataPointerCount=0;
+			m_dataPointerMaxCount=0;
+			return false;                
+		}
+		memset(m_dataPointerArray, 0, m_dataPointerMaxCount*sizeof(T*));
+	} else {
+		m_dataPointerArray = (T**) realloc(m_dataPointerArray,m_dataPointerMaxCount*sizeof(T*));
+		if (m_dataPointerArray==NULL)
+		{
+			m_dataPointerCount=0;
+			m_dataPointerMaxCount=0;
+			return false;
+		}
+		for(int i = m_dataPointerCount; i<m_dataPointerMaxCount; i++)
+		{
+			m_dataPointerArray[i] = NULL;
+		}
+	}
+	if (m_dataPointerCount>m_dataPointerMaxCount)
+	{
+		m_dataPointerCount = m_dataPointerMaxCount;
+	}
+	return true;
 }
 
 
 template<class T>
 void TObjectList<T>::Clear()
 {
-    SetCount(0);    
-	memset(m_dataPointerArray, m_dataPointerMaxCount*sizeof(T*), 0);
+    SetCount(0);   
 };
 
 template<class T>
@@ -255,22 +282,6 @@ void TObjectList<T>::UnallocAndClear()
         }
     }
     SetCount(0);    
-	memset(m_dataPointerArray, m_dataPointerMaxCount*sizeof(T*), 0);
-};
-
-template<class T>
-void* TObjectList<T>::First()
-{
-	m_dataIterator = 0;
-	if (m_dataPointerCount==0) return NULL;
-    return m_dataPointerArray[m_dataIterator++];
-};
-
-template<class T>
-void* TObjectList<T>::Next()
-{
-	if (m_dataIterator>m_dataPointerCount) return NULL;
-    return m_dataPointerArray[m_dataIterator++];
 };
 
 template<class T>
@@ -315,5 +326,105 @@ short TObjectList<T>::IndexOf(T* R)
     }
     return -1;
 }
+
+#ifdef STL_STYLE
+
+template<typename T>
+T** TObjectList<T>::begin()
+{
+	if (m_dataPointerArray==NULL) return NULL;
+	return &m_dataPointerArray[0];
+}
+
+template<typename T>
+T** TObjectList<T>::end()
+{
+	if (m_dataPointerArray==NULL) return NULL;
+	return &m_dataPointerArray[m_dataPointerCount];
+}
+
+template<typename T>
+T** TObjectList<T>::data()
+{
+	return m_dataPointerArray;
+}
+
+template<typename T>
+T* TObjectList<T>::at(int i)
+{
+	if ((i>=0) && (i<m_dataPointerCount))
+	{
+		return m_dataPointerArray[i];
+	};
+	return NULL;
+}
+
+template<typename T>
+void TObjectList<T>::push_back(T* value)
+{
+	Add(value);
+}
+
+template<typename T>
+void TObjectList<T>::push_front(T* value)
+{
+	Insert(0, value);
+}
+
+template<typename T>
+void TObjectList<T>::pop_back()
+{
+	RemoveAt(m_dataPointerCount-1);
+}
+
+template<typename T>
+void TObjectList<T>::pop_front()
+{
+	RemoveAt(0);
+}
+
+template<typename T>
+T* TObjectList<T>::front()
+{
+	return (*this)[0];
+}
+
+template<typename T>
+T* TObjectList<T>::back()
+{
+	return (*this)[m_dataPointerCount-1];
+}
+
+template<typename T>
+bool TObjectList<T>::empty()
+{
+	return m_dataPointerCount==0;
+}
+
+template<typename T>
+int TObjectList<T>::size()
+{
+	return m_dataPointerCount;
+}
+
+template<typename T>
+int TObjectList<T>::max_size()
+{
+	return 32767;
+}
+
+template<typename T>
+void TObjectList<T>::clear()
+{
+	Clear();
+}
+
+template<typename T>
+void TObjectList<T>::unalloc_clear()
+{
+	UnallocAndClear();
+}
+
+#endif
 
 #endif

@@ -17,7 +17,7 @@
 #ifndef TQUEUE___INL
 #define TQUEUE___INL
 
-#include "TStaticQueue.h"
+#include "TQueue.h"
 #include "TList.h"
 
 template <class T, int N>
@@ -82,5 +82,73 @@ bool TQueue<T,N>::IsEmpty()
     return m_count==0;
 }
 
+#ifdef STL_STYLE
+template <class T, int N>
+bool TQueue<T,N>::push(T value)
+{
+	return Enqueue(value);
+}
+
+template <class T, int N>
+bool TQueue<T,N>::pop()
+{
+	static T tmp;
+	return Dequeue(tmp);
+}
+
+template <class T, int N>
+T TQueue<T,N>::front()
+{
+	int index = m_circularBufferStart;
+	if (N)
+	{
+		while(index>=N) index-=N;
+	}	
+	return m_circularBuffer[index];
+}
+
+template <class T, int N>
+T TQueue<T,N>::back()
+{
+	int index = m_circularBufferStart + m_count - 1;
+	if (N)
+	{
+		while(index>=N) index-=N;
+	}	
+	return m_circularBuffer[index];
+}
+
+template <class T, int N>
+bool TQueue<T,N>::empty()
+{
+	return m_count==0;
+}
+
+template <class T, int N>
+bool TQueue<T,N>::full()
+{
+	return m_count>=N;
+}
+
+template <class T, int N>
+int TQueue<T,N>::size()
+{
+	return m_count;
+}
+
+template <class T, int N>
+int TQueue<T,N>::max_size()
+{
+	return N;
+}
+
+template <class T, int N>
+void TQueue<T,N>::clear()
+{
+	memset(m_circularBuffer, 0, sizeof(m_circularBuffer));
+	m_circularBufferStart = 0;
+	m_count = 0;
+}
+#endif
 
 #endif

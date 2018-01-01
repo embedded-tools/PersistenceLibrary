@@ -1,4 +1,4 @@
-/*
+ /*
  * Persistence Library / Collections / TIterator
  *
  * Copyright (c) 2016 Ondrej Sterba <osterba@inbox.com>
@@ -14,24 +14,30 @@
  *
  */
 
-#ifndef TITERATOR___H
-#define TITERATOR___H
-
-/* Notice - iterator inheritance does not work on 8-bit Atmel AVR MCUs,
-            in such case you need to comment define statement below     */
-
-#define TITERATOR_INHERITANCE
+#ifndef TENUMERATOR___H
+#define TENUMERATOR___H
 
 /**
  *	TIterator is an interface implemented by all collection classes
  *
  */
-class TIterator
+
+template <typename T> 
+class TEnumerator
 {
+	protected:
+		T*            m_current;
+		T*            m_last;
+
 	public:
-		virtual void* First()=0;
-		virtual void* Next() =0;
-		virtual short Count()=0;
+		TEnumerator();
+		TEnumerator(T* firstItem, T* lastItem);
+		TEnumerator(const TEnumerator& enumerator);
+
+		T&    Current();
+		bool  MoveNext();
 };
+
+#include "TEnumerator.cpp"
 
 #endif

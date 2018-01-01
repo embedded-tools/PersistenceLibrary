@@ -23,10 +23,18 @@
 #include "tstream.h"
 #include "txmldoc.h"
 #include "TXMLParser.h"
+#include "TPair.h"
 
 #define XMLCACHEMAXVALUECOUNT 16
 #define XMLCACHEMAXATTRCOUNT 4
 #define XMLMAXARRAYLENGTH 16
+
+typedef TXMLParamMap TXMLAttributeDictionary;
+typedef TPair<TCustomString<XMLMAXNAMESIZE>, TCustomString<XMLMAXATTRIBUTESIZE>> TXMLAttributePair;
+
+typedef TStaticDictionary<TCustomString<XMLMAXNAMESIZE>, TCustomString<XMLMAXVALUESIZE>, XMLCACHEMAXVALUECOUNT> TXMLValueDictionary;
+typedef TPair<TCustomString<XMLMAXNAMESIZE>, TCustomString<XMLMAXVALUESIZE>> TXMLValuePair;
+
 
 class TXMLCache : public TXMLTalkerInterface
 {
@@ -43,8 +51,8 @@ class TXMLCache : public TXMLTalkerInterface
 		~TXMLCache();
 
 		
-		TStaticDictionary<TCustomString<XMLMAXNAMESIZE>, TCustomString<XMLMAXVALUESIZE>, XMLCACHEMAXATTRCOUNT>  Attributes;
-		TStaticDictionary<TCustomString<XMLMAXNAMESIZE>, TCustomString<XMLMAXVALUESIZE>, XMLCACHEMAXVALUECOUNT> Values;
+		TXMLAttributeDictionary Attributes;
+		TXMLValueDictionary Values;
 
 		void RedirectTalker(TXMLParserInterface* parser);
 		void RestoreTalker(TXMLParserInterface* parser);

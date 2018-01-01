@@ -22,65 +22,73 @@
 #include <stdlib.h>
 #include <string.h>
 
-template<class T>
-TList<T>::TList()
+template<typename T>
+TList<T>::TList(int capacity)
 {
-	m_dataStatic = false;
     m_dataCount  = 0;
     m_dataMaxCount    = 0;
-	m_dataStatic = false;
     m_dataArray       = NULL;	
+	SetCapacity(capacity);
 }
 
-template<class T>
+template<typename T>
+TList<T>::TList(const TList<T>& list)
+{
+	m_dataCount       = 0;
+	m_dataMaxCount    = 0;
+	m_dataArray       = NULL;	
+
+	for(int i = 0; i<list.Count(); i++)
+	{
+		Add(list.m_dataArray[i]);
+	}
+}
+
+template<typename T>
 TList<T>::~TList()
 {
     Clear();
 }
 
-
-template<class T>
-void* TList<T>::First()
+template<typename T>
+TEnumerator<T> TList<T>::GetEnumerator()
 {
-	m_dataIterator = 0;
-	if (m_dataIterator<m_dataCount)
+	if (m_dataArray)
 	{
-		return &m_dataArray[m_dataIterator];
+		TEnumerator<T> result(&m_dataArray[0], &m_dataArray[m_dataCount]);
+		return result;
+	} else {
+		TEnumerator<T> result(NULL, NULL);
+		return result;
 	}
-	return NULL;
 }
 
-template<class T>
-void* TList<T>::Next()
-{
-	m_dataIterator++;
-	if (m_dataIterator<m_dataCount)
-	{
-		return &m_dataArray[m_dataIterator];
-	}
-	return NULL;
-}
-
-template<class T>
-short TList<T>::Count()
+template<typename T>
+short TList<T>::Count() const
 {
 	return m_dataCount;
 }
 
-template<class T>
+template<typename T>
 void TList<T>::Add(T R)
 {
-	short oldm_dataCount = m_dataCount;
-    SetCount(m_dataCount+1);
-	if (oldm_dataCount!=m_dataCount)
+	if (m_dataCount==32767) 
 	{
-		m_dataArray[m_dataCount-1]  = R;
+		return;
+	}
+	short oldm_dataCount = m_dataCount;
+	if (SetCount(m_dataCount+1))
+	{
+		if (m_dataCount>0)
+		{
+			m_dataArray[m_dataCount-1]  = R;
+		}		
 	}
 };
 
 
-template<class T>
-void TList<T>::Del(short index)
+template<typename T>
+void TList<T>::RemoveAt(short index)
 {
     if ( (index<0) || (index>=m_dataCount) )
     {
@@ -94,22 +102,24 @@ void TList<T>::Del(short index)
     SetCount(m_dataCount-1);
 };
 
-template<class T>
+template<typename T>
 void TList<T>::Insert (short index, T x)
 {
     if (index<0) index = 0;
     if (index>m_dataCount) index = m_dataCount;
 
-    SetCount(m_dataCount+1);
-    if (index<m_dataCount-1)
-    {
-        memmove(&m_dataArray[index+1],&m_dataArray[index],(m_dataCount-1-index)*sizeof(T));
-    }
-    m_dataArray[index]=x ;
+	if (SetCount(m_dataCount+1))
+	{
+		if (index<m_dataCount-1)
+		{
+			memmove(&m_dataArray[index+1],&m_dataArray[index],(m_dataCount-1-index)*sizeof(T));
+		}
+		m_dataArray[index]=x;
+	}
 };
 
-template<class T>
-bool TList<T>::Contains (T x)
+template<typename T>
+bool TList<T>::Contains (T x) const
 {
     bool result=false;
     for(short i = 0; i<m_dataCount; i++)
@@ -123,11 +133,15 @@ bool TList<T>::Contains (T x)
     return result;
 }
 
-template<class T>
-short TList<T>::IndexOf (T x)
+template<typename T>
+short TList<T>::IndexOf (T x, short startIndex) const
 {
     bool result=-1;
-    for(short i = 0; i<m_dataCount; i++)
+	if (startIndex<0)
+	{
+		return -1;
+	}
+    for(short i = startIndex; i<m_dataCount; i++)
     {
         if (m_dataArray[i]==x)
         {
@@ -138,93 +152,177 @@ short TList<T>::IndexOf (T x)
     return result;
 }
 
-template<class T>
-short TList<T>::Capacity()
+template<typename T>
+short TList<T>::LastIndexOf (T x) const
+{
+	bool result=-1;
+	for(short i = m_dataCount-1; i>=0; i--)
+	{
+		if (m_dataArray[i]==x)
+		{
+			result = i;
+			break;
+		}
+	}
+	return result;
+}
+
+template<typename T>
+short TList<T>::Capacity() const
 {
     return m_dataMaxCount;
 };
 
 
-template<class T>
-short TList<T>::SetCount(short count)
+template<typename T>
+bool TList<T>::SetCount(short count)
 {
     if (count<0) count = 0;
 
-	if (!m_dataStatic)
+	if (count == 0)
 	{
-		if (count == 0)
+		if (m_dataArray!=NULL)
 		{
-			if (m_dataArray!=NULL)
-			{
-				free(m_dataArray);
-			}
-			m_dataArray = NULL;
-			m_dataCount = 0;
-			m_dataMaxCount = 0;
-			return m_dataCount;
+			free(m_dataArray);
 		}
+		m_dataArray = NULL;
+		m_dataCount = 0;
+		m_dataMaxCount = 0;
+		return false;
+	}
 
-		if (count>m_dataMaxCount)
+	if (count>m_dataMaxCount)
+	{
+		short newCapacity = m_dataMaxCount;
+		while (newCapacity<count)
 		{
-			while (m_dataMaxCount<count)
+			if (newCapacity>=16384)
 			{
-				if (m_dataMaxCount*sizeof(T)<1024)
-				{
-					m_dataMaxCount += m_dataMaxCount;
-					if (m_dataMaxCount<8) m_dataMaxCount = 8;
-				} else {
-					m_dataMaxCount += 1024/sizeof(T);
-				}
-			}
-			if (m_dataArray==NULL)
-			{
-				m_dataArray = (T*) malloc(m_dataMaxCount*sizeof(T));
-				memset((void*)m_dataArray, 0, m_dataMaxCount*sizeof(T));
+				newCapacity = 32767;
 			} else {
-
-				m_dataArray = (T*) realloc(m_dataArray,m_dataMaxCount*sizeof(T));
-				memset((void*)(m_dataArray+count), 0, (m_dataMaxCount-count)*sizeof(T));
+				newCapacity += newCapacity;
+				if (newCapacity<8) newCapacity = 8;
 			}
 		}
-	} else {
-		if (count>=m_dataMaxCount)
+		if (!SetCapacity(newCapacity))
 		{
-			 count = m_dataMaxCount;
+			return false;
 		}
 	}
     m_dataCount = count;
-    return m_dataCount;
+    return true;
 };
 
-template<class T>
-void TList<T>::SetCapacity(short reservedCapacity)
+template<typename T>
+bool TList<T>::SetCapacity(short reservedCapacity)
 {
-	if (!m_dataStatic)
+	if (reservedCapacity==0)
 	{
-		m_dataCount = 0;
-		m_dataMaxCount   = 0;
 		if (m_dataArray!=NULL)
 		{
 			free(m_dataArray);
 			m_dataArray = NULL;
 		}
-		if (reservedCapacity>0)
+		m_dataCount = 0;
+		m_dataMaxCount = 0;
+		return true;
+
+	}
+
+	if (m_dataArray==NULL)
+	{
+		m_dataArray = (T*) malloc(reservedCapacity*sizeof(T));
+		memset((void*) m_dataArray, 0, reservedCapacity*sizeof(T));
+	} else {
+		m_dataArray = (T*) realloc(m_dataArray, reservedCapacity*sizeof(T));
+		if (m_dataCount>reservedCapacity)
 		{
-			m_dataArray = (T*) malloc(reservedCapacity*sizeof(T));
-			memset((void*) m_dataArray, 0, reservedCapacity*sizeof(T));
-			m_dataMaxCount = reservedCapacity;
+			m_dataCount = reservedCapacity;
 		}
 	}
+	if (m_dataArray==NULL)
+	{
+		m_dataCount = 0;
+		m_dataMaxCount = 0;
+		return false;
+	}
+	m_dataMaxCount = reservedCapacity;	
+	return true;		
 }
 
 
-template<class T>
+template<typename T>
 void TList<T>::Clear()
 {
     SetCount(0);    
 };
 
-template<class T>
+template<typename T>
+void  TList<T>::Reverse()
+{
+	T tmp;
+
+	int i1 = 0;
+	int i2 = m_dataCount-1;	
+	while(i1<i2)
+	{
+		tmp = m_dataArray[i1];
+		m_dataArray[i1]=m_dataArray[i2];
+		m_dataArray[i2]=tmp;		
+		i1++; i2--;
+	}
+}
+
+template<typename T>
+void  TList<T>::Sort(bool ascending, bool deleteDoubleEntries)
+{
+	T     valueExtreme;
+	short valueExtremeIndex;
+
+	for(int i = 0; i<m_dataCount; i++)
+	{
+		valueExtreme      = m_dataArray[i];
+		valueExtremeIndex = i;
+		for(int j = i+1; j<m_dataCount; j++)
+		{
+			if (ascending)
+			{
+				if (m_dataArray[j]<valueExtreme)
+				{
+					valueExtreme = m_dataArray[j];
+					valueExtremeIndex = j;
+				}
+			} else {
+				if (m_dataArray[j]>valueExtreme)
+				{
+					valueExtreme = m_dataArray[j];
+					valueExtremeIndex = j;
+				}
+			}
+		}
+		if (valueExtremeIndex!=i)
+		{
+			m_dataArray[valueExtremeIndex]=m_dataArray[i];
+			m_dataArray[i]=valueExtreme;
+		}
+	}
+	if (deleteDoubleEntries)
+	{
+		for(short i = m_dataCount-1; i>0; i--)
+		{
+			if (m_dataArray[i]==m_dataArray[i-1])
+			{
+				for(short j=i; j<m_dataCount-1; j++)
+				{
+					m_dataArray[j]=m_dataArray[j+1];
+				}
+				m_dataCount--;
+			}
+		}
+	}
+}
+
+template<typename T>
 T& TList<T>::operator [] (short index)
 {	
     if ((index>=0) && (index<m_dataCount))
@@ -236,5 +334,132 @@ T& TList<T>::operator [] (short index)
 	memset((void*)&buf, 0, sizeof(T));
     return buf;
 }
+
+template<typename T>
+T& TList<T>::Items (short index)
+{
+	return (*this)[index];
+}
+
+template<typename T>
+TList<T>& TList<T>::operator = (const TList<T>& list)
+{
+	Clear();
+	for(int i = 0; i<list.Count(); i++)
+	{
+		Add(list.m_dataArray[i]);
+	}
+	return *this;
+}
+
+#ifdef STL_STYLE
+
+template<typename T>
+T* TList<T>::begin()
+{
+	if (m_dataArray==NULL) return NULL;
+	return &m_dataArray[0];
+}
+
+template<typename T>
+T* TList<T>::end()
+{
+	if (m_dataArray==NULL) return NULL;
+	return &m_dataArray[m_dataCount];
+}
+
+template<typename T>
+T* TList<T>::data()
+{
+	return m_dataArray;
+}
+
+template<typename T>
+T& TList<T>::at(int i)
+{
+	if ((i>=0) && (i<m_dataCount))
+	{
+		return m_dataArray[i];
+	};
+
+	static T tmp;
+	memset((void*)&tmp, 0, sizeof(T));
+	return tmp;
+}
+
+template<typename T>
+void TList<T>::push_back(T value)
+{
+	Add(value);
+}
+
+template<typename T>
+void TList<T>::push_front(T value)
+{
+	Insert(0, value);
+}
+
+template<typename T>
+void TList<T>::pop_back()
+{
+	RemoveAt(m_dataCount-1);
+}
+
+template<typename T>
+void TList<T>::pop_front()
+{
+	RemoveAt(0);
+}
+
+template<typename T>
+T TList<T>::front()
+{
+	return (*this)[0];
+}
+
+template<typename T>
+T TList<T>::back()
+{
+	return (*this)[m_dataCount-1];
+}
+
+template<typename T>
+bool TList<T>::empty()
+{
+	return m_dataCount==0;
+}
+
+template<typename T>
+int TList<T>::size()
+{
+	return m_dataCount;
+}
+
+template<typename T>
+int TList<T>::max_size()
+{
+	return 32767;
+}
+
+template<typename T>
+void TList<T>::clear()
+{
+	Clear();
+}
+
+template<typename T>
+void TList<T>::reverse()
+{
+	Reverse();
+}
+
+template<typename T>
+void TList<T>::sort()
+{
+	Sort();
+}
+
+#endif
+
 
 #endif

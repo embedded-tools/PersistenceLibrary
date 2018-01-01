@@ -24,7 +24,6 @@
 #include "TSortedDictionary.h"
 #include "TStaticDictionary.h"
 #include "TStaticList.h"
-#include "TStaticObjectList.h"
-#include "TStaticQueue.h"
+#include "TQueue.h"
 
 #endif

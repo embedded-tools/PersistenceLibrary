@@ -34,8 +34,21 @@ template <typename T, int N> class TQueue
         bool  IsFull();
         bool  IsEmpty();  
 
+#ifdef STL_STYLE
+		bool push(T value);
+		bool pop();
+		T    front();
+		T    back();
+		bool empty();
+		bool full();
+
+		int  size();
+		int  max_size();
+		void clear();
+#endif
+
 };
 
-#include "TStaticQueue.cpp"
+#include "TQueue.cpp"
 
 #endif

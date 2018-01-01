@@ -17,6 +17,7 @@
 #ifndef TSTATICLIST___H
 #define TSTATICLIST___H
 
+#include "TEnumerable.h"
 
 /**
  *  TStaticList is a list similar to TList in C#. TStaticList is designed for
@@ -28,9 +29,6 @@
  *  Static dictionary avoids memory fragmentation on embedded system with low RAM size.
  */
 template <typename T, int N> class TStaticList
-#ifdef TITERATOR_INHERITANCE
-: public TIterator
-#endif
 {
 protected:
 
@@ -44,27 +42,44 @@ public:
     TStaticList();
     ~TStaticList();
 
-    void  Add(T R);
-    void  Del(short index);
-    void  Insert (short index, T x);
-    bool  Contains (T x);
-    short IndexOf(T x);
-    short Capacity();
-    short SetCount(short count);
-    void  Clear();
+	TEnumerator<T> GetEnumerator();
 
-#ifdef TITERATOR_INHERITANCE
-    virtual void* First();
-    virtual void* Next();
-    virtual short Count();
-#else 
-    void* First();
-    void* Next();
-    short Count();
-#endif		
-    short MaxCount();
+	short Count();
+	void  Add(T R);
+	void  RemoveAt(short index);	
+	void  Insert (short index, T x);
+	bool  Contains (T x) const;
+	short IndexOf(T x, short startIndex=0);
+	short LastIndexOf(T x);
+	short Capacity() const;
+	bool  SetCount(short count);
+	bool  SetCapacity(short capacity);
+	void  Clear();
+	void  Reverse();
+	void  Sort(bool ascending=true, bool deleteDoubleEntries=false);
 
     T&  operator [] (short index);
+	T&  Items (short index);
+
+#ifdef STL_STYLE
+	typedef T* iterator;
+	T*         begin();
+	T*         end();
+	T*         data();
+	T&         at(int i);
+	void       push_back(T value);
+	void       push_front(T value);
+	void       pop_front();
+	void       pop_back();
+	T          front();
+	T          back();
+	bool       empty();
+	int        size();
+	int        max_size();
+	void       clear();
+	void       reverse();
+	void       sort();	
+#endif
 
 };
 

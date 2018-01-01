@@ -1,49 +1,48 @@
 #include "minicppunit.hxx"
 
-#include "TStaticDictionary.h"
-#include "TEnumerator.h"
+#include "TDictionary.h"
 #include "TString.h"
 
-struct MyTestStruct2
+struct MyTestStruct1
 {
 	bool enabled;
 	int  a,b;
 };
 
-class Test_TStaticDictionary : public TestFixture<Test_TStaticDictionary>
+class Test_TDictionary : public TestFixture<Test_TDictionary>
 {
-public:
+  public:
 
-	TEST_FIXTURE( Test_TStaticDictionary)
-	{
-		TEST_CASE( ConstructDestruct );
+    TEST_FIXTURE( Test_TDictionary)
+    {
+        TEST_CASE( ConstructDestruct );
 		TEST_CASE( DefaultValue );
 		TEST_CASE( AddItems1);
 		TEST_CASE( AddItems2);
 		TEST_CASE( AddManyItems);;
 		TEST_CASE( Enumerator );
-		TEST_CASE( Clear );
+        TEST_CASE( Clear );
 		TEST_CASE( StringTest );
 		TEST_CASE( STL_Style );
-	}
+    }
 
-	void ConstructDestruct()
-	{
-		TStaticDictionary<short, char, 5> dict;
-		TStaticDictionary<char, short, 5> dict2;
-		TStaticDictionary<long, long,  5> dict3;
+    void ConstructDestruct()
+    {
+        TDictionary<short, char> dict;
+        TDictionary<char, short> dict2;
+        TDictionary<long, long>  dict3;
 	}
 
 	void DefaultValue()
 	{
-		TStaticDictionary<short, MyTestStruct2, 10> dict;
+		TDictionary<short, MyTestStruct1> dict;
 		dict.AddKeysAutomatically = true;
 
-		MyTestStruct2* def = dict.GetDefaultValue();
+		MyTestStruct1* def = dict.GetDefaultValue();
 		def->a = 5;
 		def->b = 10;
 		def->enabled = false;
-
+		
 		dict[51].enabled = true;
 		ASSERT_EQUALS(5,  dict[51].a);
 		ASSERT_EQUALS(10, dict[51].b);
@@ -56,7 +55,7 @@ public:
 
 	void AddItems1()
 	{
-		TStaticDictionary<char, long, 4> dict;
+		TDictionary<char, long> dict;
 
 		ASSERT(dict.Count()==0);
 
@@ -79,49 +78,50 @@ public:
 		dict.Add(TPair<char, long>(14, 40));
 		ASSERT_EQUALS(4, (int)dict.Count());
 		ASSERT_EQUALS(40, dict[14]);
-
+	
 	}
 
 	void AddItems2()
 	{
-		TStaticDictionary<short, char, 2> dict;
+		TDictionary<short, char> dict;
 		dict.AddKeysAutomatically = true;
 
-		ASSERT_EQUALS(0, (long)dict.Count());
-		ASSERT(!dict.ContainsKey(1));
+        ASSERT_EQUALS(0, (long)dict.Count());
+        ASSERT(!dict.ContainsKey(1));
 
-		dict[1] = 11;
-		ASSERT_EQUALS(1, (long)dict.Count());
-		ASSERT(dict.ContainsKey(1));
-		ASSERT_EQUALS(11, (long)dict[1]);
+        dict[1] = 11;
+        ASSERT_EQUALS(1, (long)dict.Count());
+        ASSERT(dict.ContainsKey(1));
+        ASSERT_EQUALS(11, (long)dict[1]);
 
-		dict[1] = 12;
-		ASSERT_EQUALS(1, (long)dict.Count());
-		ASSERT(dict.ContainsKey(1));
-		ASSERT_EQUALS(12, (long)dict[1]);
+        dict[1] = 12;
+        ASSERT_EQUALS(1, (long)dict.Count());
+        ASSERT(dict.ContainsKey(1));
+        ASSERT_EQUALS(12, (long)dict[1]);
 
-		dict[2] = 13;
-		ASSERT_EQUALS(2, (long)dict.Count());
-		ASSERT(dict.ContainsKey(2));
-		ASSERT_EQUALS(13, (long)dict[2]);
+        dict[2] = 13;
+        ASSERT_EQUALS(2, (long)dict.Count());
+        ASSERT(dict.ContainsKey(2));
+        ASSERT_EQUALS(13, (long)dict[2]);
 	}
 
-	void AddManyItems()
-	{
-		TStaticDictionary<int, int, 1000> dict;
+    void AddManyItems()
+    {
+        TDictionary<int, int> dict;
 		dict.AddKeysAutomatically = true;
 		int i;
 
-		for (i = 1; i<2000; i++)
-		{
-			dict[i+1000] = i+2000;
-		}
+        for (i = 1; i<100000; i++)
+        {
+            dict[i+1000] = i+2000;
+        }
+		dict[100000] = 10;
 
-		ASSERT_EQUALS(1000, (long)dict.Count());
+        ASSERT_EQUALS(32767, (long)dict.Count());
 
 		bool match = true;
 		int  val;
-		for (i = 1; i<=1000; i++)
+		for (i = 1; i<=32767; i++)
 		{
 			val = dict[i+1000];
 			if (val!=(i+2000))
@@ -130,11 +130,11 @@ public:
 			}					
 		}
 		ASSERT(match);
-	}
+    }
 
 	void Enumerator()
 	{
-		TStaticDictionary<int, int, 10> dict;
+		TDictionary<int, int> dict;
 		dict.AddKeysAutomatically = false;
 
 		dict.Add(11, 10);
@@ -144,19 +144,19 @@ public:
 		dict.Add(15, 50);
 
 		TEnumerator<TPair<int, int>> enumerator = dict.GetEnumerator();
-
+		
 
 		bool b1 = enumerator.MoveNext(); ASSERT(b1);
 		TPair<int,int> val1 = enumerator.Current(); 
 		ASSERT_EQUALS(11, val1.first); 
 		ASSERT_EQUALS(10, val1.second); 
-
+		
 
 		bool b2 = enumerator.MoveNext(); ASSERT(b2);
 		TPair<int,int> val2 = enumerator.Current(); 
 		ASSERT_EQUALS(12, val2.first); 
 		ASSERT_EQUALS(20, val2.second); 
-
+		
 
 		bool b3 = enumerator.MoveNext(); ASSERT(b3);
 		TPair<int,int> val3 = enumerator.Current(); 
@@ -167,7 +167,7 @@ public:
 		TPair<int,int> val4 = enumerator.Current(); 
 		ASSERT_EQUALS(14, val4.first); 
 		ASSERT_EQUALS(40, val4.second); 
-
+		
 		bool b5 = enumerator.MoveNext(); ASSERT(b5);
 		TPair<int,int> val5 = enumerator.Current(); 
 		ASSERT_EQUALS(15, val5.first); 
@@ -176,34 +176,34 @@ public:
 		bool b6 = enumerator.MoveNext(); ASSERT(!b6);		
 	}
 
-	void Clear()
-	{
-		TStaticDictionary<char, char, 10> dict;
+    void Clear()
+    {
+        TDictionary<char, char> dict;
 
-		dict.Clear();
-		dict.Clear();
-		dict.Clear();
+        dict.Clear();
+        dict.Clear();
+        dict.Clear();
 
-		ASSERT(dict.Count()==0);
+        ASSERT(dict.Count()==0);
 
-		dict.Add(1,10);
-		ASSERT(dict.Count()==1);
-		ASSERT(dict[1] == 10);
-		dict.Clear();
+        dict.Add(1,10);
+        ASSERT(dict.Count()==1);
+        ASSERT(dict[1] == 10);
+        dict.Clear();
 
-		ASSERT(dict.Count()==0);
+        ASSERT(dict.Count()==0);
 
-		dict.Clear();
-		dict.Clear();
-		dict.Clear();
-		dict.Clear();
-		ASSERT(dict.Count()==0);
-	}
+        dict.Clear();
+        dict.Clear();
+        dict.Clear();
+        dict.Clear();
+        ASSERT(dict.Count()==0);
+    }
 
 	void StringTest()
 	{
-		TStaticDictionary<TString, TString, 10> dict;
-
+		TDictionary<TString, TString> dict;
+		
 		dict.Add("VZP",  "Vseobecna");
 		dict.Add("VoZP", "Vojenska");
 
@@ -212,7 +212,7 @@ public:
 
 	void STL_Style()
 	{
-		TStaticDictionary<int, int, 10> dict;
+		TDictionary<int, int> dict;
 
 		ASSERT(dict.data()==dict.begin());
 		ASSERT(dict.empty());
@@ -233,7 +233,7 @@ public:
 		int valuesCount = 0;
 		int values[10];
 		int keys[10];
-		for(TStaticDictionary<int, int, 10>::iterator it = dict.begin(); it!=dict.end(); it++)
+		for(TDictionary<int, int>::iterator it = dict.begin(); it!=dict.end(); it++)
 		{
 			keys[valuesCount] = it->first;
 			values[valuesCount++] = it->second;
@@ -257,4 +257,6 @@ public:
 
 };
 
-REGISTER_FIXTURE( Test_TStaticDictionary);
+REGISTER_FIXTURE( Test_TDictionary);
+
+

@@ -17,7 +17,7 @@
 #ifndef TOBJECTLIST___H
 #define TOBJECTLIST___H
 
-#include "TIterator.h"
+#include "TEnumerator.h"
 
 /**
  *  TObjectList is a list similar to TList in C#. TObjectList is designed for
@@ -29,9 +29,6 @@
  */
 
 template <class T> class TObjectList 
-#ifdef TITERATOR_INHERITANCE
-: public TIterator
-#endif
 {
 
 protected:
@@ -48,34 +45,46 @@ public:
     TObjectList();
     ~TObjectList();
 
-    T* Add();
+	TEnumerator<T*> GetEnumerator();
+	
+    T*    Add();
     bool  Add(T* R);
-    bool  Del(int id);
-    bool  Del(T* R);
+    bool  RemoveAt(int id);
+    bool  Remove(T* R);
+	short Count();
     T*    Insert (int i);
     void  Insert (int i, T* R);
 	bool  Contains(T* R);
     short Capacity();
-    short SetCount(short count);
-    short SetCountAndCreate(short count);
-    void  SetCapacity(short maxItemCount);
+    bool  SetCount(short count);
+    bool  SetCountAndCreate(short count);
+    bool  SetCapacity(short maxItemCount);
     void  Clear();
     void  UnallocAndClear();
-
-#ifdef TITERATOR_INHERITANCE
-    virtual void* First();
-    virtual void* Next();
-    virtual short Count();
-#else 
-    void* First();
-    void* Next();
-    short Count();
-#endif			
     
     T* operator [] (short id);
 	T* Items (short id);
 
     short IndexOf(T* R);
+
+#ifdef STL_STYLE
+	typedef T** iterator;
+	T**         begin();
+	T**         end();
+	T**         data();
+	T*          at(int i);
+	void        push_back(T* value);
+	void        push_front(T* value);
+	void        pop_front();
+	void        pop_back();
+	T*          front();
+	T*          back();
+	bool        empty();
+	int         size();
+	int         max_size();
+	void        clear();
+	void        unalloc_clear();
+#endif
 
 };
 

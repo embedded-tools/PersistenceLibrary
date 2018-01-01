@@ -58,7 +58,7 @@ bool TStaticObjectList<T, N>::Add(T* R)
 
 
 template<class T, int N>
-bool TStaticObjectList<T, N>::Del(int id)
+bool TStaticObjectList<T, N>::Remove(int id)
 {
     if (id<0) return false;
     if (id>=m_dataPointerCount) return false;
@@ -72,13 +72,13 @@ bool TStaticObjectList<T, N>::Del(int id)
 };
 
 template<class T, int N>
-bool TStaticObjectList<T, N>::Del(T* R)
+bool TStaticObjectList<T, N>::Remove(T* R)
 {
     for (int i=0;i<m_dataPointerCount;i++)
     {
         if (m_dataPointerArray[i]==R)
         {
-            Del(i);
+            Remove(i);
             return true;
         }
     }
@@ -175,7 +175,7 @@ void TStaticObjectList<T, N>::UnallocAndClear()
 };
 
 template<class T, int N>
-void* TStaticObjectList<T, N>::First()
+T* TStaticObjectList<T, N>::First()
 {
     m_dataIterator = 0;
     if (m_dataPointerCount>0)
@@ -186,7 +186,7 @@ void* TStaticObjectList<T, N>::First()
 };
 
 template<class T, int N>
-void* TStaticObjectList<T, N>::Next()
+T* TStaticObjectList<T, N>::Next()
 {
     m_dataIterator++;
     if (m_dataIterator<m_dataPointerCount)
@@ -195,6 +195,22 @@ void* TStaticObjectList<T, N>::Next()
     }
     return NULL;
 };
+
+#ifdef STL_COMPATIBLE
+
+template<class T, int N>
+T** TStaticObjectList<T, N>::begin()
+{
+	return &m_dataPointerArray[0];
+};
+
+template<class T, int N>
+T** TStaticObjectList<T, N>::end()
+{
+	return &m_dataPointerArray[m_dataPointerCount];
+};
+
+#endif
 
 template<class T, int N>
 T* TStaticObjectList<T, N>::operator [] (short id)

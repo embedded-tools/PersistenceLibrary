@@ -18,6 +18,8 @@
 #define TSTATICDICTIONARY___H
 
 #include <stdlib.h> 
+#include "TEnumerator.h"
+#include "TPair.h"
 
 /**
  *  TStaticDictionary stores key-value pairs. It allocates memory statically, 
@@ -26,13 +28,12 @@
  *
  *  Static dictionary avoids memory fragmentation on embedded system with low RAM size.
  */
-template <typename K, typename V, int N> class TStaticDictionary 
+template <typename KEY, typename VALUE, int N> class TStaticDictionary 
 {
 protected:
 
-	K      m_keyArray[N];
-	V      m_valueArray[N];
-	V      m_defaultValue;
+	TPair<KEY,VALUE> m_pairArray[N];
+	VALUE            m_defaultValue;
 
     short  m_dataCount;
     short  m_dataIterator; 
@@ -40,27 +41,40 @@ protected:
 
     int  Capacity();
 
-    TStaticDictionary(TStaticDictionary<K, V, N> &dictionary);
+    TStaticDictionary(TStaticDictionary<KEY, VALUE, N> &dictionary);
 
 public:
 
 	TStaticDictionary();	
 	~TStaticDictionary();
 
-    void Add(K key, V value);
-    void Del(K key);	
-    short Count();
-    short MaxCount();
+	TEnumerator<TPair<KEY, VALUE>> GetEnumerator();
 
-    bool ContainsKey (K key);
-	bool ContainsValue (V value);    
+	bool  Add(KEY key, VALUE value);
+	bool  Add(TPair<KEY,VALUE> pair);
+	bool  Remove(KEY key);	
+	short Count();
+	bool  ContainsKey (KEY key);
+	void  Clear();
+	TPair<KEY,VALUE>* Data();
 
-	K&   Key(int index);
-    V&   Value(int index);
-    void Clear();
+	bool   AddKeysAutomatically;
+    VALUE& operator [] (KEY key);
+	VALUE* GetDefaultValue();	
 
-    V& operator [] (K key);
-	V*   GetDefaultValue();
+#ifdef STL_STYLE
+	typedef TPair<KEY,VALUE>* iterator;
+	TPair<KEY, VALUE>*	begin();
+	TPair<KEY, VALUE>*	end();
+	TPair<KEY, VALUE>*  data();
+	VALUE&  at(KEY key);
+	void    insert(KEY key, VALUE value);
+	void    insert(TPair<KEY,VALUE> value);
+	bool    empty();
+	int     size();
+	int     max_size();
+	void    clear();
+#endif
 
 
 };

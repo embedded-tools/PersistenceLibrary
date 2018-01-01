@@ -23,6 +23,7 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
         TEST_CASE( AddItems4);
         TEST_CASE( ContainsKey );
         TEST_CASE( Clear );
+		TEST_CASE( STL_Style );
     }
 
     void ConstructDestruct()
@@ -35,6 +36,7 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
 	void DefaultValue()
 	{
 		TSortedDictionary<short, MyTestStruct1> dict;
+		dict.AddKeysAutomatically = true;
 
 		MyTestStruct1* def = dict.GetDefaultValue();
 		def->a = 5;
@@ -60,10 +62,9 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
 	{
 		short index1, index2, index3, index4;
 		TSortedDictionary<char, long> dict;
+		dict.AddKeysAutomatically = true;
 
         dict[1] = 10000000;
-		index1 = dict.FindKeyIndex(1);
-		ASSERT(index1==0);
         ASSERT(dict[1]==10000000);
 
         dict[2] = 20000000;
@@ -104,6 +105,7 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
 	{
 		short index1, index2, index3, index4;
 		TSortedDictionary<short, char> dict;
+		dict.AddKeysAutomatically = true;
 
 		dict[4] = 40;
 		index4 = dict.FindKeyIndex(4);
@@ -142,7 +144,7 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
         ASSERT_EQUALS(0, (long)dict.Count());
         ASSERT(!dict.ContainsKey(1));
 
-        dict[1] = 11;
+        dict.Add(1, 11);
         ASSERT_EQUALS(1, (long)dict.Count());
         ASSERT(dict.ContainsKey(1));
         ASSERT_EQUALS(11, (long)dict[1]);
@@ -152,30 +154,31 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
         ASSERT(dict.ContainsKey(1));
         ASSERT_EQUALS(12, (long)dict[1]);
 
-        dict[1] = 13;
-        ASSERT_EQUALS(1, (long)dict.Count());
-        ASSERT(dict.ContainsKey(1));
-        ASSERT_EQUALS(13, (long)dict[1]);
+        dict.Add(2, 13);
+        ASSERT_EQUALS(2, (long)dict.Count());
+        ASSERT(dict.ContainsKey(2));
+        ASSERT_EQUALS(13, (long)dict[2]);
 	}
 
     void AddItems4()
     {
         TSortedDictionary<short, long> dict;
+		dict.AddKeysAutomatically = true;
 		long i;
 
         for (i = 10; i<200; i++)
         {
-            dict[i+1000] = i+2000;
+            dict[(short)(i+1000)] = i+2000;
         }
         for (i = 0; i<10; i++)
         {
-            dict[i+1000] = i+2000;
+            dict[(short)(i+1000)] = i+2000;
         }                                                                                                         
         ASSERT_EQUALS(200, (long)dict.Count());
 
         for (i = 10; i<200; i++)
         {
-            dict[i+1000] = i+2000;
+            dict[(short)(i+1000)] = i+2000;
         }
         ASSERT_EQUALS(200, (long)dict.Count());
     }
@@ -183,7 +186,8 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
     void ContainsKey()
     {
         TSortedDictionary<short, long> dict;
-		long i;
+		dict.AddKeysAutomatically = true;
+		short i;
 
         for (i = 0; i<1000; i+=2)
         {
@@ -217,7 +221,7 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
 
         ASSERT(dict.Count()==0);
 
-        dict[1] = 10;
+        dict.Add(1, 10);
         ASSERT(dict.Count()==1);
         ASSERT(dict[1] == 10);
         dict.Clear();
@@ -231,8 +235,50 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
         ASSERT(dict.Count()==0);
     }
 
+	void STL_Style()
+	{
+		TSortedDictionary<int, int> dict;
 
+		ASSERT(dict.data()==dict.begin());
+		ASSERT(dict.empty());
+		ASSERT_EQUALS(0, dict.size());
 
+		dict.insert(TPair<int, int>(11, 101));
+		dict.insert(TPair<int, int>(12, 102));
+		dict.insert(TPair<int, int>(13, 103));
+		dict.insert(TPair<int, int>(14, 104));
+		dict.insert(15, 105);
+
+		ASSERT_EQUALS(5, dict.size());
+
+		dict.at(11) = 11;
+		dict.at(13) = 13;
+		dict.at(15) = 15;
+
+		int valuesCount = 0;
+		int values[10];
+		int keys[10];
+		for(TSortedDictionary<int, int>::iterator it = dict.begin(); it!=dict.end(); it++)
+		{
+			keys[valuesCount] = it->first;
+			values[valuesCount++] = it->second;
+		}
+		ASSERT_EQUALS(11 , keys[0]);
+		ASSERT_EQUALS(12,  keys[1]);
+		ASSERT_EQUALS(13,  keys[2]);
+		ASSERT_EQUALS(14,  keys[3]);
+		ASSERT_EQUALS(15,  keys[4]);
+
+		ASSERT_EQUALS(11 , values[0]);
+		ASSERT_EQUALS(102, values[1]);
+		ASSERT_EQUALS(13,  values[2]);
+		ASSERT_EQUALS(104, values[3]);
+		ASSERT_EQUALS(15,  values[4]);
+
+		dict.clear();
+		ASSERT(dict.empty());
+		ASSERT_EQUALS(0, dict.size());
+	}
 };
 
 REGISTER_FIXTURE( Test_TSortedDictionary);

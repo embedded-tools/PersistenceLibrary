@@ -46,11 +46,12 @@ void TXMLCache::Clear()
 	lastName.Clear();
 	Attributes.Clear();   
 
-	for(int i =0; i<Values.MaxCount(); i++)
-    {
-        Values.Key(i).Clear();
-        Values.Value(i).Clear();
-    }
+	TEnumerator<TXMLValuePair> it = Values.GetEnumerator();
+	while(it.MoveNext())
+	{
+		it.Current().first.Clear();
+		it.Current().second.Clear();
+	}
     Values.Clear();
 }
 
@@ -66,13 +67,10 @@ void TXMLCache::OnStartElement ( TXMLParserInterface* Parser, const char *elemen
 		lastName = elementName;				
 	}
 
-	for(int i = 0; i<aAttributes.Count(); i++)
+	TEnumerator<TXMLAttributePair> it = aAttributes.GetEnumerator();
+	while(it.MoveNext())
 	{
-		int j = Attributes.Count();
-		if (j<XMLMAXATTRIBUTECOUNT)
-		{
-			Attributes.Add(aAttributes.Key(i), aAttributes[aAttributes.Key(i)]);
-		}
+		Attributes.Add(it.Current().first, it.Current().second);
 	}	
 }
 

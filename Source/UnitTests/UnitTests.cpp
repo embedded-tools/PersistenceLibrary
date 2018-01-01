@@ -1,5 +1,6 @@
 #include "unittests.h"
 #include <stdio.h>
+#include "Collections.h"
 
 int main(int argc, char* argv[])
 {

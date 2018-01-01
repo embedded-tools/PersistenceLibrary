@@ -17,7 +17,8 @@
 #ifndef TLIST___H
 #define TLIST___H
 
-#include "TIterator.h"
+#include "TEnumerator.h"
+#include "TEnumerable.h"
 
 /**
  *  TList is a list similar to TList in C#. TList is designed for
@@ -27,48 +28,59 @@
  *  more memory than it is needed to decrease memory fragmentation
  *  on embedded systems with low RAM size (e.g. 32kB or less)
  */
-template <typename T> class TList
-#ifdef TITERATOR_INHERITANCE
-: public TIterator
-#endif
+template <typename T> class TList 
 {
 protected:
 
     T*		m_dataArray;		   
     short	m_dataCount;     //number of items (really inserted to list)
-    short	m_dataMaxCount;       //number of items preallocated in memory
-	short	m_dataIterator;  //index of current item (used by iterator)
-	bool	m_dataStatic;    //flag TRUE means that data was allocated statically
-                             //therefore no unallocation is needed
-							 
-    TList(TList<T> &list){};
+    short	m_dataMaxCount;  //number of items preallocated in memory
 
 public:
 
-    TList();
+    TList(int capacity=8);
+	TList(const TList& list);
     ~TList();
 
-#ifdef TITERATOR_INHERITANCE
-    virtual void* First();
-    virtual void* Next();
-    virtual short Count();
-#else 
-    void* First();
-    void* Next();
-    short Count();
-#endif			
-
+	TEnumerator<T> GetEnumerator();
+	
+	short Count() const;
     void  Add(T R);
-    void  Del(short index);
+    void  RemoveAt(short index);	
     void  Insert (short index, T x);
-    bool  Contains (T x);
-    short IndexOf(T x);    
-    short Capacity();
-    short SetCount(short count);
-    void  SetCapacity(short capacity);
+    bool  Contains (T x) const;
+    short IndexOf(T x, short startIndex=0) const;
+	short LastIndexOf(T x) const;
+    short Capacity() const;
+    bool  SetCount(short count);
+    bool  SetCapacity(short capacity);
     void  Clear();
+	void  Reverse();
+	void  Sort(bool ascending=true, bool deleteDoubleEntries=false);
 
     T&  operator [] (short index);
+	T&  Items (short index);
+	TList<T>& operator = (const TList<T>& list);
+
+#ifdef STL_STYLE
+	typedef T* iterator;
+	T*         begin();
+	T*         end();
+	T*         data();
+	T&         at(int i);
+	void       push_back(T value);
+	void       push_front(T value);
+	void       pop_front();
+	void       pop_back();
+	T          front();
+	T          back();
+	bool       empty();
+	int        size();
+	int        max_size();
+	void       clear();
+	void       reverse();
+	void       sort();	
+#endif
 
 };
 

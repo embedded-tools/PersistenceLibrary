@@ -29,9 +29,6 @@
  */
 
 template <class T, int N> class TStaticObjectList
-#ifdef TITERATOR_INHERITANCE
-: public TIterator
-#endif
 {
 protected:
     T*    m_dataPointerArray[N];
@@ -46,8 +43,8 @@ public:
 
     T* Add();
     bool  Add(T* R);
-    bool  Del(int id);
-    bool  Del(T* R);
+    bool  Remove(int id);
+    bool  Remove(T* R);
     T*    Insert (int i);
     void  Insert (int i, T* R);
     short Capacity();
@@ -56,13 +53,19 @@ public:
     void  Clear();
     void  UnallocAndClear();
 
+#ifdef STL_COMPATIBLE
+	typedef T** iterator;
+	T** begin();
+	T** end();
+#endif
+
 #ifdef TITERATOR_INHERITANCE
-    virtual void* First();
-    virtual void* Next();
+    virtual T* First();
+    virtual T* Next();
     virtual short Count();
 #else 
-    void* First();
-    void* Next();
+    T* First();
+    T* Next();
     short Count();
 #endif			
     short MaxCount();

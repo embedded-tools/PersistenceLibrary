@@ -1,5 +1,5 @@
 #include "minicppunit.hxx"
-#include "TStaticQueue.h"
+#include "TQueue.h"
 
 class Test_TQueue : public TestFixture<Test_TQueue>
 {
@@ -10,8 +10,8 @@ class Test_TQueue : public TestFixture<Test_TQueue>
         TEST_CASE( ConstructDestruct );
         TEST_CASE( Enqueue_Dequeue );
         TEST_CASE( FifoCacheTest );
+		TEST_CASE( STL_Style );
     }
-
 
     void ConstructDestruct()
     {
@@ -101,6 +101,47 @@ class Test_TQueue : public TestFixture<Test_TQueue>
         }
         ASSERT(i==1024);        
     }
+
+	void STL_Style()
+	{
+		TQueue<int,4> queue;
+		ASSERT(queue.empty());
+		ASSERT(!queue.full());
+
+		queue.push(11);
+		ASSERT(!queue.empty());
+		ASSERT(!queue.full());
+
+		queue.push(22);
+		ASSERT(!queue.empty());
+		ASSERT(!queue.full());
+
+		queue.push(33);
+		ASSERT(!queue.empty());
+		ASSERT(!queue.full());
+
+		queue.push(44);
+		ASSERT(!queue.empty());
+		ASSERT(queue.full());
+
+		ASSERT_EQUALS(11, queue.front());
+		ASSERT_EQUALS(44, queue.back());
+
+		int valuesCount = 0;
+		int values[10];
+		while(!queue.empty())
+		{
+			values[valuesCount++] = queue.front();	
+			queue.pop();
+		}
+
+		ASSERT_EQUALS(4, valuesCount);
+		ASSERT_EQUALS(11, values[0]);
+		ASSERT_EQUALS(22, values[1]);
+		ASSERT_EQUALS(33, values[2]);
+		ASSERT_EQUALS(44, values[3]);
+
+	}
     
 
 };
