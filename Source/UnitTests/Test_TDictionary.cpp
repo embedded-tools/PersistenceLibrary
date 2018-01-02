@@ -23,7 +23,9 @@ class Test_TDictionary : public TestFixture<Test_TDictionary>
 		TEST_CASE( Enumerator );
         TEST_CASE( Clear );
 		TEST_CASE( StringTest );
+#ifdef STL_STYLE
 		TEST_CASE( STL_Style );
+#endif
     }
 
     void ConstructDestruct()
@@ -143,7 +145,7 @@ class Test_TDictionary : public TestFixture<Test_TDictionary>
 		dict.Add(14, 40);
 		dict.Add(15, 50);
 
-		TEnumerator<TPair<int, int>> enumerator = dict.GetEnumerator();
+		TEnumerator<TPair<int, int> > enumerator = dict.GetEnumerator();
 		
 
 		bool b1 = enumerator.MoveNext(); ASSERT(b1);
@@ -210,6 +212,7 @@ class Test_TDictionary : public TestFixture<Test_TDictionary>
 
 	}
 
+#ifdef STL_STYLE
 	void STL_Style()
 	{
 		TDictionary<int, int> dict;
@@ -254,7 +257,7 @@ class Test_TDictionary : public TestFixture<Test_TDictionary>
 		ASSERT(dict.empty());
 		ASSERT_EQUALS(0, dict.size());
 	}
-
+#endif
 };
 
 REGISTER_FIXTURE( Test_TDictionary);

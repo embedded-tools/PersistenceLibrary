@@ -35,8 +35,11 @@ class Test_ObjectList : public TestFixture<Test_ObjectList>
 		TEST_CASE( ConstructorDestructor );
         TEST_CASE( AddObjects );
 		TEST_CASE( RemoveObjects );
-		TEST_CASE( STL_Style );
 		TEST_CASE( Enumerator );
+#ifdef STL_STYLE
+		TEST_CASE( STL_Style );
+#endif
+		
     }
 
 	void ConstructorDestructor()
@@ -119,6 +122,30 @@ class Test_ObjectList : public TestFixture<Test_ObjectList>
 		list.UnallocAndClear();
 	}
 
+	void Enumerator()
+	{
+		TObjectList<TestObject> list;
+		TestObject* o1 = list.Add();
+		TestObject* o2 = list.Add();
+		TestObject* o3 = list.Add();
+		TestObject* o4 = list.Add();
+
+		int         objectsCount = 0;
+		TestObject* objects[10];
+
+		TEnumerator<TestObject*> it = list.GetEnumerator();
+		while(it.MoveNext())
+		{
+			objects[objectsCount++] = it.Current();
+		}
+		ASSERT_EQUALS(4, objectsCount);
+		ASSERT(objects[0] == o1);
+		ASSERT(objects[1] == o2);
+		ASSERT(objects[2] == o3);
+		ASSERT(objects[3] == o4);
+	}
+
+#ifdef STL_STYLE
 	void STL_Style()
 	{
 		TObjectList<TestObject> list;
@@ -177,29 +204,8 @@ class Test_ObjectList : public TestFixture<Test_ObjectList>
 		ASSERT_EQUALS(0, list.size());
 		ASSERT(list.empty());
 	}
+#endif
 
-	void Enumerator()
-	{
-		TObjectList<TestObject> list;
-		TestObject* o1 = list.Add();
-		TestObject* o2 = list.Add();
-		TestObject* o3 = list.Add();
-		TestObject* o4 = list.Add();
-
-		int         objectsCount = 0;
-		TestObject* objects[10];
-
-		TEnumerator<TestObject*> it = list.GetEnumerator();
-		while(it.MoveNext())
-		{
-			objects[objectsCount++] = it.Current();
-		}
-		ASSERT_EQUALS(4, objectsCount);
-		ASSERT(objects[0] == o1);
-		ASSERT(objects[1] == o2);
-		ASSERT(objects[2] == o3);
-		ASSERT(objects[3] == o4);
-	}
 };
 
 REGISTER_FIXTURE( Test_ObjectList);

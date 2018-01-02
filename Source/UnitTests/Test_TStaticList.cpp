@@ -16,7 +16,9 @@ public:
 		TEST_CASE( SortDescending );
 		TEST_CASE( Reverse );
 		TEST_CASE( Enumerator );
+#ifdef STL_STYLE
 		TEST_CASE( STL_Style );
+#endif
 	}
 
 
@@ -292,6 +294,7 @@ public:
 		bool b6 = it.MoveNext(); ASSERT(!b6);
 	}
 
+#ifdef STL_STYLE
 	void STL_Style()
 	{
 		TStaticList<int,10> list;
@@ -368,8 +371,8 @@ public:
 		ASSERT(!list.empty());
 		list.clear();
 		ASSERT(list.empty());
-
 	}
+#endif
 
 };
 

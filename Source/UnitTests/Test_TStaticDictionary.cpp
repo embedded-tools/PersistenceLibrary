@@ -1,8 +1,8 @@
 #include "minicppunit.hxx"
-
 #include "TStaticDictionary.h"
 #include "TEnumerator.h"
 #include "TString.h"
+
 
 struct MyTestStruct2
 {
@@ -24,7 +24,9 @@ public:
 		TEST_CASE( Enumerator );
 		TEST_CASE( Clear );
 		TEST_CASE( StringTest );
+#ifdef STL_STYLE
 		TEST_CASE( STL_Style );
+#endif
 	}
 
 	void ConstructDestruct()
@@ -143,7 +145,7 @@ public:
 		dict.Add(14, 40);
 		dict.Add(15, 50);
 
-		TEnumerator<TPair<int, int>> enumerator = dict.GetEnumerator();
+		TEnumerator<TPair<int, int> > enumerator = dict.GetEnumerator();
 
 
 		bool b1 = enumerator.MoveNext(); ASSERT(b1);
@@ -206,10 +208,9 @@ public:
 
 		dict.Add("VZP",  "Vseobecna");
 		dict.Add("VoZP", "Vojenska");
-
-
 	}
 
+#ifdef STL_STYLE
 	void STL_Style()
 	{
 		TStaticDictionary<int, int, 10> dict;
@@ -254,7 +255,7 @@ public:
 		ASSERT(dict.empty());
 		ASSERT_EQUALS(0, dict.size());
 	}
-
+#endif
 };
 
 REGISTER_FIXTURE( Test_TStaticDictionary);

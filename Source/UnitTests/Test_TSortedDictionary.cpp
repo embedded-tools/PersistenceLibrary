@@ -23,7 +23,9 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
         TEST_CASE( AddItems4);
         TEST_CASE( ContainsKey );
         TEST_CASE( Clear );
+#ifdef STL_STYLE
 		TEST_CASE( STL_Style );
+#endif
     }
 
     void ConstructDestruct()
@@ -235,6 +237,7 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
         ASSERT(dict.Count()==0);
     }
 
+#ifdef STL_STYLE
 	void STL_Style()
 	{
 		TSortedDictionary<int, int> dict;
@@ -279,6 +282,8 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
 		ASSERT(dict.empty());
 		ASSERT_EQUALS(0, dict.size());
 	}
+#endif
+
 };
 
 REGISTER_FIXTURE( Test_TSortedDictionary);

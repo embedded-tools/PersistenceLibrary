@@ -10,7 +10,9 @@ class Test_TQueue : public TestFixture<Test_TQueue>
         TEST_CASE( ConstructDestruct );
         TEST_CASE( Enqueue_Dequeue );
         TEST_CASE( FifoCacheTest );
+#ifdef STL_STYLE
 		TEST_CASE( STL_Style );
+#endif
     }
 
     void ConstructDestruct()
@@ -102,6 +104,7 @@ class Test_TQueue : public TestFixture<Test_TQueue>
         ASSERT(i==1024);        
     }
 
+#ifdef STL_STYLE
 	void STL_Style()
 	{
 		TQueue<int,4> queue;
@@ -140,8 +143,8 @@ class Test_TQueue : public TestFixture<Test_TQueue>
 		ASSERT_EQUALS(22, values[1]);
 		ASSERT_EQUALS(33, values[2]);
 		ASSERT_EQUALS(44, values[3]);
-
 	}
+#endif
     
 
 };

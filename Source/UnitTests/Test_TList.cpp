@@ -16,7 +16,9 @@ class Test_TList : public TestFixture<Test_TList>
 		TEST_CASE( SortDescending );
 		TEST_CASE( Reverse );
 		TEST_CASE( Enumerator );
+#ifdef STL_STYLE
 		TEST_CASE( STL_Style );
+#endif
     }
 
 
@@ -292,6 +294,7 @@ class Test_TList : public TestFixture<Test_TList>
 		bool b6 = it.MoveNext(); ASSERT(!b6);
 	}
 
+#ifdef STL_STYLE
 	void STL_Style()
 	{
 		TList<int> list;
@@ -367,9 +370,9 @@ class Test_TList : public TestFixture<Test_TList>
 
 		ASSERT(!list.empty());
 		list.clear();
-		ASSERT(list.empty());
-			
+		ASSERT(list.empty());			
 	}
+#endif
 
 };
 
