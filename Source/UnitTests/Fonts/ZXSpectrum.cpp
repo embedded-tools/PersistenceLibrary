@@ -1,6 +1,6 @@
 #include "ZXSpectrum.h"
 
-const const ePixelFormat ZXSpectrum_PixelFormat   = pfBGR2ColorsPalette;
+const ePixelFormat       ZXSpectrum_PixelFormat   = pfBGR2ColorsPalette;
 const TFontDataAlignment ZXSpectrum_DataAlignment = ffHorizontal;
 const unsigned short     ZXSpectrum_Width = 8;
 const unsigned short     ZXSpectrum_Height = 8;

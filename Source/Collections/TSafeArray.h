@@ -16,7 +16,7 @@ public:
 
 	int Length() { return N; };
 	T*  Pointer() { return m_dataArray; };
-	const char* PChar() { (const char*) return m_dataArray; };
+	const char* PChar() { return (const char*)m_dataArray; };
 };
 
 #include "TSafeArray.cpp"

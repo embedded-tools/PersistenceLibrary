@@ -1,6 +1,8 @@
 #ifndef TPAIR___H
 #define TPAIR___H
 
+#include <string.h>
+
 template <typename KEY, typename VALUE> struct TPair
 {
 	public:

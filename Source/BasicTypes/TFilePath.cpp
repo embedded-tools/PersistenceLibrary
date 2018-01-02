@@ -429,7 +429,7 @@ TFilePath&	TFilePath::operator += ( const char c)
 {
 	int oldLength = DataLen;
 	char cc = c;
-	if ((cc=='\\') || (cc=='//'))
+	if ((cc=='\\') || (cc=='/'))
 	{
 		cc = m_separator;
 	}

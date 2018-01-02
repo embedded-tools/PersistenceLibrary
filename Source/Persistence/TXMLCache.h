@@ -30,10 +30,10 @@
 #define XMLMAXARRAYLENGTH 16
 
 typedef TXMLParamMap TXMLAttributeDictionary;
-typedef TPair<TCustomString<XMLMAXNAMESIZE>, TCustomString<XMLMAXATTRIBUTESIZE>> TXMLAttributePair;
+typedef TPair<TCustomString<XMLMAXNAMESIZE>, TCustomString<XMLMAXATTRIBUTESIZE> > TXMLAttributePair;
 
 typedef TStaticDictionary<TCustomString<XMLMAXNAMESIZE>, TCustomString<XMLMAXVALUESIZE>, XMLCACHEMAXVALUECOUNT> TXMLValueDictionary;
-typedef TPair<TCustomString<XMLMAXNAMESIZE>, TCustomString<XMLMAXVALUESIZE>> TXMLValuePair;
+typedef TPair<TCustomString<XMLMAXNAMESIZE>, TCustomString<XMLMAXVALUESIZE> > TXMLValuePair;
 
 
 class TXMLCache : public TXMLTalkerInterface

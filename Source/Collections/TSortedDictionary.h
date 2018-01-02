@@ -55,7 +55,7 @@ public:
     TSortedDictionary(short capacity=8);    
     ~TSortedDictionary();
 
-	TEnumerator<TPair<KEY, VALUE>> GetEnumerator();
+	TEnumerator<TPair<KEY, VALUE> > GetEnumerator();
 
 	bool  Add(KEY key, VALUE value);
 	bool  Add(TPair<KEY,VALUE> pair);

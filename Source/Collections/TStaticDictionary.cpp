@@ -143,14 +143,14 @@ VALUE* TStaticDictionary<KEY, VALUE, N>::GetDefaultValue()
 }
 
 template<typename KEY, typename VALUE, int N>
-TEnumerator<TPair<KEY, VALUE>> TStaticDictionary<KEY, VALUE, N>::GetEnumerator()
+TEnumerator<TPair<KEY, VALUE> > TStaticDictionary<KEY, VALUE, N>::GetEnumerator()
 {
 	if (m_pairArray)
 	{
-		TEnumerator<TPair<KEY, VALUE>> result(&m_pairArray[0], &m_pairArray[m_dataCount]);
+		TEnumerator<TPair<KEY, VALUE> > result(&m_pairArray[0], &m_pairArray[m_dataCount]);
 		return result;
 	} else {
-		TEnumerator<TPair<KEY, VALUE>> result(NULL, NULL);
+		TEnumerator<TPair<KEY, VALUE> > result(NULL, NULL);
 		return result;
 	}		
 }

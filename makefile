@@ -17,9 +17,10 @@ INC=-I./\
     -I./Source/Persistence\
     -I./Source/Protocols\
     -I./Source/UnitTests\
+	-I./Source/UnitTests/Fonts\
     -I./Source/UnitTests\PersistenceExample
 
-SRC=	./Source/BasicTypes/StringUtils.cpp\
+SRC=./Source/BasicTypes/StringUtils.cpp\
 	./Source/BasicTypes/TDate.cpp\
 	./Source/BasicTypes/TDateTime.cpp\
 	./Source/BasicTypes/TDateTimeCounter.cpp\
@@ -31,13 +32,16 @@ SRC=	./Source/BasicTypes/StringUtils.cpp\
 	./Source/BasicTypes/TWideString.cpp\
 	./Source/BasicTypes/UTF8.c\
 	./Source/BasicTypes/TRandom.cpp\
+	./Source/Collections/TDictionary.cpp\
+	./Source/Collections/TEnumerable.cpp\
+	./Source/Collections/TEnumerator.cpp\
 	./Source/Collections/TList.cpp\
 	./Source/Collections/TObjectList.cpp\
+	./Source/Collections/TQueue.cpp\
+	./Source/Collections/TSafeArray.cpp\
 	./Source/Collections/TSortedDictionary.cpp\
 	./Source/Collections/TStaticDictionary.cpp\
 	./Source/Collections/TStaticList.cpp\
-	./Source/Collections/TStaticObjectList.cpp\
-	./Source/Collections/TStaticQueue.cpp\
 	./Source/FileUtils/TCachedStream.cpp\
 	./Source/FileUtils/TEEPROMStream.cpp\
 	./Source/FileUtils/TFileLog.cpp\
@@ -83,9 +87,15 @@ SRC=	./Source/BasicTypes/StringUtils.cpp\
 	./Source/Persistence/TXMLParser.cpp\
 	./Source/Persistence/TXMLTypes.cpp\
 	./Source/Protocols/TBinaryProtocol.cpp\
+	./Source/UnitTests/Fonts/Amata13.cpp\
+	./Source/UnitTests/Fonts/Bookman50.cpp\
+	./Source/UnitTests/Fonts/BrushScript12.cpp\
+	./Source/UnitTests/Fonts/Robotron.cpp\
+	./Source/UnitTests/Fonts/ZXSpectrum.cpp\
  	./Source/UnitTests/Test_LZ77.cpp\
 	./Source/UnitTests/Test_Persistence.cpp\
 	./Source/UnitTests/Test_StringUtils.cpp\
+	./Source/UnitTests/Test_TBinaryProtocol.cpp\
 	./Source/UnitTests/Test_TCachedFileStream.cpp\
 	./Source/UnitTests/Test_TCachedMemoryStream.cpp\
 	./Source/UnitTests/Test_TColor.cpp\
@@ -93,23 +103,32 @@ SRC=	./Source/BasicTypes/StringUtils.cpp\
 	./Source/UnitTests/Test_TCustomString.cpp\
 	./Source/UnitTests/Test_TDate.cpp\
 	./Source/UnitTests/Test_TDateTime.cpp\
-	./Source/UnitTests/Test_TStaticDictionary.cpp\
+	./Source/UnitTests/Test_TDateTimeCounter.cpp\
+	./Source/UnitTests/Test_TDictionary.cpp\
 	./Source/UnitTests/Test_Template.cpp\
 	./Source/UnitTests/Test_TFilePath.cpp\
 	./Source/UnitTests/Test_TFileStream.cpp\
 	./Source/UnitTests/Test_TFixedPoint1024.cpp\
 	./Source/UnitTests/Test_TFixedPoint128.cpp\
+	./Source/UnitTests/Test_TFixedPoint16M.cpp\
+	./Source/UnitTests/Test_TFont.cpp\
 	./Source/UnitTests/Test_TGraphics.cpp\
+	./Source/UnitTests/Test_TList.cpp\
+	./Source/UnitTests/Test_TLog.cpp\
 	./Source/UnitTests/Test_TMemoryStream.cpp\
+	./Source/UnitTests/Test_TObjectList.cpp\
+	./Source/UnitTests/Test_TQueue.cpp\
 	./Source/UnitTests/Test_TRandom.cpp\
 	./Source/UnitTests/Test_TShortString.cpp\
-	./Source/UnitTests/Test_TBinaryProtocol.cpp\
-	./Source/UnitTests/Test_TStaticQueue.cpp\
+	./Source/UnitTests/Test_TSortedDictionary.cpp\
+	./Source/UnitTests/Test_TStaticDictionary.cpp\
+	./Source/UnitTests/Test_TStaticList.cpp\
 	./Source/UnitTests/Test_TString.cpp\
 	./Source/UnitTests/Test_TStringList.cpp\
 	./Source/UnitTests/Test_TTextFile.cpp\
 	./Source/UnitTests/Test_TTime.cpp\
 	./Source/UnitTests/Test_TWideString.cpp\
+	./Source/UnitTests/Test_TWindowsBmpFile.cpp\
 	./Source/UnitTests/Test_TXMLDoc.cpp\
 	./Source/UnitTests/Test_TXMLParser.cpp\
 	./Source/UnitTests/Test_TDateTimeCounter.cpp\
