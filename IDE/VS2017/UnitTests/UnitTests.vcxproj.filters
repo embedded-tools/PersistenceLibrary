@@ -105,6 +105,21 @@
     <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\MainObject.cpp">
       <Filter>Source Files\Persistence Example</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Amata13.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Bookman50.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\BrushScript12.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Robotron.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_LZ77.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -141,6 +156,12 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TDateTimeCounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TDictionary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_Template.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFilePath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -162,13 +183,25 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TGraphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TMemoryStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TObjectList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TRandom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TSafeArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TShortString.cpp">
@@ -180,7 +213,7 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TStaticDictionary.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStaticQueue.cpp">
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStaticList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TString.cpp">
@@ -206,21 +239,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLParser.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Amata13.cpp">
-      <Filter>Source Files\Fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Bookman50.cpp">
-      <Filter>Source Files\Fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\BrushScript12.cpp">
-      <Filter>Source Files\Fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Robotron.cpp">
-      <Filter>Source Files\Fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.cpp">
-      <Filter>Source Files\Fonts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

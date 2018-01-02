@@ -54,7 +54,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>STL_STYLE;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -83,7 +83,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..\..\Source\Collections;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>STL_STYLE;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -109,24 +109,30 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Source\Collections\TList.cpp" />
-    <ClCompile Include="..\..\..\Source\Collections\TObjectList.cpp" />
-    <ClCompile Include="..\..\..\Source\Collections\TSortedDictionary.cpp" />
-    <ClCompile Include="..\..\..\Source\Collections\TStaticDictionary.cpp" />
-    <ClCompile Include="..\..\..\Source\Collections\TStaticList.cpp" />
-    <ClCompile Include="..\..\..\Source\Collections\TStaticObjectList.cpp" />
-    <ClCompile Include="..\..\..\Source\Collections\TStaticQueue.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\..\..\Source\Collections\Collections.h" />
-    <ClInclude Include="..\..\..\Source\Collections\TIterator.h" />
+    <ClInclude Include="..\..\..\Source\Collections\TDictionary.h" />
+    <ClInclude Include="..\..\..\Source\Collections\TEnumerable.h" />
+    <ClInclude Include="..\..\..\Source\Collections\TEnumerator.h" />
     <ClInclude Include="..\..\..\Source\Collections\TList.h" />
     <ClInclude Include="..\..\..\Source\Collections\TObjectList.h" />
+    <ClInclude Include="..\..\..\Source\Collections\TPair.h" />
+    <ClInclude Include="..\..\..\Source\Collections\TQueue.h" />
+    <ClInclude Include="..\..\..\Source\Collections\TSafeArray.h" />
     <ClInclude Include="..\..\..\Source\Collections\TSortedDictionary.h" />
     <ClInclude Include="..\..\..\Source\Collections\TStaticDictionary.h" />
     <ClInclude Include="..\..\..\Source\Collections\TStaticList.h" />
-    <ClInclude Include="..\..\..\Source\Collections\TStaticObjectList.h" />
-    <ClInclude Include="..\..\..\Source\Collections\TStaticQueue.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Source\Collections\TDictionary.cpp" />
+    <ClCompile Include="..\..\..\Source\Collections\TEnumerable.cpp" />
+    <ClCompile Include="..\..\..\Source\Collections\TEnumerator.cpp" />
+    <ClCompile Include="..\..\..\Source\Collections\TList.cpp" />
+    <ClCompile Include="..\..\..\Source\Collections\TObjectList.cpp" />
+    <ClCompile Include="..\..\..\Source\Collections\TQueue.cpp" />
+    <ClCompile Include="..\..\..\Source\Collections\TSafeArray.cpp" />
+    <ClCompile Include="..\..\..\Source\Collections\TSortedDictionary.cpp" />
+    <ClCompile Include="..\..\..\Source\Collections\TStaticDictionary.cpp" />
+    <ClCompile Include="..\..\..\Source\Collections\TStaticList.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
