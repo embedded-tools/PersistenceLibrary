@@ -85,11 +85,31 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\..\..\Source\Collections\TDictionary.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Collections\TEnumerable.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Collections\TEnumerator.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\Collections\TList.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\Source\Collections\TObjectList.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Collections\TQueue.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Collections\TSafeArray.cpp
 # End Source File
 # Begin Source File
 
@@ -103,14 +123,6 @@ SOURCE=..\..\..\Source\Collections\TStaticDictionary.cpp
 
 SOURCE=..\..\..\Source\Collections\TStaticList.cpp
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\Collections\TStaticObjectList.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\Collections\TStaticQueue.cpp
-# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -121,7 +133,15 @@ SOURCE=..\..\..\Source\Collections\Collections.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\Source\Collections\TIterator.h
+SOURCE=..\..\..\Source\Collections\TDictionary.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Collections\TEnumerable.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Collections\TEnumerator.h
 # End Source File
 # Begin Source File
 
@@ -130,6 +150,18 @@ SOURCE=..\..\..\Source\Collections\TList.h
 # Begin Source File
 
 SOURCE=..\..\..\Source\Collections\TObjectList.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Collections\TPair.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Collections\TQueue.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Collections\TSafeArray.h
 # End Source File
 # Begin Source File
 
@@ -142,14 +174,6 @@ SOURCE=..\..\..\Source\Collections\TStaticDictionary.h
 # Begin Source File
 
 SOURCE=..\..\..\Source\Collections\TStaticList.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\Collections\TStaticObjectList.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\Collections\TStaticQueue.h
 # End Source File
 # End Group
 # End Target

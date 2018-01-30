@@ -61,14 +61,15 @@ public:
 	void AddManyItems()
 	{
 		TStaticList<int,1000> list;	
-		for(int i = 1; i<=1000; i++)
+        int i;
+		for(i = 1; i<=1000; i++)
 		{
 			list.Add(i);
 		}
 		ASSERT_EQUALS(1000, (int)list.Count());
 
 		bool match = true;
-		for(int i = 1; i<=list.Count(); i++)
+		for(i = 1; i<=list.Count(); i++)
 		{
 			if (i!=list[i-1])
 			{

@@ -181,6 +181,30 @@ SOURCE=..\..\..\Source\UnitTests\PersistenceExample\ClassManagerD.cpp
 SOURCE=..\..\..\Source\UnitTests\PersistenceExample\MainObject.cpp
 # End Source File
 # End Group
+# Begin Group "Fonts"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Fonts\Amata13.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Fonts\Bookman50.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Fonts\BrushScript12.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Fonts\Robotron.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Fonts\ZXSpectrum.cpp
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=..\..\..\Source\UnitTests\minicppunit.cxx
@@ -235,6 +259,14 @@ SOURCE=..\..\..\Source\UnitTests\Test_TDateTimeCounter.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\UnitTests\Test_TDictionary.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Test_Template.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\UnitTests\Test_TFilePath.cpp
 # End Source File
 # Begin Source File
@@ -263,6 +295,10 @@ SOURCE=..\..\..\Source\UnitTests\Test_TGraphics.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\UnitTests\Test_TList.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\UnitTests\Test_TLog.cpp
 # End Source File
 # Begin Source File
@@ -271,7 +307,19 @@ SOURCE=..\..\..\Source\UnitTests\Test_TMemoryStream.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\UnitTests\Test_TObjectList.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Test_TQueue.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\UnitTests\Test_TRandom.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Test_TSafeArray.cpp
 # End Source File
 # Begin Source File
 
@@ -287,7 +335,7 @@ SOURCE=..\..\..\Source\UnitTests\Test_TStaticDictionary.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\Source\UnitTests\Test_TStaticQueue.cpp
+SOURCE=..\..\..\Source\UnitTests\Test_TStaticList.cpp
 # End Source File
 # Begin Source File
 
