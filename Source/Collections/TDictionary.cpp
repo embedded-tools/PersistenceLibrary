@@ -152,6 +152,20 @@ TPair<KEY, VALUE>* TDictionary<KEY, VALUE>::end()
 }
 
 template<typename KEY, typename VALUE>
+const TPair<KEY, VALUE>* TDictionary<KEY, VALUE>::cbegin() const
+{
+    if (m_dataCount==0) return NULL;
+    return (const TPair<KEY, VALUE>*)&m_pairArray[0];
+}
+
+template<typename KEY, typename VALUE>
+const TPair<KEY, VALUE>* TDictionary<KEY, VALUE>::cend() const
+{
+    if (m_dataCount==0) return NULL;
+    return (const TPair<KEY, VALUE>)*&m_pairArray[m_dataCount];
+}
+
+template<typename KEY, typename VALUE>
 TPair<KEY, VALUE>* TDictionary<KEY, VALUE>::data()
 {
 	if (m_dataCount==0) return NULL;

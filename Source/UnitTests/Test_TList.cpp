@@ -17,7 +17,8 @@ class Test_TList : public TestFixture<Test_TList>
 		TEST_CASE( Reverse );
 		TEST_CASE( Enumerator );
 #ifdef STL_STYLE
-		TEST_CASE( STL_Style );
+		TEST_CASE( STL_Style  );
+        TEST_CASE( STL_Style2 );
 #endif
     }
 
@@ -371,8 +372,125 @@ class Test_TList : public TestFixture<Test_TList>
 
 		ASSERT(!list.empty());
 		list.clear();
-		ASSERT(list.empty());			
+		ASSERT(list.empty());	
 	}
+
+    void STL_Style2()
+    {
+        TList<int> list;
+        list.clear();
+        ASSERT(list.empty());
+        list.insert(list.begin(), 10);
+        list.insert(list.end(),   30);
+        ASSERT_EQUALS(2, list.size());
+
+        TList<int>::iterator it = list.begin();
+        it++;
+
+        list.insert(it, 20);
+        ASSERT_EQUALS(3, list.size());
+        ASSERT_EQUALS(10, list.at(0));
+        ASSERT_EQUALS(20, list.at(1));
+        ASSERT_EQUALS(30, list.at(2));
+
+        TList<int> list2;
+        list2.push_front(25);
+        list2.splice(list2.begin(), list, list.begin(), list.end()-1);
+        ASSERT_EQUALS(3,  list2.size());
+        ASSERT_EQUALS(10, list2.at(0));
+        ASSERT_EQUALS(20, list2.at(1));
+        ASSERT_EQUALS(25, list2.at(2));
+        
+        list2.splice(list2.end(), list);
+        ASSERT_EQUALS(6,  list2.size());
+        ASSERT_EQUALS(10, list2.at(0));
+        ASSERT_EQUALS(20, list2.at(1));
+        ASSERT_EQUALS(25, list2.at(2));
+        ASSERT_EQUALS(10, list2.at(3));
+        ASSERT_EQUALS(20, list2.at(4));
+        ASSERT_EQUALS(30, list2.at(5));
+
+        list2.sort();
+        ASSERT_EQUALS(6,  list2.size());
+        ASSERT_EQUALS(10, list2.at(0));
+        ASSERT_EQUALS(10, list2.at(1));
+        ASSERT_EQUALS(20, list2.at(2));
+        ASSERT_EQUALS(20, list2.at(3));
+        ASSERT_EQUALS(25, list2.at(4));
+        ASSERT_EQUALS(30, list2.at(5));
+
+        list2.unique();
+        ASSERT_EQUALS(4,  list2.size());
+        ASSERT_EQUALS(10, list2.at(0));
+        ASSERT_EQUALS(20, list2.at(1));
+        ASSERT_EQUALS(25, list2.at(2));
+        ASSERT_EQUALS(30, list2.at(3));
+
+        TList<int> list3;
+        list3.push_back(1);
+        list3.push_back(1);
+        list3.push_back(1);
+        list3.push_back(1);
+        list3.push_back(1);
+        list3.push_back(1);
+        list3.push_back(1);
+        list3.push_back(1);
+        list3.push_back(1);
+        ASSERT_EQUALS(9,  list3.size());
+        ASSERT_EQUALS(1,  list3.at(0));
+
+        list3.unique();
+        ASSERT_EQUALS(1,  list3.size());
+        ASSERT_EQUALS(1,  list3.at(0));
+
+        list3.clear();
+
+        list3.push_back(11);
+        list3.push_back(21);
+        list3.push_back(31);
+        list3.push_back(41);
+        list3.push_back(51);
+        list3.push_back(61);
+        list3.push_back(71);
+        ASSERT_EQUALS(7,  list3.size());
+        ASSERT_EQUALS(11, list3.front());
+        ASSERT_EQUALS(71, list3.back());
+
+        TList<int>::iterator zac = list3.begin();
+
+        list3.erase(zac);
+
+        ASSERT_EQUALS(6,  list3.size());
+        ASSERT_EQUALS(21, list3.at(0));
+        ASSERT_EQUALS(31, list3.at(1));
+        ASSERT_EQUALS(41, list3.at(2));
+        ASSERT_EQUALS(51, list3.at(3));
+        ASSERT_EQUALS(61, list3.at(4));
+        ASSERT_EQUALS(71, list3.at(5));
+
+        TList<int>::iterator stred = list3.begin() + 2;
+        list3.erase(stred);
+
+        ASSERT_EQUALS(5,  list3.size());
+        ASSERT_EQUALS(21, list3.at(0));
+        ASSERT_EQUALS(31, list3.at(1));
+        ASSERT_EQUALS(51, list3.at(2));
+        ASSERT_EQUALS(61, list3.at(3));
+        ASSERT_EQUALS(71, list3.at(4));
+
+        TList<int>::iterator kon = list3.end()-1;
+        list3.erase(kon);
+        ASSERT_EQUALS(4,  list3.size());
+        ASSERT_EQUALS(21, list3.at(0));
+        ASSERT_EQUALS(31, list3.at(1));
+        ASSERT_EQUALS(51, list3.at(2));
+        ASSERT_EQUALS(61, list3.at(3));        
+
+        /*
+        T*         erase (T* first, T* last);
+        void       unique();
+        */
+    }
 #endif
 
 };

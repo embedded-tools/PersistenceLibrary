@@ -75,8 +75,11 @@ public:
 
 #ifdef STL_STYLE
 	typedef TPair<KEY,VALUE>* iterator;
+    typedef const TPair<KEY,VALUE>* const_iterator;
 	TPair<KEY, VALUE>*	begin();
 	TPair<KEY, VALUE>*	end();
+    const TPair<KEY, VALUE>* cbegin() const;
+    const TPair<KEY, VALUE>* cend() const;
 	TPair<KEY, VALUE>*  data();
 	VALUE&  at(KEY key);
 	void    insert(KEY key, VALUE value);

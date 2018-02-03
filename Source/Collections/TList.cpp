@@ -47,7 +47,13 @@ TList<T>::TList(const TList<T>& list)
 template<typename T>
 TList<T>::~TList()
 {
-    Clear();
+    if (m_dataArray!=NULL)
+    {
+        free(m_dataArray);
+    }
+    m_dataArray = NULL;
+    m_dataCount = 0;
+    m_dataMaxCount = 0;
 }
 
 template<typename T>
@@ -179,18 +185,6 @@ bool TList<T>::SetCount(short count)
 {
     if (count<0) count = 0;
 
-	if (count == 0)
-	{
-		if (m_dataArray!=NULL)
-		{
-			free(m_dataArray);
-		}
-		m_dataArray = NULL;
-		m_dataCount = 0;
-		m_dataMaxCount = 0;
-		return false;
-	}
-
 	if (count>m_dataMaxCount)
 	{
 		short newCapacity = m_dataMaxCount;
@@ -226,7 +220,6 @@ bool TList<T>::SetCapacity(short reservedCapacity)
 		m_dataCount = 0;
 		m_dataMaxCount = 0;
 		return true;
-
 	}
 
 	if (m_dataArray==NULL)
@@ -252,9 +245,18 @@ bool TList<T>::SetCapacity(short reservedCapacity)
 
 
 template<typename T>
-void TList<T>::Clear()
+void TList<T>::Clear(bool unallocMemory)
 {
-    SetCount(0);    
+    if (unallocMemory)
+    {
+        if (m_dataArray!=NULL)
+        {
+            free(m_dataArray);
+        }
+        m_dataArray = NULL;        
+        m_dataMaxCount = 0;
+    }
+    m_dataCount = 0;
 };
 
 template<typename T>
@@ -357,15 +359,45 @@ TList<T>& TList<T>::operator = (const TList<T>& list)
 template<typename T>
 T* TList<T>::begin()
 {
-	if (m_dataArray==NULL) return NULL;
+	if (m_dataArray==NULL) 
+    {
+        SetCapacity(8);
+        if (m_dataArray==NULL) return NULL;
+    }
 	return &m_dataArray[0];
 }
 
 template<typename T>
 T* TList<T>::end()
 {
-	if (m_dataArray==NULL) return NULL;
+    if (m_dataArray==NULL) 
+    {
+        SetCapacity(8);
+        if (m_dataArray==NULL) return NULL;
+    }
 	return &m_dataArray[m_dataCount];
+}
+
+template<typename T>
+const T* TList<T>::cbegin() const
+{
+    if (m_dataArray==NULL) 
+    {
+        SetCapacity(8);
+        if (m_dataArray==NULL) return NULL;
+    }
+    return &m_dataArray[0];
+}
+
+template<typename T>
+const T* TList<T>::cend() const
+{
+    if (m_dataArray==NULL) 
+    {
+        SetCapacity(8);
+        if (m_dataArray==NULL) return NULL;
+    }
+    return &m_dataArray[m_dataCount];
 }
 
 template<typename T>
@@ -421,6 +453,110 @@ template<typename T>
 T TList<T>::back()
 {
 	return (*this)[m_dataCount-1];
+}
+
+template<typename T>
+T* TList<T>::insert(T* it, T value)
+{    
+    if (it<m_dataArray) return NULL;
+    if (it>(m_dataArray+m_dataMaxCount)) return NULL;
+
+    if (m_dataCount>0)
+    {
+        if (!SetCount(m_dataCount+1))
+        {
+            return NULL;
+        }
+        T* dst = end() - 1;
+        T* src = dst   - 1;
+        while(it!=dst)
+        {
+            *dst-- = *src--;
+        }
+    } else {
+        if (!SetCount(m_dataCount+1))
+        {
+            return NULL;
+        }
+    }
+    *it = value;
+    return it;
+}
+
+template<typename T>
+void TList<T>::splice(T* position, TList<T>& list, T* first, T* last)
+{
+    if (first==NULL)
+    {
+        first=list.begin();
+        last =list.end();
+    }
+    if (last==NULL)
+    {
+        last = first + 1;
+    }    
+    T* it = first;
+
+    int n = list.size();
+    while(it!=last)
+    {
+        if (n==0) break; //avoids infinite loop
+        n--;
+
+        if (insert(position++, *it++ )==NULL)
+        {
+            return;
+        }        
+    }    
+}
+
+template<typename T>
+T* TList<T>::erase(T* first, T* last)
+{
+    if (first<m_dataArray) return NULL;
+    if (first>(m_dataArray+m_dataMaxCount)) return NULL;
+
+    if (last==NULL) last = first+1;
+
+    while(true)
+    {
+        if (m_dataCount==0) break;
+
+        if (first==end()) break;
+
+        T* src = first + 1;
+        T* dst = first;
+        while(src!=end())
+        {
+            *dst++ = *src++;
+        }
+        if (!SetCount(m_dataCount-1)) break;
+
+        first++;        
+        if (first==last)
+        {
+            break;
+        }   
+    }
+    return first;
+}
+
+template<typename T>
+void TList<T>::unique()
+{
+    int n = m_dataCount;
+    for(short i = m_dataCount-1; i>0; i--)
+    {
+        if (m_dataArray[i]==m_dataArray[i-1])
+        {
+            for(short j = i; j<m_dataCount-1; j++)
+            {
+                m_dataArray[j] = m_dataArray[j+1];
+            }
+            if (n>0) n--;
+        }        
+    }
+    SetCount(n);
 }
 
 template<typename T>

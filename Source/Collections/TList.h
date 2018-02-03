@@ -54,7 +54,7 @@ public:
     short Capacity() const;
     bool  SetCount(short count);
     bool  SetCapacity(short capacity);
-    void  Clear();
+    void  Clear(bool unallocMemory=true);
 	void  Reverse();
 	void  Sort(bool ascending=true, bool deleteDoubleEntries=false);
 
@@ -64,8 +64,12 @@ public:
 
 #ifdef STL_STYLE
 	typedef T* iterator;
+    typedef const T* const_iterator;
+
 	T*         begin();
 	T*         end();
+    const T*   cbegin() const;
+    const T*   cend() const;
 	T*         data();
 	T&         at(int i);
 	void       push_back(T value);
@@ -74,6 +78,10 @@ public:
 	void       pop_back();
 	T          front();
 	T          back();
+    T*         insert(T* it, T value);
+    void       splice(T* position, TList<T>& list, T* first=NULL, T* last=NULL);
+    T*         erase (T* first, T* last=NULL);
+    void       unique();
 	bool       empty();
 	int        size();
 	int        max_size();

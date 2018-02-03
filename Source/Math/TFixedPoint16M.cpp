@@ -179,7 +179,7 @@ TFixedPoint16M& TFixedPoint16M::operator *=(long value)
     {
         return *this;
     }
-    long long result = ((long long)m_value * value);
+    __int64 result = ((__int64)m_value * value);
     if (result>=16777215)
     {
         result = 16777215;
