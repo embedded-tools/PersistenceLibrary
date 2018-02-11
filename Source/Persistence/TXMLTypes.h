@@ -1,7 +1,7 @@
 /*
  * Persistence Library / Persistence / TXMLTypes
  *
- * Copyright (c) 2007-2016 Ondrej Sterba <osterba@inbox.com>
+ * Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
  *
  * https://github.com/embedded-tools/PersistenceLibrary
  *
