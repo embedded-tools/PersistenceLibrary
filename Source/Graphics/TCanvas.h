@@ -66,10 +66,11 @@ public:
 	void DrawText(TFont font, const char* text, TRectangle area, TAlign horizontalAlign, TVerticalAlign verticalAlign);
 	void DrawTextVertical(TFont font, const char* text, TPosition position, bool directionUp=false);
 	void DrawTextVertical(TFont font, const char* text, TRectangle area, TAlign horizontalAlign, TVerticalAlign verticalAlign, bool directionUp=false);
-	void CopyRectangle(TPosition targetPosition, TGraphicsData* sourceData, TRectangle sourceRectangle, unsigned char alpha);
-	void CopyMaskedRectangle(TPosition targetPosition, TGraphicsData* sourceData, TRectangle sourceRectangle, TColorRGB maskColor);
-	void CopyScaledRectangle(TRectangle targetArea, TGraphicsData* image, TRectangle* imageRectangle=NULL);
-    void SetForegroundColor(TColorRGB foregroundColor);
+	void DrawImage(TPosition targetPosition, TGraphicsData* image, TRectangle* imageRectangle=NULL);
+	void DrawMaskedImage(TPosition targetPosition, TGraphicsData* image, TRectangle* imageRectangle=NULL, TColorRGB maskColor=TColorRGB(255,0,255));
+	void DrawTiledImage(TRectangle targetArea, TGraphicsData* image, TRectangle* imageRectangle=NULL);    
+	void DrawScaledImage(TRectangle targetArea, TGraphicsData* image, TRectangle* imageRectangle=NULL);
+	void SetForegroundColor(TColorRGB foregroundColor);
 	void SetBackgroundColor(TColorRGB backgroundColor);
     void SetPixelColor(short x, short y, TColorRGB color);
     void SetPixelColorIndex(short x, short y, unsigned char colorIndex);

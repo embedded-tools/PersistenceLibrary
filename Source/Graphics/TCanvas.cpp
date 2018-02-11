@@ -941,43 +941,98 @@ void TCanvas::DrawTextVertical(TFont font, const char* text, TRectangle area, TA
     DrawTextVertical(font, text, alignedPos, directionUp);
 }
 
-void TCanvas::CopyRectangle(TPosition targetPosition, TGraphicsData* sourceData, TRectangle sourceRectangle, unsigned char alpha)
+void TCanvas::DrawImage(TPosition targetPosition, TGraphicsData* image, TRectangle* imageRectangle)
 {
     short x,y;
     TColorRGB color;
     if (!m_graphicsData) return;
 
-    for(y = sourceRectangle.Top; y<sourceRectangle.Bottom; y++)
+	TRectangle defaultRectangle;
+	defaultRectangle.Left   = 0;
+	defaultRectangle.Top    = 0;
+	defaultRectangle.Right  = image->GetWidth();
+	defaultRectangle.Bottom = image->GetHeight();
+
+    for(y = 0; y<imageRectangle->Height(); y++)
     {
-        for(x = 0; x<sourceRectangle.Right-sourceRectangle.Left; x++)
+        for(x = 0; x<imageRectangle->Width(); x++)
         {
-            color = sourceData->GetPixelColor(x,y);
+            color = image->GetPixelColor(x + imageRectangle->Left, y + imageRectangle->Top);
             m_graphicsData->SetPixelColor(x + targetPosition.X, y + targetPosition.Y, color);
         }
     }   
 }
 
-void TCanvas::CopyMaskedRectangle(TPosition targetPosition, TGraphicsData* sourceData, TRectangle sourceRectangle, TColorRGB maskColor)
+void TCanvas::DrawMaskedImage(TPosition targetPosition, TGraphicsData* image, TRectangle* imageRectangle, TColorRGB maskColor)
 {
     short x,y;
     TColorRGB color;
     if (!m_graphicsData) return;
 
-    for(y = sourceRectangle.Top; y<sourceRectangle.Bottom; y++)
+	TRectangle defaultRectangle;
+	defaultRectangle.Left   = 0;
+	defaultRectangle.Top    = 0;
+	defaultRectangle.Right  = image->GetWidth();
+	defaultRectangle.Bottom = image->GetHeight();
+
+	if (imageRectangle==NULL)
+	{
+		imageRectangle = &defaultRectangle;
+	}
+
+    for(y = imageRectangle->Top; y<imageRectangle->Bottom; y++)
     {
-        for(x = 0; x<sourceRectangle.Right-sourceRectangle.Left; x++)
+        for(x = 0; x<imageRectangle->Right-imageRectangle->Left; x++)
         {
-            color = sourceData->GetPixelColor(x,y);
+            color = image->GetPixelColor(x,y);
             if (color==maskColor) continue;
 
             m_graphicsData->SetPixelColor(x + targetPosition.X, 
-                                     y + targetPosition.Y,
-                                     m_foregroundColor);
+                                          y + targetPosition.Y,
+                                          color);
         }
     }   
 }
 
-void TCanvas::CopyScaledRectangle(TRectangle targetArea, TGraphicsData* image, TRectangle* imageRectangle)
+void TCanvas::DrawTiledImage(TRectangle targetArea, TGraphicsData* image, TRectangle* imageRectangle)
+{
+	TRectangle defaultRectangle;
+	defaultRectangle.Left   = 0;
+	defaultRectangle.Top    = 0;
+	defaultRectangle.Right  = image->GetWidth();
+	defaultRectangle.Bottom = image->GetHeight();
+
+	if (imageRectangle==NULL)
+	{
+		imageRectangle = &defaultRectangle;
+	}
+
+	TPosition srcPoint;
+	TColorRGB color;
+
+	srcPoint.Y = imageRectangle->Top;
+	for(short y = targetArea.Top; y<targetArea.Bottom; y++)
+	{
+		srcPoint.X = imageRectangle->Left;	
+		for(short x = targetArea.Left; x<targetArea.Right; x++)
+		{
+			color = image->GetPixelColor(srcPoint.X, srcPoint.Y);
+			m_graphicsData->SetPixelColor(x, y, color);			
+			srcPoint.X++;
+			if (srcPoint.X==imageRectangle->Right)
+			{
+				srcPoint.X = 0;
+			}
+		}
+		srcPoint.Y++;
+		if (srcPoint.Y==imageRectangle->Bottom)
+		{
+			srcPoint.Y = imageRectangle->Top;
+		}
+	}
+}
+
+void TCanvas::DrawScaledImage(TRectangle targetArea, TGraphicsData* image, TRectangle* imageRectangle)
 {
 	TRectangle defaultRectangle;
 	defaultRectangle.Left   = 0;
@@ -1015,8 +1070,11 @@ void TCanvas::CopyScaledRectangle(TRectangle targetArea, TGraphicsData* image, T
 		{
 			pixel1 = image->GetPixelColor(sx.Part.Integral, sy.Part.Integral);
 			pixel2 = image->GetPixelColor(sx.Part.Integral+1, sy.Part.Integral);
-			pixel3 = image->GetPixelColor(sx.Part.Integral, sy.Part.Integral+1);
-			pixel4 = image->GetPixelColor(sx.Part.Integral+1, sy.Part.Integral+1);
+			if (sy.Part.Fractional!=0)
+			{
+				pixel3 = image->GetPixelColor(sx.Part.Integral, sy.Part.Integral+1);
+				pixel4 = image->GetPixelColor(sx.Part.Integral+1, sy.Part.Integral+1);
+			}
 
 			pixel5.R  = (
 				          (pixel1.R * (65536 - sx.Part.Fractional) + pixel2.R * sx.Part.Fractional)/65536 * (65536 - sy.Part.Fractional) +
@@ -1031,7 +1089,7 @@ void TCanvas::CopyScaledRectangle(TRectangle targetArea, TGraphicsData* image, T
 			              (pixel3.B * (65536 - sx.Part.Fractional) + pixel4.B * sx.Part.Fractional)/65536 * sy.Part.Fractional 
 						)/65536;					  
 			sx.Value += stepX;			
-			SetPixelColor(x, y, pixel5);
+			m_graphicsData->SetPixelColor(x, y, pixel5);
 		}
 		sy.Value += stepY;	
 	}

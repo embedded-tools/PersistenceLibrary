@@ -14,7 +14,8 @@ public:
         TEST_CASE( DrawElipse );
 		TEST_CASE( DrawLine );
 		TEST_CASE( DrawRectangle );
-		TEST_CASE( ScaleImage );
+		TEST_CASE( DrawScaledImage );
+		TEST_CASE( DrawTiledImage );
     }
 
     void DrawGradient()
@@ -74,7 +75,7 @@ public:
 		bmp.SaveToWindowsBmp("Rectangle.bmp");
 	}
 
-	void ScaleImage()
+	void DrawScaledImage()
 	{
 		TWindowsBmpFile claudia;
 		bool res = claudia.LoadFromWindowsBmp("..\\..\\..\\TestData\\Claudia.bmp");
@@ -86,8 +87,23 @@ public:
 		canvas.SetForegroundColor(TColorRGB(255,0,0));
 
 		TRectangle src(630, 10, 630+300, 10+300);
-		canvas.CopyScaledRectangle(TRectangle(10, 10, 310, 460), &claudia, &src);
+		canvas.DrawScaledImage(TRectangle(10, 10, 310, 460), &claudia, &src);
 		bmp.SaveToWindowsBmp("Miniature.bmp");
+	}
+
+	void DrawTiledImage()
+	{
+		TWindowsBmpFile tile;
+		bool res = tile.LoadFromWindowsBmp("..\\..\\..\\TestData\\Tile.bmp");
+		ASSERT(res);
+
+		TWindowsBmpFile bmp(800, 480, pfBGR888, 0);
+		TCanvas canvas(&bmp);
+		canvas.SetBackgroundColor(TColorRGB(0));
+		canvas.SetForegroundColor(TColorRGB(255,0,0));
+
+		canvas.DrawTiledImage(TRectangle(10, 10, 790, 470), &tile);
+		bmp.SaveToWindowsBmp("TiledImage.bmp");
 	}
 };
 
