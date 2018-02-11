@@ -21,8 +21,11 @@ class TFilter3x3
 {
 
 public:
-	TFilter3x3();
-	virtual ~TFilter3x3();
+	TFilter3x3(int f11, int f12, int f13,
+		       int f21, int f22, int f23,
+		       int f31, int f32, int f33,
+		       int divisor, int bias);
+
 	signed char _11;
 	signed char _12;
 	signed char _13;
@@ -32,6 +35,8 @@ public:
 	signed char _31;
 	signed char _32;
 	signed char _33;
+	signed char Divisor;
+	signed char Bias;
 };
 
 #endif 

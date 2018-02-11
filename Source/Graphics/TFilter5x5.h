@@ -21,8 +21,13 @@ class TFilter5x5
 {
 
 public:
-	TFilter5x5();
-	virtual ~TFilter5x5();
+	TFilter5x5(int f11, int f12, int f13, int f14, int f15,
+		       int f21, int f22, int f23, int f24, int f25,
+		       int f31, int f32, int f33, int f34, int f35,
+		       int f41, int f42, int f43, int f44, int f45,
+		       int f51, int f52, int f53, int f54, int f55,
+		       int divisor, int bias);
+
 	signed char _11;
 	signed char _12;
 	signed char _13;
@@ -48,6 +53,9 @@ public:
 	signed char _53;
 	signed char _54;
 	signed char _55;
+
+	signed char Divisor;
+	signed char Bias;
 };
 
 #endif

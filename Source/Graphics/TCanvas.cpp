@@ -1152,17 +1152,640 @@ unsigned char TCanvas::GetPixelColorIndex(short x, short y)
 }
 
 
-void TCanvas::ApplyFilter(TFilter3x3 filter)
+bool TCanvas::ApplyFilter(TFilter3x3* filter, FilteredPixelCallback callback)
 {
+	unsigned char* src1;
+	unsigned char* src2;
+	unsigned char* src3;
 
+	unsigned short bytes = m_graphicsData->GetBytesPerLine();
+	if (bytes==1)
+	{
+		for(short y = m_graphicsData->GetHeight(); y>0; y--)
+		{
+			src1 = m_graphicsData->ScanLine(y-1);
+			src2 = m_graphicsData->ScanLine(y);
+			src3 = m_graphicsData->ScanLine(y+1);
+
+			for(short x=m_graphicsData->GetWidth(); x>0; x--)
+			{
+				short color = 0;
+				if (src1)
+				{
+					color +=  ((short)*src1) * filter->_11; src1++;
+					color +=  ((short)*src1) * filter->_12; src1++;
+					color +=  ((short)*src1) * filter->_13; src1--;
+				}
+				color +=  ((short)*src2) * filter->_21; src2++;
+				color +=  ((short)*src2) * filter->_22; src2++;
+				color +=  ((short)*src2) * filter->_23; src2--;
+				if (src3)
+				{
+					color +=  ((short)*src3) * filter->_31; src3++;
+					color +=  ((short)*src3) * filter->_32; src3++;
+					color +=  ((short)*src3) * filter->_33; src3--;
+				}            
+				color /= filter->Divisor;
+				color += filter->Bias;
+				if (color<0)   color=0;
+				if (color>255) color=255;
+
+				if (callback)
+				{
+					callback(x,y, TColorRGB(color, color, color));
+				}
+			}
+		}
+		return true;
+	}
+	if (bytes==3)
+	{
+		for(short y = m_graphicsData->GetHeight(); y>0; y--)
+		{
+			src1 = m_graphicsData->ScanLine(y-1);
+			src2 = m_graphicsData->ScanLine(y);
+			src3 = m_graphicsData->ScanLine(y+1);
+
+			for(short x=m_graphicsData->GetWidth(); x>0; x--)
+			{
+				short colorB = 0;
+				short colorG = 0;
+				short colorR = 0;
+				if (src1)
+				{
+					colorB +=  ((short)*src1) * filter->_11; src1++;
+					colorG +=  ((short)*src1) * filter->_11; src1++;
+					colorR +=  ((short)*src1) * filter->_11; src1++;
+					colorB +=  ((short)*src1) * filter->_12; src1++;
+					colorG +=  ((short)*src1) * filter->_12; src1++;
+					colorR +=  ((short)*src1) * filter->_12; src1++;
+					colorB +=  ((short)*src1) * filter->_13; src1++;
+					colorG +=  ((short)*src1) * filter->_13; src1++;
+					colorR +=  ((short)*src1) * filter->_13; src1-=5;
+				}
+				colorB +=  ((short)*src2) * filter->_21; src2++;
+				colorG +=  ((short)*src2) * filter->_21; src2++;
+				colorR +=  ((short)*src2) * filter->_21; src2++;
+				colorB +=  ((short)*src2) * filter->_22; src2++;
+				colorG +=  ((short)*src2) * filter->_22; src2++;
+				colorR +=  ((short)*src2) * filter->_22; src2++;
+				colorB +=  ((short)*src2) * filter->_23; src2++;
+				colorG +=  ((short)*src2) * filter->_23; src2++;
+				colorR +=  ((short)*src2) * filter->_23; src2-=5;
+				if (src3)
+				{
+					colorB +=  ((short)*src3) * filter->_31; src3++;
+					colorG +=  ((short)*src3) * filter->_31; src3++;
+					colorR +=  ((short)*src3) * filter->_31; src3++;
+					colorB +=  ((short)*src3) * filter->_32; src3++;
+					colorG +=  ((short)*src3) * filter->_32; src3++;
+					colorR +=  ((short)*src3) * filter->_32; src3++;
+					colorB +=  ((short)*src3) * filter->_33; src3++;
+					colorG +=  ((short)*src3) * filter->_33; src3++;
+					colorR +=  ((short)*src3) * filter->_33; src3-=5;
+				}            
+				colorB /= filter->Divisor;
+				colorG /= filter->Divisor;
+				colorR /= filter->Divisor;
+				colorB += filter->Bias; 
+				colorG += filter->Bias;
+				colorR += filter->Bias;
+				if (colorB<0)   colorB=0;
+				if (colorB>255) colorB=255;
+				if (colorG<0)   colorG=0;
+				if (colorG>255) colorG=255;
+				if (colorR<0)   colorR=0;
+				if (colorR>255) colorR=255;
+
+				if (callback)
+				{
+					switch(m_graphicsData->GetPixelFormat())
+					{
+						case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR));
+						case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB));
+					}				
+				}
+			}
+		}
+		return true;
+	}
+	return false;
 }
 
-void TCanvas::ApplyFilter(TFilter5x5 filter)
+bool TCanvas::ApplyFilter(TFilter5x5* filter, FilteredPixelCallback callback)
 {
+	unsigned char* src1;
+	unsigned char* src2;
+	unsigned char* src3;
+	unsigned char* src4;
+	unsigned char* src5;
 
+	unsigned short bytes = m_graphicsData->GetBytesPerLine();
+	if (bytes==1)
+	{
+		for(short y = m_graphicsData->GetHeight(); y>0; y--)
+		{
+			src1 = m_graphicsData->ScanLine(y-2);
+			src2 = m_graphicsData->ScanLine(y-1);
+			src3 = m_graphicsData->ScanLine(y);
+			src4 = m_graphicsData->ScanLine(y+1);
+			src5 = m_graphicsData->ScanLine(y+2);
+
+			for(short x=m_graphicsData->GetWidth(); x>0; x--)
+			{
+				short color = 0;
+				if (src1)
+				{
+					color +=  ((short)*src1) * filter->_11; src1++;
+					color +=  ((short)*src1) * filter->_12; src1++;
+					color +=  ((short)*src1) * filter->_13; src1++;
+					color +=  ((short)*src1) * filter->_14; src1++;
+					color +=  ((short)*src1) * filter->_15; src1-=3;
+				}
+				if (src2)
+				{
+					color +=  ((short)*src2) * filter->_21; src2++;
+					color +=  ((short)*src2) * filter->_22; src2++;
+					color +=  ((short)*src2) * filter->_23; src2++;
+					color +=  ((short)*src2) * filter->_24; src2++;
+					color +=  ((short)*src2) * filter->_25; src2-=3;
+				}
+				color +=  ((short)*src3) * filter->_31; src3++;
+				color +=  ((short)*src3) * filter->_32; src3++;
+				color +=  ((short)*src3) * filter->_33; src3++;
+				color +=  ((short)*src3) * filter->_34; src3++;
+				color +=  ((short)*src3) * filter->_35; src3-=3;
+				if (src4)
+				{
+					color +=  ((short)*src4) * filter->_41; src4++;
+					color +=  ((short)*src4) * filter->_42; src4++;
+					color +=  ((short)*src4) * filter->_43; src4++;
+					color +=  ((short)*src4) * filter->_44; src4++;
+					color +=  ((short)*src4) * filter->_45; src4-=3;
+				}
+				if (src5)
+				{
+					color +=  ((short)*src5) * filter->_51; src5++;
+					color +=  ((short)*src5) * filter->_52; src5++;
+					color +=  ((short)*src5) * filter->_53; src5++;
+					color +=  ((short)*src5) * filter->_54; src5++;
+					color +=  ((short)*src5) * filter->_55; src5-=3;
+				}
+				color /= filter->Divisor;
+				color += filter->Bias;
+				if (color<0)   color=0;
+				if (color>255) color=255;
+
+				if (callback)
+				{
+					callback(x,y, TColorRGB(color, color, color));
+				}
+			}
+		}
+		return true;
+	}
+	if (bytes==3)
+	{
+		for(short y = m_graphicsData->GetHeight(); y>0; y--)
+		{
+			src1 = m_graphicsData->ScanLine(y-1);
+			src2 = m_graphicsData->ScanLine(y);
+			src3 = m_graphicsData->ScanLine(y+1);
+
+			for(short x=m_graphicsData->GetWidth(); x>0; x--)
+			{
+				short colorB = 0;
+				short colorG = 0;
+				short colorR = 0;
+				if (src1)
+				{
+					colorB +=  ((short)*src1) * filter->_11; src1++;
+					colorG +=  ((short)*src1) * filter->_11; src1++;
+					colorR +=  ((short)*src1) * filter->_11; src1++;
+					colorB +=  ((short)*src1) * filter->_12; src1++;
+					colorG +=  ((short)*src1) * filter->_12; src1++;
+					colorR +=  ((short)*src1) * filter->_12; src1++;
+					colorB +=  ((short)*src1) * filter->_13; src1++;
+					colorG +=  ((short)*src1) * filter->_13; src1++;
+					colorR +=  ((short)*src1) * filter->_13; src1++;
+					colorB +=  ((short)*src1) * filter->_14; src1++;
+					colorG +=  ((short)*src1) * filter->_14; src1++;
+					colorR +=  ((short)*src1) * filter->_14; src1++;
+					colorB +=  ((short)*src1) * filter->_15; src1++;
+					colorG +=  ((short)*src1) * filter->_15; src1++;
+					colorR +=  ((short)*src1) * filter->_15; src1-=11;
+				}
+				if (src2)
+				{
+					colorB +=  ((short)*src2) * filter->_21; src2++;
+					colorG +=  ((short)*src2) * filter->_21; src2++;
+					colorR +=  ((short)*src2) * filter->_21; src2++;
+					colorB +=  ((short)*src2) * filter->_22; src2++;
+					colorG +=  ((short)*src2) * filter->_22; src2++;
+					colorR +=  ((short)*src2) * filter->_22; src2++;
+					colorB +=  ((short)*src2) * filter->_23; src2++;
+					colorG +=  ((short)*src2) * filter->_23; src2++;
+					colorR +=  ((short)*src2) * filter->_23; src2++;
+					colorB +=  ((short)*src2) * filter->_24; src2++;
+					colorG +=  ((short)*src2) * filter->_24; src2++;
+					colorR +=  ((short)*src2) * filter->_24; src2++;
+					colorB +=  ((short)*src2) * filter->_25; src2++;
+					colorG +=  ((short)*src2) * filter->_25; src2++;
+					colorR +=  ((short)*src2) * filter->_25; src2-=11;
+				}
+				colorB +=  ((short)*src3) * filter->_31; src3++;
+				colorG +=  ((short)*src3) * filter->_31; src3++;
+				colorR +=  ((short)*src3) * filter->_31; src3++;
+				colorB +=  ((short)*src3) * filter->_32; src3++;
+				colorG +=  ((short)*src3) * filter->_32; src3++;
+				colorR +=  ((short)*src3) * filter->_32; src3++;
+				colorB +=  ((short)*src3) * filter->_33; src3++;
+				colorG +=  ((short)*src3) * filter->_33; src3++;
+				colorR +=  ((short)*src3) * filter->_33; src3++;
+				colorB +=  ((short)*src3) * filter->_34; src3++;
+				colorG +=  ((short)*src3) * filter->_34; src3++;
+				colorR +=  ((short)*src3) * filter->_34; src3++;
+				colorB +=  ((short)*src3) * filter->_35; src3++;
+				colorG +=  ((short)*src3) * filter->_35; src3++;
+				colorR +=  ((short)*src3) * filter->_35; src3-=11;
+				if (src4)
+				{
+					colorB +=  ((short)*src4) * filter->_41; src4++;
+					colorG +=  ((short)*src4) * filter->_41; src4++;
+					colorR +=  ((short)*src4) * filter->_41; src4++;
+					colorB +=  ((short)*src4) * filter->_42; src4++;
+					colorG +=  ((short)*src4) * filter->_42; src4++;
+					colorR +=  ((short)*src4) * filter->_42; src4++;
+					colorB +=  ((short)*src4) * filter->_43; src4++;
+					colorG +=  ((short)*src4) * filter->_43; src4++;
+					colorR +=  ((short)*src4) * filter->_43; src4++;
+					colorB +=  ((short)*src4) * filter->_44; src4++;
+					colorG +=  ((short)*src4) * filter->_44; src4++;
+					colorR +=  ((short)*src4) * filter->_44; src4++;
+					colorB +=  ((short)*src4) * filter->_45; src4++;
+					colorG +=  ((short)*src4) * filter->_45; src4++;
+					colorR +=  ((short)*src4) * filter->_45; src4-=11;
+				}
+				if (src5)
+				{
+					colorB +=  ((short)*src5) * filter->_51; src5++;
+					colorG +=  ((short)*src5) * filter->_51; src5++;
+					colorR +=  ((short)*src5) * filter->_51; src5++;
+					colorB +=  ((short)*src5) * filter->_52; src5++;
+					colorG +=  ((short)*src5) * filter->_52; src5++;
+					colorR +=  ((short)*src5) * filter->_52; src5++;
+					colorB +=  ((short)*src5) * filter->_53; src5++;
+					colorG +=  ((short)*src5) * filter->_53; src5++;
+					colorR +=  ((short)*src5) * filter->_53; src5++;
+					colorB +=  ((short)*src5) * filter->_54; src5++;
+					colorG +=  ((short)*src5) * filter->_54; src5++;
+					colorR +=  ((short)*src5) * filter->_54; src5++;
+					colorB +=  ((short)*src5) * filter->_55; src5++;
+					colorG +=  ((short)*src5) * filter->_55; src5++;
+					colorR +=  ((short)*src5) * filter->_55; src5-=11;
+				}
+
+				colorB /= filter->Divisor;
+				colorG /= filter->Divisor;
+				colorR /= filter->Divisor;
+				colorB += filter->Bias;
+				colorG += filter->Bias;
+				colorR += filter->Bias;
+
+				if (colorB<0)   colorB=0;
+				if (colorB>255) colorB=255;
+				if (colorG<0)   colorG=0;
+				if (colorG>255) colorG=255;
+				if (colorR<0)   colorR=0;
+				if (colorR>255) colorR=255;
+
+				if (callback)
+				{
+					switch(m_graphicsData->GetPixelFormat())
+					{
+					case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR));
+					case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB));
+					}				
+				}
+			}
+		}
+		return true;
+	}
+	return false;
 }
 
-void TCanvas::ApplyFilter(TFilter7x7 filter)
+bool TCanvas::ApplyFilter(TFilter7x7* filter, FilteredPixelCallback callback)
 {
+	unsigned char* src1;
+	unsigned char* src2;
+	unsigned char* src3;
+	unsigned char* src4;
+	unsigned char* src5;
+	unsigned char* src6;
+	unsigned char* src7;
 
+	unsigned short bytes = m_graphicsData->GetBytesPerLine();
+	if (bytes==1)
+	{
+		for(short y = m_graphicsData->GetHeight(); y>0; y--)
+		{
+			src1 = m_graphicsData->ScanLine(y-3);
+			src2 = m_graphicsData->ScanLine(y-2);
+			src3 = m_graphicsData->ScanLine(y-1);
+			src4 = m_graphicsData->ScanLine(y);
+			src5 = m_graphicsData->ScanLine(y+1);
+			src6 = m_graphicsData->ScanLine(y+2);
+			src7 = m_graphicsData->ScanLine(y+3);
+
+			for(short x=m_graphicsData->GetWidth(); x>0; x--)
+			{
+				short color = 0;
+				if (src1)
+				{
+					color +=  ((short)*src1) * filter->_11; src1++;
+					color +=  ((short)*src1) * filter->_12; src1++;
+					color +=  ((short)*src1) * filter->_13; src1++;
+					color +=  ((short)*src1) * filter->_14; src1++;
+					color +=  ((short)*src1) * filter->_15; src1++;
+					color +=  ((short)*src1) * filter->_16; src1++;
+					color +=  ((short)*src1) * filter->_17; src1-=5;
+				}
+				if (src2)
+				{
+					color +=  ((short)*src2) * filter->_21; src2++;
+					color +=  ((short)*src2) * filter->_22; src2++;
+					color +=  ((short)*src2) * filter->_23; src2++;
+					color +=  ((short)*src2) * filter->_24; src2++;
+					color +=  ((short)*src2) * filter->_25; src2++;
+					color +=  ((short)*src2) * filter->_26; src2++;
+					color +=  ((short)*src2) * filter->_27; src2-=5;
+				}
+				if (src3)
+				{
+					color +=  ((short)*src3) * filter->_31; src3++;
+					color +=  ((short)*src3) * filter->_32; src3++;
+					color +=  ((short)*src3) * filter->_33; src3++;
+					color +=  ((short)*src3) * filter->_34; src3++;
+					color +=  ((short)*src3) * filter->_35; src3++;
+					color +=  ((short)*src3) * filter->_36; src3++;
+					color +=  ((short)*src3) * filter->_37; src3-=5;
+				}
+				color +=  ((short)*src4) * filter->_41; src4++;
+				color +=  ((short)*src4) * filter->_42; src4++;
+				color +=  ((short)*src4) * filter->_43; src4++;
+				color +=  ((short)*src4) * filter->_44; src4++;
+				color +=  ((short)*src4) * filter->_45; src4++;
+				color +=  ((short)*src4) * filter->_46; src4++;
+				color +=  ((short)*src4) * filter->_47; src4-=5; 
+				if (src5)
+				{
+					color +=  ((short)*src5) * filter->_51; src5++;
+					color +=  ((short)*src5) * filter->_52; src5++;
+					color +=  ((short)*src5) * filter->_53; src5++;
+					color +=  ((short)*src5) * filter->_54; src5++;
+					color +=  ((short)*src5) * filter->_55; src5++;
+					color +=  ((short)*src5) * filter->_56; src5++;
+					color +=  ((short)*src5) * filter->_57; src5-=5;
+				}
+				if (src6)
+				{
+					color +=  ((short)*src6) * filter->_61; src6++;
+					color +=  ((short)*src6) * filter->_62; src6++;
+					color +=  ((short)*src6) * filter->_63; src6++;
+					color +=  ((short)*src6) * filter->_64; src6++;
+					color +=  ((short)*src6) * filter->_65; src6++;
+					color +=  ((short)*src6) * filter->_66; src6++;
+					color +=  ((short)*src6) * filter->_67; src6-=5;
+				}
+				if (src7)
+				{
+					color +=  ((short)*src7) * filter->_71; src7++;
+					color +=  ((short)*src7) * filter->_72; src7++;
+					color +=  ((short)*src7) * filter->_73; src7++;
+					color +=  ((short)*src7) * filter->_74; src7++;
+					color +=  ((short)*src7) * filter->_75; src7++;
+					color +=  ((short)*src7) * filter->_76; src7++;
+					color +=  ((short)*src7) * filter->_77; src7-=5;
+				}
+				color /= filter->Divisor;
+				color += filter->Bias;
+				if (color<0)   color=0;
+				if (color>255) color=255;
+
+				if (callback)
+				{
+					callback(x,y, TColorRGB(color, color, color));
+				}
+			}
+		}
+		return true;
+	}
+	if (bytes==3)
+	{
+		for(short y = m_graphicsData->GetHeight(); y>0; y--)
+		{
+			src1 = m_graphicsData->ScanLine(y-1);
+			src2 = m_graphicsData->ScanLine(y);
+			src3 = m_graphicsData->ScanLine(y+1);
+
+			for(short x=m_graphicsData->GetWidth(); x>0; x--)
+			{
+				short colorB = 0;
+				short colorG = 0;
+				short colorR = 0;
+				if (src1)
+				{
+					colorB +=  ((short)*src1) * filter->_11; src1++;
+					colorG +=  ((short)*src1) * filter->_11; src1++;
+					colorR +=  ((short)*src1) * filter->_11; src1++;
+					colorB +=  ((short)*src1) * filter->_12; src1++;
+					colorG +=  ((short)*src1) * filter->_12; src1++;
+					colorR +=  ((short)*src1) * filter->_12; src1++;
+					colorB +=  ((short)*src1) * filter->_13; src1++;
+					colorG +=  ((short)*src1) * filter->_13; src1++;
+					colorR +=  ((short)*src1) * filter->_13; src1++;
+					colorB +=  ((short)*src1) * filter->_14; src1++;
+					colorG +=  ((short)*src1) * filter->_14; src1++;
+					colorR +=  ((short)*src1) * filter->_14; src1++;
+					colorB +=  ((short)*src1) * filter->_15; src1++;
+					colorG +=  ((short)*src1) * filter->_15; src1++;
+					colorR +=  ((short)*src1) * filter->_15; src1++;
+					colorB +=  ((short)*src1) * filter->_16; src1++;
+					colorG +=  ((short)*src1) * filter->_16; src1++;
+					colorR +=  ((short)*src1) * filter->_16; src1++;
+					colorB +=  ((short)*src1) * filter->_17; src1++;
+					colorG +=  ((short)*src1) * filter->_17; src1++;
+					colorR +=  ((short)*src1) * filter->_17; src1-=17;
+				}
+				if (src2)
+				{
+					colorB +=  ((short)*src2) * filter->_21; src2++;
+					colorG +=  ((short)*src2) * filter->_21; src2++;
+					colorR +=  ((short)*src2) * filter->_21; src2++;
+					colorB +=  ((short)*src2) * filter->_22; src2++;
+					colorG +=  ((short)*src2) * filter->_22; src2++;
+					colorR +=  ((short)*src2) * filter->_22; src2++;
+					colorB +=  ((short)*src2) * filter->_23; src2++;
+					colorG +=  ((short)*src2) * filter->_23; src2++;
+					colorR +=  ((short)*src2) * filter->_23; src2++;
+					colorB +=  ((short)*src2) * filter->_24; src2++;
+					colorG +=  ((short)*src2) * filter->_24; src2++;
+					colorR +=  ((short)*src2) * filter->_24; src2++;
+					colorB +=  ((short)*src2) * filter->_25; src2++;
+					colorG +=  ((short)*src2) * filter->_25; src2++;
+					colorR +=  ((short)*src2) * filter->_25; src2++;
+					colorB +=  ((short)*src2) * filter->_26; src2++;
+					colorG +=  ((short)*src2) * filter->_26; src2++;
+					colorR +=  ((short)*src2) * filter->_26; src2++;
+					colorB +=  ((short)*src2) * filter->_27; src2++;
+					colorG +=  ((short)*src2) * filter->_27; src2++;
+					colorR +=  ((short)*src2) * filter->_27; src2-=17;
+				}
+				if (src3)
+				{
+					colorB +=  ((short)*src3) * filter->_31; src3++;
+					colorG +=  ((short)*src3) * filter->_31; src3++;
+					colorR +=  ((short)*src3) * filter->_31; src3++;
+					colorB +=  ((short)*src3) * filter->_32; src3++;
+					colorG +=  ((short)*src3) * filter->_32; src3++;
+					colorR +=  ((short)*src3) * filter->_32; src3++;
+					colorB +=  ((short)*src3) * filter->_33; src3++;
+					colorG +=  ((short)*src3) * filter->_33; src3++;
+					colorR +=  ((short)*src3) * filter->_33; src3++;
+					colorB +=  ((short)*src3) * filter->_34; src3++;
+					colorG +=  ((short)*src3) * filter->_34; src3++;
+					colorR +=  ((short)*src3) * filter->_34; src3++;
+					colorB +=  ((short)*src3) * filter->_35; src3++;
+					colorG +=  ((short)*src3) * filter->_35; src3++;
+					colorR +=  ((short)*src3) * filter->_35; src3++;
+					colorB +=  ((short)*src3) * filter->_36; src3++;
+					colorG +=  ((short)*src3) * filter->_36; src3++;
+					colorR +=  ((short)*src3) * filter->_36; src3++;
+					colorB +=  ((short)*src3) * filter->_37; src3++;
+					colorG +=  ((short)*src3) * filter->_37; src3++;
+					colorR +=  ((short)*src3) * filter->_37; src3-=17;
+				}
+				colorB +=  ((short)*src4) * filter->_41; src4++;
+				colorG +=  ((short)*src4) * filter->_41; src4++;
+				colorR +=  ((short)*src4) * filter->_41; src4++;
+				colorB +=  ((short)*src4) * filter->_42; src4++;
+				colorG +=  ((short)*src4) * filter->_42; src4++;
+				colorR +=  ((short)*src4) * filter->_42; src4++;
+				colorB +=  ((short)*src4) * filter->_43; src4++;
+				colorG +=  ((short)*src4) * filter->_43; src4++;
+				colorR +=  ((short)*src4) * filter->_43; src4++;
+				colorB +=  ((short)*src4) * filter->_44; src4++;
+				colorG +=  ((short)*src4) * filter->_44; src4++;
+				colorR +=  ((short)*src4) * filter->_44; src4++;
+				colorB +=  ((short)*src4) * filter->_45; src4++;
+				colorG +=  ((short)*src4) * filter->_45; src4++;
+				colorR +=  ((short)*src4) * filter->_45; src4++;
+				colorB +=  ((short)*src4) * filter->_46; src4++;
+				colorG +=  ((short)*src4) * filter->_46; src4++;
+				colorR +=  ((short)*src4) * filter->_46; src4++;
+				colorB +=  ((short)*src4) * filter->_47; src4++;
+				colorG +=  ((short)*src4) * filter->_47; src4++;
+				colorR +=  ((short)*src4) * filter->_47; src4-=17;
+				if (src5)
+				{
+					colorB +=  ((short)*src5) * filter->_51; src5++;
+					colorG +=  ((short)*src5) * filter->_51; src5++;
+					colorR +=  ((short)*src5) * filter->_51; src5++;
+					colorB +=  ((short)*src5) * filter->_52; src5++;
+					colorG +=  ((short)*src5) * filter->_52; src5++;
+					colorR +=  ((short)*src5) * filter->_52; src5++;
+					colorB +=  ((short)*src5) * filter->_53; src5++;
+					colorG +=  ((short)*src5) * filter->_53; src5++;
+					colorR +=  ((short)*src5) * filter->_53; src5++;
+					colorB +=  ((short)*src5) * filter->_54; src5++;
+					colorG +=  ((short)*src5) * filter->_54; src5++;
+					colorR +=  ((short)*src5) * filter->_54; src5++;
+					colorB +=  ((short)*src5) * filter->_55; src5++;
+					colorG +=  ((short)*src5) * filter->_55; src5++;
+					colorR +=  ((short)*src5) * filter->_55; src5++;
+					colorB +=  ((short)*src5) * filter->_56; src5++;
+					colorG +=  ((short)*src5) * filter->_56; src5++;
+					colorR +=  ((short)*src5) * filter->_56; src5++;
+					colorB +=  ((short)*src5) * filter->_57; src5++;
+					colorG +=  ((short)*src5) * filter->_57; src5++;
+					colorR +=  ((short)*src5) * filter->_57; src5-=17;
+				}
+				if (src6)
+				{
+					colorB +=  ((short)*src6) * filter->_61; src6++;
+					colorG +=  ((short)*src6) * filter->_61; src6++;
+					colorR +=  ((short)*src6) * filter->_61; src6++;
+					colorB +=  ((short)*src6) * filter->_62; src6++;
+					colorG +=  ((short)*src6) * filter->_62; src6++;
+					colorR +=  ((short)*src6) * filter->_62; src6++;
+					colorB +=  ((short)*src6) * filter->_63; src6++;
+					colorG +=  ((short)*src6) * filter->_63; src6++;
+					colorR +=  ((short)*src6) * filter->_63; src6++;
+					colorB +=  ((short)*src6) * filter->_64; src6++;
+					colorG +=  ((short)*src6) * filter->_64; src6++;
+					colorR +=  ((short)*src6) * filter->_64; src6++;
+					colorB +=  ((short)*src6) * filter->_65; src6++;
+					colorG +=  ((short)*src6) * filter->_65; src6++;
+					colorR +=  ((short)*src6) * filter->_65; src6++;
+					colorB +=  ((short)*src6) * filter->_66; src6++;
+					colorG +=  ((short)*src6) * filter->_66; src6++;
+					colorR +=  ((short)*src6) * filter->_66; src6++;
+					colorB +=  ((short)*src6) * filter->_67; src6++;
+					colorG +=  ((short)*src6) * filter->_67; src6++;
+					colorR +=  ((short)*src6) * filter->_67; src6-=17;
+				}                                   
+				if (src7)
+				{
+					colorB +=  ((short)*src7) * filter->_71; src7++;
+					colorG +=  ((short)*src7) * filter->_71; src7++;
+					colorR +=  ((short)*src7) * filter->_71; src7++;
+					colorB +=  ((short)*src7) * filter->_72; src7++;
+					colorG +=  ((short)*src7) * filter->_72; src7++;
+					colorR +=  ((short)*src7) * filter->_72; src7++;
+					colorB +=  ((short)*src7) * filter->_73; src7++;
+					colorG +=  ((short)*src7) * filter->_73; src7++;
+					colorR +=  ((short)*src7) * filter->_73; src7++;
+					colorB +=  ((short)*src7) * filter->_74; src7++;
+					colorG +=  ((short)*src7) * filter->_74; src7++;
+					colorR +=  ((short)*src7) * filter->_74; src7++;
+					colorB +=  ((short)*src7) * filter->_75; src7++;
+					colorG +=  ((short)*src7) * filter->_75; src7++;
+					colorR +=  ((short)*src7) * filter->_75; src7++;
+					colorB +=  ((short)*src7) * filter->_76; src7++;
+					colorG +=  ((short)*src7) * filter->_76; src7++;
+					colorR +=  ((short)*src7) * filter->_76; src7++;
+					colorB +=  ((short)*src7) * filter->_77; src7++;
+					colorG +=  ((short)*src7) * filter->_77; src7++;
+					colorR +=  ((short)*src7) * filter->_77; src7-=17;
+				}
+
+				colorB /= filter->Divisor;
+				colorG /= filter->Divisor;
+				colorR /= filter->Divisor;
+
+				colorB += filter->Bias;
+				colorG += filter->Bias;
+				colorR += filter->Bias;
+
+				if (colorB<0)   colorB=0;
+				if (colorB>255) colorB=255;
+				if (colorG<0)   colorG=0;
+				if (colorG>255) colorG=255;
+				if (colorR<0)   colorR=0;
+				if (colorR>255) colorR=255;
+
+				if (callback)
+				{
+					switch(m_graphicsData->GetPixelFormat())
+					{
+					case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR));
+					case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB));
+					}				
+				}
+			}
+		}
+		return true;
+	}
+	return false;
 }
+

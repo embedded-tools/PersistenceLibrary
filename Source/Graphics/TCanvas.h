@@ -39,6 +39,8 @@ typedef union
 	unsigned long Value;
 } TScaledCoordinate;
 
+typedef int (*FilteredPixelCallback)(short x, short y, TColorRGB color);
+
 class TCanvas
 {
 private:
@@ -80,9 +82,9 @@ public:
     TColorRGB GetPixelColor(short x, short y);
     unsigned char GetPixelColorIndex(short x, short y);
 
-	void ApplyFilter(TFilter3x3 filter);
-	void ApplyFilter(TFilter5x5 filter);
-	void ApplyFilter(TFilter7x7 filter);
+	bool ApplyFilter(TFilter3x3* filter, FilteredPixelCallback callback);
+	bool ApplyFilter(TFilter5x5* filter, FilteredPixelCallback callback);
+	bool ApplyFilter(TFilter7x7* filter, FilteredPixelCallback callback);
 
 private:
 	TGraphicsData* m_vram;

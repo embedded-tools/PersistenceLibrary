@@ -21,8 +21,16 @@ class TFilter7x7
 {
 
 public:
-	TFilter7x7();
-	virtual ~TFilter7x7();
+
+	TFilter7x7(int f11, int f12, int f13, int f14, int f15, int f16, int f17,
+		       int f21, int f22, int f23, int f24, int f25, int f26, int f27,
+		       int f31, int f32, int f33, int f34, int f35, int f36, int f37,
+		       int f41, int f42, int f43, int f44, int f45, int f46, int f47,
+		       int f51, int f52, int f53, int f54, int f55, int f56, int f57,
+		       int f61, int f62, int f63, int f64, int f65, int f66, int f67,
+		       int f71, int f72, int f73, int f74, int f75, int f76, int f77,
+		       int divisor, int bias);
+
 	signed char _11;
 	signed char _12;
 	signed char _13;
@@ -73,6 +81,8 @@ public:
 	signed char _76;
 	signed char _77;
 
+	signed char Divisor;
+	signed char Bias;
 };
 
 #endif
