@@ -115,6 +115,7 @@
     <ClCompile Include="..\..\..\Source\Graphics\TColorYUV.cpp" />
     <ClCompile Include="..\..\..\Source\Graphics\TDisplay320x240x65536.cpp" />
     <ClCompile Include="..\..\..\Source\Graphics\TDxtBlockCreator.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TEndlessLine.cpp" />
     <ClCompile Include="..\..\..\Source\Graphics\TFilter3x3.cpp" />
     <ClCompile Include="..\..\..\Source\Graphics\TFilter5x5.cpp" />
     <ClCompile Include="..\..\..\Source\Graphics\TFilter7x7.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="..\..\..\Source\Graphics\TPosition.cpp" />
     <ClCompile Include="..\..\..\Source\Graphics\TRectangle.cpp" />
     <ClCompile Include="..\..\..\Source\Graphics\TSize.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TVector.cpp" />
     <ClCompile Include="..\..\..\Source\Graphics\TWindowsBmpFile.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +139,7 @@
     <ClInclude Include="..\..\..\Source\Graphics\TColorYUV.h" />
     <ClInclude Include="..\..\..\Source\Graphics\TDisplay320x240x65536.h" />
     <ClInclude Include="..\..\..\Source\Graphics\TDxtBlockCreator.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TEndlessLine.h" />
     <ClInclude Include="..\..\..\Source\Graphics\TFilter3x3.h" />
     <ClInclude Include="..\..\..\Source\Graphics\TFilter5x5.h" />
     <ClInclude Include="..\..\..\Source\Graphics\TFilter7x7.h" />
@@ -147,6 +150,7 @@
     <ClInclude Include="..\..\..\Source\Graphics\TPosition.h" />
     <ClInclude Include="..\..\..\Source\Graphics\TRectangle.h" />
     <ClInclude Include="..\..\..\Source\Graphics\TSize.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TVector.h" />
     <ClInclude Include="..\..\..\Source\Graphics\TVerticalAlign.h" />
     <ClInclude Include="..\..\..\Source\Graphics\TWindowsBmpFile.h" />
   </ItemGroup>

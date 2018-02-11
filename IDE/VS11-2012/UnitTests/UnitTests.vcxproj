@@ -172,6 +172,7 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TDateTimeCounter.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TDictionary.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_Template.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TEndlessLine.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFilePath.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFileStream.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint1024.cpp" />
