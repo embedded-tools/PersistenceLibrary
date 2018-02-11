@@ -29,23 +29,37 @@
 #include "TFilter7x7.h"
 #include "TColorRGB.h"
 
+typedef union
+{
+	struct
+	{
+		unsigned short Fractional;
+		unsigned short Integral;
+	} Part;
+	unsigned long Value;
+} TScaledCoordinate;
+
 class TCanvas
 {
 private:
     TGraphicsData* m_graphicsData;
     TColorRGB      m_backgroundColor;
     TColorRGB      m_foregroundColor;
+    bool           m_blending;    
 
 public:
     TCanvas(TGraphicsData* vram);
 	virtual ~TCanvas();
+
+	static int FastSqrt(int x);
 	
-	void DrawElipse(TRectangle area);
-	void DrawGradient(TRectangle area, TColorRGB topLeftColor, TColorRGB topRightColor, TColorRGB bottomLeftColor, TColorRGB bottomRightColor);
-	void DrawLine(TPosition startPosition, TPosition endPosition);
-	void DrawPolyLine(TPosition* coordinates, short count);
+	void DrawElipse(TRectangle area, unsigned char antialiasingFactor=1);
+    void DrawGradient(TRectangle area, TColorRGB topLeftColor, TColorRGB topRightColor, TColorRGB bottomLeftColor, TColorRGB bottomRightColor);
+	void DrawLine(TPosition startPosition, TPosition endPosition, unsigned char startWidth, unsigned char endWidth, unsigned char antialiasFactor);
+	void DrawLine(TPosition startPosition, TPosition endPosition, unsigned char startWidth, unsigned char endWidth, unsigned char antialiasFactor, TPosition* previousPoint, TPosition* nextPoint);
+	void DrawPolyLine(TPosition* positionArray, short positionArrayLength, unsigned char width, unsigned char antialiasFactor);
 	void DrawRectangle(TRectangle rectangle);
-	void DrawRoundedRectangle(TRectangle rectangle, short radius);
+	void DrawRoundedRectangle(TRectangle rectangle, short radius, unsigned char antialiasingFactor );
     void DrawCharacter (TFontCharacter character, TPosition position);
     void DrawCharacterVertical (TFontCharacter character, TPosition position, bool directionUp);
 	void DrawText(TFont font, const char* text, TPosition position);
@@ -54,7 +68,7 @@ public:
 	void DrawTextVertical(TFont font, const char* text, TRectangle area, TAlign horizontalAlign, TVerticalAlign verticalAlign, bool directionUp=false);
 	void CopyRectangle(TPosition targetPosition, TGraphicsData* sourceData, TRectangle sourceRectangle, unsigned char alpha);
 	void CopyMaskedRectangle(TPosition targetPosition, TGraphicsData* sourceData, TRectangle sourceRectangle, TColorRGB maskColor);
-	void CopyScaledRectangle(TRectangle targetArea, TGraphicsData* sourceData, TRectangle sourceRectangle);
+	void CopyScaledRectangle(TRectangle targetArea, TGraphicsData* image, TRectangle* imageRectangle=NULL);
     void SetForegroundColor(TColorRGB foregroundColor);
 	void SetBackgroundColor(TColorRGB backgroundColor);
     void SetPixelColor(short x, short y, TColorRGB color);

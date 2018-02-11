@@ -17,6 +17,8 @@
 #ifndef TPOSITION___H
 #define TPOSITION___H
 
+class TVector;
+
 class TPosition
 {
 
@@ -28,6 +30,9 @@ public:
 	short Y;
 
 	TPosition& operator=(const TPosition &pos);
+	TPosition  operator+(const TVector   &pos);
+	TPosition  operator-(const TVector   &pos);
+	TVector    operator-(const TPosition &pos);
 
 };
 

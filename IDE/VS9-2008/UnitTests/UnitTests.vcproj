@@ -334,6 +334,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TCanvas.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TColor.cpp"
 				>
 			</File>
@@ -363,6 +367,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_Template.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TEndlessLine.cpp"
 				>
 			</File>
 			<File

@@ -15,6 +15,7 @@
  */
 
 #include "TPosition.h"
+#include "TVector.h"
 
 TPosition::TPosition()
 {
@@ -39,4 +40,29 @@ TPosition& TPosition::operator=(const TPosition &pos)
 	this->X = pos.X;
 	this->Y = pos.Y;
 	return *this;
+}
+
+TPosition  TPosition::operator+(const TVector   &pos)
+{
+	TPosition result;
+	result.X = X + pos.DirectionX;
+	result.Y = Y + pos.DirectionY;
+	return result;
+}
+
+TPosition  TPosition::operator-(const TVector   &pos)
+{
+	TPosition result;
+	result.X = X - pos.DirectionX;
+	result.Y = Y - pos.DirectionY;
+	return result;
+}
+
+
+TVector    TPosition::operator-(const TPosition &pos)
+{
+	TVector result;
+	result.DirectionX = X - pos.X;
+	result.DirectionY = Y - pos.Y;
+	return result;
 }

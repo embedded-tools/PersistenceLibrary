@@ -149,7 +149,9 @@ short  TGraphicsData::GetBitsPerPixel()
         case pfRGB332:   return 8;
         case pfRGB555:
         case pfRGB565:   return 16;
+        case pfBGR888:
         case pfRGB888:   return 24;
+        case pfBGRA8888:
         case pfRGBA8888: return 32;
         case pfDXT1:     return 16;
         case pfDXT3:     return 32;

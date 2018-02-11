@@ -1,1 +1,0 @@
-Keil2GCC.exe d:\Open429\DemoProjects\Project\LCD_4.3inch\MDK-ARM\Project.uvproj -scanlibs ..\makefile
