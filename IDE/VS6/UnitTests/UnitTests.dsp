@@ -235,6 +235,10 @@ SOURCE=..\..\..\Source\UnitTests\Test_TCachedMemoryStream.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\UnitTests\Test_TCanvas.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\UnitTests\Test_TColor.cpp
 # End Source File
 # Begin Source File
@@ -264,6 +268,10 @@ SOURCE=..\..\..\Source\UnitTests\Test_TDictionary.cpp
 # Begin Source File
 
 SOURCE=..\..\..\Source\UnitTests\Test_Template.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Test_TEndlessLine.cpp
 # End Source File
 # Begin Source File
 

@@ -113,6 +113,10 @@ SOURCE=..\..\..\Source\Graphics\TDxtBlockCreator.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\Graphics\TEndlessLine.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\Graphics\TFilter3x3.cpp
 # End Source File
 # Begin Source File
@@ -150,6 +154,10 @@ SOURCE=..\..\..\Source\Graphics\TRectangle.cpp
 # Begin Source File
 
 SOURCE=..\..\..\Source\Graphics\TSize.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Graphics\TVector.cpp
 # End Source File
 # Begin Source File
 
@@ -197,6 +205,10 @@ SOURCE=..\..\..\Source\Graphics\TDxtBlockCreator.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\Graphics\TEndlessLine.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\Graphics\TFilter3x3.h
 # End Source File
 # Begin Source File
@@ -217,6 +229,10 @@ SOURCE=..\..\..\Source\Graphics\TFontCharacter.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\Graphics\TFontDataAlignment.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\Graphics\TGraphicsData.h
 # End Source File
 # Begin Source File
@@ -234,6 +250,10 @@ SOURCE=..\..\..\Source\Graphics\TRectangle.h
 # Begin Source File
 
 SOURCE=..\..\..\Source\Graphics\TSize.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Graphics\TVector.h
 # End Source File
 # Begin Source File
 
