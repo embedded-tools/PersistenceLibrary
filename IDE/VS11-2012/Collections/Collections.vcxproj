@@ -109,6 +109,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\Collections\Collections.h" />
+    <ClInclude Include="..\..\..\Source\Collections\TArray.h" />
     <ClInclude Include="..\..\..\Source\Collections\TDictionary.h" />
     <ClInclude Include="..\..\..\Source\Collections\TEnumerable.h" />
     <ClInclude Include="..\..\..\Source\Collections\TEnumerator.h" />
@@ -118,10 +119,12 @@
     <ClInclude Include="..\..\..\Source\Collections\TQueue.h" />
     <ClInclude Include="..\..\..\Source\Collections\TSafeArray.h" />
     <ClInclude Include="..\..\..\Source\Collections\TSortedDictionary.h" />
+    <ClInclude Include="..\..\..\Source\Collections\TStack.h" />
     <ClInclude Include="..\..\..\Source\Collections\TStaticDictionary.h" />
     <ClInclude Include="..\..\..\Source\Collections\TStaticList.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Source\Collections\TArray.cpp" />
     <ClCompile Include="..\..\..\Source\Collections\TDictionary.cpp" />
     <ClCompile Include="..\..\..\Source\Collections\TEnumerable.cpp" />
     <ClCompile Include="..\..\..\Source\Collections\TEnumerator.cpp" />
@@ -130,6 +133,7 @@
     <ClCompile Include="..\..\..\Source\Collections\TQueue.cpp" />
     <ClCompile Include="..\..\..\Source\Collections\TSafeArray.cpp" />
     <ClCompile Include="..\..\..\Source\Collections\TSortedDictionary.cpp" />
+    <ClCompile Include="..\..\..\Source\Collections\TStack.cpp" />
     <ClCompile Include="..\..\..\Source\Collections\TStaticDictionary.cpp" />
     <ClCompile Include="..\..\..\Source\Collections\TStaticList.cpp" />
   </ItemGroup>

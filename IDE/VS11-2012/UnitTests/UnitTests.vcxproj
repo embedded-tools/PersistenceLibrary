@@ -164,6 +164,7 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TBinaryProtocol.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedFileStream.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedMemoryStream.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCanvas.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TColor.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TCompression.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TCustomString.cpp" />
@@ -189,6 +190,7 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TSafeArray.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TShortString.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TSortedDictionary.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStack.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TStaticDictionary.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TStaticList.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TString.cpp" />
