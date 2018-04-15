@@ -24,6 +24,8 @@
     <ClInclude Include="..\..\..\Source\BasicTypes\TTime.h" />
     <ClInclude Include="..\..\..\Source\BasicTypes\TWideString.h" />
     <ClInclude Include="..\..\..\Source\BasicTypes\UTF8.h" />
+    <ClInclude Include="..\..\..\Source\Collections\TArray.h" />
+    <ClInclude Include="..\..\..\Source\Collections\TStack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\BasicTypes\StringUtils.cpp" />
@@ -38,6 +40,8 @@
     <ClCompile Include="..\..\..\Source\BasicTypes\TTime.cpp" />
     <ClCompile Include="..\..\..\Source\BasicTypes\TWideString.cpp" />
     <ClCompile Include="..\..\..\Source\BasicTypes\UTF8.c" />
+    <ClCompile Include="..\..\..\Source\Collections\TArray.cpp" />
+    <ClCompile Include="..\..\..\Source\Collections\TStack.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{30E0F53B-D83C-47AD-B87A-3435F5AEFF05}</ProjectGuid>

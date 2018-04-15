@@ -10,6 +10,54 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Source\Graphics\EPixelFormat.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TAlign.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TCachedWindowsBmpFile.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TCanvas.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TColorConverter.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TColorRGB.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TColorYUV.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TDisplay320x240x65536.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TDxtBlockCreator.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TEndlessLine.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TFilter3x3.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TFilter5x5.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TFilter7x7.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TFont.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TFontCharacter.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TFontDataAlignment.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TGraphicsData.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TPixelFormatConverter.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TPosition.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TRectangle.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TSize.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TVector.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TVerticalAlign.h" />
+    <ClInclude Include="..\..\..\Source\Graphics\TWindowsBmpFile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Source\Graphics\TCachedWindowsBmpFile.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TCanvas.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TColorConverter.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TColorRGB.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TColorYUV.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TDisplay320x240x65536.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TDxtBlockCreator.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TEndlessLine.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TFilter3x3.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TFilter5x5.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TFilter7x7.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TFont.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TFontCharacter.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TGraphicsData.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TPixelFormatConverter.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TPosition.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TRectangle.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TSize.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TVector.cpp" />
+    <ClCompile Include="..\..\..\Source\Graphics\TWindowsBmpFile.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5E58B6C6-8D64-4B50-A191-DB500D3D572F}</ProjectGuid>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
@@ -108,49 +156,6 @@
       <OutputFile>.\Debug/Graphics.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\Source\Graphics\TCachedWindowsBmpFile.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TCanvas.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TColorConverter.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TColorRGB.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TColorYUV.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TDisplay320x240x65536.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TDxtBlockCreator.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TFilter3x3.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TFilter5x5.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TFilter7x7.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TFont.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TFontCharacter.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TGraphicsData.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TPixelFormatConverter.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TPosition.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TRectangle.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TSize.cpp" />
-    <ClCompile Include="..\..\..\Source\Graphics\TWindowsBmpFile.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\Source\Graphics\ePixelFormat.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TAlign.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TCachedWindowsBmpFile.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TCanvas.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TColorConverter.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TColorRGB.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TColorYUV.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TDisplay320x240x65536.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TDxtBlockCreator.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TFilter3x3.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TFilter5x5.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TFilter7x7.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TFont.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TFontCharacter.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TGraphicsData.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TPixelFormatConverter.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TPosition.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TRectangle.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TSize.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TVerticalAlign.h" />
-    <ClInclude Include="..\..\..\Source\Graphics\TWindowsBmpFile.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

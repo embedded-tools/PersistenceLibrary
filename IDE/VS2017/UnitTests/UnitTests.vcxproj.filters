@@ -138,6 +138,9 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedMemoryStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCanvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TColor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -160,6 +163,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_Template.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TEndlessLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFilePath.cpp">
@@ -208,6 +214,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TSortedDictionary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TStaticDictionary.cpp">
