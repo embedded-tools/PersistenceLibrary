@@ -18,6 +18,7 @@
 #define TSTATICLIST___H
 
 #include "TEnumerable.h"
+#include "TArray.h"
 
 /**
  *  TStaticList is a list similar to TList in C#. TStaticList is designed for
@@ -57,6 +58,7 @@ public:
 	void  Clear();
 	void  Reverse();
 	void  Sort(bool ascending=true, bool deleteDoubleEntries=false);
+	TArray<T> ToArray();
 
     T&  operator [] (short index);
 	T&  Items (short index);

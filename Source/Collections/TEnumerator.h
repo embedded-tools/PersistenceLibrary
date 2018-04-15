@@ -22,15 +22,22 @@
  *
  */
 
+#include "TArray.h"
+
 template <typename T> 
 class TEnumerator
 {
-	protected:
+	private:
 		T*            m_current;
 		T*            m_last;
+		short         m_pitch;
 
+		T* Inc(T* ptr, int n);
+		T* Dec(T* ptr, int n);
+		
 	public:
 		TEnumerator();
+		TEnumerator(TArray<T> a);
 		TEnumerator(T* firstItem, T* lastItem);
 		TEnumerator(const TEnumerator& enumerator);
 

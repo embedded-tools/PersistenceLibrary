@@ -77,7 +77,7 @@ class Test_TEndlessLine: public TestFixture<Test_TEndlessLine>
 		ASSERT_EQUALS(100, (int)intersection2.Y);
 
 		TPosition intersection3 = line1.Intersection(line4);
-		ASSERT_EQUALS( 30, (int)intersection3.X);
+		ASSERT_EQUALS(10000, (int)intersection3.X);
 		ASSERT_EQUALS(100, (int)intersection3.Y);
 
 

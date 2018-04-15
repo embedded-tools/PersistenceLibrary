@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include "TEnumerator.h" 
 #include "TPair.h"
+#include "TArray.h"
 
 /**
  *  TSortedDictionary stores key-value pairs. Internally it sorts all inserted data,
@@ -63,7 +64,10 @@ public:
 	short Count();
 	bool  ContainsKey (KEY key);
 	void  Clear();
-	TPair<KEY,VALUE>* Data();
+
+	TArray<TPair<KEY,VALUE>>  ToArray();
+	TArray<KEY>               KeysToArray();
+	TArray<VALUE>             ValuesToArray();
 
 	short FindKeyIndex(KEY key);
 

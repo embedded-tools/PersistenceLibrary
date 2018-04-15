@@ -155,6 +155,27 @@ TEnumerator<TPair<KEY, VALUE> > TStaticDictionary<KEY, VALUE, N>::GetEnumerator(
 	}		
 }
 
+template<typename KEY, typename VALUE, int N>
+TArray<TPair<KEY,VALUE>> TStaticDictionary<KEY, VALUE, N>::ToArray()
+{
+	TArray<TPair<KEY,VALUE>> result(m_pairArray, m_dataCount, sizeof(TPair<KEY,VALUE>));
+	return result;
+}
+
+template<typename KEY, typename VALUE, int N>
+TArray<KEY> TStaticDictionary<KEY, VALUE, N>::KeysToArray()
+{
+	TArray<KEY> result(&m_pairArray[0].first, m_dataCount, sizeof(TPair<KEY,VALUE>));
+	return result;
+}
+
+template<typename KEY, typename VALUE, int N>
+TArray<VALUE> TStaticDictionary<KEY, VALUE, N>::ValuesToArray()
+{
+	TArray<VALUE> result(&m_pairArray[0].second, m_dataCount, sizeof(TPair<KEY,VALUE>));
+	return result;
+}
+
 #ifdef STL_STYLE
 template<typename KEY, typename VALUE, int N>
 TPair<KEY, VALUE>* TStaticDictionary<KEY, VALUE, N>::begin()

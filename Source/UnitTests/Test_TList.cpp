@@ -16,12 +16,12 @@ class Test_TList : public TestFixture<Test_TList>
 		TEST_CASE( SortDescending );
 		TEST_CASE( Reverse );
 		TEST_CASE( Enumerator );
+		TEST_CASE( ToArray );
 #ifdef STL_STYLE
 		TEST_CASE( STL_Style  );
         TEST_CASE( STL_Style2 );
 #endif
     }
-
 
     void ConstructorDestructor()
     {
@@ -43,6 +43,9 @@ class Test_TList : public TestFixture<Test_TList>
 		ASSERT_EQUALS(4, (int)list.Count());
 		list.Add(50);
 		ASSERT_EQUALS(5, (int)list.Count());
+
+		TArray<int> a = list.ToArray();
+		ASSERT_EQUALS(5, a.Length());
 
 		list.Clear();
 
@@ -296,6 +299,24 @@ class Test_TList : public TestFixture<Test_TList>
 		bool b6 = it.MoveNext(); ASSERT(!b6);
 	}
 
+	void ToArray()
+	{
+		TList<int> list;
+		list.Add(11);
+		list.Add(12);
+		list.Add(13);
+
+		TArray<int> a = list.ToArray();
+		TArray<int> b = a;
+
+		ASSERT_EQUALS(3,   b.Length());
+		ASSERT_EQUALS(11,  b[0]);
+		ASSERT_EQUALS(12,  b[1]);
+		ASSERT_EQUALS(13,  b[2]);
+	}
+
+
+
 #ifdef STL_STYLE
 	void STL_Style()
 	{
@@ -485,11 +506,6 @@ class Test_TList : public TestFixture<Test_TList>
         ASSERT_EQUALS(31, list3.at(1));
         ASSERT_EQUALS(51, list3.at(2));
         ASSERT_EQUALS(61, list3.at(3));        
-
-        /*
-        T*         erase (T* first, T* last);
-        void       unique();
-        */
     }
 #endif
 

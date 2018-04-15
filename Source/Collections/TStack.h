@@ -14,31 +14,29 @@
  *
  */
 
-#ifndef TQUEUE___H
-#define TQUEUE___H
+#ifndef TSTACK___H
+#define TSTACK___H
 
-template <typename T, int N> class TQueue 
+template <typename T, int N> class TStack
 {
     private:
-        T               m_circularBuffer[N];
-        unsigned short  m_circularBufferStart;
+        T               m_linearBuffer[N];
         unsigned short  m_count;
 
     public:
 
-        TQueue();
+        TStack();
 
         void  Clear();
-        bool  Enqueue(T  value);
-        bool  Dequeue(T& value);
+        bool  Push(const T  value);
+        bool  Pop(T& value);
         bool  IsFull();
         bool  IsEmpty(); 
 
 #ifdef STL_STYLE
-		bool push(T value);
+		bool push(const T value);
 		bool pop();
-		T    front();
-		T    back();
+		T    top();
 		bool empty();
 		bool full();
 
@@ -49,6 +47,6 @@ template <typename T, int N> class TQueue
 
 };
 
-#include "TQueue.cpp"
+#include "TStack.cpp"
 
 #endif

@@ -345,11 +345,25 @@ void TDictionary<KEY, VALUE>::Clear()
 }
 
 template<typename KEY, typename VALUE>
-TPair<KEY,VALUE>* TDictionary<KEY, VALUE>::Data()
+TArray<TPair<KEY,VALUE>> TDictionary<KEY, VALUE>::ToArray()
 {
-	return m_pairArray;
+	TArray<TPair<KEY,VALUE>> result(m_pairArray, m_dataCount, sizeof(TPair<KEY,VALUE>));
+	return result;
 }
 
+template<typename KEY, typename VALUE>
+TArray<KEY> TDictionary<KEY, VALUE>::KeysToArray()
+{
+	TArray<KEY> result(&m_pairArray[0].first, m_dataCount, sizeof(TPair<KEY,VALUE>));
+	return result;
+}
+
+template<typename KEY, typename VALUE>
+TArray<VALUE> TDictionary<KEY, VALUE>::ValuesToArray()
+{
+	TArray<VALUE> result(&m_pairArray[0].second, m_dataCount, sizeof(TPair<KEY,VALUE>));
+	return result;
+}
 
 template<typename KEY, typename VALUE>
 VALUE&   TDictionary<KEY, VALUE>::operator [] (KEY key)

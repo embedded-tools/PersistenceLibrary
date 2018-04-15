@@ -24,7 +24,7 @@
 #include "TObjectList.h"
 #include "TPair.h"
 #include "TQueue.h"
-#include "TSafeArray.h"
+#include "TArray.h"
 #include "TSortedDictionary.h"
 #include "TStaticDictionary.h"
 #include "TStaticList.h"

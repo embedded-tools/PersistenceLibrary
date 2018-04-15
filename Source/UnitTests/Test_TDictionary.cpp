@@ -2,6 +2,7 @@
 
 #include "TDictionary.h"
 #include "TString.h"
+#include "TArray.h"
 
 struct MyTestStruct1
 {
@@ -23,6 +24,10 @@ class Test_TDictionary : public TestFixture<Test_TDictionary>
 		TEST_CASE( Enumerator );
         TEST_CASE( Clear );
 		TEST_CASE( StringTest );
+		TEST_CASE( ToArray );
+		TEST_CASE( KeysToArray );
+		TEST_CASE( ValuesToArray );
+
 #ifdef STL_STYLE
 		TEST_CASE( STL_Style );
 #endif
@@ -80,7 +85,6 @@ class Test_TDictionary : public TestFixture<Test_TDictionary>
 		dict.Add(TPair<char, long>(14, 40));
 		ASSERT_EQUALS(4, (int)dict.Count());
 		ASSERT_EQUALS(40, dict[14]);
-	
 	}
 
 	void AddItems2()
@@ -208,8 +212,58 @@ class Test_TDictionary : public TestFixture<Test_TDictionary>
 		
 		dict.Add("VZP",  "Vseobecna");
 		dict.Add("VoZP", "Vojenska");
+	}
 
+	void ToArray()
+	{
+		TDictionary<int, int> dict;
+		dict.Add(11, 100);
+		dict.Add(12, 200);
+		dict.Add(13, 300);
 
+		TArray<TPair<int,int>> a = dict.ToArray();
+		TArray<TPair<int,int>> b = a;
+
+		ASSERT_EQUALS(3,   b.Length());
+		ASSERT_EQUALS(11,  b[0].first);
+		ASSERT_EQUALS(100, b[0].second);
+		ASSERT_EQUALS(12,  b[1].first);
+		ASSERT_EQUALS(200, b[1].second);
+		ASSERT_EQUALS(13,  b[2].first);
+		ASSERT_EQUALS(300, b[2].second);
+	}
+
+	void KeysToArray()
+	{
+		TDictionary<int, int> dict;
+		dict.Add(11, 100);
+		dict.Add(12, 200);
+		dict.Add(13, 300);
+
+		TArray<int> a = dict.KeysToArray();
+		TArray<int> b = a;
+
+		ASSERT_EQUALS(3,   b.Length());
+		ASSERT_EQUALS(11,  b[0]);
+		ASSERT_EQUALS(12,  b[1]);
+		ASSERT_EQUALS(13,  b[2]);
+
+	}
+
+	void ValuesToArray()
+	{
+		TDictionary<int, int> dict;
+		dict.Add(11, 100);
+		dict.Add(12, 200);
+		dict.Add(13, 300);
+
+		TArray<int> a = dict.ValuesToArray();
+		TArray<int> b = a;
+
+		ASSERT_EQUALS(3,   b.Length());
+		ASSERT_EQUALS(100, b[0]);
+		ASSERT_EQUALS(200, b[1]);
+		ASSERT_EQUALS(300, b[2]);
 	}
 
 #ifdef STL_STYLE

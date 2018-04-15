@@ -19,6 +19,7 @@
 
 #include "TEnumerator.h"
 #include "TEnumerable.h"
+#include "TArray.h"
 
 /**
  *  TList is a list similar to TList in C#. TList is designed for
@@ -57,6 +58,7 @@ public:
     void  Clear(bool unallocMemory=true);
 	void  Reverse();
 	void  Sort(bool ascending=true, bool deleteDoubleEntries=false);
+	TArray<T> ToArray();
 
     T&  operator [] (short index);
 	T&  Items (short index);

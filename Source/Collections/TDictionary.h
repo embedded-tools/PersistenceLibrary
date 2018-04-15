@@ -18,6 +18,7 @@
 #define TDICTIONARY___H
 
 #include <stdlib.h>
+#include "TArray.h"
 #include "TEnumerator.h"
 #include "TEnumerable.h"
 #include "TPair.h"
@@ -67,7 +68,10 @@ public:
 	short Count();
 	bool  ContainsKey (KEY key);
 	void  Clear();
-	TPair<KEY,VALUE>* Data();
+
+	TArray<TPair<KEY,VALUE>> ToArray();
+	TArray<KEY>              KeysToArray();
+	TArray<VALUE>            ValuesToArray();
 
 	bool   AddKeysAutomatically;
     VALUE& operator [] (KEY key);

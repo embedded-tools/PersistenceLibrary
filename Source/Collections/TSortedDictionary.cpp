@@ -321,6 +321,27 @@ TEnumerator<TPair<KEY, VALUE> > TSortedDictionary<KEY, VALUE>::GetEnumerator()
 	}
 }
 
+template<typename KEY, typename VALUE>
+TArray<TPair<KEY,VALUE>> TSortedDictionary<KEY, VALUE>::ToArray()
+{
+	TArray<TPair<KEY,VALUE>> result(m_pairArray, m_dataCount, sizeof(TPair<KEY,VALUE>));
+	return result;
+}
+
+template<typename KEY, typename VALUE>
+TArray<KEY> TSortedDictionary<KEY, VALUE>::KeysToArray()
+{
+	TArray<KEY> result(&m_pairArray[0].first, m_dataCount, sizeof(TPair<KEY,VALUE>));
+	return result;
+}
+
+template<typename KEY, typename VALUE>
+TArray<VALUE> TSortedDictionary<KEY, VALUE>::ValuesToArray()
+{
+	TArray<VALUE> result(&m_pairArray[0].second, m_dataCount, sizeof(TPair<KEY,VALUE>));
+	return result;
+}
+
 #ifdef STL_STYLE
 template<typename KEY, typename VALUE>
 TPair<KEY, VALUE>* TSortedDictionary<KEY, VALUE>::begin()

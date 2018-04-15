@@ -36,6 +36,7 @@ class Test_ObjectList : public TestFixture<Test_ObjectList>
         TEST_CASE( AddObjects );
 		TEST_CASE( RemoveObjects );
 		TEST_CASE( Enumerator );
+		TEST_CASE( ToArray );
 #ifdef STL_STYLE
 		TEST_CASE( STL_Style );
 #endif
@@ -145,6 +146,29 @@ class Test_ObjectList : public TestFixture<Test_ObjectList>
 		ASSERT(objects[3] == o4);
 	}
 
+	void ToArray()
+	{
+		TObjectList<TestObject> list;
+		TestObject* o1 = list.Add();
+		TestObject* o2 = list.Add();
+		TestObject* o3 = list.Add();
+		TestObject* o4 = list.Add();
+
+		o1->sizeX = 10;
+		o2->sizeY = 20;
+		o3->positionX = 30;
+		o4->positionY = 40;
+
+		TArray<TestObject*> a = list.ToArray();
+		TArray<TestObject*> b = a;
+
+		ASSERT_EQUALS(10, b[0]->sizeX);
+		ASSERT_EQUALS(20, b[1]->sizeY);
+		ASSERT_EQUALS(30, b[2]->positionX);
+		ASSERT_EQUALS(40, b[3]->positionY);
+
+	}
+
 #ifdef STL_STYLE
 	void STL_Style()
 	{
@@ -158,7 +182,7 @@ class Test_ObjectList : public TestFixture<Test_ObjectList>
 		list.push_back(o1);
 		ASSERT(list.front()==o1);
 		ASSERT(list.back() ==o1);
-		ASSERT_EQUALS(13, o1->id);
+		ASSERT_EQUALS(17, o1->id);
 		ASSERT_EQUALS(0, o1->positionX);
 		ASSERT_EQUALS(0, o1->positionY);
 		ASSERT_EQUALS(640, o1->sizeX);
@@ -167,25 +191,25 @@ class Test_ObjectList : public TestFixture<Test_ObjectList>
 
 		TestObject* o2 = new TestObject();
 		list.push_back(o2);
-		ASSERT_EQUALS(14, o2->id);
+		ASSERT_EQUALS(18, o2->id);
 		ASSERT_EQUALS(2, list.size());
 
 		TestObject* o3 = new TestObject();
 		list.push_back(o3);
-		ASSERT_EQUALS(15, o3->id);
+		ASSERT_EQUALS(19, o3->id);
 		ASSERT_EQUALS(3, list.size());
 
 		TestObject* o4 = new TestObject();
 		list.push_back(o4);
 		
-		ASSERT_EQUALS(16, o4->id);
+		ASSERT_EQUALS(20, o4->id);
 		ASSERT_EQUALS(4,  list.size());
-		ASSERT_EQUALS(13, list.at(0)->id);
-		ASSERT_EQUALS(14, list.at(1)->id);
-		ASSERT_EQUALS(15, list.at(2)->id);
-		ASSERT_EQUALS(16, list.at(3)->id);
-		ASSERT_EQUALS(13, list.front()->id);
-		ASSERT_EQUALS(16, list.back()->id);
+		ASSERT_EQUALS(17, list.at(0)->id);
+		ASSERT_EQUALS(18, list.at(1)->id);
+		ASSERT_EQUALS(19, list.at(2)->id);
+		ASSERT_EQUALS(20, list.at(3)->id);
+		ASSERT_EQUALS(17, list.front()->id);
+		ASSERT_EQUALS(20, list.back()->id);
 
 		int         objectsCount = 0;
 		TestObject* objects[10];
@@ -195,10 +219,10 @@ class Test_ObjectList : public TestFixture<Test_ObjectList>
 			objects[objectsCount++] = *it;
 		}
 		ASSERT_EQUALS(4,  objectsCount);
-		ASSERT_EQUALS(13,  objects[0]->id);
-		ASSERT_EQUALS(14, objects[1]->id);
-		ASSERT_EQUALS(15, objects[2]->id);
-		ASSERT_EQUALS(16, objects[3]->id);
+		ASSERT_EQUALS(17,  objects[0]->id);
+		ASSERT_EQUALS(18, objects[1]->id);
+		ASSERT_EQUALS(19, objects[2]->id);
+		ASSERT_EQUALS(20, objects[3]->id);
 
 		list.unalloc_clear();
 		ASSERT_EQUALS(0, list.size());

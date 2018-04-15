@@ -1,5 +1,6 @@
 #include "UnitTests.h"
 #include "TStaticList.h"
+#include "TArray.h"
 
 class Test_TStaticList : public TestFixture<Test_TStaticList>
 {
@@ -16,6 +17,7 @@ public:
 		TEST_CASE( SortDescending );
 		TEST_CASE( Reverse );
 		TEST_CASE( Enumerator );
+		TEST_CASE( ToArray );
 #ifdef STL_STYLE
 		TEST_CASE( STL_Style );
 #endif
@@ -293,6 +295,22 @@ public:
 		int val5 = it.Current(); ASSERT_EQUALS(50, val5);		
 
 		bool b6 = it.MoveNext(); ASSERT(!b6);
+	}
+
+	void ToArray()
+	{
+		TStaticList<int,3> list;
+		list.Add(11);
+		list.Add(12);
+		list.Add(13);
+
+		TArray<int> a = list.ToArray();
+		TArray<int> b = a;
+
+		ASSERT_EQUALS(3,   b.Length());
+		ASSERT_EQUALS(11,  b[0]);
+		ASSERT_EQUALS(12,  b[1]);
+		ASSERT_EQUALS(13,  b[2]);
 	}
 
 #ifdef STL_STYLE

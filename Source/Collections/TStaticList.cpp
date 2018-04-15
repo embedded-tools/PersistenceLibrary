@@ -220,6 +220,12 @@ void  TStaticList<T, N>::Sort(bool ascending, bool deleteDoubleEntries)
 	}
 }
 
+template<typename T, int N>
+TArray<T> TStaticList<T,N>::ToArray()
+{
+	TArray<T> result(m_dataArray, m_dataCount);
+	return result;
+}
 
 template<class T, int N>
 T& TStaticList<T, N>::operator [] (short index)

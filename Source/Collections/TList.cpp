@@ -325,6 +325,13 @@ void  TList<T>::Sort(bool ascending, bool deleteDoubleEntries)
 }
 
 template<typename T>
+TArray<T> TList<T>::ToArray()
+{
+	TArray<T> result(m_dataArray, m_dataCount);
+	return result;
+}
+
+template<typename T>
 T& TList<T>::operator [] (short index)
 {	
     if ((index>=0) && (index<m_dataCount))

@@ -18,6 +18,7 @@
 #define TOBJECTLIST___H
 
 #include "TEnumerator.h"
+#include "TArray.h"
 
 /**
  *  TObjectList is a list similar to TList in C#. TObjectList is designed for
@@ -64,7 +65,8 @@ public:
     
     T* operator [] (short id);
 	T* Items (short id);
-	T** Data();
+
+	TArray<T*> ToArray();
 
     short IndexOf(T* R);
 

@@ -20,6 +20,7 @@
 #include <stdlib.h> 
 #include "TEnumerator.h"
 #include "TPair.h"
+#include "TArray.h"
 
 /**
  *  TStaticDictionary stores key-value pairs. It allocates memory statically, 
@@ -56,7 +57,10 @@ public:
 	short Count();
 	bool  ContainsKey (KEY key);
 	void  Clear();
-	TPair<KEY,VALUE>* Data();
+
+	TArray<TPair<KEY,VALUE>>  ToArray();
+	TArray<KEY>               KeysToArray();
+	TArray<VALUE>             ValuesToArray();
 
 	bool   AddKeysAutomatically;
     VALUE& operator [] (KEY key);

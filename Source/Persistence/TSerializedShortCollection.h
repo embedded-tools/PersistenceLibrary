@@ -35,7 +35,7 @@ class TSerializedShortCollection : public TSerializedBaseCollection
 				TEnumerator<TSerializedItem*> enumerator(NULL, NULL);
 				return enumerator;
 			} else {
-				TEnumerator<TSerializedItem*> enumerator((TSerializedItem**)itemCollection.Data(), (TSerializedItem**)itemCollection.Data()+itemCollection.Count());
+				TEnumerator<TSerializedItem*> enumerator((TSerializedItem**)&itemCollection.ToArray()[0], ( (TSerializedItem**)&itemCollection.ToArray()[0] ) + itemCollection.Count());
 				return enumerator;
 			}			
 		}

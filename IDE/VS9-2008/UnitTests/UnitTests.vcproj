@@ -438,6 +438,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TStack.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TStaticDictionary.cpp"
 				>
 			</File>
