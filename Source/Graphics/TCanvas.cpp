@@ -1348,9 +1348,11 @@ bool TCanvas::ApplyFilter(TFilter5x5* filter, FilteredPixelCallback callback)
 	{
 		for(short y = m_graphicsData->GetHeight(); y>0; y--)
 		{
-			src1 = m_graphicsData->ScanLine(y-1);
-			src2 = m_graphicsData->ScanLine(y);
-			src3 = m_graphicsData->ScanLine(y+1);
+			src1 = m_graphicsData->ScanLine(y-2);
+			src2 = m_graphicsData->ScanLine(y-1);
+			src3 = m_graphicsData->ScanLine(y);
+			src4 = m_graphicsData->ScanLine(y+1);
+			src5 = m_graphicsData->ScanLine(y+2);
 
 			for(short x=m_graphicsData->GetWidth(); x>0; x--)
 			{
@@ -1584,9 +1586,13 @@ bool TCanvas::ApplyFilter(TFilter7x7* filter, FilteredPixelCallback callback)
 	{
 		for(short y = m_graphicsData->GetHeight(); y>0; y--)
 		{
-			src1 = m_graphicsData->ScanLine(y-1);
-			src2 = m_graphicsData->ScanLine(y);
-			src3 = m_graphicsData->ScanLine(y+1);
+			src1 = m_graphicsData->ScanLine(y-3);
+			src2 = m_graphicsData->ScanLine(y-2);
+			src3 = m_graphicsData->ScanLine(y-1);
+			src4 = m_graphicsData->ScanLine(y);
+			src5 = m_graphicsData->ScanLine(y+1);
+			src6 = m_graphicsData->ScanLine(y+2);
+			src7 = m_graphicsData->ScanLine(y+3);
 
 			for(short x=m_graphicsData->GetWidth(); x>0; x--)
 			{
