@@ -16,9 +16,11 @@ public:
 		TEST_CASE( TestStringPrintf );
 		TEST_CASE( TestDelete );
 		TEST_CASE( TestDestructors);
+#ifdef STL_STYLE
 		TEST_CASE( TestSTLConstructor );
 		TEST_CASE( TestSTLFunctions );		
 		TEST_CASE( TestSTLIterators );
+#endif
 	}
 	
 	void TestSetters()
