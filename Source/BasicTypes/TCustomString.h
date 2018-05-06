@@ -44,13 +44,30 @@ public:
 		DataStatic = true;
 	}
 
-    TCustomString(const char* pChar, unsigned short pCharLen=0)
+    TCustomString(const char* pChar)
         :TString()
 	{
 		PData = (char*)&Data;
 		DataMax = LENGTH+1;
 		DataStatic = true;
-		CopyFrom(pChar, pCharLen);
+		CopyFrom(pChar);
+	}
+
+
+    TCustomString(const char* pChar, unsigned short pCharLen)
+        :TString()
+	{
+		PData = (char*)&Data;
+		DataMax = LENGTH+1;
+		DataStatic = true;
+		if (pChar)
+		{
+			if (pCharLen==0)
+			{	
+				pCharLen = strlen(pChar);
+			}
+			CopyFrom(pChar, pCharLen);
+		}
 	}
 
 	TCustomString(TString& s)
@@ -73,13 +90,13 @@ public:
 
     TCustomString<LENGTH>& operator = ( TCustomString<LENGTH>& oString )
 	{
-		CopyFrom(oString.ToPChar());
+		CopyFrom(oString.ToPChar(), oString.Length());
 		return *this;    
 	}
 
     TCustomString<LENGTH>& operator = ( TString& oString )
 	{
-		CopyFrom(oString.ToPChar());
+		CopyFrom(oString.ToPChar(), oString.Length());
 		return *this;
 	}
 

@@ -62,7 +62,11 @@ void TTextFile::Close()
 bool TTextFile::AddText(TString& line, unsigned short numberOfChars)
 {
     int oldLength = line.Length();
-    int newLength = line.SetLength(line.Length()+numberOfChars);
+	if (!line.SetLength(line.Length()+numberOfChars))
+	{
+		return false;
+	}
+	int newLength = line.Length();
     int dataToCopy = newLength-oldLength;
 
 	unsigned char* stringBuffer = (unsigned char*)line.ToPChar();

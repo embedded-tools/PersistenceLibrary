@@ -11,6 +11,7 @@ public:
 		TEST_CASE( TesTShortStringOperations);
 		TEST_CASE( TesTShortStringFunctions);
 		TEST_CASE( TesTShortStringReallocations);
+		TEST_CASE( TestStringPrintf );
 		TEST_CASE( TestDestructors);
 	}
 	
@@ -155,6 +156,17 @@ public:
             s1 += "1234567890ABCDEFGHIJ";            
 		}
 		ASSERT(s1.Length()==SHORTSTRINGLENGTH);
+	}
+
+	void TestStringPrintf()
+	{
+		char text[100];
+		int  textLength = 0;
+
+		TShortString s = "Hello world!";
+		sprintf(text, "%s", s);
+		
+		ASSERT_EQUALS(12, (int)strlen(text));
 	}
 	
 	void TestDestructors()

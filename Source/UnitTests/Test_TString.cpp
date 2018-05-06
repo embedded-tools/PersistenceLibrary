@@ -1,5 +1,6 @@
 #include "UnitTests.h"
 #include "TString.h"
+#include <stdlib.h>
 
 class Test_TString : public TestFixture<Test_TString>
 {
@@ -12,8 +13,12 @@ public:
 		TEST_CASE( TestStringFunctions);
         TEST_CASE( TestOperators);
 		TEST_CASE( TestStringReallocations);
+		TEST_CASE( TestStringPrintf );
 		TEST_CASE( TestDelete );
 		TEST_CASE( TestDestructors);
+		TEST_CASE( TestSTLConstructor );
+		TEST_CASE( TestSTLFunctions );		
+		TEST_CASE( TestSTLIterators );
 	}
 	
 	void TestSetters()
@@ -167,6 +172,17 @@ public:
 		ASSERT(s1.Length()==20000);
 	}
 
+	void TestStringPrintf()
+	{
+		char text[100];
+		int  textLength = 0;
+
+		TString s = "Hello world!";
+		sprintf(text, "%s", s);
+		
+		ASSERT_EQUALS(12, (int)strlen(text));
+	}
+
 	void TestDelete()
 	{
 		TString s = "Text1, Text2, Text3";
@@ -214,6 +230,97 @@ public:
 		ASSERT(s1.Length()==65534);
 		
 	}
+
+
+#ifdef STL_STYLE
+
+	void TestSTLConstructor()
+	{
+		TString s;
+		ASSERT_EQUALS(0, s.size());
+		ASSERT_EQUALS(0, s.length());
+		ASSERT((s.max_size()>0) && (s.max_size()<65536));
+		ASSERT(s.empty());
+		ASSERT_EQUALS(0, (int)s.front());
+		ASSERT_EQUALS(0, (int)s.back());
+		ASSERT_EQUALS(0, (int)s.at(0));
+		ASSERT(s.c_str()==NULL);
+		ASSERT(s.data()==NULL);
+		ASSERT_EQUALS(-1, s.find("a"));
+		ASSERT_EQUALS(-1, s.find("a", 10));	
+	}
+
+	void TestSTLFunctions()
+	{
+		TString s;
+		s.push_back('H');
+		s.push_back('e');
+		s.push_back('l');
+		s.push_back('l');
+		s.push_back('o');
+
+		ASSERT_EQUALS(5, s.size());
+		ASSERT_EQUALS(5, s.length());
+		ASSERT(s.capacity()>5);
+		ASSERT(!s.empty());
+		ASSERT_EQUALS('H', s.at(0));
+		ASSERT_EQUALS('e', s.at(1));
+		ASSERT_EQUALS('l', s.at(2));
+		ASSERT_EQUALS('l', s.at(3));
+		ASSERT_EQUALS('o', s.at(4));
+		ASSERT_EQUALS('o', s.back());
+		ASSERT_EQUALS('H', s.front());
+	
+		s.append("world!");
+		ASSERT_EQUALS(11, s.length());
+		ASSERT_EQUALS(11, s.size());
+
+		s.insert(5, " ");
+		ASSERT_EQUALS(12, s.length());
+
+		ASSERT(s=="Hello world!");
+
+		ASSERT_EQUALS(-1, s.find("Canada"));
+		ASSERT_EQUALS(0, s.find("Hello"));
+		ASSERT_EQUALS(0, s.find("Hello"));
+	}
+
+	void TestSTLIterators()
+	{
+		TString s;
+
+		char* it1 = s.begin();
+		ASSERT(it1!=NULL);
+
+		char* it2 = s.end();
+		ASSERT(it2!=NULL);
+
+		TString output;
+		for(TString::iterator it3 = s.begin(); it3!=s.end(); it3++)
+		{
+			output += *it3;
+		}
+		ASSERT_EQUALS(0, output.length());
+
+		s = "Hello world!";
+
+		char* it4 = s.begin();
+		ASSERT(it4!=NULL);
+
+		char* it5 = s.end();
+		ASSERT(it5!=NULL);
+
+		output.clear();
+
+		for(TString::iterator it6 = s.begin(); it6!=s.end(); it6++)
+		{
+			output += *it6;
+		}
+		ASSERT_EQUALS(12, output.length());
+	}
+
+
+#endif
 	
 };
 

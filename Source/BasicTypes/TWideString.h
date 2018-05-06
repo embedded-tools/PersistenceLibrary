@@ -91,7 +91,7 @@ public:
     TWideString& Insert(unsigned short index, TWideString& oString);
     TWideString& Delete(unsigned short index, unsigned short length=1);    
     TWideString& Replace(wchar_t oldChar, wchar_t newChar);
-    unsigned short SetLength(unsigned short newLength, bool addSpaces=true);
+    bool         SetLength(unsigned short newLength, bool addSpaces=true);
 
 	TWideString& operator = ( const TString oString );
     TWideString& operator = ( const char* pChar );

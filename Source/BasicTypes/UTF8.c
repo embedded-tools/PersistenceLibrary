@@ -41,7 +41,7 @@ int UTF8TextToUnicodeText(const char* utf8text, wchar_t* unicodeBuffer, unsigned
 	return 1;
 }
 
-int UnicodeTextToUTF8Text(const wchar_t* unicodeText, char* utf8buffer, unsigned long utf8BufferSize)
+int UnicodeTextToUTF8Text(const wchar_t* unicodeText, char* utf8buffer, unsigned long utf8BufferByteSize)
 {
 	unsigned long unicodeTextLength = wcslen(unicodeText);
 	unsigned long utf8Length = 0;
@@ -53,21 +53,21 @@ int UnicodeTextToUTF8Text(const wchar_t* unicodeText, char* utf8buffer, unsigned
 		if (wChar>=0x800)
 		{
 			utf8buffer[utf8Length] = 0xE0+(wChar / 4096);
-			utf8Length++; if (utf8Length==utf8BufferSize) return 0;
+			utf8Length++; if (utf8Length==utf8BufferByteSize) return 0;
 			utf8buffer[utf8Length] = 0x80+(wChar / 64 % 64);
-			utf8Length++; if (utf8Length==utf8BufferSize) return 0;
+			utf8Length++; if (utf8Length==utf8BufferByteSize) return 0;
 			utf8buffer[utf8Length] = 0x80+(wChar % 64);
-			utf8Length++; if (utf8Length==utf8BufferSize) return 0;
+			utf8Length++; if (utf8Length==utf8BufferByteSize) return 0;
 		} else 
 		if (wChar>=0xC0)
 		{
 			utf8buffer[utf8Length] = 0xC0+(wChar / 64 % 64);
-			utf8Length++; if (utf8Length==utf8BufferSize) return 0;
+			utf8Length++; if (utf8Length==utf8BufferByteSize) return 0;
 			utf8buffer[utf8Length] = 0x80+(wChar % 64);
-			utf8Length++; if (utf8Length==utf8BufferSize) return 0;
+			utf8Length++; if (utf8Length==utf8BufferByteSize) return 0;
 		} else {
 			utf8buffer[utf8Length] = 0xC0+(wChar / 64 % 64);
-			utf8Length++; if (utf8Length==utf8BufferSize) return 0;
+			utf8Length++; if (utf8Length==utf8BufferByteSize) return 0;
 		}
 	}
 	utf8buffer[utf8Length] = 0;

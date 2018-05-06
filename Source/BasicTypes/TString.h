@@ -43,14 +43,14 @@ protected:
     char*          PData;    
     unsigned short DataLen;
     unsigned short DataMax;
-    bool           DataStatic;    
-
+    bool           DataStatic;  
+	bool           ReadOnly;
         
 public:
 
     // Constructor
     TString();
-    TString(const char* pChar, unsigned short pCharLen=0);
+	TString(const char* pChar, unsigned short pCharLen=0, bool useExistingReference=false);
 	TString(const TString &s);
 
     // Destructor 
@@ -64,7 +64,8 @@ public:
     //setters
     void Clear(bool dontReleaseMemory=false);    
     bool Fill(char c, unsigned short number);	
-    bool CopyFrom (const char* AData, unsigned short length=0);    
+	bool CopyFrom (const char* AData);
+    bool CopyFrom (const char* AData, unsigned short length);
     
     //string operations    
     bool Contains(const char* pChar) const;
@@ -83,15 +84,17 @@ public:
     TString& Trim();
     TString& LowerCase();
     TString& UpperCase();
-	TString& Append(char c);
+    TString& Append(char c);
 	TString& Append(const char* c);
-	TString& Append(TString& oString);
+	TString& Append(const TString& oString);
 	TString& Insert(unsigned short index, char c);
 	TString& Insert(unsigned short index, const char* s);
-	TString& Insert(unsigned short index, TString& oString);
+	TString& Insert(unsigned short index, const char* s, int length);
+	TString& Insert(unsigned short index, const TString& oString);
 	TString& Delete(unsigned short index, unsigned short length=1);    
     TString& Replace(char oldChar, char newChar);
-    unsigned short SetLength(unsigned short newLength, bool addSpaces=true);
+    bool SetLength(unsigned short newLength, bool addSpaces=true);
+	bool SetCapacity(unsigned short capacity);
 
 	TString& operator = ( const TString& s);
     TString& operator = ( const char* pChar);
@@ -108,6 +111,45 @@ public:
     bool operator != (const char* pChar) const;
     char& operator [] (unsigned short index);
     char& operator [] (int index);
+
+#ifdef STL_STYLE
+    typedef char* iterator;
+	char* begin();
+	char* end();
+
+	int size() const;
+	int length() const;
+	int max_size() const;
+	int resize(int n, char c);
+	int capacity() const;
+	int reserve(int n);
+	void clear();
+	bool empty() const;
+	char& at(int i);
+	char& back();
+	char& front();
+ 	TString& append(const char* str);
+    TString& append(const TString& str);
+	void push_back(char c);
+	TString& assign(const TString& str);
+	TString& assign(const TString& str, int position, int length);
+	TString& assign(const char* str);
+	TString& assign(const char* str, int n);
+	TString& assign(int n, char c);
+	TString& insert(int position, const TString& str);
+	TString& insert(int position, const TString& str, int subpos, int sublen);
+	TString& insert(int position, const char* str);
+	TString& insert(int position, const char* str, int length);
+	TString& insert(int position, int n, char c);
+	TString& remove(int position, int length);
+	void swap(TString& str);
+	void pop_back();
+	const char* c_str();
+	const char* data();
+	int find(const TString& str, int pos=0) const;
+	int find(const char* str, int pos=0) const;
+
+#endif
 
 };
 

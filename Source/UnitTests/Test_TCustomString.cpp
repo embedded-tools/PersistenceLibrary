@@ -156,7 +156,7 @@ public:
 	{
 		int i;
 		
-		TCustomString<80> s1 = "1";
+ 		TCustomString<80> s1 = "1";
 		for (i = 0; i<15; i++)
 		{
 			TCustomString<80> s2;

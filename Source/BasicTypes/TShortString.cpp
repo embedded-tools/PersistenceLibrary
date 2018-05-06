@@ -33,7 +33,14 @@ TShortString::TShortString(const char* pChar, unsigned short pCharLen)
 	DataLen = 0;
 	DataMax = SHORTSTRINGLENGTH+1;
 	DataStatic = true;
-	CopyFrom(pChar, pCharLen);    
+	if (pChar)
+	{
+		if (pCharLen==0)
+		{
+			pCharLen = strlen(pChar);
+		}
+		CopyFrom(pChar, pCharLen);    
+	}
 }
 
 TShortString::TShortString(const TShortString& s)

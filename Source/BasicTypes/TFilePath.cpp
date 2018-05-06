@@ -163,9 +163,8 @@ bool TFilePath::ChangeFileExt (const char* ext)
 	{
 		return false;
 	}
-	int n = pos+extLen;
-	SetLength(n);
-	if (DataLen==n)
+	int n = pos+extLen;	
+	if (SetLength(n))
 	{
 		memcpy(PData+pos, ext, extLen+1);
 	}
@@ -188,9 +187,8 @@ bool TFilePath::ChangeFileName (const char* filename)
 	{
 		return false;
 	}
-	int n = pos+extLen;
-	SetLength(n);
-	if (DataLen==n)
+	int n = pos+extLen;	
+	if (SetLength(n))
 	{
 		memcpy(PData+pos, filename, extLen+1);
 	}
@@ -229,9 +227,12 @@ bool TFilePath::DeleteLastDir()
 			 ( ((*this)[2]=='\\') || ((*this)[2]=='/') )
 		   )   
 		{
-			SetLength(2);
-			(*this)[1]=m_separator;
-			return true;
+			if (SetLength(2))
+			{
+				(*this)[1]=m_separator;
+				return true;
+			}
+			return false;
 		}
 	}
 	bool slashFound = false;
@@ -343,8 +344,7 @@ TFilePath& TFilePath::operator += ( const char* pChar )
         }
 		if ((LastChar()!='\\') && (LastChar()!='/') && (!fileFound))
 		{            
-			SetLength(DataLen+1,false);
-			if (PData!=NULL)
+			if(SetLength(DataLen+1,false))
 			{
 				PData[DataLen-1] = m_separator;						
 			}
@@ -413,10 +413,9 @@ TFilePath& TFilePath::operator += ( const char* pChar )
 	unsigned short newLength = oldLength + pCharLen;
 	if (newLength<oldLength) newLength=65534;
 	if (newLength==65535) newLength=65534;
-	newLength = SetLength(newLength);        
-	if (newLength>oldLength)
+	if (SetLength(newLength))
 	{
-		memcpy(&PData[oldLength], pChar, newLength-oldLength);
+		memcpy(&PData[oldLength], pChar, DataLen-oldLength);
 		if (PData)
 		{
 			ChangeSeparator(m_separator);
@@ -432,9 +431,8 @@ TFilePath&	TFilePath::operator += ( const char c)
 	if ((cc=='\\') || (cc=='/'))
 	{
 		cc = m_separator;
-	}
-	SetLength(DataLen+1, false);
-	if (DataLen>oldLength)
+	}	
+	if (SetLength(DataLen+1, false))
 	{
 		PData[DataLen-1] = cc;
 	}
