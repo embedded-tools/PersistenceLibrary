@@ -140,7 +140,7 @@ class Test_TCompression : public TestFixture<Test_TCompression>
 
         free(buf);
 
-        ASSERT(realLength==totalLength);
+		ASSERT_EQUALS(totalLength, realLength);
 
     }
 
