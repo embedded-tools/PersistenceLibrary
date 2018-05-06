@@ -59,7 +59,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\Source\UnitTests\PersistenceExample;E:\tvorba-emb\PersistenceLibrary\Source\BasicTypes;E:\tvorba-emb\PersistenceLibrary\Source\Collections;E:\tvorba-emb\PersistenceLibrary\Source\FileUtils;E:\tvorba-emb\PersistenceLibrary\Source\Graphics;E:\tvorba-emb\PersistenceLibrary\Source\Math;E:\tvorba-emb\PersistenceLibrary\Source\Persistence;E:\tvorba-emb\PersistenceLibrary\Source\Protocols;..\..\..\Source\UnitTests\Fonts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Source\UnitTests\PersistenceExample;..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\UnitTests\Fonts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>STL_STYLE;WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>

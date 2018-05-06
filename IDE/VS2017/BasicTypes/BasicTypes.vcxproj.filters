@@ -50,12 +50,6 @@
     <ClInclude Include="..\..\..\Source\BasicTypes\UTF8.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\Collections\TArray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\Collections\TStack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\BasicTypes\StringUtils.cpp">
@@ -92,12 +86,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\BasicTypes\UTF8.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\Collections\TArray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\Collections\TStack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
