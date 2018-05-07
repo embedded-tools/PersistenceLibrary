@@ -45,10 +45,10 @@ public:
 	TShortString(const TShortString& s);
 	TShortString& operator = (const TShortString& oString );
 	TShortString& operator = (const TString& oString );
-	TShortString& operator = ( const char* pChar);
-	bool operator == (TShortString& s);
+	TShortString& operator = (const char* pChar);
+	bool operator == (const TShortString& s);
 	bool operator == (const char* pChar);
-	bool operator != (TShortString& s);
+	bool operator != (const TShortString& s);
 	bool operator != (const char* pChar);
 	int MaxLength();
 };

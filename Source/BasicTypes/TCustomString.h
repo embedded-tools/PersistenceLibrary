@@ -70,7 +70,7 @@ public:
 		}
 	}
 
-	TCustomString(TString& s)
+	TCustomString(const TString& s)
 		:TString()
 	{
 		PData = (char*)&Data;
@@ -88,13 +88,13 @@ public:
         CopyFrom(s.ToPChar(), s.Length());
     }
 
-    TCustomString<LENGTH>& operator = ( TCustomString<LENGTH>& oString )
+    TCustomString<LENGTH>& operator = (const TCustomString<LENGTH>& oString )
 	{
 		CopyFrom(oString.ToPChar(), oString.Length());
 		return *this;    
 	}
 
-    TCustomString<LENGTH>& operator = ( TString& oString )
+    TCustomString<LENGTH>& operator = (const TString& oString )
 	{
 		CopyFrom(oString.ToPChar(), oString.Length());
 		return *this;
@@ -106,7 +106,7 @@ public:
 		return *this;
 	}
 
-	bool operator == (TCustomString<LENGTH>& s)
+	bool operator == (const TCustomString<LENGTH>& s)
 	{
 		if ((ToPChar()==NULL) && (s.ToPChar()==NULL)) return true;
 		if (ToPChar()==NULL) return false;
@@ -123,7 +123,7 @@ public:
 	    return strcmp(ToPChar(), pChar) == 0;
 	}
 
-    bool operator != (TCustomString<LENGTH>& s)
+    bool operator != (const TCustomString<LENGTH>& s)
     {
         if ((ToPChar()==NULL) && (s.ToPChar()==NULL)) return false;
 	    if (ToPChar()==NULL) return true;

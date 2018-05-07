@@ -71,7 +71,7 @@ TShortString& TShortString::operator = ( const char* pChar)
 	return *this;
 }
 
-bool TShortString::operator == (TShortString& s)
+bool TShortString::operator == (const TShortString& s)
 {
 	if ((ToPChar()==NULL) && (s.ToPChar()==NULL)) return true;
 	if (ToPChar()==NULL) return false;
@@ -88,7 +88,7 @@ bool TShortString::operator == (const char* pChar)
     return strcmp(ToPChar(), pChar) == 0;
 }
 
-bool TShortString::operator != (TShortString& s)
+bool TShortString::operator != (const TShortString& s)
 {
     if ((ToPChar()==NULL) && (s.ToPChar()==NULL)) return false;
     if (ToPChar()==NULL) return true;

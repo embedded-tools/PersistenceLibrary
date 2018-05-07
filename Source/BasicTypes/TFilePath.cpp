@@ -274,7 +274,7 @@ void TFilePath::DeleteDoubleSlash()
 
 
 
-TFilePath TFilePath::operator = ( TFilePath& oString )
+TFilePath TFilePath::operator = (const TFilePath& oString )
 {
 	CopyFrom(oString.ToPChar());
 	for(int i = 0; i<DataLen; i++)
@@ -285,7 +285,7 @@ TFilePath TFilePath::operator = ( TFilePath& oString )
 	return *this;    
 }
 
-TFilePath& TFilePath::operator = ( TString& oString )
+TFilePath& TFilePath::operator = (const TString& oString )
 {
 	CopyFrom(oString.ToPChar());
 	for(int i = 0; i<DataLen; i++)
@@ -296,7 +296,7 @@ TFilePath& TFilePath::operator = ( TString& oString )
 	return *this;
 }
 
-TFilePath& TFilePath::operator = ( const char* pChar)
+TFilePath& TFilePath::operator = (const char* pChar)
 {
 	CopyFrom(pChar);
 	for(int i = 0; i<DataLen; i++)
@@ -307,7 +307,7 @@ TFilePath& TFilePath::operator = ( const char* pChar)
 	return *this;
 }
 
-TFilePath TFilePath::operator + ( const char* pChar )
+TFilePath TFilePath::operator + (const char* pChar )
 {
 	TFilePath result = *this;
     result.ChangeSeparator(m_separator);
@@ -315,7 +315,7 @@ TFilePath TFilePath::operator + ( const char* pChar )
 	return result;
 }
 
-TFilePath& TFilePath::operator += ( const char* pChar )
+TFilePath& TFilePath::operator += (const char* pChar )
 {
 	if (pChar==NULL)
 	{
@@ -424,7 +424,7 @@ TFilePath& TFilePath::operator += ( const char* pChar )
 	return *this;
 }
 
-TFilePath&	TFilePath::operator += ( const char c)
+TFilePath&	TFilePath::operator += (const char c)
 {
 	int oldLength = DataLen;
 	char cc = c;
@@ -439,7 +439,7 @@ TFilePath&	TFilePath::operator += ( const char c)
 	return *this;
 }
 
-bool TFilePath::operator == (TCustomString<FILEPATH_MAXLENGTH>& s)
+bool TFilePath::operator == (const TCustomString<FILEPATH_MAXLENGTH>& s)
 {
 	if ((ToPChar()==NULL) && (s.ToPChar()==NULL)) return true;
 	if (ToPChar()==NULL) return false;
@@ -456,7 +456,7 @@ bool TFilePath::operator == (const char* pChar)
 	return strcmp(ToPChar(), pChar) == 0;
 }
 
-bool TFilePath::operator != (TCustomString<FILEPATH_MAXLENGTH>& s)
+bool TFilePath::operator != (const TCustomString<FILEPATH_MAXLENGTH>& s)
 {
 	if ((ToPChar()==NULL) && (s.ToPChar()==NULL)) return false;
 	if (ToPChar()==NULL) return true;

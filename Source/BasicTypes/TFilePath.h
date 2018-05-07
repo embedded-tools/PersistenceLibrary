@@ -46,15 +46,15 @@ class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
 		bool		DeleteLastDir();
 		void		DeleteDoubleSlash();
 
-		TFilePath	operator = ( TFilePath& oString );
-		TFilePath&	operator = ( TString& oString );
-		TFilePath&	operator = ( const char* pChar);
-		TFilePath	operator + ( const char* pChar );
-		TFilePath&	operator += ( const char* pChar );
-		TFilePath&	operator += ( const char c);
-		bool		operator == (TCustomString<FILEPATH_MAXLENGTH>& s);
+		TFilePath	operator =  (const TFilePath& oString );
+		TFilePath&	operator =  (const TString& oString );
+		TFilePath&	operator =  (const char* pChar);
+		TFilePath	operator +  (const char* pChar );
+		TFilePath&	operator += (const char* pChar );
+		TFilePath&	operator += (const char c);
+		bool		operator == (const TCustomString<FILEPATH_MAXLENGTH>& s);
 		bool		operator == (const char* pChar);
-		bool		operator != (TCustomString<FILEPATH_MAXLENGTH>& s);
+		bool		operator != (const TCustomString<FILEPATH_MAXLENGTH>& s);
 		bool		operator != (const char* pChar);
 
 };
