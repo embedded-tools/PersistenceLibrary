@@ -1,11 +1,11 @@
-PROJECT = libtest
+PROJECT = unittests
 
 CC      = arm-none-eabi-gcc
 CPP     = arm-none-eabi-g++
 LD      = arm-none-eabi-g++
 
-#CPPFLAGS = -g -fno-exceptions -fpack-struct -fno-rtti -Wwrite-strings -std=c++11                   
-#CFLAGS = -g -fpack-struct -Wwrite-strings -std=c99
+CPPFLAGS = -g -std=c++11                   
+CFLAGS   = -g -std=c99
 #LDFLAGS = 
 
 INC=-I./\
@@ -25,13 +25,15 @@ SRC=./Source/BasicTypes/StringUtils.cpp\
 	./Source/BasicTypes/TDateTime.cpp\
 	./Source/BasicTypes/TDateTimeCounter.cpp\
 	./Source/BasicTypes/TFilePath.cpp\
+	./Source/BasicTypes/TParamString.cpp\
+	./Source/BasicTypes/TRandom.cpp\
 	./Source/BasicTypes/TShortString.cpp\
 	./Source/BasicTypes/TString.cpp\
 	./Source/BasicTypes/TStringList.cpp\
 	./Source/BasicTypes/TTime.cpp\
 	./Source/BasicTypes/TWideString.cpp\
 	./Source/BasicTypes/UTF8.c\
-	./Source/BasicTypes/TRandom.cpp\
+	./Source/Collections/TArray.cpp\
 	./Source/Collections/TDictionary.cpp\
 	./Source/Collections/TEnumerable.cpp\
 	./Source/Collections/TEnumerator.cpp\
@@ -40,6 +42,7 @@ SRC=./Source/BasicTypes/StringUtils.cpp\
 	./Source/Collections/TQueue.cpp\
 	./Source/Collections/TSafeArray.cpp\
 	./Source/Collections/TSortedDictionary.cpp\
+	./Source/Collections/TStack.cpp\
 	./Source/Collections/TStaticDictionary.cpp\
 	./Source/Collections/TStaticList.cpp\
 	./Source/FileUtils/TCachedStream.cpp\
@@ -66,6 +69,7 @@ SRC=./Source/BasicTypes/StringUtils.cpp\
 	./Source/Graphics/TColorYUV.cpp\
 	./Source/Graphics/TDisplay320x240x65536.cpp\
 	./Source/Graphics/TDxtBlockCreator.cpp\
+	./Source/Graphics/TEndlessLine.cpp\
 	./Source/Graphics/TFilter3x3.cpp\
 	./Source/Graphics/TFilter5x5.cpp\
 	./Source/Graphics/TFilter7x7.cpp\
@@ -75,9 +79,12 @@ SRC=./Source/BasicTypes/StringUtils.cpp\
 	./Source/Graphics/TPixelFormatConverter.cpp\
 	./Source/Graphics/TPosition.cpp\
 	./Source/Graphics/TRectangle.cpp\
+	./Source/Graphics/TSize.cpp\
+	./Source/Graphics/TVector.cpp\
 	./Source/Graphics/TWindowsBmpFile.cpp\
 	./Source/Math/TFixedPoint1024.cpp\
 	./Source/Math/TFixedPoint128.cpp\
+	./Source/Math/TFixedPoint16M.cpp\
 	./Source/Persistence/TMainSerializer.cpp\
 	./Source/Persistence/TObjectFactory.cpp\
 	./Source/Persistence/TSerializedBaseCollection.cpp\
@@ -157,9 +164,9 @@ COBJ = $(CFILES:.c=.o)
 OBJ  = $(CPPOBJ) $(COBJ) $(SOBJ)
     
 all: $(SRC)	
-	$(CPP) $(INC) $(CPPFILES) -c
-	$(CC) $(INC) $(CFILES) -c
-	#$(LD) $(LDFLAGS) $(OBJ) -o libtest.exe
+	$(CPP) $(INC) $(CPPFILES) $(CPPFLAGS) -c
+	$(CC) $(INC) $(CFILES) $(CFLAGS) -c
+	$(LD) $(LDFLAGS) $(OBJ) -o $(PROJECT).exe
     
 clean:
 	rm -f $(PROJECT).exe $(OBJ)

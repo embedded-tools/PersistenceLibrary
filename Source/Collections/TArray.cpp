@@ -39,13 +39,13 @@ T& TArray<T>::operator [] (int index)
 template<typename T>
 TArray<T>::operator T*()
 {
-	return (T*)(&m_dataArray[0]);
+	return (T*)(&m_itemArray[0]);
 }
 
 template<typename T>
 TArray<T>::operator void*()
 {
-	return (void*)(&m_dataArray[0]);
+	return (void*)(&m_itemArray[0]);
 }
 
 #ifdef STL_STYLE

@@ -1,3 +1,19 @@
+/*
+ * Persistence Library / Basic types /TParamString.h
+ *
+ * Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
+ *
+ * https://github.com/embedded-tools/PersistenceLibrary
+ *
+ * Permission to use, copy, modify, distribute and sell this software
+ * and its documentation for any purpose is hereby granted without fee,
+ * provided that the above copyright notice appear in all copies and
+ * that both that copyright notice and this permission notice appear
+ * in supporting documentation.
+ * It is provided "as is" without express or implied warranty.
+ *
+ */
+
 #include "tparamstring.h"
 
 TParamString::TParamString(const char* text, int textLen, char nameSeparator, char valueSeparator )
@@ -106,7 +122,6 @@ bool TParamString::GetIntValue(const char* valueName, int& value)
 bool TParamString::GetStringValue(const char* valueName, TString& value)
 {
 	const char* text = FindValue(valueName);
-	value = false;
 	if (text==NULL) return false;
 
 	char c = 0;
