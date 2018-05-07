@@ -78,7 +78,7 @@ public:
 	char LastChar() const;
  
     operator char* ();
-    operator const char*();
+    operator const char*() const;
 	const char* ToPChar() const;
   
     TString& Trim();
@@ -108,6 +108,7 @@ public:
     bool operator >= (const char* pChar) const;
     bool operator <= (const char* pChar) const;
     bool operator == (const char* pChar) const;
+	bool operator == (const TString& s)  const;
     bool operator != (const char* pChar) const;
     char& operator [] (unsigned short index);
     char& operator [] (int index);

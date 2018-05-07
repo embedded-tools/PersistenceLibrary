@@ -332,7 +332,7 @@ TString::operator char*()
     return (char*)PData;
 }
 
-TString::operator const char*()
+TString::operator const char*() const
 {
     return (char*)PData;
 }
@@ -801,6 +801,16 @@ bool TString::operator == (const char* pChar) const
 	if (pChar==NULL) return false;
     return strcmp(ToPChar(), pChar) == 0;
 }
+
+bool TString::operator == (const TString& s) const
+{
+	if ((ToPChar()==NULL) && (s.Length()==0)) return true;
+    if ((ToPChar()==NULL) && (s.Length()==0)) return true;
+	if (ToPChar()==NULL) return false;
+	if (s.Length()==0) return false;
+	return strcmp(ToPChar(), s.ToPChar()) == 0;
+}
+
 
 bool TString::operator != (const char* pChar) const
 {
