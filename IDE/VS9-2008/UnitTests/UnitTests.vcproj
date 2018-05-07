@@ -418,6 +418,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TParamString.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TQueue.cpp"
 				>
 			</File>

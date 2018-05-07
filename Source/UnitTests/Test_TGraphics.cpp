@@ -1,4 +1,5 @@
 #include "UnitTests.h"
+#include "TCanvas.h"
 #include "TWindowsBmpFile.h"
 #include "TPosition.h"
 #include "TPixelFormatConverter.h"
@@ -288,8 +289,6 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 
 		tmpData.SaveToWindowsBmp("ConvertTransparentDXT1toRGB565.bmp");
 	}
-
-
 };
 
 REGISTER_FIXTURE( Test_TGraphics);

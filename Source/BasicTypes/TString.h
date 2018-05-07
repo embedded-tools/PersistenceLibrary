@@ -50,7 +50,7 @@ public:
 
     // Constructor
     TString();
-	TString(const char* pChar, unsigned short pCharLen=0, bool useExistingReference=false);
+	TString(const char* pChar, unsigned short pCharLen=0, bool useExistingReference=false, bool readOnly=false);
 	TString(const TString &s);
 
     // Destructor 

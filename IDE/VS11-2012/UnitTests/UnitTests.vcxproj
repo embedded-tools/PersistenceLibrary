@@ -185,6 +185,7 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TLog.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TMemoryStream.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TObjectList.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TParamString.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TQueue.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TRandom.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TSafeArray.cpp" />

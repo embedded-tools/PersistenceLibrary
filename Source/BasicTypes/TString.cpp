@@ -26,29 +26,30 @@ TString::TString()
 
 }
          
-TString::TString(const char* pChar, unsigned short pCharLen, bool useExistingReference)
+TString::TString(const char* pChar, unsigned short pCharLen, bool useExistingReference, bool readOnly)
 : PData(NULL), 
   DataLen(0), 
   DataMax(0), 
   DataStatic(false),
   ReadOnly(false)
 {
+	if (pChar)
+	{
+		if (pCharLen==0)
+		{
+			pCharLen = strlen(pChar);
+		}			
+	}
 	if (useExistingReference)
 	{
 		PData = (char*)pChar;
 		DataLen = pCharLen;
-		DataMax = pCharLen;
+ 		DataMax = pCharLen;
 		DataStatic = true;
 	} else {
-		if (pChar)
-		{
-			if (pCharLen==0)
-			{
-				pCharLen = strlen(pChar);
-			}
-			CopyFrom(pChar, pCharLen);	
-		}
+        CopyFrom(pChar, pCharLen);	
 	}	
+	ReadOnly = readOnly;
 }
 
 TString::TString(const TString &s)
@@ -811,15 +812,25 @@ bool TString::operator != (const char* pChar) const
 
 char& TString::operator[] (unsigned short index)
 {
-	  static char tmp = 0;
-      if (index<0) return tmp;
-      if (index>=Length()) return tmp;
-      return PData[index];
+	static char tmp = 0;
+	if (ReadOnly)
+	{
+		tmp = PData[index];
+		return tmp;
+	}
+	if (index<0) return tmp;
+	if (index>=Length()) return tmp;
+	return PData[index];
 }
 
 char& TString::operator[] (int index)
 {
 	static char tmp = 0;
+	if (ReadOnly)
+	{
+		tmp = PData[index];
+		return tmp;
+	}
     if (index<0) return tmp;
     if (index>=Length()) return tmp;
     return PData[index];
