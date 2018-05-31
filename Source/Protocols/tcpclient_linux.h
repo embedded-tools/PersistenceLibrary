@@ -24,10 +24,14 @@
 #include <pthread.h>
 #include "datareceivedcallback.h"
 
+class TcpServer;
+
+#define TCP_SOCKET_TIMEOUT 200
+
 class TcpClient
 {	
 	public:
-	typedef enum ConnectionState
+	enum ConnectionState
 	{		
 		Connecting,     //will be connected later (just before sending or receving data)
 		Connected,      //connected    (user explicitelly called Open or OpenAsync method)
@@ -39,32 +43,41 @@ private:
 	struct 
 	sockaddr_in     m_serverAddress;	
 	int             m_socketHandle;
+	int             m_socketTimeout;
 	ConnectionState m_connectionState;
 	
     pthread_t    m_threadHandle;
     bool         m_threadStopped;
     int          m_maxPacketSize;
-	char*        m_packetBuffer;
+	char*        m_packetBuffer;	
+    
+    TcpServer*   m_server;
+	
+	void AfterConnectionLoss();
     
 public:
 
 	typedef void (*ConnectionLostHandler)(TcpClient* sender);
 	
     TcpClient(int maxPacketSize=256);
+    
+    TcpClient(TcpServer* parent, int clientSocket, struct sockaddr_in* clientAddress, DataReceivedCallback callback);
     ~TcpClient();
 	
-	bool Open(const char* serverAddress, int port, bool waitForConnection = true);
-	bool OpenAsync(const char* serverAddress, int port, DataReceivedCallback dataReceivedCallback, bool waitForConnection = true);
+	bool Open(const char* serverAddress, int port, bool waitForConnection = false);
+	bool OpenAsync(const char* serverAddress, int port, DataReceivedCallback dataReceivedCallback, bool waitForConnection = false);
 	bool Reopen();
 	
-	bool SendData (void* pData, int dataLength);
+    bool SendData (const char* data, int dataLength=-1);
+    bool SendData (const void* data, int dataLength);	
 	int  ReadData (void* pBuffer, int bufferSize);
 	int  ReadDataCount();
 	
-	void Close();
+	void Close(bool killThreadAlso=true);
 	bool IsOpen();		
 	
-	bool GetConnectionState();
+	ConnectionState GetConnectionState();
+    TcpServer*      GetParentServer();
 	
 protected:
 	
