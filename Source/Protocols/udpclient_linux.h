@@ -41,11 +41,12 @@ public:
     UdpClient(int maxPacketSize=256);
     ~UdpClient();
 
-    bool Init(const char* address, int port);
-	bool InitAsync(const char* serverAddress, int port, DataReceivedCallback dataReceivedCallback);	
+    bool Init(const char* address, int outgoingPort, int incomingPort=-1);
+	bool InitAsync(const char* serverAddress, int outgoingPort, int incomingPort, DataReceivedCallback dataReceivedCallback);	
     void Uninit();
 
-    bool SendData(const char* data, int dataLength=-1);	
+    bool SendData(const char* data, int dataLength=-1);
+    bool SendData(const void* data, int dataLength);
 	int  ReadData(void* pBuffer, int bufferSize);	
 	int  ReadDataCount();	
 

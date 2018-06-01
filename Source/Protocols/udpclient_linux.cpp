@@ -14,7 +14,7 @@
  *
  */
 
-#include "udpclient.h"
+#include "udpclient_linux.h"
 #include "tlog.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -49,18 +49,22 @@ UdpClient::~UdpClient()
 	DEBUG(this, "UdpClient destroyed");
 }
 		
-bool UdpClient::Init(const char* address, int port)
+bool UdpClient::Init(const char* address, int outgoingPort, int incomingPort)        
 {
+    if (incomingPort==-1)
+    {
+        incomingPort = outgoingPort;
+    }
     memset(&m_serverAddress, 0, sizeof(m_serverAddress));
     m_serverAddress.sin_family = AF_INET;
     m_serverAddress.sin_addr.s_addr = inet_addr(address);
-    m_serverAddress.sin_port = htons(port);
+    m_serverAddress.sin_port = htons(outgoingPort);
 
     if (m_socketHandle>0)
     {
         Uninit();
     }
-    m_socketHandle = socket(AF_INET, SOCK_DGRAM, 0);//IPPROTO_UDP);
+    m_socketHandle = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
     if(m_socketHandle< 0)
     {
         DEBUG(this, "Can't create socket");
@@ -71,7 +75,7 @@ bool UdpClient::Init(const char* address, int port)
     memset(&m_localAddress, 0, sizeof(m_localAddress));
     m_localAddress.sin_family = AF_INET;
     m_localAddress.sin_addr.s_addr = htonl(INADDR_ANY);
-    m_localAddress.sin_port = htons(port);
+    m_localAddress.sin_port = htons(incomingPort);
 
     if( bind(m_socketHandle, (struct sockaddr*)&m_localAddress, sizeof(m_localAddress) ) < 0)
     {
@@ -82,20 +86,18 @@ bool UdpClient::Init(const char* address, int port)
     
 	//set timer for recv_socket
 	static int timeout = 5;//TIMEOUT_MS;
-	int res = setsockopt(m_socketHandle, SOL_SOCKET, SO_RCVTIMEO,(char*)&timeout,sizeof(timeout));
-    
-    /*
+	setsockopt(m_socketHandle, SOL_SOCKET, SO_RCVTIMEO,(char*)&timeout,sizeof(timeout));
+        
 	unsigned long nbio = 1;		
 	ioctl(m_socketHandle, FIONBIO, &nbio);
-    */
-	
+    	
     DEBUG(this, "UDP Port opened.")
 	return true;	
 }
 
-bool UdpClient::InitAsync(const char* serverAddress, int port, DataReceivedCallback packetReceivedCallback)
+bool UdpClient::InitAsync(const char* serverAddress, int outgoingPort, int incomingPort, DataReceivedCallback packetReceivedCallback)
 {
-	if (!Init(serverAddress, port)) return false;
+	if (!Init(serverAddress, outgoingPort, incomingPort)) return false;
 	
 	int res = pthread_create( &m_threadHandle, 0, InternalThread, this );
 	if (res==0)
@@ -124,19 +126,21 @@ void UdpClient::Uninit()
     DEBUG(this, "UDP Port closed.") ;
 }
 
-bool UdpClient::SendData(const char* pData, int dataLength)
+bool UdpClient::SendData(const char* data, int dataLength)	
+{
+    if (data && (dataLength==-1)) dataLength = strlen(data);    
+    if (dataLength<0) dataLength = 0;
+    return SendData((const void*)data, dataLength);
+}
+
+bool UdpClient::SendData(const void* data, int dataLength)
 {
     static sockaddr_in ipAddress;
     memcpy(&ipAddress, &m_serverAddress, sizeof(m_serverAddress) );
 
-	if (pData && (dataLength<0))
-	{
-		dataLength = strlen(pData);
-	}
-
     try
     {
-        if (sendto(m_socketHandle, pData, dataLength, MSG_NOSIGNAL, (struct sockaddr *) &ipAddress, sizeof(ipAddress))<dataLength)
+        if (sendto(m_socketHandle, data, dataLength, MSG_NOSIGNAL, (struct sockaddr *) &ipAddress, sizeof(ipAddress))<dataLength)
         {
             return false;
         }
@@ -171,11 +175,8 @@ int UdpClient::ReadDataCount()
     struct sockaddr_in addr;
     int addrSize = sizeof(addr);
 
-    memset(&addr, 0, sizeof(addr));
-    addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = INADDR_ANY;
-    addr.sin_port = m_serverAddress.sin_port;
-
+    memcpy(&addr, &m_localAddress, sizeof(m_localAddress));
+    
     int messageSize = 0;
     try
     {	
@@ -183,7 +184,11 @@ int UdpClient::ReadDataCount()
     } catch(int e)
     {
         return 0;
-    }		
+    }	
+    if (messageSize<0)
+    {
+        messageSize = 0;
+    }
 	return messageSize;	
 }
 
@@ -192,6 +197,11 @@ void* UdpClient::InternalThread(void* arg)
     UdpClient* instance = (UdpClient*)arg;
     while(!instance->m_threadStopped)
     {        
+        if (instance->ReadDataCount()==0) 
+        {
+            continue;
+        }
+            
         int messageSize = instance->ReadData(instance->m_packetBuffer, instance->m_maxPacketSize-1);//readyCount);		
         if (messageSize>0)
         {
@@ -204,7 +214,7 @@ void* UdpClient::InternalThread(void* arg)
                 }
             }					
         }
-		usleep(5000);
+		usleep(1000);
     }
 	instance->m_threadHandle = 0;
 	instance->m_threadStopped = false;
