@@ -120,10 +120,8 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\FileUtils\TCachedStream.h" />
     <ClInclude Include="..\..\..\Source\FileUtils\TEEPROMStream.h" />
-    <ClInclude Include="..\..\..\Source\FileUtils\TFileLog.h" />
     <ClInclude Include="..\..\..\Source\FileUtils\TFileStream.h" />
     <ClInclude Include="..\..\..\Source\FileUtils\THandleStream.h" />
-    <ClInclude Include="..\..\..\Source\FileUtils\TLog.h" />
     <ClInclude Include="..\..\..\Source\FileUtils\TLZ77.h" />
     <ClInclude Include="..\..\..\Source\FileUtils\TLZ77Streamed.h" />
     <ClInclude Include="..\..\..\Source\FileUtils\TMemoryStream.h" />
@@ -139,10 +137,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\FileUtils\TCachedStream.cpp" />
     <ClCompile Include="..\..\..\Source\FileUtils\TEEPROMStream.cpp" />
-    <ClCompile Include="..\..\..\Source\FileUtils\TFileLog.cpp" />
     <ClCompile Include="..\..\..\Source\FileUtils\TFileStream.cpp" />
     <ClCompile Include="..\..\..\Source\FileUtils\THandleStream.cpp" />
-    <ClCompile Include="..\..\..\Source\FileUtils\TLog.cpp" />
     <ClCompile Include="..\..\..\Source\FileUtils\TLZ77.cpp" />
     <ClCompile Include="..\..\..\Source\FileUtils\TLZ77Streamed.cpp" />
     <ClCompile Include="..\..\..\Source\FileUtils\TMemoryStream.cpp" />

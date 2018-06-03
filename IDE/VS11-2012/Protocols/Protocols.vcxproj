@@ -11,10 +11,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Source\Protocols\TBinaryProtocol.cpp" />
+    <ClCompile Include="..\..\..\Source\Protocols\tbinaryprotocol.cpp" />
+    <ClCompile Include="..\..\..\Source\Protocols\tconsolelog.cpp" />
+    <ClCompile Include="..\..\..\Source\Protocols\tfilelog.cpp" />
+    <ClCompile Include="..\..\..\Source\Protocols\tlog.cpp" />
+    <ClCompile Include="..\..\..\Source\Protocols\ttextprotocol.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Source\Protocols\TBinaryProtocol.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\datareceivedcallback.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\eCommand.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\tbinaryprotocol.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\tconsolelog.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\tfilelog.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\tlog.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\ttextprotocol.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B51F88F6-1359-4CCA-8D32-EFD50A1666D5}</ProjectGuid>
@@ -99,7 +109,7 @@
       <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalIncludeDirectories>..\..\Source\Protocols</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
