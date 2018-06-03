@@ -17,13 +17,11 @@
 #ifndef TTEXTPROTOCOL___H
 #define TTEXTPROTOCOL___H
 
-#include "tcpclient.h"
+typedef void (*TextCommandReceivedCallback)(void* sender, const char* command, int commandLength);
 
 class TTextProtocol
 {
 	private:
-		TcpClient   m_communication;
-
 		char        m_messageSeparator;
 		char*       m_incomingData;
 		int         m_incomingDataMaxSize;  //size of allocated memory
@@ -38,9 +36,9 @@ public:
 		
 		TTextProtocol(int maxCommandSize=128, char messageSeparator=';');
 		
-		void PacketReceived(void* sender, const char* textData, int dataLength);
+		void PacketReceived(void* sender, const char* textData, int dataLength=-1);
 		
-		DataReceivedCallback   OnCommandReceived;
+		TextCommandReceivedCallback   OnCommandReceived;
 };
 
 

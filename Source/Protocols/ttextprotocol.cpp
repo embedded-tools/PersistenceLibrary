@@ -17,6 +17,7 @@
 #include "ttextprotocol.h"
 #include "tlog.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 TTextProtocol::TTextProtocol(int maxCommandSize, char messageSeparator)
@@ -35,6 +36,8 @@ void TTextProtocol::PacketReceived(void* sender, const char* textData, int textD
 	char buf[32];
 	sprintf(buf, "%i bytes received.", textDataLength);	
     DEBUG(this, buf);
+    
+    if (textDataLength<0) textDataLength = strlen(textData);
 
     while ((textDataLength+m_incomingDataWritingPosition)>=m_incomingDataMaxSize)
     {
