@@ -153,8 +153,6 @@ TTime TTime::AddSeconds(short seconds)
     seconds -= minutes*60;
     result = result.AddMinutes(minutes);
   
-    unsigned short oldValue = result.m_milliseconds;
-
     if (seconds>0)
     {
         while(seconds>0)
