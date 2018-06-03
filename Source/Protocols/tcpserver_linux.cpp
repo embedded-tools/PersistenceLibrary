@@ -15,6 +15,7 @@
  */
 
 #include "tcpserver_linux.h"
+#include "tcpclient_linux.h"
 #include <string.h>
 #include <unistd.h>
 #include <tlog.h>
@@ -184,7 +185,7 @@ void TcpServer::ClientTerminated(TcpClient* client)
 		client = NULL;
 				
 		m_tcpClients[i] = NULL;
-		DEBUG(this, "Client socket released from server's list");		
+		DEBUG(this, "TcpClient deleted from client list");		
 	}                    		
 }
         

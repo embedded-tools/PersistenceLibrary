@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="FileUtils"
 	ProjectGUID="{7BEA2081-BBEA-4B13-B3E9-5F8BCBEA9C2C}"
 	RootNamespace="FileUtils"
@@ -198,26 +198,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\FileUtils\TFileLog.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\FileUtils\TFileStream.cpp"
 				>
 				<FileConfiguration
@@ -239,26 +219,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\FileUtils\THandleStream.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\FileUtils\TLog.cpp"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -415,19 +375,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\FileUtils\TFileLog.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\FileUtils\TFileStream.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\Source\FileUtils\THandleStream.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\Source\FileUtils\TLog.h"
 				>
 			</File>
 			<File

@@ -91,7 +91,7 @@ bool UdpClient::Init(const char* address, int outgoingPort, int incomingPort)
 	unsigned long nbio = 1;		
 	ioctl(m_socketHandle, FIONBIO, &nbio);
     	
-    DEBUG(this, "UDP Port opened.")
+    DEBUG(this, "UDP Port opened.");
 	return true;	
 }
 

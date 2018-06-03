@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="Protocols"
 	ProjectGUID="{B51F88F6-1359-4CCA-8D32-EFD50A1666D5}"
 	RootNamespace="Protocols"
@@ -43,6 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes"
 				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -119,6 +120,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes"
 				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -173,24 +175,24 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\Source\Protocols\TBinaryProtocol.cpp"
+				RelativePath="..\..\..\Source\Protocols\tbinaryprotocol.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\tconsolelog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\tfilelog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\tlog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\ttextprotocol.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
@@ -198,7 +200,35 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\Source\Protocols\TBinaryProtocol.h"
+				RelativePath="..\..\..\Source\Protocols\datareceivedcallback.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\eCommand.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\tbinaryprotocol.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\tconsolelog.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\textcommandreceivedcallback.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\tfilelog.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\tlog.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\ttextprotocol.h"
 				>
 			</File>
 		</Filter>

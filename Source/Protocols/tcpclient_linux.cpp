@@ -15,6 +15,7 @@
  */
 
 #include "tcpclient_linux.h"
+#include "tcpserver_linux.h"
 #include "tlog.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -22,7 +23,7 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
-#include "TcpServer.h"
+
 
 TcpClient::TcpClient(int maxPacketSize)
 : m_socketHandle(0),
@@ -51,7 +52,7 @@ TcpClient::TcpClient(TcpServer* server, int clientSocket, struct sockaddr_in* cl
   m_server(server),
   m_onPacketReceived(NULL)    
 {
-	DEBUG(this, "TcpClient linked with accepted Tcp connection");
+	DEBUG(this, "TcpClient connection accepted");
     m_server = server;
 	memset((void*)&m_serverAddress, 0, sizeof(m_serverAddress));
     
@@ -208,7 +209,7 @@ void TcpClient::Close(bool killThreadAlso)
 		usleep(100);
 		close(m_socketHandle);
 		m_socketHandle = 0;	
-		DEBUG(this, "TcpClient connection closed")
+		DEBUG(this, "TcpClient connection closed");
 	}	
 	if (killThreadAlso)
 	{
@@ -335,7 +336,7 @@ int TcpClient::ReadData(void* pBuffer, int bufferSize)
     int messageSize = 0;
     try
     {
-        messageSize = recv(m_socketHandle, pBuffer, bufferSize, MSG_NOSIGNAL);		
+        messageSize = recv(m_socketHandle, pBuffer, bufferSize, MSG_NOSIGNAL | MSG_DONTWAIT);		
 		if (messageSize==0)
 		{	
 			DEBUG(this, "TcpClient connection closed remotely");			

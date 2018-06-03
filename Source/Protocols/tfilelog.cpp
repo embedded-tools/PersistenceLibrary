@@ -26,6 +26,11 @@ TFileLog::TFileLog(const char* filename, void(*GetTimeHandler)(TTime &time))
     m_filename = filename;
 }
 
+void TFileLog::Init(const char* filename, void(*GetTimeHandler)(TTime &time))
+{
+    _internal_logger = new TFileLog(filename, GetTimeHandler);
+}
+
 void TFileLog::WriteToFile(const char* pszText, int cbText)
 {
     FILE* file = fopen(m_filename, "ab");

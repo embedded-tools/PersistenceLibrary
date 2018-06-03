@@ -17,27 +17,35 @@
 #ifndef TLOG___H
 #define TLOG___H
 
-#include "ttime.h"
+#include <stdlib.h>
+#include "TTime.h"
 
 enum LogType { ltDebug, ltInfo, ltWarning, ltError, ltException };
 
+class TLog;
+
+extern TLog* _internal_logger;
 
 class TLog
-{
-	protected:
+{	
+	protected:					
+
+        TLog(void(*WriteToLog)(const char* pszText, int cbText), void(*GetTimeHandler)(TTime &time));		
 
 		void(*m_writeToLogHandler)(const char* pszText, int cbText);
 		void(*m_getCurrentTimeHandler)(TTime &time);				
-
+		
 	public:
+        
+        static void Init(void(*WriteToLog)(const char* pszText, int cbText), void(*GetTimeHandler)(TTime &time));		
 
-		TLog(void(*WriteToLog)(const char* pszText, int cbText), void(*GetTimeHandler)(TTime &time));
-
-		void Log(LogType logType, short threadId, const char* message, short messageLength=-1);
-
+		void Log(LogType logType, void* objectId, const char* message, short messageLength=-1);		
+    
 };
 
-
-
+void DEBUG(void* OBJ, const char* A);
+void WARNING(void* OBJ, const char* A);
+void ERROR(void* OBJ, const char* A);
+void EXCEPTION(void* OBJ, const char* A);
 
 #endif

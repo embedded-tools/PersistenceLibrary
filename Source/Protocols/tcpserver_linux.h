@@ -17,9 +17,14 @@
 #ifndef TCPSERVER___H
 #define TCPSERVER___H
 
-#include "TcpClient.h"
+#include "tcpserver_linux.h"
 #include <pthread.h>
+#include <stdlib.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 
+class TcpClient;
 
 class TcpServer
 {	

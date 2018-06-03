@@ -24,8 +24,10 @@ class TFileLog : public TLog
         static const char* m_filename;
         static void WriteToFile(const char* pszText, int cbText);        
 
-    public:
         TFileLog(const char* filename, void(*GetTimeHandler)(TTime &time));
+    public:
+        
+        static void Init(const char* filename, void(*GetTimeHandler)(TTime &time));
 
 };
 
