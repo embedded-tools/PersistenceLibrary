@@ -34,7 +34,7 @@ int main(int argc, char **argv)
     TConsoleLog::Init(GetTime);
 	TcpClient client;
     client.OpenAsync("192.168.1.3", 4000, TcpMessage);
-    
+    client.SendData("Hello there!");
     char buf[64];
     
     while(!terminated)
