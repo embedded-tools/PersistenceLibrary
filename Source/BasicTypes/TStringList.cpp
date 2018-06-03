@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include "tstringlist.h"
 
-TStringList::TStringList (TStringList &list)
+TStringList::TStringList (const TStringList &list)
 {
     m_sorted = false;
     m_stringDataCapacity = 64;
@@ -106,12 +106,12 @@ void TStringList::Add (const char* s, int stringLength)
     if (m_sorted) Sort();
 }
 
-int TStringList::Count ()
+int TStringList::Count () const
 {
     return (m_substringCount);
 }
 
-int TStringList::IndexOf (const char* s)
+int TStringList::IndexOf (const char* s) const
 {
     if (!s) return -1;
 
@@ -410,12 +410,12 @@ void TStringList::SetText(const char* val)
     return;
 }
 
-const char* TStringList::operator[] (int i)
+const char* TStringList::operator[] (int i) const
 {
     return GetString(i);
 }
 
-const char* TStringList::GetString (int i)
+const char* TStringList::GetString (int i) const
 {
     if (m_stringData==NULL) return NULL;
     if (m_substringOffset==NULL) return NULL;
@@ -424,24 +424,24 @@ const char* TStringList::GetString (int i)
     return ( (char*)(m_stringData+m_substringOffset[i]) );
 }
 
-const TString TStringList::GetStringAsObject (int i)
+const TString TStringList::GetStringAsObject (int i) const
 {
     static TString tmp;
     tmp = GetString(i);
     return tmp;
 }
 
-const char* TStringList::GetStringArray()
+const char* TStringList::GetStringArray() const
 {
     return (m_stringData);
 };
 
-int TStringList::GetLength()
+int TStringList::GetLength() const
 {
     return m_substringOffset[m_substringCount];
 }
 
-int TStringList::GetCapacity()
+int TStringList::GetCapacity() const
 {
     return m_stringDataCapacity;
 }

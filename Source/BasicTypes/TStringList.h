@@ -53,7 +53,7 @@ private:
 public:
 
     TStringList (bool sorted=false);
-    TStringList (TStringList &list);
+    TStringList (const TStringList &list);
     ~TStringList ();
 
     void Clear ();
@@ -62,19 +62,19 @@ public:
     void Insert (int i, const char*s);
     void Delete (int i);
 
-    int   Count ();
-    int   GetLength();
-    int   GetCapacity();
+    int   Count () const;
+    int   GetLength() const;
+    int   GetCapacity() const;
 
-    int  IndexOf (const char* s);
+    int  IndexOf (const char* s) const;
     void Exchange (int i1, int i2);
 
     void Sort (bool ascending=true);
     
-    const char* operator[] (int i);
-    const char* GetString (int i);
-    const char* GetStringArray();
-    const TString     GetStringAsObject (int i);	    
+    const char* operator[] (int i) const;
+    const char* GetString (int i) const;
+    const char* GetStringArray() const;
+    const TString GetStringAsObject (int i) const;
 
     void  SetText(const char* val);
     
