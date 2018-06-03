@@ -18,6 +18,7 @@ public:
         TEST_CASE( ConstructDestruct2);
         TEST_CASE( SerialPortLog );
         TEST_CASE( FileLog );
+        TEST_CASE( NullLog );
     }
 
     static void GetTimeFunc(TTime &time)
@@ -40,34 +41,40 @@ public:
 
     void ConstructDestruct1()
     {
-        TLog(WriteToSerialPort, GetTimeFunc);
+        TLog::Init(WriteToSerialPort, GetTimeFunc);
     }
 
     void ConstructDestruct2()
     {
-        TFileLog("log.txt", GetTimeFunc);
+        TFileLog::Init("log.txt", GetTimeFunc);
     }
 
     void SerialPortLog()
     {
-        TLog* log = new TLog(WriteToSerialPort, GetTimeFunc );
-        log->Log(ltDebug, 0, "Debug text");
-        log->Log(ltInfo, 0,  "Info text");
-        log->Log(ltWarning, 0,  "Warning text");
-        log->Log(ltError, 0,  "Error text");
-        log->Log(ltException, 0,  "Exception text");
-        delete log;
+        TLog::Init(WriteToSerialPort, GetTimeFunc );
+        DEBUG     (this, "Debug text");
+        WARNING   (this, "Warning text");
+        ERROR     (this, "Error text");
+        EXCEPTION (this, "Exception text");
     }
 
     void FileLog()
     {
-        TFileLog* log = new TFileLog("test.log", GetTimeFunc );
-        log->Log(ltDebug, 0, "Debug text");
-        log->Log(ltInfo, 0,  "Info text");
-        log->Log(ltWarning, 0,  "Warning text");
-        log->Log(ltError, 0,  "Error text");
-        log->Log(ltException, 0,  "Exception text");
-        delete log;
+        TFileLog::Init("test.log", GetTimeFunc );
+        DEBUG     (this, "Debug text");
+        WARNING   (this, "Warning text");
+        ERROR     (this, "Error text");
+        EXCEPTION (this, "Exception text");
+    }
+
+
+    void NullLog()
+    {
+        TLog::Init(NULL, NULL);
+        DEBUG     (this, "Debug text");
+        WARNING   (this, "Warning text");
+        ERROR     (this, "Error text");
+        EXCEPTION (this, "Exception text");
     }
 
 };
