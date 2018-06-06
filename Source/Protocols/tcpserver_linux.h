@@ -28,6 +28,7 @@ class TcpClient;
 
 class TcpServer
 {	
+friend class TcpClient;
 public:
 
     typedef void (*ServerReceivedDataCallback)(TcpClient* client, const char* command, int commandLength);
@@ -46,7 +47,8 @@ private:
     int                 m_maxConnections;
     int                 m_maxPacketSize;
     
-    TcpClient**         m_tcpClients;    
+    TcpClient**         m_tcpClient;    
+	struct sockaddr_in* m_tcpClientAddr;
 	int                 m_socketHandle;
 	ServerState         m_connectionState;
     
@@ -56,6 +58,7 @@ private:
     static void* InternalThread(void* arg);    
     static void PacketReceivedFromClient(void* arg, const char* command, int commandLength);
     
+	void ClientTerminated(TcpClient* client);
 public:
     
     TcpServer(int maxPacketSize=256, int maxConnections=10);
@@ -68,15 +71,12 @@ public:
     int  GetMaxPacketSize(); 
     int  GetMaxConnections();   
     
-    void SendData(int clientIndex, const char* data, int dataLength);
-    void SendData(int clientIndex, const void* data, int dataLength);
-	
-	void ClientTerminated(TcpClient* client);
-        
+    bool SendData(const struct sockaddr_in address, const char* data, int dataLength);
+    bool SendData(const struct sockaddr_in address, const void* data, int dataLength);
+			
     ClientConnectedCallback    OnClientConnected;
     ClientDisconnectedCallback OnClientDisconnected;
-    ServerReceivedDataCallback OnReceiveData;
-    
+    ServerReceivedDataCallback OnReceiveData;    
 };
 
 

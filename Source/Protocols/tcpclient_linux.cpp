@@ -52,7 +52,7 @@ TcpClient::TcpClient(TcpServer* server, int clientSocket, struct sockaddr_in* cl
   m_server(server),
   m_onPacketReceived(NULL)    
 {
-	DEBUG(this, "TcpClient connection accepted");
+	DEBUG(this, "TcpClient created");
     m_server = server;
 	memset((void*)&m_serverAddress, 0, sizeof(m_serverAddress));
     

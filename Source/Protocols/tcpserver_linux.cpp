@@ -27,7 +27,8 @@ TcpServer::TcpServer(int maxPacketSize, int maxConnections)
     memset(&m_serverAddress, 0, sizeof(m_serverAddress));    
     m_maxConnections = maxConnections;
     m_maxPacketSize = maxPacketSize;
-    m_tcpClients = (TcpClient**)malloc(sizeof(TcpClient*) * maxConnections);
+    m_tcpClient     = (TcpClient**)malloc(sizeof(TcpClient*) * maxConnections);
+	m_tcpClientAddr = (struct sockaddr_in*)malloc(sizeof(struct sockaddr_in) * maxConnections);
     m_socketHandle = 0;
     m_connectionState = NotListening;
     m_threadHandle = 0;
@@ -37,11 +38,30 @@ TcpServer::TcpServer(int maxPacketSize, int maxConnections)
     OnClientDisconnected = NULL;
     OnReceiveData = NULL;
 	
-    memset(m_tcpClients, 0, sizeof(TcpClient*) * maxConnections);        
+    memset(m_tcpClient, 0, sizeof(TcpClient*) * maxConnections);        
 }
 
 TcpServer::~TcpServer()
 {
+	if (m_tcpClient!=NULL)
+	{
+		for(int i = 0; i<m_maxConnections; i++)
+		{
+			if (m_tcpClient[i])
+			{
+				delete m_tcpClient[i];
+			}
+			m_tcpClient[i] = NULL;
+		}
+		free(m_tcpClient);
+		m_tcpClient=NULL;
+	}
+	if (m_tcpClientAddr)
+	{
+		free(m_tcpClientAddr);
+		m_tcpClientAddr = NULL;
+	}
+	
     DEBUG(this, "TcpServer destroyed");    
 }
 
@@ -113,12 +133,12 @@ void TcpServer::PacketReceivedFromClient(void* arg, const char* command, int com
     {
         for(int i = 0; i<server->m_maxConnections; i++)
         {
-            if (server->m_tcpClients[i]==client)
+            if (server->m_tcpClient[i]==client)
             {
                 client->Close();
                 delete client;
                 
-                server->m_tcpClients[i] = NULL;
+                server->m_tcpClient[i] = NULL;
             }    
         }
 		DEBUG(server, "TCP server lost client connection");
@@ -138,32 +158,51 @@ void* TcpServer::InternalThread(void* arg)
     struct sockaddr_in clientAddress;
     int                clientAddressLength;
     int                clientSocket;
-
+	
     while(!instance->m_threadStopped)
-    {				
+    {						
+		memset(&clientAddress, 0, sizeof(clientAddress));	
+		clientAddress.sin_family = AF_INET;
+		
         clientSocket = accept(instance->m_socketHandle, (sockaddr*)&clientAddress, (socklen_t*)&clientAddressLength);
         if (clientSocket)
         {
-			int availableSockets = 0;
+			int availableSocketIndex = 0;
             for(int i = 0; i<instance->m_maxConnections; i++)
             {
-				if (instance->m_tcpClients[i]==NULL) availableSockets++;
-			}
-			if (availableSockets>0)
-			{
-				char buff[40];	
-				sprintf(buff, "New client %d.%d.%d.%d accepted",		
-						(clientAddress.sin_addr.s_addr>>0)  & 255,
-						(clientAddress.sin_addr.s_addr>>8)  & 255,
-						(clientAddress.sin_addr.s_addr>>16) & 255,
-						(clientAddress.sin_addr.s_addr>>24) & 255);	
-				DEBUG(instance, buff);
-				for(int i = 0; i<instance->m_maxConnections; i++)
+				if (instance->m_tcpClient[i]==NULL) 
 				{
-					if (instance->m_tcpClients[i]) continue;
-							
-					instance->m_tcpClients[i] = new TcpClient(instance, clientSocket, (sockaddr_in*)&clientAddress, PacketReceivedFromClient);
+					availableSocketIndex = i;
 					break;
+				}
+			}
+			if (availableSocketIndex!=-1)
+			{
+				char ipAddr[24];
+				int  ipPort;
+				struct sockaddr_in addr;
+				memset(&addr, 0, sizeof(addr));
+				
+				socklen_t len = sizeof(addr);
+				if (getpeername(clientSocket, (struct sockaddr *)&addr, &len) != 0) 	
+				{
+					perror("getpeername");
+				} else {
+					inet_ntop(AF_INET, &addr.sin_addr, ipAddr, sizeof(ipAddr));			
+					ipPort = ntohs(addr.sin_port);
+				}	
+				instance->m_tcpClientAddr[availableSocketIndex] = addr;
+				
+				char buff[40];	
+				sprintf(buff, "New client %s:%i accepted", ipAddr, ipPort);
+
+				DEBUG(instance, buff);
+				
+				instance->m_tcpClient[availableSocketIndex] = new TcpClient(instance, clientSocket, (sockaddr_in*)&clientAddress, PacketReceivedFromClient);
+
+				if (instance->OnClientConnected)
+				{
+					instance->OnClientConnected(instance->m_tcpClientAddr[availableSocketIndex]);
 				}
 			} else {
 				DEBUG(instance, "Maximum number of clients reached");
@@ -179,14 +218,44 @@ void TcpServer::ClientTerminated(TcpClient* client)
 {	
 	for(int i = 0; i<m_maxConnections; i++)
 	{
-		if (m_tcpClients[i]==client) continue;
-				
+		if (m_tcpClient[i]==NULL) continue;
+		if (m_tcpClient[i]!=client) continue;		
+					
 		delete client; 
-		client = NULL;
-				
-		m_tcpClients[i] = NULL;
+		client = NULL;				
+		m_tcpClient[i] = NULL;
+		
+		if (OnClientDisconnected)
+		{
+			OnClientDisconnected(m_tcpClientAddr[i]);
+		}
 		DEBUG(this, "TcpClient deleted from client list");		
 	}                    		
+}    
+
+bool TcpServer::SendData(const struct sockaddr_in address, const char* data, int dataLength)
+{
+	return SendData(address, (const void*)data, dataLength);	
 }
-        
+
+bool TcpServer::SendData(const struct sockaddr_in address, const void* data, int dataLength)
+{
+	bool sendToAll = false;
+	if (address.sin_addr.s_addr==htonl(INADDR_ANY))
+	{
+		sendToAll = true;
+	}
+	bool res = false;	
+	for(int i = 0; i<m_maxConnections; i++)
+	{
+		if (m_tcpClient[i]==NULL) continue;
+		
+		if ((sendToAll) || (m_tcpClientAddr[i].sin_addr.s_addr == address.sin_addr.s_addr))
+		{		
+			res |= m_tcpClient[i]->SendData(data, dataLength);			
+		}
+	}		
+	return res;
+}
     
+	
