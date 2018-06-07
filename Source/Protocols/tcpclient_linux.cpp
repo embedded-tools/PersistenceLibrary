@@ -110,7 +110,7 @@ bool TcpClient::Reopen()
 
 bool TcpClient::Open(const char* serverAddress, int port, bool waitForConnection)
 {
-	DEBUG(this, "TcpClient Open() begin");
+	
 	if (serverAddress)
 	{
 		memset(&m_serverAddress, 0, sizeof(m_serverAddress));
@@ -119,6 +119,15 @@ bool TcpClient::Open(const char* serverAddress, int port, bool waitForConnection
 		m_serverAddress.sin_addr.s_addr = inet_addr(serverAddress);
 		m_serverAddress.sin_port = htons(port);	
 	}	
+	char ipAddr[24];
+	int  ipPort;
+	inet_ntop(AF_INET, &m_serverAddress.sin_addr, ipAddr, sizeof(ipAddr));			
+	ipPort = ntohs(m_serverAddress.sin_port);	
+	
+	char buf[100];	
+	int  len = sprintf(buf, "TcpClient Open(ip=%s, port=%i, wait=%s)", ipAddr, ipPort, waitForConnection?"true":"false");	
+	DEBUG(this, buf);
+	
 
 	if((m_socketHandle = socket(AF_INET, SOCK_STREAM, 0))< 0)
     {
@@ -130,7 +139,6 @@ bool TcpClient::Open(const char* serverAddress, int port, bool waitForConnection
 	//unsigned long nbio = 1;	
 	//ioctl(m_socketHandle, FIONBIO, &nbio);
 	
-    static char buf[100];
 	if (waitForConnection)
 	{
 		int errorCode;
