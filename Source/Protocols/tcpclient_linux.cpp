@@ -287,7 +287,11 @@ bool TcpClient::SendData (const void* data, int dataLength)
 {
 	if ((m_connectionState==Connecting) || (m_connectionState==ConnectionLost))
 	{
-		Reopen();
+		if (!Reopen())
+		{
+			sleep(2); //avoids too many reopening attempts
+			return false;
+		}
 	}		
 	if (m_connectionState==Disconnected)
 	{
@@ -328,7 +332,11 @@ int TcpClient::ReadData(void* pBuffer, int bufferSize)
 {	
 	if ((m_connectionState==Connecting) || (m_connectionState==ConnectionLost))
 	{
-		Reopen();
+		if (!Reopen())
+		{
+			sleep(2); //avoids too many reopening attempts
+			return 0;
+		}
 	}
 	if (m_connectionState==Disconnected)
 	{
@@ -371,7 +379,11 @@ int TcpClient::ReadDataCount()
 {
 	if ((m_connectionState==Connecting) || (m_connectionState==ConnectionLost))
 	{
-		Reopen();
+		if (!Reopen())
+		{
+			sleep(2); //avoids too many reopening attempts
+			return 0;
+		}
 	}	
 	if (m_connectionState==Disconnected)
 	{
