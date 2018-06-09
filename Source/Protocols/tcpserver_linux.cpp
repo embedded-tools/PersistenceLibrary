@@ -37,6 +37,7 @@ TcpServer::TcpServer(int maxPacketSize, int maxConnections)
     OnClientConnected = NULL;
     OnClientDisconnected = NULL;
     OnReceiveData = NULL;
+    UserData = NULL;
 	
     memset(m_tcpClient, 0, sizeof(TcpClient*) * maxConnections);        
 }

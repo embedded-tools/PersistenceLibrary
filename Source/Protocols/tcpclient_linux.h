@@ -45,6 +45,7 @@ private:
 	int             m_socketHandle;
 	int             m_socketTimeout;
 	ConnectionState m_connectionState;
+    int             m_connectionTimeout;
 	
     pthread_t    m_threadHandle;
     bool         m_threadStopped;
@@ -57,15 +58,19 @@ private:
     
 public:
 
+    typedef void (*TcpClientDataReceivedCallback)(TcpClient* arg, const char* data, int dataLength);
+
 	typedef void (*ConnectionLostHandler)(TcpClient* sender);
 	
     TcpClient(int maxPacketSize=256);
     
-    TcpClient(TcpServer* parent, int clientSocket, struct sockaddr_in* clientAddress, DataReceivedCallback callback);
+    TcpClient(TcpServer* parent, int clientSocket, struct sockaddr_in* clientAddress, TcpClientDataReceivedCallback callback, void* userData);
     ~TcpClient();
+
+    int  GetMaxPacketSize();
 	
 	bool Open(const char* serverAddress, int port, bool waitForConnection = false);
-	bool OpenAsync(const char* serverAddress, int port, DataReceivedCallback dataReceivedCallback, bool waitForConnection = false);
+    bool OpenAsync(const char* serverAddress, int port, TcpClientDataReceivedCallback dataReceivedCallback, bool waitForConnection = false);
 	bool Reopen();
 	
     bool SendData (const char* data, int dataLength=-1);
@@ -74,16 +79,20 @@ public:
 	int  ReadDataCount();
 	
 	void Close(bool killThreadAlso=true);
-	bool IsOpen();		
+
+    void SetConnectionTimeout(int timeoutTotal);
+    void CheckTimeout(int timeTick_MS);
 	
 	ConnectionState GetConnectionState();
-    TcpServer*      GetParentServer();
+    TcpServer*      GetParentServer();    
+
+    void*           UserData;
 	
 protected:
 	
 	static void* InternalThread(void* arg);
 	
-	DataReceivedCallback m_onPacketReceived;	
+    TcpClientDataReceivedCallback m_onPacketReceived;
 	
 };
 

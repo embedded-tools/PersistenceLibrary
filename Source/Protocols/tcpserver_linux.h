@@ -56,7 +56,7 @@ private:
     bool                m_threadStopped;    
                 
     static void* InternalThread(void* arg);    
-    static void PacketReceivedFromClient(void* arg, const char* command, int commandLength);
+    static void PacketReceivedFromClient(TcpClient* client, const char* command, int commandLength);
     
 	void ClientTerminated(TcpClient* client);
 public:
@@ -76,7 +76,10 @@ public:
 			
     ClientConnectedCallback    OnClientConnected;
     ClientDisconnectedCallback OnClientDisconnected;
-    ServerReceivedDataCallback OnReceiveData;    
+    TcpClient::TcpClientDataReceivedCallback OnReceiveData;
+
+    void* UserData;
+    
 };
 
 

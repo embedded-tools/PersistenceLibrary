@@ -29,11 +29,13 @@ TcpClient::TcpClient(int maxPacketSize)
 : m_socketHandle(0),
   m_socketTimeout(0),
   m_connectionState(Disconnected),
+  m_connectionTimeout(200), //200 sec
   m_threadHandle(0),
   m_threadStopped(false),
   m_maxPacketSize(maxPacketSize),
   m_packetBuffer(NULL),
   m_server(NULL),
+  UserData(NULL),
   m_onPacketReceived(NULL)
 {
 	DEBUG(this, "TcpClient created");
@@ -41,18 +43,20 @@ TcpClient::TcpClient(int maxPacketSize)
 	m_packetBuffer = (char*) malloc(maxPacketSize);
 }
 
-TcpClient::TcpClient(TcpServer* server, int clientSocket, struct sockaddr_in* clientAddress, DataReceivedCallback callback)
+TcpClient::TcpClient(TcpServer* server, int clientSocket, struct sockaddr_in* clientAddress, TcpClientDataReceivedCallback callback, void* userData)
 : m_socketHandle(clientSocket),
   m_socketTimeout(0),
   m_connectionState(Connected),
+  m_connectionTimeout(200), //200 sec
   m_threadHandle(0),
   m_threadStopped(false),
   m_maxPacketSize(0),
   m_packetBuffer(NULL),
   m_server(server),
-  m_onPacketReceived(NULL)    
+  UserData(userData),
+  m_onPacketReceived(NULL)
 {
-	DEBUG(this, "TcpClient created");
+    DEBUG(this, "TcpClient linked with accepted Tcp connection");
     m_server = server;
 	memset((void*)&m_serverAddress, 0, sizeof(m_serverAddress));
     
@@ -102,6 +106,11 @@ TcpClient::~TcpClient()
 	DEBUG(this, "TcpClient destroyed");
 }
 		
+int TcpClient::GetMaxPacketSize()
+{
+    return m_maxPacketSize;
+}
+
 bool TcpClient::Reopen()
 {	
 	DEBUG(this, "Checking tcp connection...");
@@ -418,6 +427,24 @@ int TcpClient::ReadDataCount()
     return messageSize;	
 }
 
+void TcpClient::SetConnectionTimeout(int timeoutTotal)
+{
+    m_connectionTimeout = timeoutTotal;
+}
+
+void TcpClient::CheckTimeout(int timeTick_MS)
+{
+    usleep(timeTick_MS*1000);
+    m_socketTimeout += timeTick_MS;
+    if (m_socketTimeout>(m_connectionTimeout*1000))
+    {        
+        m_socketTimeout = 0;
+
+        DEBUG(this, "TcpClient session timeout");
+        AfterConnectionLoss();
+    }
+}
+
 void* TcpClient::InternalThread(void* arg)
 {
     TcpClient* instance = (TcpClient*)arg;
@@ -457,18 +484,8 @@ void* TcpClient::InternalThread(void* arg)
 					instance->m_onPacketReceived(instance, instance->m_packetBuffer, messageSize);					
 				}					
 			}
-		}
-		usleep(5000);
-		instance->m_socketTimeout += 5;
-		if (instance->m_socketTimeout>(TCP_SOCKET_TIMEOUT*1000))
-		{
-			instance->m_socketTimeout = 0;
-			if (instance->m_server!=NULL)
-			{
-				DEBUG(instance, "TcpClient session timeout");
-				instance->AfterConnectionLoss();
-			}
-		}		
+		}    
+        instance->CheckTimeout(5);
     }
 	instance->m_threadHandle = 0;
 	instance->m_threadStopped = false;				
