@@ -196,7 +196,7 @@ bool TcpClient::Open(const char* serverAddress, int port, bool waitForConnection
 	return true;
 }
 
-bool TcpClient::OpenAsync(const char* serverAddress, int port, DataReceivedCallback dataReceivedCallback, bool waitForConnection)
+bool TcpClient::OpenAsync(const char* serverAddress, int port, TcpClientDataReceivedCallback dataReceivedCallback, bool waitForConnection)
 {
 	DEBUG(this, "TcpClient OpenAsync() begin");
 	bool res = Open(serverAddress, port, waitForConnection);

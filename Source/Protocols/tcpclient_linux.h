@@ -58,7 +58,7 @@ private:
     
 public:
 
-    typedef void (*TcpClientDataReceivedCallback)(TcpClient* arg, const char* data, int dataLength);
+    typedef void (*TcpClientDataReceivedCallback)(TcpClient* client, const char* data, int dataLength);
 
 	typedef void (*ConnectionLostHandler)(TcpClient* sender);
 	

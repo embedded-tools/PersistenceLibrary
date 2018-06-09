@@ -124,9 +124,8 @@ int  TcpServer::GetMaxConnections()
     return m_maxConnections;
 }
 
-void TcpServer::PacketReceivedFromClient(void* arg, const char* command, int commandLength)
+void TcpServer::PacketReceivedFromClient(TcpClient* client, const char* command, int commandLength)
 {	
-    TcpClient* client = (TcpClient*) arg;
     TcpServer* server = client->GetParentServer();
     if ( (client->GetConnectionState()==TcpClient::ConnectionLost) || 
          (client->GetConnectionState()==TcpClient::Disconnected)
@@ -199,7 +198,7 @@ void* TcpServer::InternalThread(void* arg)
 
 				DEBUG(instance, buff);
 				
-				instance->m_tcpClient[availableSocketIndex] = new TcpClient(instance, clientSocket, (sockaddr_in*)&clientAddress, PacketReceivedFromClient);
+				instance->m_tcpClient[availableSocketIndex] = new TcpClient(instance, clientSocket, (sockaddr_in*)&clientAddress, PacketReceivedFromClient, instance->UserData);
 
 				if (instance->OnClientConnected)
 				{
