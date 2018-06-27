@@ -26,12 +26,12 @@ void GetTime(TTime &time)
 
 int main(int argc, char* argv[])
 {
-	TLogger logger(WriteToFile, GetTime);
+    TLog::Init(WriteToFile, GetTime);
 
-	logger.Log(ltInfo,      1, "Text1");
-	logger.Log(ltWarning,   1, "Text2");
-	logger.Log(ltError,     1, "Text3");
-	logger.Log(ltException, 1, "Text4");
-
+	DEBUG    (NULL, "Text1");
+    INFO     (NULL, "Text2");
+	WARNING  (NULL, "Text2");
+	ERROR    (NULL, "Text3");
+	EXCEPTION(NULL, "Text4");
 	return 0;	
 }
