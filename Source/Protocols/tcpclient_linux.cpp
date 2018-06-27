@@ -157,11 +157,11 @@ bool TcpClient::Open(const char* serverAddress, int port, bool waitForConnection
 		}
 		if(errorCode<0)
 		{
-			DEBUG  (this,"%s:%i not available", ipAddr, ipPort);
+			INFO  (this,"%s:%i not available", ipAddr, ipPort);
 			DEBUG(this, "TcpClient Open() end");	
 			return false;
 		}		
-		DEBUG(this, "Connected to %s:%i", ipAddr, ipPort);
+		INFO(this, "Connected to %s:%i", ipAddr, ipPort);
 					 
 		unsigned long nbio = 1;	
 		ioctl(m_socketHandle, FIONBIO, &nbio);	
@@ -207,7 +207,7 @@ void TcpClient::Close(bool killThreadAlso)
 		usleep(100);
 		close(m_socketHandle);
 		m_socketHandle = 0;	
-		DEBUG(this, "TcpClient connection closed");
+		INFO(this, "Connection closed");
 	}	
 	if (killThreadAlso)
 	{

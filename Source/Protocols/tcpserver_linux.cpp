@@ -191,7 +191,7 @@ void* TcpServer::InternalThread(void* arg)
 				}	
 				instance->m_tcpClientAddr[availableSocketIndex] = addr;
 				
-				DEBUG(instance, "New client %s:%i accepted", ipAddr, ipPort);
+				INFO(instance, "New client %s:%i accepted", ipAddr, ipPort);
 				
 				instance->m_tcpClient[availableSocketIndex] = new TcpClient(instance, clientSocket, (sockaddr_in*)&clientAddress, PacketReceivedFromClient, instance->UserData);
 
@@ -200,7 +200,7 @@ void* TcpServer::InternalThread(void* arg)
 					instance->OnClientConnected(instance->m_tcpClientAddr[availableSocketIndex]);
 				}
 			} else {
-				DEBUG(instance, "Maximum number of clients reached");
+				INFO(instance, "Maximum number of clients reached");
 			}
         }        
     }
@@ -224,7 +224,7 @@ void TcpServer::ClientTerminated(TcpClient* client)
 		{
 			OnClientDisconnected(m_tcpClientAddr[i]);
 		}
-		DEBUG(this, "TcpClient deleted from client list");		
+		INFO(this, "Client deleted from tcp client list");		
 	}                    		
 }    
 
