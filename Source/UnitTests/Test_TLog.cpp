@@ -53,6 +53,7 @@ public:
     {
         TLog::Init(WriteToSerialPort, GetTimeFunc );
         DEBUG     (this, "Debug text");
+        INFO      (this, "Info text");
         WARNING   (this, "Warning text");
         ERROR     (this, "Error text");
         EXCEPTION (this, "Exception text");
@@ -62,6 +63,7 @@ public:
     {
         TFileLog::Init("test.log", GetTimeFunc );
         DEBUG     (this, "Debug text");
+        INFO      (this, "Info text");
         WARNING   (this, "Warning text");
         ERROR     (this, "Error text");
         EXCEPTION (this, "Exception text");
@@ -72,6 +74,7 @@ public:
     {
         TLog::Init(NULL, NULL);
         DEBUG     (this, "Debug text");
+        INFO      (this, "Info text");
         WARNING   (this, "Warning text");
         ERROR     (this, "Error text");
         EXCEPTION (this, "Exception text");
