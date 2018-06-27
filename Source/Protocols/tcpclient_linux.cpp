@@ -118,8 +118,7 @@ bool TcpClient::Reopen()
 }
 
 bool TcpClient::Open(const char* serverAddress, int port, bool waitForConnection)
-{
-	
+{	
 	if (serverAddress)
 	{
 		memset(&m_serverAddress, 0, sizeof(m_serverAddress));
@@ -133,9 +132,7 @@ bool TcpClient::Open(const char* serverAddress, int port, bool waitForConnection
 	inet_ntop(AF_INET, &m_serverAddress.sin_addr, ipAddr, sizeof(ipAddr));			
 	ipPort = ntohs(m_serverAddress.sin_port);	
 	
-	char buf[100];	
-	int  len = sprintf(buf, "TcpClient Open(ip=%s, port=%i, wait=%s)", ipAddr, ipPort, waitForConnection?"true":"false");	
-	DEBUG(this, buf);
+	DEBUG(this, "TcpClient Open(ip=%s, port=%i)", ipAddr, ipPort);
 	
 
 	if((m_socketHandle = socket(AF_INET, SOCK_STREAM, 0))< 0)
@@ -156,32 +153,16 @@ bool TcpClient::Open(const char* serverAddress, int port, bool waitForConnection
 			 errorCode = connect(m_socketHandle, (struct sockaddr *)&m_serverAddress, sizeof(struct sockaddr));
 		} catch (int e)
 		{			
-			char msg[35];
-			sprintf(msg, "Socket exception %i.", e);
-			DEBUG(this, msg);
+			DEBUG(this, "Socket exception %i.", e);
 		}
 		if(errorCode<0)
 		{
-			sprintf(buf, "%i.%i.%i.%i:%i not available",
-					(m_serverAddress.sin_addr.s_addr    ) &255, 
-					(m_serverAddress.sin_addr.s_addr>>8 ) &255,
-					(m_serverAddress.sin_addr.s_addr>>16) &255,
-					(m_serverAddress.sin_addr.s_addr>>24) &255,
-					(m_serverAddress.sin_port & 255 )    * 256 +
-					(m_serverAddress.sin_port >> 8));							
-			DEBUG(this, buf);
+			DEBUG  (this,"%s:%i not available", ipAddr, ipPort);
 			DEBUG(this, "TcpClient Open() end");	
 			return false;
 		}		
-		sprintf(buf, "Connected to %i.%i.%i.%i:%i",
-					 (m_serverAddress.sin_addr.s_addr    ) &255,
-					 (m_serverAddress.sin_addr.s_addr>>8 ) &255,
-					 (m_serverAddress.sin_addr.s_addr>>16) &255,
-					 (m_serverAddress.sin_addr.s_addr>>24) &255,
-					 (m_serverAddress.sin_port & 255 )    * 256 +
-					 (m_serverAddress.sin_port >> 8));
-		DEBUG(this, buf);	
-
+		DEBUG(this, "Connected to %s:%i", ipAddr, ipPort);
+					 
 		unsigned long nbio = 1;	
 		ioctl(m_socketHandle, FIONBIO, &nbio);	
 
@@ -285,23 +266,27 @@ TcpServer* TcpClient::GetParentServer()
     return m_server;
 }
 
-bool TcpClient::SendData(const char* data, int dataLength)	
+bool TcpClient::SendData(const char* data, int dataLength, bool reconnectIfNeeded)	
 {
     if (data && (dataLength==-1)) dataLength = strlen(data);    
     if (dataLength<0) dataLength = 0;
     return SendData((void*)data, dataLength);
 }
 
-bool TcpClient::SendData (const void* data, int dataLength)
+bool TcpClient::SendData (const void* data, int dataLength, bool reconnectIfNeeded)
 {
-	if ((m_connectionState==Connecting) || (m_connectionState==ConnectionLost))
+	if (reconnectIfNeeded)
 	{
-		if (!Reopen())
+		if ((m_connectionState==Connecting) || (m_connectionState==ConnectionLost))
 		{
-			sleep(2); //avoids too many reopening attempts
-			return false;
+			if (!Reopen())
+			{
+				sleep(5); //avoids too many reopening attempts
+				return false;
+			}
 		}
 	}		
+	
 	if (m_connectionState==Disconnected)
 	{
 		DEBUG(this, "SendData called without tcp connection");
@@ -318,9 +303,7 @@ bool TcpClient::SendData (const void* data, int dataLength)
 		
         if (n>=dataLength)
         {
-			char buf[30];
-			sprintf(buf, "%i bytes sent.", dataLength);		
-			DEBUG(this, buf);			
+			DEBUG(this, "%i bytes sent.", dataLength);		
 		} else {
 			//sets ConnectionLost status
 			AfterConnectionLoss();					
@@ -328,25 +311,27 @@ bool TcpClient::SendData (const void* data, int dataLength)
         } 
     } catch(int e)
     {
-		char buf[80];
-		sprintf(buf, "SendData exception: %i", e);
-		DEBUG(this, buf);
+		DEBUG(this, "SendData exception: %i", e);
 		
         return false;
     }
 	return true;
 }
 
-int TcpClient::ReadData(void* pBuffer, int bufferSize)
+int TcpClient::ReadData(void* pBuffer, int bufferSize, bool reconnectIfNeeded)
 {	
-	if ((m_connectionState==Connecting) || (m_connectionState==ConnectionLost))
+	if (reconnectIfNeeded)
 	{
-		if (!Reopen())
+		if ((m_connectionState==Connecting) || (m_connectionState==ConnectionLost))
 		{
-			sleep(2); //avoids too many reopening attempts
-			return 0;
+			if (!Reopen())
+			{
+				sleep(5); //avoids too many reopening attempts
+				return 0;
+			}
 		}
-	}
+	}		
+	
 	if (m_connectionState==Disconnected)
 	{
 		DEBUG(this, "SendData called without tcp connection");
@@ -369,9 +354,7 @@ int TcpClient::ReadData(void* pBuffer, int bufferSize)
 		}	
     } catch(int e)
     {
-		char buf[80];
-		sprintf(buf, "ReadData exception: %i", e);
-		DEBUG(this, buf);
+		DEBUG(this, "ReadData exception: %i", e);
 		
         return false;
     }
@@ -384,16 +367,20 @@ int TcpClient::ReadData(void* pBuffer, int bufferSize)
 	return messageSize;
 }
 
-int TcpClient::ReadDataCount()
+int TcpClient::ReadDataCount(bool reconnectIfNeeded)
 {
-	if ((m_connectionState==Connecting) || (m_connectionState==ConnectionLost))
+	if (reconnectIfNeeded)
 	{
-		if (!Reopen())
+		if ((m_connectionState==Connecting) || (m_connectionState==ConnectionLost))
 		{
-			sleep(2); //avoids too many reopening attempts
-			return 0;
-		}
-	}	
+			if (!Reopen())
+			{
+				sleep(5); //avoids too many reopening attempts
+				return 0;
+			}
+		}	
+	}		
+	
 	if (m_connectionState==Disconnected)
 	{
 		return 0;
@@ -417,9 +404,7 @@ int TcpClient::ReadDataCount()
 		}	
     } catch(int e)
     {
-		char buf[80];
-		sprintf(buf, "ReadDataCount exception: %i", e);
-		DEBUG(this, buf);		
+		DEBUG(this, "ReadDataCount exception: %i", e);
         return false;
     }		
 	if (messageSize<0) return 0;	

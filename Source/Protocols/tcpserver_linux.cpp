@@ -92,9 +92,7 @@ bool TcpServer::Listen(int port)
 		DEBUG(this, "Can't create thread");
         return false;        
     }    
-	char buff[40];	
-	sprintf(buff, "Listening on port %i", port);
-	DEBUG(this, buff);
+	DEBUG(this, "Listening on port %d", port);
     return true;	
 }    
 
@@ -193,10 +191,7 @@ void* TcpServer::InternalThread(void* arg)
 				}	
 				instance->m_tcpClientAddr[availableSocketIndex] = addr;
 				
-				char buff[40];	
-				sprintf(buff, "New client %s:%i accepted", ipAddr, ipPort);
-
-				DEBUG(instance, buff);
+				DEBUG(instance, "New client %s:%i accepted", ipAddr, ipPort);
 				
 				instance->m_tcpClient[availableSocketIndex] = new TcpClient(instance, clientSocket, (sockaddr_in*)&clientAddress, PacketReceivedFromClient, instance->UserData);
 

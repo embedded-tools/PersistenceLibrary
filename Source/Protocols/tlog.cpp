@@ -101,7 +101,7 @@ void DEBUG(void* OBJ, const char* A)
     if (_internal_logger) 
     {
         _internal_logger->Log(ltDebug, OBJ, A);
-    }
+    }	
 }
 
 void WARNING(void* OBJ, const char* A)
@@ -119,13 +119,132 @@ void ERROR(void* OBJ, const char* A)
         _internal_logger->Log(ltError, OBJ, A);
     }
 }
-
+  
 void EXCEPTION(void* OBJ, const char* A)
 {
     if (_internal_logger) 
     {
         _internal_logger->Log(ltException, OBJ, A);
     }
+} 
+
+
+void DEBUG(void* OBJ, const char* A, int i1)
+{	
+    if (_internal_logger) 
+    {		
+		char buf[128];
+		snprintf(buf, sizeof(buf), A, i1);		
+        _internal_logger->Log(ltDebug, OBJ, buf);
+    }
 }
 
+void WARNING(void* OBJ, const char* A, int i1)
+{
+    if (_internal_logger) 
+    {
+		char buf[128];
+		snprintf(buf, sizeof(buf), A, i1);		
+        _internal_logger->Log(ltWarning, OBJ, buf);
+    }
+}
 
+void ERROR(void* OBJ, const char* A, int i1)
+{
+    if (_internal_logger) 
+    {
+		char buf[128];
+		snprintf(buf, sizeof(buf), A, i1);		
+        _internal_logger->Log(ltError, OBJ, buf);
+    }
+}
+
+void EXCEPTION(void* OBJ, const char* A, int i1)
+{
+    if (_internal_logger) 
+    {
+		char buf[128];
+		snprintf(buf, sizeof(buf), A, i1);		
+        _internal_logger->Log(ltException, OBJ, buf);
+    }
+}
+
+void DEBUG(void* OBJ, const char* A, int i1, int i2)
+{	
+    if (_internal_logger) 
+    {		
+		char buf[128];
+		snprintf(buf, sizeof(buf), A, i1, i2);		
+        _internal_logger->Log(ltDebug, OBJ, buf);
+    }
+}
+
+void WARNING(void* OBJ, const char* A, int i1, int i2)
+{
+    if (_internal_logger) 
+    {
+		char buf[128];
+		snprintf(buf, sizeof(buf), A, i1, i2);		
+        _internal_logger->Log(ltWarning, OBJ, buf);
+    }
+}
+
+void ERROR(void* OBJ, const char* A, int i1, int i2)
+{
+    if (_internal_logger) 
+    {
+		char buf[128];
+		snprintf(buf, sizeof(buf), A, i1, i2);		
+        _internal_logger->Log(ltError, OBJ, buf);
+    }
+}
+
+void EXCEPTION(void* OBJ, const char* A, int i1, int i2)
+{
+    if (_internal_logger) 
+    {
+		char buf[128];
+		snprintf(buf, sizeof(buf), A, i1, i2);		
+        _internal_logger->Log(ltException, OBJ, buf);
+    }
+}
+
+void DEBUG(void* OBJ, const char* A, const char* s1, int i2)
+{	
+    if (_internal_logger) 
+    {		
+		char buf[128];
+		snprintf(buf, sizeof(buf), A, s1, i2);		
+        _internal_logger->Log(ltDebug, OBJ, buf);
+    }
+}
+
+void WARNING(void* OBJ, const char* A, const char* s1, int i2)
+{
+    if (_internal_logger) 
+    {
+		char buf[128];
+		snprintf(buf, sizeof(buf), A, s1, i2);		
+        _internal_logger->Log(ltWarning, OBJ, buf);
+    }
+}
+
+void ERROR(void* OBJ, const char* A, const char* s1, int i2)
+{
+    if (_internal_logger) 
+    {
+		char buf[128];
+		snprintf(buf, sizeof(buf), A, s1, i2);		
+        _internal_logger->Log(ltError, OBJ, buf);
+    }
+}
+
+void EXCEPTION(void* OBJ, const char* A, const char* s1, int i2)
+{
+    if (_internal_logger) 
+    {
+		char buf[128];
+		snprintf(buf, sizeof(buf), A, s1, i2);		
+        _internal_logger->Log(ltException, OBJ, buf);
+    }
+}

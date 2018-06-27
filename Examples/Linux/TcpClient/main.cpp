@@ -28,7 +28,8 @@ int main(int argc, char **argv)
 {
     TConsoleLog::Init(GetTime);
 	TcpClient client;
-    client.Open("192.168.1.3", 4000);
+    client.Open("192.168.54.99", 4000);
+	client.SendData("Hello there!");
     
     char buf[64];
     
@@ -39,6 +40,8 @@ int main(int argc, char **argv)
         if (len>0)
         {
             printf("Message: %s\n", buf);            
+			
+			client.SendData("Testovaci veta\n");
         } else {
             usleep(5000);
         }
@@ -46,7 +49,7 @@ int main(int argc, char **argv)
         if (strstr(buf, "quit"))
         {
             terminated = true;
-        }
+        }			
     }
     client.Close();    
 	return 0;

@@ -69,14 +69,14 @@ public:
 
     int  GetMaxPacketSize();
 	
-	bool Open(const char* serverAddress, int port, bool waitForConnection = false);
-    bool OpenAsync(const char* serverAddress, int port, TcpClientDataReceivedCallback dataReceivedCallback, bool waitForConnection = false);
+	bool Open(const char* serverAddress, int port, bool waitForConnection = true);
+    bool OpenAsync(const char* serverAddress, int port, TcpClientDataReceivedCallback dataReceivedCallback, bool waitForConnection = true);
 	bool Reopen();
 	
-    bool SendData (const char* data, int dataLength=-1);
-    bool SendData (const void* data, int dataLength);	
-	int  ReadData (void* pBuffer, int bufferSize);
-	int  ReadDataCount();
+    bool SendData (const char* data, int dataLength=-1, bool reconnectIfNeeded=false);
+    bool SendData (const void* data, int dataLength, bool reconnectIfNeeded=false);	
+	int  ReadData (void* pBuffer, int bufferSize, bool reconnectIfNeeded=true);
+	int  ReadDataCount(bool reconnectIfNeeded=true);
 	
 	void Close(bool killThreadAlso=true);
 

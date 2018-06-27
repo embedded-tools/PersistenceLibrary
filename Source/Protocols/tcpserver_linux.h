@@ -18,7 +18,7 @@
 #define TCPSERVER___H
 
 #include "tcpserver_linux.h"
-#include "tcpclient.h"
+#include "tcpclient_linux.h"
 #include <pthread.h>
 #include <stdlib.h>
 #include <arpa/inet.h>
