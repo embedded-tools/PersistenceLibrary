@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogViewer", "LogViewer.csproj", "{EC4D8087-6452-4343-9782-8E466F68AD5B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC4D8087-6452-4343-9782-8E466F68AD5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC4D8087-6452-4343-9782-8E466F68AD5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC4D8087-6452-4343-9782-8E466F68AD5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC4D8087-6452-4343-9782-8E466F68AD5B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
