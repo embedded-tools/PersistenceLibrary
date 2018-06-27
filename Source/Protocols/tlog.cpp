@@ -104,6 +104,14 @@ void DEBUG(void* OBJ, const char* A)
     }	
 }
 
+void INFO(void* OBJ, const char* A)
+{
+    if (_internal_logger) 
+    {
+        _internal_logger->Log(ltInfo, OBJ, A);
+    }	
+}
+
 void WARNING(void* OBJ, const char* A)
 {
     if (_internal_logger) 
@@ -134,17 +142,40 @@ void DEBUG(void* OBJ, const char* A, int i1)
     if (_internal_logger) 
     {		
 		char buf[128];
-		snprintf(buf, sizeof(buf), A, i1);		
+#ifdef WIN32
+		_snprintf(buf, sizeof(buf), A, i1);		
+#else
+        snprintf(buf, sizeof(buf), A, i1);		
+#endif
         _internal_logger->Log(ltDebug, OBJ, buf);
     }
 }
+
+void INFO(void* OBJ, const char* A, int i1)
+{	
+    if (_internal_logger) 
+    {		
+        char buf[128];
+#ifdef WIN32
+        _snprintf(buf, sizeof(buf), A, i1);		
+#else 
+        snprintf(buf, sizeof(buf), A, i1);		
+#endif
+        _internal_logger->Log(ltInfo, OBJ, buf);
+    }
+}
+
 
 void WARNING(void* OBJ, const char* A, int i1)
 {
     if (_internal_logger) 
     {
 		char buf[128];
-		snprintf(buf, sizeof(buf), A, i1);		
+#ifdef WIN32
+		_snprintf(buf, sizeof(buf), A, i1);		
+#else
+        snprintf(buf, sizeof(buf), A, i1);		
+#endif
         _internal_logger->Log(ltWarning, OBJ, buf);
     }
 }
@@ -154,7 +185,11 @@ void ERROR(void* OBJ, const char* A, int i1)
     if (_internal_logger) 
     {
 		char buf[128];
-		snprintf(buf, sizeof(buf), A, i1);		
+#ifdef WIN32
+		_snprintf(buf, sizeof(buf), A, i1);		
+#else
+        snprintf(buf, sizeof(buf), A, i1);		
+#endif
         _internal_logger->Log(ltError, OBJ, buf);
     }
 }
@@ -164,7 +199,11 @@ void EXCEPTION(void* OBJ, const char* A, int i1)
     if (_internal_logger) 
     {
 		char buf[128];
+#ifdef WIN32
+        _snprintf(buf, sizeof(buf), A, i1);		
+#else
 		snprintf(buf, sizeof(buf), A, i1);		
+#endif
         _internal_logger->Log(ltException, OBJ, buf);
     }
 }
@@ -174,17 +213,40 @@ void DEBUG(void* OBJ, const char* A, int i1, int i2)
     if (_internal_logger) 
     {		
 		char buf[128];
-		snprintf(buf, sizeof(buf), A, i1, i2);		
+#ifdef WIN32
+		_snprintf(buf, sizeof(buf), A, i1, i2);		
+#else
+        snprintf(buf, sizeof(buf), A, i1, i2);		
+#endif
         _internal_logger->Log(ltDebug, OBJ, buf);
     }
 }
+
+void INFO(void* OBJ, const char* A, int i1, int i2)
+{	
+    if (_internal_logger) 
+    {		
+        char buf[128];
+#ifdef WIN32
+        _snprintf(buf, sizeof(buf), A, i1, i2);		
+#else
+        snprintf(buf, sizeof(buf), A, i1, i2);		
+#endif
+        _internal_logger->Log(ltInfo, OBJ, buf);
+    }
+}
+
 
 void WARNING(void* OBJ, const char* A, int i1, int i2)
 {
     if (_internal_logger) 
     {
 		char buf[128];
+#ifdef WIN32
+        _snprintf(buf, sizeof(buf), A, i1, i2);		
+#else
 		snprintf(buf, sizeof(buf), A, i1, i2);		
+#endif
         _internal_logger->Log(ltWarning, OBJ, buf);
     }
 }
@@ -194,7 +256,11 @@ void ERROR(void* OBJ, const char* A, int i1, int i2)
     if (_internal_logger) 
     {
 		char buf[128];
+#ifdef WIN32
+        _snprintf(buf, sizeof(buf), A, i1, i2);		
+#else
 		snprintf(buf, sizeof(buf), A, i1, i2);		
+#endif
         _internal_logger->Log(ltError, OBJ, buf);
     }
 }
@@ -204,7 +270,11 @@ void EXCEPTION(void* OBJ, const char* A, int i1, int i2)
     if (_internal_logger) 
     {
 		char buf[128];
+#ifdef WIN32
+        _snprintf(buf, sizeof(buf), A, i1, i2);		
+#else
 		snprintf(buf, sizeof(buf), A, i1, i2);		
+#endif
         _internal_logger->Log(ltException, OBJ, buf);
     }
 }
@@ -214,8 +284,26 @@ void DEBUG(void* OBJ, const char* A, const char* s1, int i2)
     if (_internal_logger) 
     {		
 		char buf[128];
+#ifdef WIN32
+        _snprintf(buf, sizeof(buf), A, s1, i2);		
+#else 
 		snprintf(buf, sizeof(buf), A, s1, i2);		
+#endif
         _internal_logger->Log(ltDebug, OBJ, buf);
+    }
+}
+
+void INFO(void* OBJ, const char* A, const char* s1, int i2)
+{	
+    if (_internal_logger) 
+    {		
+        char buf[128];
+#ifdef WIN32
+        _snprintf(buf, sizeof(buf), A, s1, i2);		
+#else
+        snprintf(buf, sizeof(buf), A, s1, i2);		
+#endif
+        _internal_logger->Log(ltInfo, OBJ, buf);
     }
 }
 
@@ -224,7 +312,11 @@ void WARNING(void* OBJ, const char* A, const char* s1, int i2)
     if (_internal_logger) 
     {
 		char buf[128];
-		snprintf(buf, sizeof(buf), A, s1, i2);		
+#ifdef WIN32
+		_snprintf(buf, sizeof(buf), A, s1, i2);		
+#else
+        snprintf(buf, sizeof(buf), A, s1, i2);		
+#endif
         _internal_logger->Log(ltWarning, OBJ, buf);
     }
 }
@@ -234,7 +326,11 @@ void ERROR(void* OBJ, const char* A, const char* s1, int i2)
     if (_internal_logger) 
     {
 		char buf[128];
-		snprintf(buf, sizeof(buf), A, s1, i2);		
+#ifdef WIN32
+		_snprintf(buf, sizeof(buf), A, s1, i2);		
+#else
+        snprintf(buf, sizeof(buf), A, s1, i2);		
+#endif
         _internal_logger->Log(ltError, OBJ, buf);
     }
 }
@@ -244,7 +340,11 @@ void EXCEPTION(void* OBJ, const char* A, const char* s1, int i2)
     if (_internal_logger) 
     {
 		char buf[128];
+#ifdef WIN32
+        _snprintf(buf, sizeof(buf), A, s1, i2);		
+#else
 		snprintf(buf, sizeof(buf), A, s1, i2);		
+#endif
         _internal_logger->Log(ltException, OBJ, buf);
     }
 }

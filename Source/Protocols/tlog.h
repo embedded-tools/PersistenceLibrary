@@ -45,21 +45,25 @@ class TLog
 
 
 void DEBUG(void* OBJ, const char* A);
+void INFO(void* OBJ, const char* A);
 void WARNING(void* OBJ, const char* A);
 void ERROR(void* OBJ, const char* A);
 void EXCEPTION(void* OBJ, const char* A);
 
 void DEBUG(void* OBJ, const char* A, int i1);
+void INFO(void* OBJ, const char* A, int i1);
 void WARNING(void* OBJ, const char* A, int i1);
 void ERROR(void* OBJ, const char* A, int i1);
 void EXCEPTION(void* OBJ, const char* A, int i1);
 
 void DEBUG(void* OBJ, const char* A, const char* s1, int i1);
+void INFO(void* OBJ, const char* A, const char* s1, int i1);
 void WARNING(void* OBJ, const char* A, const char* s1, int i1);
 void ERROR(void* OBJ, const char* A, const char* s1, int i1);
 void EXCEPTION(void* OBJ, const char* A, const char* s1, int i1);
 
 void DEBUG(void* OBJ, const char* A, int i1, int i2);
+void INFO(void* OBJ, const char* A, int i1, int i2);
 void WARNING(void* OBJ, const char* A, int i1, int i2);
 void ERROR(void* OBJ, const char* A, int i1, int i2);
 void EXCEPTION(void* OBJ, const char* A, int i1, int i2);
