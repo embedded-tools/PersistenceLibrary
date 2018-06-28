@@ -322,9 +322,9 @@ TEnumerator<TPair<KEY, VALUE> > TSortedDictionary<KEY, VALUE>::GetEnumerator()
 }
 
 template<typename KEY, typename VALUE>
-TArray<TPair<KEY,VALUE>> TSortedDictionary<KEY, VALUE>::ToArray()
+TArray<TPair<KEY,VALUE> > TSortedDictionary<KEY, VALUE>::ToArray()
 {
-	TArray<TPair<KEY,VALUE>> result(m_pairArray, m_dataCount, sizeof(TPair<KEY,VALUE>));
+	TArray<TPair<KEY,VALUE> > result(m_pairArray, m_dataCount, sizeof(TPair<KEY,VALUE>));
 	return result;
 }
 

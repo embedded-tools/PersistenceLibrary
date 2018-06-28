@@ -156,9 +156,9 @@ TEnumerator<TPair<KEY, VALUE> > TStaticDictionary<KEY, VALUE, N>::GetEnumerator(
 }
 
 template<typename KEY, typename VALUE, int N>
-TArray<TPair<KEY,VALUE>> TStaticDictionary<KEY, VALUE, N>::ToArray()
+TArray<TPair<KEY,VALUE> > TStaticDictionary<KEY, VALUE, N>::ToArray()
 {
-	TArray<TPair<KEY,VALUE>> result(m_pairArray, m_dataCount, sizeof(TPair<KEY,VALUE>));
+	TArray<TPair<KEY,VALUE> > result(m_pairArray, m_dataCount, sizeof(TPair<KEY,VALUE>));
 	return result;
 }
 

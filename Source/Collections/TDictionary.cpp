@@ -345,9 +345,9 @@ void TDictionary<KEY, VALUE>::Clear()
 }
 
 template<typename KEY, typename VALUE>
-TArray<TPair<KEY,VALUE>> TDictionary<KEY, VALUE>::ToArray()
+TArray<TPair<KEY,VALUE> > TDictionary<KEY, VALUE>::ToArray()
 {
-	TArray<TPair<KEY,VALUE>> result(m_pairArray, m_dataCount, sizeof(TPair<KEY,VALUE>));
+	TArray<TPair<KEY,VALUE> > result(m_pairArray, m_dataCount, sizeof(TPair<KEY,VALUE>));
 	return result;
 }
 

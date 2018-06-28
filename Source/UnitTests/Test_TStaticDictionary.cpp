@@ -222,8 +222,8 @@ public:
 		dict.Add(12, 200);
 		dict.Add(13, 300);
 
-		TArray<TPair<int,int>> a = dict.ToArray();
-		TArray<TPair<int,int>> b = a;
+		TArray<TPair<int,int> > a = dict.ToArray();
+		TArray<TPair<int,int> > b = a;
 
 		ASSERT_EQUALS(3,   b.Length());
 		ASSERT_EQUALS(11,  b[0].first);

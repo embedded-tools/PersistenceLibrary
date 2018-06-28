@@ -85,7 +85,23 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\..\Source\Protocols\TBinaryProtocol.cpp
+SOURCE=..\..\..\Source\Protocols\tbinaryprotocol.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Protocols\tconsolelog.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Protocols\tfilelog.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Protocols\tlog.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Protocols\ttextprotocol.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -93,7 +109,31 @@ SOURCE=..\..\..\Source\Protocols\TBinaryProtocol.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=..\..\..\Source\Protocols\datareceivedcallback.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Protocols\eCommand.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\Protocols\TBinaryProtocol.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Protocols\tconsolelog.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Protocols\tfilelog.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Protocols\tlog.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Protocols\ttextprotocol.h
 # End Source File
 # End Group
 # End Target

@@ -58,7 +58,7 @@ public:
 	bool  ContainsKey (KEY key);
 	void  Clear();
 
-	TArray<TPair<KEY,VALUE>>  ToArray();
+	TArray<TPair<KEY,VALUE> >  ToArray();
 	TArray<KEY>               KeysToArray();
 	TArray<VALUE>             ValuesToArray();
 

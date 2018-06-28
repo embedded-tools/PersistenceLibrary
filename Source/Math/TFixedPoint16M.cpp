@@ -185,8 +185,15 @@ TFixedPoint16M& TFixedPoint16M::operator *=(long value)
         return *this;
     }
 #ifdef WIN32
+
+#if (_MSC_VER>=1400)
     long long result = (long long)m_value * value;
+#else                                                                   
+   __int64 result = ((__int64)m_value) * value;
 #endif
+
+#endif
+
 #ifdef __GNUC__
 	int64_t result = ((int64_t)m_value * value);
 #endif
@@ -229,7 +236,13 @@ TFixedPoint16M& TFixedPoint16M::operator *=(TFixedPoint16M& value)
         return *this;
     }
 #ifdef WIN32
-    long long result = (long long)(m_value * value.m_value)>>5;;
+
+#if (_MSC_VER>=1400)
+    long long result = (long long)m_value * value.m_value>>5;
+#else
+    __int64 result = ((__int64)m_value) * value.m_value>>5;
+#endif
+
 #endif
 #ifdef __GNUC__
 	int64_t result = (int64_t)(m_value * value.m_value)>>5;;

@@ -85,6 +85,10 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\..\..\Source\Collections\TArray.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\Collections\TDictionary.cpp
 # End Source File
 # Begin Source File
@@ -106,10 +110,6 @@ SOURCE=..\..\..\Source\Collections\TObjectList.cpp
 # Begin Source File
 
 SOURCE=..\..\..\Source\Collections\TQueue.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\Collections\TSafeArray.cpp
 # End Source File
 # Begin Source File
 

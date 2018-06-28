@@ -89,19 +89,11 @@ SOURCE=..\..\..\Source\FileUtils\TCachedStream.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\Source\FileUtils\TFileLog.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\Source\FileUtils\TFileStream.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\Source\FileUtils\THandleStream.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\FileUtils\TLog.cpp
 # End Source File
 # Begin Source File
 
@@ -153,19 +145,11 @@ SOURCE=..\..\..\Source\FileUtils\TCachedStream.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\Source\FileUtils\TFileLog.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\Source\FileUtils\TFileStream.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\Source\FileUtils\THandleStream.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\Source\FileUtils\TLog.h
 # End Source File
 # Begin Source File
 
