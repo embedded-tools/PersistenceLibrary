@@ -61,18 +61,21 @@ void TLog::Log(LogType logType, void* objectId, const char* message, short messa
     	    
 	if (m_getCurrentTimeHandler)
 	{
+        text[0]='T';
+        textLength = 1;
+        m_writeToLogHandler(text, textLength);
+
 		TTime currentTime(0,0,0);
 		m_getCurrentTimeHandler(currentTime);
 		textLength = currentTime.PrintTimeFull(text, sizeof(text));
 	    m_writeToLogHandler(text, textLength);
 		
-		text[0]=' ';
-        text[1]=' ';
-		textLength = 2;
+		text[0]=9;
+		textLength = 1;
 		m_writeToLogHandler(text, textLength);
 	}	
 
-	textLength = sprintf(text, "%010u  ", objectId);
+	textLength = sprintf(text, "%010u\t", objectId);
 	m_writeToLogHandler(text, textLength);
 
 	const char* logTypeString =           "Unknown  \t\"";
