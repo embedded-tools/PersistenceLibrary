@@ -230,7 +230,7 @@ unsigned short TTime::PrintTime(char* pbOutputString, unsigned short cbOutputStr
     pbOutputString[7] = seconds % 10 + '0'; 
     pbOutputString[8] = 0;
 
-    return 9;
+    return 8;
 }
 
 unsigned short TTime::PrintTimeFull(char* pbOutputString, unsigned short cbOutputString)
@@ -257,5 +257,5 @@ unsigned short TTime::PrintTimeFull(char* pbOutputString, unsigned short cbOutpu
     pbOutputString[11]= (milliseconds % 10) + '0';
     pbOutputString[12]= 0;
 
-    return 13;
+    return 12;
 }
