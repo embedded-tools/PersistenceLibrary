@@ -7,6 +7,8 @@ namespace LogViewer
 {
     static class Program
     {
+        public static int UdpPort = 0;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

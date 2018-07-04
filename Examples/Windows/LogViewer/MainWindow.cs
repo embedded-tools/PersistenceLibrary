@@ -24,7 +24,6 @@ namespace LogViewer
         private bool m_threadStopped = true;
         private UdpClient m_udpClient = null;
         private Thread m_thread = null;
-        public const int LoggerPort = 4444;
         private bool filterIsEmpty = false;
 
         public delegate void UpdateRowCountDelegate(int rowCount);
@@ -57,6 +56,8 @@ namespace LogViewer
             UpdateObjectCombobox();
             ApplyLogFilter(DebugLevel.Debug, -1);
             comboBox2.SelectedIndex = 0;
+
+            statusStrip1.Items[0].Text = String.Format("File {0} opened", openFileDialog1.FileName);
         }
 
         private void FileOpen(string filename)
@@ -202,8 +203,24 @@ namespace LogViewer
         {
             if (m_threadStopped)
             {
-                m_threadStopped = false;
-                m_udpClient = new UdpClient(LoggerPort);
+                PortDialog portDialog = new PortDialog();
+                if (portDialog.ShowDialog(this) != DialogResult.OK)
+                {
+                    return;
+                }
+                try
+                {
+                    m_udpClient = new UdpClient(Program.UdpPort);
+                }
+                catch (SocketException)
+                {
+                    MessageBox.Show(String.Format("Port {0} už má otevřený jiná aplikace", Program.UdpPort.ToString()), "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                statusStrip1.Items[0].Text = String.Format("Capturing packets from port {0}. Packet filtering is disabled until capturing is stopped.", Program.UdpPort);
+
+                m_threadStopped = false;   
                 startListeningToolStripMenuItem.Text = "Stop listening";
 
                 loadedLog.Clear();
@@ -237,6 +254,8 @@ namespace LogViewer
                 dataGridView1.RowCount = loadedLog.Count;
                 dataGridView1.Refresh();
 
+                statusStrip1.Items[0].Text = String.Format("{0} packets capture from port {1}", loadedLog.Count, Program.UdpPort);
+
                 startListeningToolStripMenuItem.Text = "Start listening";
 
                 UpdateObjectCombobox();
@@ -258,7 +277,7 @@ namespace LogViewer
 
             fs = new FileStream(filename, FileMode.Append);
 
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, LoggerPort);
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, Program.UdpPort);
             while (!m_threadStopped)
             {
                 datagram = new byte[0];
