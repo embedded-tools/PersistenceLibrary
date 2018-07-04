@@ -26,7 +26,6 @@
 #include <pthread.h>
 #include <unistd.h>
 
-
 UdpClient::UdpClient(int maxPacketSize)
 : m_socketHandle(0),
   m_threadHandle(0),
@@ -57,7 +56,12 @@ bool UdpClient::Init(const char* address, int outgoingPort, int incomingPort)
     }
     memset(&m_serverAddress, 0, sizeof(m_serverAddress));
     m_serverAddress.sin_family = AF_INET;
-    m_serverAddress.sin_addr.s_addr = inet_addr(address);
+	if (address)
+	{
+		m_serverAddress.sin_addr.s_addr = inet_addr(address);
+	} else {
+		m_serverAddress.sin_addr.s_addr = inet_addr("127.0.0.1");
+	}
     m_serverAddress.sin_port = htons(outgoingPort);
 
     if (m_socketHandle>0)
@@ -71,18 +75,20 @@ bool UdpClient::Init(const char* address, int outgoingPort, int incomingPort)
         return false;
     }
     	
-	//bind socket to port
-    memset(&m_localAddress, 0, sizeof(m_localAddress));
-    m_localAddress.sin_family = AF_INET;
-    m_localAddress.sin_addr.s_addr = htonl(INADDR_ANY);
-    m_localAddress.sin_port = htons(incomingPort);
-
-    if( bind(m_socketHandle, (struct sockaddr*)&m_localAddress, sizeof(m_localAddress) ) < 0)
-    {
-        DEBUG(this, "Can't create UDP port");
-        return false;
-    }
-    
+    if(incomingPort!=0)
+	{
+		//bind socket to port
+		memset(&m_localAddress, 0, sizeof(m_localAddress));
+		m_localAddress.sin_family = AF_INET;
+		m_localAddress.sin_addr.s_addr = htonl(INADDR_ANY);
+		m_localAddress.sin_port = htons(incomingPort);
+		
+		if( bind(m_socketHandle, (struct sockaddr*)&m_localAddress, sizeof(m_localAddress) ) < 0)
+		{
+			DEBUG(this, "Can't create UDP port");
+			return false;
+		}	
+	}
     
 	//set timer for recv_socket
 	static int timeout = 5;//TIMEOUT_MS;
