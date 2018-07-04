@@ -153,7 +153,7 @@ namespace LogViewer
             }            
             switch(e.ColumnIndex)
             {
-                case 0: e.Value = dataSource[e.RowIndex].Time.ToShortTimeString(); break;
+                case 0: e.Value = dataSource[e.RowIndex].Time.ToString("hh:mm:ss.fff"); break;
                 case 1: if (dataSource[e.RowIndex].ObjectInstance == 0)
                         {
                             e.Value = "NULL";
@@ -221,6 +221,8 @@ namespace LogViewer
                 m_thread.Start();
                 comboBox1.Enabled = false;
                 comboBox2.Enabled = false;
+
+                timer1.Enabled = true;
             }
             else
             {
@@ -229,6 +231,11 @@ namespace LogViewer
 
                 while (m_threadStopped);
                 m_threadStopped = true;
+
+                timer1.Enabled = false;
+
+                dataGridView1.RowCount = loadedLog.Count;
+                dataGridView1.Refresh();
 
                 startListeningToolStripMenuItem.Text = "Start listening";
 
@@ -275,8 +282,6 @@ namespace LogViewer
                 if (line[0] != 'T') continue;
 
                 ReadLogLine(line);
-
-                this.Invoke(new UpdateRowCountDelegate(UpdateGridRowCount), new object[1] { loadedLog.Count });
             }
             fs.Close();
 
@@ -298,6 +303,15 @@ namespace LogViewer
         private void uDPToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (loadedLog.Count != dataGridView1.RowCount)
+            {
+                dataGridView1.RowCount = loadedLog.Count;
+                dataGridView1.Refresh();
+            }
         }
     }
 }
