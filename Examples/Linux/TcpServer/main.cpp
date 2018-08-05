@@ -49,7 +49,12 @@ int main(int argc, char **argv)
 {
     TConsoleLog::Init(GetTime);
     TcpServer server;
-    server.Listen(4000);
+    bool res = server.Listen(4000);
+    if (!res)
+    {
+        DEBUG(NULL, "Can't open port");
+        return 0;
+    }        
     server.OnClientConnected = ClientConnected;
     server.OnClientDisconnected = ClientDisconnected;
     server.OnReceiveData = ClientSentData;

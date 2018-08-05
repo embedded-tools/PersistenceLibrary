@@ -26,20 +26,25 @@ void GetTime(TTime &time)
 
 void TcpMessage(TcpClient* sender, const char* data, int dataLength)
 {
-    printf("Message: %s\n");
+    printf("Message: %s\n", data);
 }
 
 int main(int argc, char **argv)
 {
     TConsoleLog::Init(GetTime);
-	TcpClient client;
-    client.OpenAsync("192.168.54.99", 4000, TcpMessage);
-    client.SendData("Hello there!");
-    char buf[64];
-    
-    while(!terminated)
+	TcpClient_Linux client;
+    bool res = client.OpenAsync("192.168.1.3", 4000, TcpMessage);
+    if (!res)
     {
-        sleep(15);
+        DEBUG(NULL, "Can't connect to the server");
+        return 0;
+    }    
+    
+    client.SendData("Hello there!");
+    
+    while(client.IsConnected())
+    {
+        sleep(5);
 		client.SendData("Ping");
     }
     client.Close();    

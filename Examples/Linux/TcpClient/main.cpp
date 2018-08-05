@@ -27,13 +27,19 @@ void GetTime(TTime &time)
 int main(int argc, char **argv)
 {
     TConsoleLog::Init(GetTime);
-	TcpClient client;
-    client.Open("192.168.54.99", 4000);
+	TcpClient_Linux client;
+
+    bool res = client.Open("192.168.1.3", 4000);
+    if (!res)
+    {
+        DEBUG(NULL, "Can't connect to the server");
+        return 0;
+    }
 	client.SendData("Hello there!");
     
     char buf[64];
     
-    while(!terminated)
+    while(client.IsConnected())
     {
         int len = client.ReadData(buf, sizeof(buf)-1);
         buf[len] =  0;
@@ -44,12 +50,7 @@ int main(int argc, char **argv)
 			client.SendData("Testovaci veta\n");
         } else {
             usleep(5000);
-        }
-        
-        if (strstr(buf, "quit"))
-        {
-            terminated = true;
-        }			
+        }            
     }
     client.Close();    
 	return 0;
