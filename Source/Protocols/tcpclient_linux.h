@@ -25,6 +25,7 @@
 #include "datareceivedcallback.h"
 #include "tcpclient.h"
 
+class TcpClient;
 class TcpServer;
 
 #define TCP_SOCKET_TIMEOUT 200

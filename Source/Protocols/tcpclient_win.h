@@ -29,7 +29,6 @@ class TcpServer;
 
 #define TCP_SOCKET_TIMEOUT 200
 
-
 class TcpClient_Win : public TcpClient
 {	
 private:
@@ -46,33 +45,33 @@ private:
 	void AfterConnectionLoss();
     
 public:
-
-    typedef void (*TcpClientDataReceivedCallback)(TcpClient* client, const char* data, int dataLength);
-	typedef void (*ConnectionLostHandler)(TcpClient* sender);
 	
     TcpClient_Win(int maxPacketSize=256);
     
     TcpClient_Win(TcpServer* parent, int clientSocket, struct sockaddr_in* clientAddress, TcpClientDataReceivedCallback callback, void* userData);
-    ~TcpClient_Win();
+    virtual ~TcpClient_Win();
 	
 	virtual bool Open(const char* serverAddress, int port, bool waitForConnection = true);
     virtual bool OpenAsync(const char* serverAddress, int port, TcpClientDataReceivedCallback dataReceivedCallback, bool waitForConnection = true);
-	virtual bool Reopen();    
+	virtual bool Reopen();
 	
     virtual bool SendData (const char* data, int dataLength=-1);
     virtual bool SendData (const void* data, int dataLength);	
 	virtual int  ReadData (void* pBuffer, int bufferSize);
 	virtual int  ReadDataCount();
 	
-	virtual void Close(bool killThreadAlso=true);
-    virtual TcpServer*      GetParentServer();    
-	
-    static void*    InternalThread(void* arg);
+	virtual void Close(bool killThreadAlso=true);    
+    virtual void CheckTimeout(int timeTick_MS);
 
-protected:	
+    TcpServer*      GetParentServer();    
+    void*           UserData;
+	
+    static void* InternalThread(void* arg);
+
+protected:		
 	
     TcpClientDataReceivedCallback m_onPacketReceived;
-	void CheckTimeout(int timeTick_MS);
+	
 };
 
 #endif
