@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes"
-				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB"
+				PreprocessorDefinitions="_WINSOCK2API_;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -121,7 +121,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes"
-				PreprocessorDefinitions="_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB"
+				PreprocessorDefinitions="_WINSOCK2API_;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
@@ -183,6 +183,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\Protocols\tcpclient.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\tcpclient_win.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\tcpserver_win.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\Protocols\tfilelog.cpp"
 				>
 			</File>
@@ -213,6 +225,18 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\Protocols\tconsolelog.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\tcpclient.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\tcpclient_win.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\tcpserver_win.h"
 				>
 			</File>
 			<File

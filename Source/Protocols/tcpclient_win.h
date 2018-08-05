@@ -1,5 +1,5 @@
 /*
- * Persistence Library / Protocols / TcpClient (linux)
+ * Persistence Library / Protocols / TcpClient (Windows)
  *
  * Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
  *
@@ -14,30 +14,32 @@
  *
  */
 
-#ifndef TCP_CLIENT_LINUX___H
-#define TCP_CLIENT_LINUX___H
+#ifndef TCP_CLIENT_WIN___H
+#define TCP_CLIENT_WIN___H
 
+#include <windows.h>
+#include <winsock.h>
+#include <winsock2.h>
 #include <stdlib.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <pthread.h>
 #include "datareceivedcallback.h"
 #include "tcpclient.h"
 
+class TcpClient;
 class TcpServer;
 
 #define TCP_SOCKET_TIMEOUT 200
 
-class TcpClient_Linux : public TcpClient
+
+class TcpClient_Win : public TcpClient
 {	
 private:
 	struct 
 	sockaddr_in     m_serverAddress;	
 	int             m_socketHandle;
 	int             m_socketTimeout;
-    pthread_t       m_threadHandle;
-    bool            m_threadStopped;
+	
+    HANDLE       m_threadHandle;
+    bool         m_threadStopped;		
     
     TcpServer*   m_server;
 	
@@ -45,32 +47,32 @@ private:
     
 public:
 
-    TcpClient_Linux(int maxPacketSize=256);
+    typedef void (*TcpClientDataReceivedCallback)(TcpClient* client, const char* data, int dataLength);
+	typedef void (*ConnectionLostHandler)(TcpClient* sender);
+	
+    TcpClient_Win(int maxPacketSize=256);
     
-    TcpClient_Linux(TcpServer* parent, int clientSocket, struct sockaddr_in* clientAddress, TcpClientDataReceivedCallback callback, void* userData);
-    virtual ~TcpClient_Linux();
+    TcpClient_Win(TcpServer* parent, int clientSocket, struct sockaddr_in* clientAddress, TcpClientDataReceivedCallback callback, void* userData);
+    ~TcpClient_Win();
 	
 	virtual bool Open(const char* serverAddress, int port, bool waitForConnection = true);
     virtual bool OpenAsync(const char* serverAddress, int port, TcpClientDataReceivedCallback dataReceivedCallback, bool waitForConnection = true);
-	virtual bool Reopen();
+	virtual bool Reopen();    
 	
     virtual bool SendData (const char* data, int dataLength=-1);
     virtual bool SendData (const void* data, int dataLength);	
 	virtual int  ReadData (void* pBuffer, int bufferSize);
 	virtual int  ReadDataCount();
 	
-	virtual void Close(bool killThreadAlso=true);    
-    virtual void CheckTimeout(int timeTick_MS);
+	virtual void Close(bool killThreadAlso=true);
+    virtual TcpServer*      GetParentServer();    
+	
+    static void*    InternalThread(void* arg);
 
-    TcpServer*      GetParentServer();    
-    void*           UserData;
-	
-protected:
-	
-	static void* InternalThread(void* arg);
+protected:	
 	
     TcpClientDataReceivedCallback m_onPacketReceived;
-	
+	void CheckTimeout(int timeTick_MS);
 };
 
 #endif

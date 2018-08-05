@@ -123,7 +123,7 @@ void WARNING(void* OBJ, const char* A)
     }
 }
 
-void ERROR(void* OBJ, const char* A)
+void CRITICAL(void* OBJ, const char* A)
 {
     if (_internal_logger) 
     {
@@ -183,7 +183,7 @@ void WARNING(void* OBJ, const char* A, int i1)
     }
 }
 
-void ERROR(void* OBJ, const char* A, int i1)
+void CRITICAL(void* OBJ, const char* A, int i1)
 {
     if (_internal_logger) 
     {
@@ -254,7 +254,7 @@ void WARNING(void* OBJ, const char* A, int i1, int i2)
     }
 }
 
-void ERROR(void* OBJ, const char* A, int i1, int i2)
+void CRITICAL(void* OBJ, const char* A, int i1, int i2)
 {
     if (_internal_logger) 
     {
@@ -324,7 +324,7 @@ void WARNING(void* OBJ, const char* A, const char* s1, int i2)
     }
 }
 
-void ERROR(void* OBJ, const char* A, const char* s1, int i2)
+void CRITICAL(void* OBJ, const char* A, const char* s1, int i2)
 {
     if (_internal_logger) 
     {
