@@ -15,6 +15,7 @@
     <File Name="../../../Source/Protocols/tfilelog.cpp"/>
     <File Name="../../../Source/Protocols/tlog.cpp"/>
     <File Name="../../../Source/BasicTypes/TTime.cpp"/>
+    <File Name="../../../Source/Protocols/tcpclient.cpp"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
@@ -115,5 +116,6 @@
     <File Name="../../../Source/Protocols/tfilelog.h"/>
     <File Name="../../../Source/Protocols/tlog.h"/>
     <File Name="../../../Source/BasicTypes/TTime.h"/>
+    <File Name="../../../Source/Protocols/tcpclient.h"/>
   </VirtualDirectory>
 </CodeLite_Project>

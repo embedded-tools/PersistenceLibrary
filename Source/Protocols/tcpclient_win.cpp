@@ -1,5 +1,5 @@
 /*
- * Persistence Library / Protocols / TcpClient_Linux (linux)
+ * Persistence Library / Protocols / TcpClient (Windows)
  *
  * Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
  *
@@ -14,18 +14,19 @@
  *
  */
 
-#include "tcpclient_linux.h"
-#include "tcpserver_linux.h"
+#include "tcpclient_win.h"
+#include "tcpserver_win.h"
 #include "tlog.h"
+#include <windows.h>
+#include <WinSock.h>
+#include <WinIoCtl.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <pthread.h>
-#include <unistd.h>
-#include <sys/ioctl.h>
 
+static DWORD WINAPI ThreadStarter( LPVOID lpParam );
 
-TcpClient_Linux::TcpClient_Linux(int maxPacketSize)
+TcpClient_Win::TcpClient_Win(int maxPacketSize)
 : TcpClient(maxPacketSize),
   m_socketHandle(0),
   m_socketTimeout(0),
@@ -38,7 +39,7 @@ TcpClient_Linux::TcpClient_Linux(int maxPacketSize)
 	memset((void*)&m_serverAddress, 0, sizeof(m_serverAddress));	
 }
 
-TcpClient_Linux::TcpClient_Linux(TcpServer* server, int clientSocket, struct sockaddr_in* clientAddress, TcpClientDataReceivedCallback callback, void* userData)
+TcpClient_Win::TcpClient_Win(TcpServer* server, int clientSocket, struct sockaddr_in* clientAddress, TcpClientDataReceivedCallback callback, void* userData)
 : TcpClient(256),
   m_socketHandle(clientSocket),
   m_socketTimeout(0),
@@ -55,27 +56,26 @@ TcpClient_Linux::TcpClient_Linux(TcpServer* server, int clientSocket, struct soc
     m_maxPacketSize = server->GetMaxPacketSize();
 	m_packetBuffer = (char*) malloc(m_maxPacketSize);    
     m_onPacketReceived = callback;
-    pthread_create( &m_threadHandle, NULL, InternalThread, this );	
+    m_threadHandle = CreateThread(NULL, 0, ThreadStarter, this, 0, NULL);    
 
-	int dontWait = 1;
-	ioctl(m_socketHandle, FIONBIO, &dontWait);
+	//int dontWait = 1;
+	//ioctl(m_socketHandle, FIONBIO, &dontWait);
 	
-    struct timeval  tv;
-	memset(&tv, 0, sizeof(tv));
+    int timeout;	
 	
-	tv.tv_sec  = 60; /* seconds */
+	timeout = 60; /* seconds */
 
-    if(setsockopt(m_socketHandle, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv)) < 0)
+    if(setsockopt(m_socketHandle, SOL_SOCKET, SO_SNDTIMEO, (char*)&timeout, sizeof(timeout)) < 0)
     {		
 		DEBUG(this, "Cannot Set SO_SNDTIMEO for socket");
     }         
-	if(setsockopt(m_socketHandle, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0)
+	if(setsockopt(m_socketHandle, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeout, sizeof(timeout)) < 0)
     {
 		DEBUG(this, "Cannot Set SO_RCVTIMEO for socket");
     }
 }
 
-TcpClient_Linux::~TcpClient_Linux()
+TcpClient_Win::~TcpClient_Win()
 {	
 	DEBUG(this, "TcpClient is being destroyed");
 	if (m_socketHandle)
@@ -100,13 +100,13 @@ TcpClient_Linux::~TcpClient_Linux()
 		
 
 
-bool TcpClient_Linux::Reopen()
+bool TcpClient_Win::Reopen()
 {	
 	DEBUG(this, "Checking tcp connection...");
     return Open(NULL, 0, true);
 }
 
-bool TcpClient_Linux::Open(const char* serverAddress, int port, bool waitForConnection)
+bool TcpClient_Win::Open(const char* serverAddress, int port, bool waitForConnection)
 {	
 	if (serverAddress)
 	{
@@ -116,20 +116,20 @@ bool TcpClient_Linux::Open(const char* serverAddress, int port, bool waitForConn
 		m_serverAddress.sin_addr.s_addr = inet_addr(serverAddress);
 		m_serverAddress.sin_port = htons(port);	
 	}	
-	char ipAddr[24];
-	int  ipPort;
-	
-	if (inet_ntop(AF_INET, &m_serverAddress.sin_addr, ipAddr, sizeof(ipAddr))==NULL)
+
+    const char* ipAddr = inet_ntoa(m_serverAddress.sin_addr);
+    if (ipAddr==NULL)
     {
         return false;
     }
-	ipPort = ntohs(m_serverAddress.sin_port);	
+	int ipPort = ntohs(m_serverAddress.sin_port);	
 	
-	DEBUG(this, "TcpClient_Linux Open(ip=%s, port=%i)", ipAddr, ipPort);
+	DEBUG(this, "TcpClient Open(ip=%s, port=%i)", ipAddr, ipPort);
 	
-
-	if((m_socketHandle = socket(AF_INET, SOCK_STREAM, 0))< 0)
+	if((m_socketHandle = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP))< 0)
     {
+        printf("Error at socket(): %ld\n", WSAGetLastError());
+
 		DEBUG(this, "Can't create socket");
 		DEBUG(this, "TcpClient Open() end");	
         return false;
@@ -156,8 +156,8 @@ bool TcpClient_Linux::Open(const char* serverAddress, int port, bool waitForConn
 		}		
 		INFO(this, "Connected to %s:%i", ipAddr, ipPort);
 					 
-		unsigned long nbio = 1;	
-		ioctl(m_socketHandle, FIONBIO, &nbio);	
+		//unsigned long nbio = 1;	
+		//ioctl(m_socketHandle, FIONBIO, &nbio);	
 
 		m_connectionState = Connected;
 	}
@@ -170,13 +170,13 @@ bool TcpClient_Linux::Open(const char* serverAddress, int port, bool waitForConn
 	return true;
 }
 
-bool TcpClient_Linux::OpenAsync(const char* serverAddress, int port, TcpClientDataReceivedCallback dataReceivedCallback, bool waitForConnection)
+bool TcpClient_Win::OpenAsync(const char* serverAddress, int port, TcpClientDataReceivedCallback dataReceivedCallback, bool waitForConnection)
 {
 	DEBUG(this, "TcpClient OpenAsync() begin");
 	bool res = Open(serverAddress, port, waitForConnection);
-		
-	int tmp = pthread_create( &m_threadHandle, NULL, InternalThread, this );			
-	if (tmp==0)
+			
+    m_threadHandle = CreateThread(NULL, 0, ThreadStarter, this, 0, NULL);
+    if (m_threadHandle)
 	{				
 		//sets a callback for data receiving
 		m_onPacketReceived = dataReceivedCallback;			
@@ -190,15 +190,15 @@ bool TcpClient_Linux::OpenAsync(const char* serverAddress, int port, TcpClientDa
 	return res;
 }
 
-void TcpClient_Linux::Close(bool killThreadAlso)
+void TcpClient_Win::Close(bool killThreadAlso)
 {	
 	DEBUG(this, "TcpClient Close() begin");
     if (m_socketHandle)
 	{
 		//shuts down the socket		
-		shutdown(m_socketHandle, SHUT_RDWR);
-		usleep(100);
-		close(m_socketHandle);
+		//shutdown(m_socketHandle, SHUT_RDWR);
+		Sleep(1);
+		closesocket(m_socketHandle);
 		m_socketHandle = 0;	
 		INFO(this, "Connection closed");
 	}	
@@ -222,14 +222,14 @@ void TcpClient_Linux::Close(bool killThreadAlso)
 	DEBUG(this, "TcpClient Close() end");
 }
 
-void TcpClient_Linux::AfterConnectionLoss()
+void TcpClient_Win::AfterConnectionLoss()
 {	
     if (m_socketHandle)
 	{
 		//shuts down the socket		
-		shutdown(m_socketHandle, SHUT_RDWR);
-		usleep(100);
-		close(m_socketHandle);
+		//shutdown(m_socketHandle, SHUT_RDWR);
+		Sleep(1);
+		closesocket(m_socketHandle);
 		m_socketHandle = 0;	
 	}	
 	if (m_server!=NULL)
@@ -248,19 +248,20 @@ void TcpClient_Linux::AfterConnectionLoss()
     m_connectionState = ConnectionLost;
 }
 
-TcpServer* TcpClient_Linux::GetParentServer()
+
+TcpServer* TcpClient_Win::GetParentServer()
 {
     return m_server;
 }
 
-bool TcpClient_Linux::SendData(const char* data, int dataLength)	
+bool TcpClient_Win::SendData(const char* data, int dataLength)	
 {
     if (data && (dataLength==-1)) dataLength = strlen(data);    
     if (dataLength<0) dataLength = 0;
     return SendData((void*)data, dataLength);
 }
 
-bool TcpClient_Linux::SendData (const void* data, int dataLength)
+bool TcpClient_Win::SendData (const void* data, int dataLength)
 {
 	if (AutoReconnect || (m_connectionState==Connecting))
 	{
@@ -268,7 +269,7 @@ bool TcpClient_Linux::SendData (const void* data, int dataLength)
 		{
 			if (!Reopen())
 			{
-				sleep(5); //avoids too many reopening attempts
+				Sleep(5000); //avoids too many reopening attempts
 				return false;
 			}
 		}
@@ -286,7 +287,7 @@ bool TcpClient_Linux::SendData (const void* data, int dataLength)
 	}	
     try
     {
-		int n = send(m_socketHandle, data, dataLength, MSG_NOSIGNAL | MSG_DONTWAIT);
+		int n = send(m_socketHandle, (const char*)data, dataLength, 0);
 		
         if (n>=dataLength)
         {
@@ -305,15 +306,15 @@ bool TcpClient_Linux::SendData (const void* data, int dataLength)
 	return true;
 }
 
-int TcpClient_Linux::ReadData(void* pBuffer, int bufferSize)
+int TcpClient_Win::ReadData(void* pBuffer, int bufferSize)
 {	
-	if (AutoReconnect || (m_connectionState==Connecting))
+    if (AutoReconnect || (m_connectionState==Connecting))
 	{
 		if ((m_connectionState==Connecting) || (m_connectionState==ConnectionLost))
 		{
 			if (!Reopen())
 			{
-				sleep(5); //avoids too many reopening attempts
+				Sleep(5000); //avoids too many reopening attempts
 				return 0;
 			}
 		}
@@ -333,7 +334,7 @@ int TcpClient_Linux::ReadData(void* pBuffer, int bufferSize)
     int messageSize = 0;
     try
     {
-        messageSize = recv(m_socketHandle, pBuffer, bufferSize, MSG_NOSIGNAL | MSG_DONTWAIT);		
+        messageSize = recv(m_socketHandle, (char*)pBuffer, bufferSize, 0);		
 		if (messageSize==0)
 		{	
 			DEBUG(this, "TcpClient connection closed remotely");			
@@ -358,7 +359,7 @@ int TcpClient_Linux::ReadData(void* pBuffer, int bufferSize)
 	return messageSize;
 }
 
-int TcpClient_Linux::ReadDataCount()
+int TcpClient_Win::ReadDataCount()
 {
 	if (AutoReconnect || (m_connectionState==Connecting))
 	{
@@ -366,7 +367,7 @@ int TcpClient_Linux::ReadDataCount()
 		{
 			if (!Reopen())
 			{
-				sleep(5); //avoids too many reopening attempts
+				Sleep(5000); //avoids too many reopening attempts
 				return 0;
 			}
 		}	
@@ -386,7 +387,7 @@ int TcpClient_Linux::ReadDataCount()
 	int messageSize = 0;
 	try
     {
-		messageSize = recv(m_socketHandle, m_packetBuffer, m_maxPacketSize-1, MSG_NOSIGNAL | MSG_PEEK);
+		messageSize = recv(m_socketHandle, m_packetBuffer, m_maxPacketSize-1, 0 | MSG_PEEK);
 		if (messageSize==0)
 		{		
 			DEBUG(this, "TcpClient connection closed remotely");
@@ -407,9 +408,9 @@ int TcpClient_Linux::ReadDataCount()
 }
 
 
-void TcpClient_Linux::CheckTimeout(int timeTick_MS)
+void TcpClient_Win::CheckTimeout(int timeTick_MS)
 {
-    usleep(timeTick_MS*1000);
+    Sleep(timeTick_MS);
     m_socketTimeout += timeTick_MS;
     if (m_socketTimeout>(m_connectionTimeout*1000))
     {        
@@ -420,23 +421,36 @@ void TcpClient_Linux::CheckTimeout(int timeTick_MS)
     }
 }
 
-void* TcpClient_Linux::InternalThread(void* arg)
+static DWORD WINAPI ThreadStarter( LPVOID lpParam ) 
 {
-    TcpClient_Linux* instance = (TcpClient_Linux*)arg;
-	DEBUG(instance, "Thread started.");	
-	sleep(1);
+    TcpClient_Win::InternalThread(lpParam);  
+    return 0;
+}
+
+void* TcpClient_Win::InternalThread(LPVOID lpdwThreadParam)
+{
+    TcpClient_Win* instance = (TcpClient_Win*)lpdwThreadParam;
+	Sleep(1000);
 	
     while(!instance->m_threadStopped)
     {
         if (instance->m_server==NULL)
         {
-			//on client side it tries to reconnect repeatedly
-            if ((instance->m_connectionState==Connecting) || (instance->m_connectionState==ConnectionLost))
-            {							
-                if (!instance->Reopen()) 
+            if (instance->AutoReconnect)
+            {
+			    //on client side it tries to reconnect repeatedly
+                if ((instance->m_connectionState==Connecting) || (instance->m_connectionState==ConnectionLost))
+                {							
+                    if (!instance->Reopen()) 
+                    {
+                        Sleep(5000);
+                        continue;
+                    }
+                }
+            } else {
+                if (instance->m_connectionState == Disconnected)
                 {
-                    sleep(5);
-                    continue;
+                    break;
                 }
             }
         } else {

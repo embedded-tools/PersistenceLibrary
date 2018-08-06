@@ -1,33 +1,30 @@
 #include <stdio.h>
-#include <sys/time.h>
 #include <string.h>
 #include <time.h>
-#include <unistd.h>
 #include "tconsolelog.h"
 #include "ttime.h"
-#include "tcpclient_linux.h"
+#include "tcpclient_win.h"
 
 bool terminated = false;
 
 void GetTime(TTime &time)
 {
-	struct timeval  tv;
-    struct timezone tz;
-    struct tm* now;
-
-    gettimeofday(&tv,&tz);
-    now=localtime(&tv.tv_sec);
-	
-	time.SetHour(now->tm_hour);
-	time.SetMinute(now->tm_min);
-	time.SetSecond(now->tm_sec);
-	time.SetMilliSecond(tv.tv_usec/1000);	
+    SYSTEMTIME localTime;
+    GetLocalTime(&localTime);
+    time.SetHour(localTime.wHour);
+    time.SetMinute(localTime.wMinute);
+    time.SetSecond(localTime.wSecond);
+    time.SetMilliSecond(localTime.wMilliseconds);
 }
 
 int main(int argc, char **argv)
 {
+    WSADATA wsaData;
+    WORD wVersionRequested = MAKEWORD(2, 2);
+    WSAStartup(wVersionRequested, &wsaData);
+
     TConsoleLog::Init(GetTime);
-	TcpClient_Linux client;
+	TcpClient_Win client;
 
     bool res = client.Open("192.168.1.3", 4000);
     if (!res)
@@ -49,8 +46,13 @@ int main(int argc, char **argv)
 			
 			client.SendData("Testovaci veta\n");
         } else {
-            usleep(5000);
-        }            
+            Sleep(5);
+        }
+        
+        if (strstr(buf, "quit"))
+        {
+            terminated = true;
+        }			
     }
     client.Close();    
 	return 0;

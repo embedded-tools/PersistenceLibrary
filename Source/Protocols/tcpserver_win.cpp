@@ -1,5 +1,5 @@
 /*
- * Persistence Library / Protocols / TcpServer (linux)
+ * Persistence Library / Protocols / TcpServer (Windows)
  *
  * Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
  *
@@ -14,10 +14,9 @@
  *
  */
 
-#include "tcpserver_linux.h"
-#include "tcpclient_linux.h"
+#include "tcpserver_win.h"
+#include "tcpclient_win.h"
 #include <string.h>
-#include <unistd.h>
 #include <tlog.h>
 #include <stdio.h>
    
@@ -66,6 +65,8 @@ TcpServer::~TcpServer()
     DEBUG(this, "TcpServer destroyed");    
 }
 
+static DWORD WINAPI ThreadStarter( LPVOID lpParam );
+
 bool TcpServer::Listen(int port)
 {
     memset(&m_serverAddress, 0, sizeof(m_serverAddress));
@@ -86,8 +87,9 @@ bool TcpServer::Listen(int port)
         return false;
     }
     
-    listen(m_socketHandle, m_maxConnections);    
-    if (pthread_create(&m_threadHandle, 0, InternalThread, this)!=0)
+    listen(m_socketHandle, m_maxConnections);
+    m_threadHandle = CreateThread(NULL, 0, ThreadStarter, this, 0, NULL);
+    if (m_threadHandle==NULL)
     {
 		DEBUG(this, "Can't create thread");
         return false;        
@@ -101,9 +103,9 @@ void TcpServer::Stop()
 	DEBUG(this, "TCP server is being stopped");
     if (m_socketHandle)
     {
-		shutdown(m_socketHandle, SHUT_RDWR);
-		usleep(100);
-        close(m_socketHandle);    
+		//shutdown(m_socketHandle, SHUT_RDWR);
+		Sleep(1);
+        closesocket(m_socketHandle);    
     }
     m_socketHandle = 0;
     m_threadStopped = true;
@@ -125,8 +127,8 @@ int  TcpServer::GetMaxConnections()
 void TcpServer::PacketReceivedFromClient(TcpClient* client, const char* command, int commandLength)
 {	
     TcpServer* server = client->GetParentServer();
-    if ( (client->GetConnectionState()==TcpClient::ConnectionLost) || 
-         (client->GetConnectionState()==TcpClient::Disconnected)
+    if ( (client->GetConnectionState()==TcpClient_Win::ConnectionLost) || 
+         (client->GetConnectionState()==TcpClient_Win::Disconnected)
        )
     {
         for(int i = 0; i<server->m_maxConnections; i++)
@@ -148,6 +150,12 @@ void TcpServer::PacketReceivedFromClient(TcpClient* client, const char* command,
 	}
 }
 
+static DWORD WINAPI ThreadStarter( LPVOID lpParam ) 
+{
+    TcpServer::InternalThread(lpParam);   
+    return 0;
+}
+
 void* TcpServer::InternalThread(void* arg)
 {
     TcpServer* instance = (TcpServer*)arg;
@@ -159,10 +167,15 @@ void* TcpServer::InternalThread(void* arg)
     while(!instance->m_threadStopped)
     {						
 		memset(&clientAddress, 0, sizeof(clientAddress));	
-		clientAddress.sin_family = AF_INET;
         clientAddressLength = sizeof(clientAddress);
 		
-        clientSocket = accept(instance->m_socketHandle, (sockaddr*)&clientAddress, (socklen_t*)&clientAddressLength);
+        clientSocket = accept(instance->m_socketHandle, (sockaddr*)&clientAddress, (int*)&clientAddressLength);
+        if (clientSocket<1) 
+        {
+            Sleep(100);
+            continue;
+        }
+
         if (clientSocket)
         {
 			int availableSocketIndex = 0;
@@ -176,24 +189,29 @@ void* TcpServer::InternalThread(void* arg)
 			}
 			if (availableSocketIndex!=-1)
 			{
-				char ipAddr[24];
-				int  ipPort;
+				const char* ipAddr = NULL;
+				int  ipPort = 0; 
 				struct sockaddr_in addr;
 				memset(&addr, 0, sizeof(addr));
 				
-				socklen_t len = sizeof(addr);
+				int len = sizeof(addr);
 				if (getpeername(clientSocket, (struct sockaddr *)&addr, &len) != 0) 	
 				{
-					perror("getpeername");
+					DEBUG(NULL, "getpeername failed");
 				} else {
-					inet_ntop(AF_INET, &addr.sin_addr, ipAddr, sizeof(ipAddr));			
+					ipAddr = inet_ntoa(addr.sin_addr);
 					ipPort = ntohs(addr.sin_port);
 				}	
 				instance->m_tcpClientAddr[availableSocketIndex] = addr;
 				
-				INFO(instance, "New client %s:%i accepted", ipAddr, ipPort);
+                if(ipAddr)
+                {
+				    INFO(instance, "New client %s:%i accepted", ipAddr, ipPort);
+                } else {
+                    INFO(instance, "New client (unknown ip) accepted");
+                }
 				
-				instance->m_tcpClient[availableSocketIndex] = new TcpClient_Linux(instance, clientSocket, (sockaddr_in*)&clientAddress, PacketReceivedFromClient, instance->UserData);
+				instance->m_tcpClient[availableSocketIndex] = new TcpClient_Win(instance, clientSocket, (sockaddr_in*)&clientAddress, PacketReceivedFromClient, instance->UserData);
 
 				if (instance->OnClientConnected)
 				{

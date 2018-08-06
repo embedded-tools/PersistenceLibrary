@@ -1,5 +1,5 @@
 /*
- * Persistence Library / Protocols / TcpClient (linux)
+ * Persistence Library / Protocols / TcpClient (Windows)
  *
  * Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
  *
@@ -14,14 +14,13 @@
  *
  */
 
-#ifndef TCP_CLIENT_LINUX___H
-#define TCP_CLIENT_LINUX___H
+#ifndef TCP_CLIENT_WIN___H
+#define TCP_CLIENT_WIN___H
 
+#include <windows.h>
+#include <winsock.h>
+#include <winsock2.h>
 #include <stdlib.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-#include <pthread.h>
 #include "datareceivedcallback.h"
 #include "tcpclient.h"
 
@@ -30,26 +29,27 @@ class TcpServer;
 
 #define TCP_SOCKET_TIMEOUT 200
 
-class TcpClient_Linux : public TcpClient
+class TcpClient_Win : public TcpClient
 {	
 private:
 	struct 
 	sockaddr_in     m_serverAddress;	
 	int             m_socketHandle;
 	int             m_socketTimeout;
-    pthread_t       m_threadHandle;
-    bool            m_threadStopped;
+	
+    HANDLE       m_threadHandle;
+    bool         m_threadStopped;		
     
     TcpServer*   m_server;
 	
 	void AfterConnectionLoss();
     
 public:
-
-    TcpClient_Linux(int maxPacketSize=256);
+	
+    TcpClient_Win(int maxPacketSize=256);
     
-    TcpClient_Linux(TcpServer* parent, int clientSocket, struct sockaddr_in* clientAddress, TcpClientDataReceivedCallback callback, void* userData);
-    virtual ~TcpClient_Linux();
+    TcpClient_Win(TcpServer* parent, int clientSocket, struct sockaddr_in* clientAddress, TcpClientDataReceivedCallback callback, void* userData);
+    virtual ~TcpClient_Win();
 	
 	virtual bool Open(const char* serverAddress, int port, bool waitForConnection = true);
     virtual bool OpenAsync(const char* serverAddress, int port, TcpClientDataReceivedCallback dataReceivedCallback, bool waitForConnection = true);
@@ -66,9 +66,9 @@ public:
     TcpServer*      GetParentServer();    
     void*           UserData;
 	
-protected:
-	
-	static void* InternalThread(void* arg);
+    static void* InternalThread(void* arg);
+
+protected:		
 	
     TcpClientDataReceivedCallback m_onPacketReceived;
 	

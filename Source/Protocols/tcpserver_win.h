@@ -1,5 +1,5 @@
 /*
- * Persistence Library / Protocols / TcpServer (linux)
+ * Persistence Library / Protocols / TcpServer (Windows)
  *
  * Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
  *
@@ -14,22 +14,19 @@
  *
  */
 
-#ifndef TCPSERVER_LINUX___H
-#define TCPSERVER_LINUX___H
+#ifndef TCPSERVER_WIN___H
+#define TCPSERVER_WIN___H
 
-#include "tcpserver_linux.h"
-#include "tcpclient_linux.h"
-#include <pthread.h>
+#include "tcpserver_win.h"
+#include "tcpclient_win.h"
 #include <stdlib.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <sys/types.h>
+
 
 class TcpClient;
 
 class TcpServer
 {	
-friend class TcpClient_Linux;
+friend class TcpClient_Win;
 public:
 
     typedef void (*ServerReceivedDataCallback)(TcpClient* client, const char* command, int commandLength);
@@ -53,10 +50,9 @@ private:
 	int                 m_socketHandle;
 	ServerState         m_connectionState;
     
-    pthread_t           m_threadHandle;
+    HANDLE              m_threadHandle;
     bool                m_threadStopped;    
-                
-    static void* InternalThread(void* arg);    
+                    
     static void PacketReceivedFromClient(TcpClient* client, const char* command, int commandLength);
     
 	void ClientTerminated(TcpClient* client);
@@ -77,9 +73,11 @@ public:
 			
     ClientConnectedCallback    OnClientConnected;
     ClientDisconnectedCallback OnClientDisconnected;
-    TcpClient::TcpClientDataReceivedCallback OnReceiveData;
+    TcpClient_Win::TcpClientDataReceivedCallback OnReceiveData;
 
     void* UserData;
+
+    static void* InternalThread(void* arg);    
     
 };
 
