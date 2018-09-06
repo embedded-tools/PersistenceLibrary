@@ -19,28 +19,36 @@
 
 #include <stdlib.h>
 #include "tjsontag.h"
+#include "tjsondoc.h"
 
 
 /**
  *  Class designed for creating instances of XmlTags. It allows to create both
  *  static or dynamic xml tag pool.
  */
-class TJsonTagBasePool 
+class TJsonTagBasePool
 {
 	friend class TJsonDoc;
+	friend class TJsonXml;
 
-    protected:        
-        virtual TJsonTag*       GetJsonTag(short i) = 0;
-        virtual unsigned short  GetJsonTagCount() = 0;        
+protected:
 
-	public:
-        virtual TJsonTag*       CreateJsonTag() = 0;
-        virtual bool            DeleteJsonTag(TJsonTag* tag) = 0;
-        virtual void            Clear() = 0;
+	void				     SetJsonTagName(TJsonTag* tag, const char* tagName);
+	void                     SetJsonTagParent(TJsonTag* tag, TJsonTag* tagParent);
+	virtual TJsonTag*        GetJsonTag(short i) = 0;
+	virtual unsigned short   GetJsonTagCount() = 0;        
+    TJsonTagBasePool*        TagPool();
 
-        unsigned short          GetChildCount(TJsonTag* parentTag);
-        TJsonTag*               GetChild(TJsonTag* parentTag, unsigned short index);
+public:
 
+    
+	virtual TJsonTag*        CreateJsonTag(TJsonTag* parentTag) = 0;
+	virtual bool             DeleteJsonTag(TJsonTag* tag) = 0;
+	virtual void             Clear() = 0;
+
+	unsigned short           GetChildCount(TJsonTag* parentTag);
+	TJsonTag*                GetChild(TJsonTag* parentTag, unsigned short index);
+ 
 };
 
 #endif

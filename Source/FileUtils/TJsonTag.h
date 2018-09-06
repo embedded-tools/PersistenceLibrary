@@ -2,9 +2,33 @@
 #define TJSONTAG___H
 
 #include "TList.h"
+#include "TShortString.h"
+#include "TStream.h"
+
+class TJsonTagBasePool;
+class TJsonTag;
+
+class TJsonTagList 
+{
+private:	
+    TJsonTag*      iteratedParent;
+    unsigned short iteratorIndex;
+
+protected:
+    TJsonTagList();
+
+public:
+    TJsonTagList(TJsonTag* parent);
+    TJsonTag* First();
+    TJsonTag* Next();
+};
 
 class TJsonTag
 {
+	friend class TJsonTagBasePool;
+	friend class TJsonTagList;
+	friend class TJsonDoc;
+
     public:
         enum TagType
         {
@@ -16,19 +40,37 @@ class TJsonTag
             JSONObject
         };
 
-    private:
+    private:		
         TagType         m_tagType;
+		TJsonTag*		m_parentTag;
+		const char*		m_name;		
+	    const char*     m_stringValue;
+        int             m_intValue;
 
-        const char*     m_stringValue;        
-        float           m_floatValue;        
-        bool            m_boolValue;        
-        TList<TJsonTag> m_subTags;
-
+        void WriteCRLF(TStream& stream);
+        void WriteSpaces(TStream& stream, int indent);
+        
     public:
-        TJsonTag();
+		TJsonTag();
         ~TJsonTag();
 
+		void             Clear();
+        TagType          GetType();
+		const char*		 GetName();
+		TShortString	 GetNameAsString();
+		const char*		 GetValue();
+		TShortString	 GetValueAsString();
+		short			 GetValueAsShortInt(short defaultValue=0);
+		long			 GetValueAsLongInt(long defaultValue=0);
+        bool    		 GetValueAsBoolean();
+
+		TJsonTag*		 GetParentTag();
+
+        static TJsonTagBasePool*  TagPool;
+        static void	SetTagPool(TJsonTagBasePool* tagPool);
        
+        void SaveToStream(TStream& stream, int indent = 0);
+
 };
 
 #endif

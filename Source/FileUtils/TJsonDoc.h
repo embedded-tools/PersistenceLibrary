@@ -22,13 +22,11 @@
 #include "tstring.h"
 #include "tstream.h"
 
-class TJsonDoc
+class TJsonDoc 
 {
     friend class TJsonTag;
 
 protected:
-
-    TJsonTagBasePool* xmlTagPool;
 
     TJsonTag*   parserLevel;
     char*       parserData;
@@ -41,7 +39,13 @@ protected:
     char        NextChar();
     char        NextNonEmptyChar();
 
-    bool        ParseXML();			
+    const char* ParseName();
+    bool        ParseValue(TJsonTag* currentTag);
+    bool        ParseObject(TJsonTag* currentTag);
+    bool        ParseArray(TJsonTag* currentTag);
+    bool        ParseNumber(TJsonTag* currentTag);
+    bool        ParseString(TJsonTag* currentTag);
+
     void        RemoveEscapedCharacters(char* value);
 
 public:
@@ -50,10 +54,11 @@ public:
     ~TJsonDoc();
 
     void        SetPool(TJsonTagBasePool* tagPool);
+    TJsonTagBasePool* TagPool();
     TJsonTag*   Header();
     TJsonTag*   Root();        
     void        Clear();       	
-    bool        LoadFromBuffer (char*   rewriteableBuffer, int jsonLength=0);
+    bool        LoadFromBuffer (char*   rewriteableBuffer, int jsonLength=-1);
     bool        LoadFromString (TString &rewriteableString);
     bool        LoadFromFile   (const char*   filename);
     bool		SaveToStream   (TStream& stream);

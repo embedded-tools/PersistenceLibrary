@@ -1,3 +1,6 @@
+#ifndef TJSONTAG_DYNAMICPOOL___H
+#define TJSONTAG_DYNAMICPOOL___H
+
 /*
  * Persistence Library / Basic types / TXMLTagBasePool 
  *
@@ -14,34 +17,29 @@
  *
  */
 
-#ifndef TJSONSTATICPOOL___H
-#define TJSONSTATICPOOL___H
-
 #include <stdlib.h>
+#include "TList.h"
 #include "tjsontag.h"
 #include "TJsonTagBasePool.h"
 
-#define JSONTAGSTATICPOOLSIZE 64
 
-class TJsonTagStaticPool : public TJsonTagBasePool
+class TJsonTagDynamicPool : public TJsonTagBasePool
 {
 private:
-	TJsonTag    m_tags[JSONTAGSTATICPOOLSIZE];
-	short       m_tagsCount;
+	TList<TJsonTag*>  m_tags;
 
 protected:        
     virtual TJsonTag*       GetJsonTag(short i);
     virtual unsigned short  GetJsonTagCount();        
 
 public:
-    TJsonTagStaticPool();
+    TJsonTagDynamicPool();
+    ~TJsonTagDynamicPool();
 
     virtual TJsonTag*       CreateJsonTag(TJsonTag* parentTag);
     virtual bool            DeleteJsonTag(TJsonTag* tag);
     virtual void            Clear();
 
 };
-
-
 
 #endif
