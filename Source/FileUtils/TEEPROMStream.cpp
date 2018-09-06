@@ -42,7 +42,7 @@ long TEEPROMStream::ReadBuffer   (void* Buffer, long Count)
 	return 0;
 }
 
-long TEEPROMStream::WriteBuffer  (void* Buffer, long Count)
+long TEEPROMStream::WriteBuffer  (const void* Buffer, long Count)
 {
 	if (m_WriteToEEPROM_Function)
 	{

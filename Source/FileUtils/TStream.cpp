@@ -46,7 +46,7 @@ long TStream::ReadBuffer   (void* Buffer, long Count)
     return 0;
 }
 
-long TStream::WriteBuffer (void* Buffer, long Count)
+long TStream::WriteBuffer (const void* Buffer, long Count)
 {
     if (m_parentStream!=NULL)
     {

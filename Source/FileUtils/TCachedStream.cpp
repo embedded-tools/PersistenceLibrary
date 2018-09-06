@@ -159,7 +159,7 @@ long TCachedStream::ReadBuffer (void* data, long dataLength)
    }
 }
 
-long TCachedStream::WriteBuffer(void* pData, long dataLength)
+long TCachedStream::WriteBuffer(const void* pData, long dataLength)
 {
    if (pData==NULL)
    {

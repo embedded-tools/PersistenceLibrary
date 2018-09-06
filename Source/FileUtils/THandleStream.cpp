@@ -51,7 +51,7 @@ long THandleStream::ReadBuffer(void* Buffer, long Count)
     return result;
 }
 
-long THandleStream::WriteBuffer(void* Buffer, long Count)
+long THandleStream::WriteBuffer(const void* Buffer, long Count)
 {
     unsigned short result = (unsigned short)fwrite(Buffer,1,Count,m_fileHandle);
     return result;

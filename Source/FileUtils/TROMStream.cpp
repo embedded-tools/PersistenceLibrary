@@ -41,7 +41,7 @@ long TROMStream::ReadBuffer   (void* Buffer, long Count)
 	return Count;
 }
 
-long TROMStream::WriteBuffer  (void* Buffer, long Count)
+long TROMStream::WriteBuffer  (const void* Buffer, long Count)
 {
 	return 0;
 }

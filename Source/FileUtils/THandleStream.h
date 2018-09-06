@@ -35,7 +35,7 @@ public:
     virtual void Close();
 
     virtual long ReadBuffer(void* Buffer, long Count);
-    virtual long WriteBuffer(void* Buffer, long Count);
+    virtual long WriteBuffer(const void* Buffer, long Count);
 	virtual long Seek(long Offset, ESeekOrigin Origin);
 	virtual long GetPosition();
 	virtual long GetSize();

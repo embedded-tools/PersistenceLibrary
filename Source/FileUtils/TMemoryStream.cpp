@@ -92,7 +92,7 @@ long TMemoryStream::ReadBuffer(void* Buffer, long Count)
     return 0;
 }
 
-long TMemoryStream::WriteBuffer(void* Buffer, long Count)
+long TMemoryStream::WriteBuffer(const void* Buffer, long Count)
 {    
 	if (m_position<0) return 0;
 	if (Count<1) return 0;
