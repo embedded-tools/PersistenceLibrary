@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="UnitTests"
 	ProjectGUID="{3B4700CD-77F5-4190-AE31-22C5C4627894}"
 	RootNamespace="UnitTests"
@@ -310,6 +310,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_EscapeSequences.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_LZ77.cpp"
 				>
 			</File>
@@ -399,6 +403,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TGraphics.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_TJsonDoc.cpp"
 				>
 			</File>
 			<File
