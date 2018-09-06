@@ -22,6 +22,12 @@
 
 #define FILEPATH_MAXLENGTH 128
 
+/**
+ *  TCustomString is a string that stores string data in static char array with predefined length.
+ *  Memory is allocated statically as a part of class instance memory.
+ *
+ *  There is no way how to increase preallocated memory size.
+ */
 
 class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
 {

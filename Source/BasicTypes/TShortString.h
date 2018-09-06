@@ -23,14 +23,9 @@
 //40 characters is usually enough to store any name, surname, address, city, etc.
 
 /**
- *  TShortString a TCustomString with predefined length (similar to TShortString
- *  in borland delphi).
- *  
- *  TShortString prevents memory fragmentation, all string data are held in static
- *  char array with predefined size.
+ *  TShortString is a TCustomString with predefined text length.
+ *  Memory is always allocated statically in local class member.
  *
- *  TShortString intentionally does not use any virtual methods to avoid
- *  problems when it is used with Atmel AVR.
  */
 
 class TShortString : public TString

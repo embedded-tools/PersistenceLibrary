@@ -23,16 +23,15 @@
 #include "tstring.h"
 
 /**
- *  TString is a class for handling unicode strings with maximum 
- *  length 65535 characters. Embedded systems rarely need to handle strings 
- *  bigger that 65535 characters, therefore such limit was implemented.
+ *  TWideString is a class for handling 16 bit unicode strings with maximum 
+ *  length 65535 characters. 
  *  
- *  Class uses dynamic string allocation, however it always allocates
- *  a bit more memory (e.g. instead of 3 bytes is allocated 16 bytes to 
- *  prevent more additional allocations and deleting character causes no
- *  memory reallocation at all). This way class decreases memory 
- *  fragmentation.
+ *  Class can use both static or dynamic memory allocation depending
+ *  on constructor arguments.
  *
+ *  Dynamic allocation always allocates a bit more memory to avoid memory 
+ *  fragmentation (e.g. instead of 3 bytes is allocated 16 bytes to prevent 
+ *  more additional allocations). 
  */
 
 class TWideString

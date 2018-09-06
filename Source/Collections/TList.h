@@ -22,7 +22,7 @@
 #include "TArray.h"
 
 /**
- *  TList is a list similar to TList in C#. TList is designed for
+ *  TList is a list similar to List in C#. TList is designed for
  *  storing simple value data types like char, int etc.
  *  
  *  It allocates memory dynamically, but it preallocates a bit

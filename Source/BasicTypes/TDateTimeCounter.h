@@ -22,7 +22,7 @@
 
 /**
  *  TDateTimeCounter increases current date and time every second
- *  (it can be used when you target platform contains no Real Time Clock (RTC))
+ *  (it can be used when your target platform contains no Real Time Clock (RTC))
  */
 
 class TDateTimeCounter : protected TDateTime

@@ -21,9 +21,16 @@
 
 const static int NUMBER_OF_TERMINAL_ZEROS = 1;
 
-//class is designed for storing, sorting, loading and saving text files, 
-//internally it stores all strings in one memory block, strings are separated
-//by zero, final string is followed by two zeros. 
+/**
+ *  TStringList is a class for storing multiple strings in just one memory
+ *  block. All string are zero terminated, last string is terminated
+ *  by double zero. 
+ *
+ *  Class uses dynamic memory allocation, text can be also loaded from file
+ *  or you can insert string dynamically.
+ *
+ */
+
 class TStringList 
 {
 private:	

@@ -17,6 +17,7 @@
 #ifndef TCOLLECTIONS____H
 #define TCOLLECTIONS____H
 
+#include "TArray.h"
 #include "TDictionary.h"
 #include "TEnumerable.h"
 #include "TEnumerator.h"
@@ -24,8 +25,9 @@
 #include "TObjectList.h"
 #include "TPair.h"
 #include "TQueue.h"
-#include "TArray.h"
 #include "TSortedDictionary.h"
+#include "TSortedList.h"
+#include "TStack.h"
 #include "TStaticDictionary.h"
 #include "TStaticList.h"
 

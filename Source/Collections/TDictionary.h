@@ -18,7 +18,6 @@
 #define TDICTIONARY___H
 
 #include <stdlib.h>
-#include "TArray.h"
 #include "TEnumerator.h"
 #include "TEnumerable.h"
 #include "TPair.h"
@@ -31,7 +30,6 @@
  *  It allocates memory dynamically, but it preallocates a bit more memory than 
  *  it is needed to decrease memory fragmentation.
  */
-
 
 
 template <typename KEY, typename VALUE> class TDictionary 

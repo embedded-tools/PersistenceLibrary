@@ -22,15 +22,15 @@
 #include <string.h>
 
 /**
- *  TString is a class for handling strings with maximum length 64kB.
- *  Embedded systems rarely need to handle strings bigger that 64kB,
- *  therefore such limit was implemented.
+ *  TString is a class for handling strings with both dynamic and static
+ *  memory allocation (it depends on constructor arguments).
+ *
+ *  Both static and dynamic strings can have maximum length 64kB
+ *  (embedded systems rarely need to handle strings bigger that 64kB)
  *  
- *  Class uses dynamic string allocation, however it always allocates
- *  a bit more memory (e.g. instead of 3 bytes is allocated 16 bytes to 
- *  prevent more additional allocations and deleting character causes no
- *  memory reallocation at all). This way class decreases memory 
- *  fragmentation.
+ *  Dynamic allocation always allocates a bit more memory to avoid memory 
+ *  fragmentation (e.g. instead of 3 bytes is allocated 16 bytes to prevent 
+ *  more additional allocations). 
  *
  *  TString intentionally does not use any virtual methods to avoid
  *  problems when it is used with Atmel AVR.
