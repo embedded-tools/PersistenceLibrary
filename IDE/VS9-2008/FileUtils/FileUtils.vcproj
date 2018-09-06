@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="FileUtils"
 	ProjectGUID="{7BEA2081-BBEA-4B13-B3E9-5F8BCBEA9C2C}"
 	RootNamespace="FileUtils"
@@ -238,6 +238,26 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\FileUtils\TJsonDoc.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\FileUtils\TJsonTag.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\FileUtils\TJsonTagBasePool.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\FileUtils\TJsonTagDynamicPool.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\FileUtils\TJsonTagStaticPool.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\FileUtils\TLZ77.cpp"
 				>
 				<FileConfiguration
@@ -380,6 +400,26 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\FileUtils\THandleStream.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\FileUtils\TJsonDoc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\FileUtils\TJsonTag.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\FileUtils\TJsonTagBasePool.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\FileUtils\TJsonTagDynamicPool.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\FileUtils\TJsonTagStaticPool.h"
 				>
 			</File>
 			<File
