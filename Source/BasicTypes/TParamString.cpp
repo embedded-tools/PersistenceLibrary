@@ -119,40 +119,64 @@ bool TParamString::GetIntValue(const char* valueName, int& value)
 	return true;
 }
 
-bool TParamString::GetStringValue(const char* valueName, TString& value)
+bool TParamString::GetStringValue(const char* valueName, bool requireQuotas, TString& value)
 {
 	const char* text = FindValue(valueName);
 	if (text==NULL) return false;
 
+    if (requireQuotas)
+    {
+        if (text[0]!='\"') return false;
+        text++;
+    }
 	char c = 0;
 	while(true)
 	{
 		c = *text++;
-		if (c==0) break;
-		if (c==ValueSeparator)
-		{
-			break;
-		}	
+        if (c==0) break;
+
+        if (requireQuotas)
+        {
+            if (c=='\"') break;
+        } else {
+            if (c==ValueSeparator)
+            {
+                break;
+            }	
+        }		
         value.Append(c);
 	}
 	return true;
 }
 
-bool TParamString::GetStringValue(const char* valueName, char* buffer, const int bufferLength, int& textLength)
+bool TParamString::GetStringValue(const char* valueName, bool requireQuotas, char* buffer, const int bufferLength, int& textLength)
 {
 	const char* text = FindValue(valueName);
 	if (text==NULL) return false;
+
+    if (requireQuotas)
+    {
+        if (text[0]!='\"') return false;
+        text++;
+    }
 
 	int i = 0;
 	char c = 0;
 	while(true)
 	{
-		c = *text++;
-		if (c==0) break;
-		if (c==ValueSeparator)
-		{
-			break;
-		}	
+        c = *text++;
+        if (c==0) break;
+
+        if (requireQuotas)
+        {
+            if (c=='\"') break;
+        } else {
+            if (c==ValueSeparator)
+            {
+                break;
+            }	
+        }		
+
 		if (i>=bufferLength) return false;
 		buffer[i] = c; i++;
 	}
