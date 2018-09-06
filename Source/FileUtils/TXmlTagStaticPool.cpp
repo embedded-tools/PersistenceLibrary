@@ -18,12 +18,12 @@
 
 TXMLTagStaticPool::TXMLTagStaticPool()
 {
-    memset(Tags, 0, sizeof(Tags));
+    memset(m_tags, 0, sizeof(m_tags));
 }
 
 TXMLTag* TXMLTagStaticPool::GetXMLTag(short i)
 {
-    return &Tags[i];
+    return &m_tags[i];
 }
 
 unsigned short  TXMLTagStaticPool::GetXMLTagCount()
@@ -31,40 +31,44 @@ unsigned short  TXMLTagStaticPool::GetXMLTagCount()
     unsigned short count = 0;
     for(unsigned short i = 0; i<XMLTAGSTATICPOOLSIZE; i++)
     {
-        if (Tags[i].GetName()==NULL) continue;
+        if (m_tags[i].GetName()==NULL) continue;
         count++;
     }
     return count;
 }
 
-TXMLTag* TXMLTagStaticPool::CreateXMLTag()
+TXMLTag* TXMLTagStaticPool::CreateXMLTag(TXMLTag* parentTag)
 {
     TXMLTag* newXmlTag = NULL;
     for(int i = 0; i<XMLTAGSTATICPOOLSIZE; i++)
     {
-        if (Tags[i].GetName()==NULL)
+        if (m_tags[i].GetName()==NULL)
         {
-            newXmlTag=&Tags[i];
-            TagsCount++;
+            newXmlTag=&m_tags[i];
+			SetXMLTagParent(newXmlTag, parentTag);
+            m_tagsCount++;
             break;
         }
     }
+
     return newXmlTag;
 }
 
 bool TXMLTagStaticPool::DeleteXMLTag(TXMLTag* tag)
 {
-    SetXMLTagName(tag, NULL, NULL);
-    TagsCount--;
+    SetXMLTagName(tag, NULL);
+	SetXMLTagParent(tag, NULL);
+    m_tagsCount--;
     return true;
 }
 
 void TXMLTagStaticPool::Clear()
 {
-    TagsCount = 0;
+    m_tagsCount = 0;
     for(int j = 0; j<XMLTAGSTATICPOOLSIZE; j++)
     {
-        SetXMLTagName(&Tags[j], NULL, NULL);
+        SetXMLTagName(&m_tags[j], NULL);
+		SetXMLTagParent(&m_tags[j], NULL);
     }    
 }
 

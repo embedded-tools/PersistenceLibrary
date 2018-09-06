@@ -48,8 +48,6 @@ class TXMLDoc
 
 	protected:
 
-        TXMLTagBasePool* xmlTagPool;
-
         TXMLTag*    parserLevel;
 		char*       parserData;
         int         parserDataLength;
@@ -70,6 +68,7 @@ class TXMLDoc
 		~TXMLDoc();
 
         void        SetPool(TXMLTagBasePool* tagPool);
+        TXMLTagBasePool* TagPool();
         TXMLTag*    Header();
 		TXMLTag*    Root();        
 		void        Clear();       	

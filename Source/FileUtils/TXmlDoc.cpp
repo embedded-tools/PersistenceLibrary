@@ -48,32 +48,36 @@ TXMLDoc::~TXMLDoc()
 
 void TXMLDoc::SetPool(TXMLTagBasePool* tagPool)
 {
-    xmlTagPool = tagPool;
 	TXMLTag::SetTagPool(tagPool);
+}
+
+TXMLTagBasePool* TXMLDoc::TagPool()
+{
+    return TXMLTag::TagPool;
 }
 
 TXMLTag* TXMLDoc::Root()
 {
-    if (xmlTagPool==NULL)
+    if (TagPool()==NULL)
     {
         return NULL;
     }
-    TXMLTag* root = xmlTagPool->GetChild(NULL, 1);
+    TXMLTag* root = TagPool()->GetChild(NULL, 1);
     if (root==NULL)
     {
-        root = xmlTagPool->GetChild(NULL, 0);
+        root = TagPool()->GetChild(NULL, 0);
     }
 	return root;
 }
 
 TXMLTag* TXMLDoc::Header()
 {
-    TXMLTag* root = xmlTagPool->GetChild(NULL, 1);
+    TXMLTag* root = TagPool()->GetChild(NULL, 1);
     if (root==NULL)
     {
         return NULL;
     }
-    TXMLTag* header = xmlTagPool->GetChild(NULL, 0);
+    TXMLTag* header = TagPool()->GetChild(NULL, 0);
     return header;
 }
 
@@ -85,16 +89,16 @@ void TXMLDoc::Clear()
     parserDataLength = 0;
     parserPosition = 0;
     endReached = false;    
-    if (xmlTagPool!=NULL)
+    if (TagPool()!=NULL)
     {
-        xmlTagPool->Clear();
+        TagPool()->Clear();
     }
 }
 
 bool TXMLDoc::LoadFromBuffer (char* rewriteableBuffer, int xmlLength)
  {
 	Clear();  
-    if (xmlTagPool==NULL)
+    if (TagPool()==NULL)
     {
         return false;
     }
@@ -116,11 +120,11 @@ bool TXMLDoc::LoadFromBuffer (char* rewriteableBuffer, int xmlLength)
 bool TXMLDoc::LoadFromString(TString &rewriteableString)
  {
 	Clear();
-    if (xmlTagPool==NULL)
+    if (TagPool()==NULL)
     {
         return false;
     }
-    xmlTagPool->Clear();
+    TagPool()->Clear();
   
     endReached = false;
     parserLevel = NULL;	
@@ -135,11 +139,11 @@ bool TXMLDoc::LoadFromString(TString &rewriteableString)
 bool TXMLDoc::LoadFromFile(const char* filename)
 {
     Clear();
-    if (xmlTagPool==NULL)
+    if (TagPool()==NULL)
     {
         return false;
     }
-    xmlTagPool->Clear();
+    TagPool()->Clear();
     
     endReached = false;
     parserLevel = NULL;
@@ -229,7 +233,6 @@ char TXMLDoc::CurrentChar()
         endReached = true;
         return 0;
 	}
-
 	return c;
 }
 
@@ -262,8 +265,8 @@ bool TXMLDoc::ParseXML()
                 
             } else {
                 char* tagName = parserData + parserPosition;
-				TXMLTag* newTag = xmlTagPool->CreateXMLTag();
-				xmlTagPool->SetXMLTagName(newTag, tagName, parserLevel);
+				TXMLTag* newTag = TagPool()->CreateXMLTag(parserLevel);
+				TagPool()->SetXMLTagName(newTag, tagName);
 
                 c = NextChar();
                 
@@ -456,7 +459,7 @@ TXMLTag* TXMLDoc::SelectNode(const char* xpath)
     {
         return NULL;
     }
-    TXMLTag* rootTag = xmlTagPool->GetChild(NULL, 0);
+    TXMLTag* rootTag = TagPool()->GetChild(NULL, 0);
     if (rootTag==NULL)
     {
         return NULL;
@@ -494,7 +497,7 @@ TXMLTagList* TXMLDoc::SelectNodes(const char* xpath, bool no_malloc)
 	{
 		return NULL;
 	}
-	TXMLTag* rootTag = xmlTagPool->GetChild(NULL, 0);
+	TXMLTag* rootTag = TagPool()->GetChild(NULL, 0);
 	if (rootTag==NULL)
 	{
 		return NULL;
@@ -532,7 +535,7 @@ unsigned short TXMLDoc::CountNodes(const char* xpath)
 	{
 		return 0;
 	}
-	TXMLTag* rootTag = xmlTagPool->GetChild(NULL, 0);
+	TXMLTag* rootTag = TagPool()->GetChild(NULL, 0);
 	if (rootTag==NULL)
 	{
 		return 0;

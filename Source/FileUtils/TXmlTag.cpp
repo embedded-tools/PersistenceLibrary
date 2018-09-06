@@ -82,6 +82,11 @@ TXMLTag::~TXMLTag()
     
 }
 
+void TXMLTag::Clear()
+{
+
+}
+
 void TXMLTag::Init()
 {
     Name = NULL;

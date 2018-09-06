@@ -16,9 +16,10 @@ unsigned short TXMLTagDynamicPool::GetXMLTagCount()
 	return Tags.Count();
 }
 
-TXMLTag* TXMLTagDynamicPool::CreateXMLTag()
+TXMLTag* TXMLTagDynamicPool::CreateXMLTag(TXMLTag* parentTag)
 {
 	TXMLTag* tag = new TXMLTag();
+	SetXMLTagParent(tag, parentTag);
 	Tags.Add(tag);
 	return tag;
 

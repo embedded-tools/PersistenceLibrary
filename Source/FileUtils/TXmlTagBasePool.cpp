@@ -17,10 +17,14 @@
 #include "txmltagbasepool.h"
 
 
-void TXMLTagBasePool::SetXMLTagName(TXMLTag* tag, const char* tagName, TXMLTag* tagParent)
+void TXMLTagBasePool::SetXMLTagName(TXMLTag* tag, const char* tagName)
 {
     tag->Name = tagName;
-    tag->ParentTag = tagParent;
+}
+
+void TXMLTagBasePool::SetXMLTagParent(TXMLTag* tag, TXMLTag* parentTag)
+{
+	tag->ParentTag = parentTag;
 }
 
 unsigned short TXMLTagBasePool::GetChildCount(TXMLTag* parentTag)

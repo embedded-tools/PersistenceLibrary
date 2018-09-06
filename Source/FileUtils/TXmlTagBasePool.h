@@ -30,13 +30,14 @@ class TXMLTagBasePool
 	friend class TXMLDoc;
 
     protected:
-        void SetXMLTagName(TXMLTag* tag, const char* tagName, TXMLTag* tagParent);
+		void					SetXMLTagName(TXMLTag* tag, const char* tagName); 
+		void                    SetXMLTagParent(TXMLTag* tag, TXMLTag* tagParent);
         virtual TXMLTag*        GetXMLTag(short i) = 0;
         virtual unsigned short  GetXMLTagCount() = 0;        
 
 	public:
 
-        virtual TXMLTag*        CreateXMLTag() = 0;
+        virtual TXMLTag*        CreateXMLTag(TXMLTag* parentTag) = 0;
         virtual bool            DeleteXMLTag(TXMLTag* tag) = 0;
         virtual void            Clear() = 0;
 

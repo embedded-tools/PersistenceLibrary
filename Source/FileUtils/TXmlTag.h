@@ -66,8 +66,8 @@ class TXMLTag
         const char*		Value;		
         const char*		FirstAttribute;
         const char*		LastAttribute;
+        TXMLTag*		ParentTag;
 
-        TXMLTag*		        ParentTag;
         static TXMLTagBasePool* TagPool;
 		static void	SetTagPool(TXMLTagBasePool* tagPool);
 
@@ -79,6 +79,8 @@ class TXMLTag
 
 		TXMLTag();
 		~TXMLTag();			
+
+		void             Clear();
                
         const char*		 GetName();
         TShortString	 GetNameAsString();
@@ -94,7 +96,7 @@ class TXMLTag
         short            GetChildCount();
         TXMLTag*         GetChild(short i);
         TXMLTag*         SelectNode(const char* xpath);
-        TXMLTagList* SelectNodes(const char* xpath, bool no_malloc=true);
+        TXMLTagList*     SelectNodes(const char* xpath, bool no_malloc=true);
 		unsigned short   CountNodes (const char* xpath);
 
 		void			 SaveToStream(TStream& stream, int indent = 0);

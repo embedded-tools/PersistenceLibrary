@@ -25,7 +25,7 @@
 
 
 /**
- *  Class preallocated fixed number of TXMLTag. These XML Tag instances are reused
+ *  Class preallocates fixed number of TXMLTag. These XML Tag instances are reused
  *  for all loaded Xml documents. 
  *  
  *  Such reusing of existing instances avoids memory fragmentation on embedded 
@@ -34,8 +34,8 @@
 class TXMLTagStaticPool : public TXMLTagBasePool
 {
     private:    
-        TXMLTag    Tags[XMLTAGSTATICPOOLSIZE];
-        short      TagsCount;
+        TXMLTag    m_tags[XMLTAGSTATICPOOLSIZE];
+        short      m_tagsCount;
 
         virtual TXMLTag*        GetXMLTag(short i);
         virtual unsigned short  GetXMLTagCount();        
@@ -44,10 +44,11 @@ class TXMLTagStaticPool : public TXMLTagBasePool
 
 		TXMLTagStaticPool();
 
-        virtual TXMLTag*        CreateXMLTag();
+        virtual TXMLTag*        CreateXMLTag(TXMLTag* parentTag);
         virtual bool            DeleteXMLTag(TXMLTag* tag);
         virtual void            Clear();
 
 };
+
 
 #endif
