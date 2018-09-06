@@ -65,6 +65,6 @@ TFilter5x5::TFilter5x5(int f11, int f12, int f13, int f14, int f15,
 	if (f55>0) Divisor+=f55;
 
 	Bias = 0;
-	if (negative) Bias=128;
+	if (negative) Bias=127;
 
 }

@@ -43,6 +43,6 @@ TFilter3x3::TFilter3x3(int f11, int f12, int f13,
 	if (f33>0) Divisor+=f33;
 
 	Bias = 0;
-	if (negative) Bias=128;
+	if (negative) Bias=127;
 
 }
