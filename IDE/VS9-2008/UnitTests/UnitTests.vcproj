@@ -438,10 +438,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\Source\UnitTests\Test_TSafeArray.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_TShortString.cpp"
 				>
 			</File>
