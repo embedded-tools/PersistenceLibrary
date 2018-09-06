@@ -27,9 +27,9 @@ public:
             SYSTEMTIME s_time;
             memset(&s_time, 0, sizeof(s_time));
             GetLocalTime(&s_time);
-            time.SetHour(s_time.wHour);
-            time.SetMinute(s_time.wMinute);
-            time.SetSecond(s_time.wSecond);
+            time.SetHour(  (unsigned char)s_time.wHour);
+            time.SetMinute((unsigned char)s_time.wMinute);
+            time.SetSecond((unsigned char)s_time.wSecond);
             time.SetMilliSecond(s_time.wMilliseconds);
         #endif
     }
@@ -55,7 +55,7 @@ public:
         DEBUG     (this, "Debug text");
         INFO      (this, "Info text");
         WARNING   (this, "Warning text");
-        ERROR     (this, "Error text");
+        CRITICAL  (this, "Error text");
         EXCEPTION (this, "Exception text");
     }
 
@@ -65,7 +65,7 @@ public:
         DEBUG     (this, "Debug text");
         INFO      (this, "Info text");
         WARNING   (this, "Warning text");
-        ERROR     (this, "Error text");
+        CRITICAL  (this, "Error text");
         EXCEPTION (this, "Exception text");
     }
 
@@ -76,7 +76,7 @@ public:
         DEBUG     (this, "Debug text");
         INFO      (this, "Info text");
         WARNING   (this, "Warning text");
-        ERROR     (this, "Error text");
+        CRITICAL  (this, "Error text");
         EXCEPTION (this, "Exception text");
     }
 
