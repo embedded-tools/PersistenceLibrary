@@ -117,7 +117,6 @@
     <ClInclude Include="..\..\..\Source\Collections\TObjectList.h" />
     <ClInclude Include="..\..\..\Source\Collections\TPair.h" />
     <ClInclude Include="..\..\..\Source\Collections\TQueue.h" />
-    <ClInclude Include="..\..\..\Source\Collections\TSafeArray.h" />
     <ClInclude Include="..\..\..\Source\Collections\TSortedDictionary.h" />
     <ClInclude Include="..\..\..\Source\Collections\TStack.h" />
     <ClInclude Include="..\..\..\Source\Collections\TStaticDictionary.h" />
@@ -131,7 +130,6 @@
     <ClCompile Include="..\..\..\Source\Collections\TList.cpp" />
     <ClCompile Include="..\..\..\Source\Collections\TObjectList.cpp" />
     <ClCompile Include="..\..\..\Source\Collections\TQueue.cpp" />
-    <ClCompile Include="..\..\..\Source\Collections\TSafeArray.cpp" />
     <ClCompile Include="..\..\..\Source\Collections\TSortedDictionary.cpp" />
     <ClCompile Include="..\..\..\Source\Collections\TStack.cpp" />
     <ClCompile Include="..\..\..\Source\Collections\TStaticDictionary.cpp" />

@@ -189,6 +189,9 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TGraphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TJsonDoc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -201,13 +204,13 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TObjectList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TParamString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TQueue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TRandom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TSafeArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TShortString.cpp">
@@ -247,9 +250,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLParser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TParamString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

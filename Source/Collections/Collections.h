@@ -26,7 +26,6 @@
 #include "TPair.h"
 #include "TQueue.h"
 #include "TSortedDictionary.h"
-#include "TSortedList.h"
 #include "TStack.h"
 #include "TStaticDictionary.h"
 #include "TStaticList.h"

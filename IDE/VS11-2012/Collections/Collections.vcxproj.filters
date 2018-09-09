@@ -35,9 +35,6 @@
     <ClInclude Include="..\..\..\Source\Collections\TQueue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\Collections\TSafeArray.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Source\Collections\TSortedDictionary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -71,9 +68,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Collections\TQueue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\Collections\TSafeArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\Collections\TSortedDictionary.cpp">

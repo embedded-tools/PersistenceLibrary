@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Source\BasicTypes\EscapeSequences.h" />
     <ClInclude Include="..\..\..\Source\BasicTypes\StringUtils.h" />
     <ClInclude Include="..\..\..\Source\BasicTypes\TCustomString.h" />
     <ClInclude Include="..\..\..\Source\BasicTypes\TDate.h" />
@@ -27,6 +28,7 @@
     <ClInclude Include="..\..\..\Source\BasicTypes\UTF8.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Source\BasicTypes\EscapeSequences.c" />
     <ClCompile Include="..\..\..\Source\BasicTypes\StringUtils.cpp" />
     <ClCompile Include="..\..\..\Source\BasicTypes\TDate.cpp" />
     <ClCompile Include="..\..\..\Source\BasicTypes\TDateTime.cpp" />

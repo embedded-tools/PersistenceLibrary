@@ -53,6 +53,9 @@
     <ClInclude Include="..\..\..\Source\BasicTypes\TParamString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Source\BasicTypes\EscapeSequences.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\BasicTypes\StringUtils.cpp">
@@ -92,6 +95,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\BasicTypes\TParamString.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\BasicTypes\EscapeSequences.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
