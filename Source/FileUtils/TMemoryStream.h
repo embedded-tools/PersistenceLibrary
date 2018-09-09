@@ -19,6 +19,9 @@
 
 #include "tstream.h"
 
+/**
+/*  Memory stream reads/writes data from/to memory block.
+*/
 class TMemoryStream:public TStream
 {
 private:

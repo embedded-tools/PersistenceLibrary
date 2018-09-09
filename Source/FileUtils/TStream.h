@@ -32,6 +32,35 @@ typedef enum
 	esoFromEnd       =0x0002
 } ESeekOrigin;
 
+
+/**
+ * Stream is a generic data source or target.
+ *
+ * Typical scenario is:
+ *   1. Open stream (e.g. filestream, memorystream or eepromstream)
+ *   2. Write all data or read all data (but never both!)
+ *   3. Close the stream
+ *
+ * TStream is an abstract class for all stream, eeprom stream, memory stream etc.
+ * TStream has various method for reading/writing various data types
+ * to binary stream.
+ *
+ * Typical usage:
+ *
+ * void MyClass::LoadData(TStream& data)  
+ * {
+ *    data.ReadLong(this->myInt);
+ *    data.ReadBinaryText(this->myText);
+ *    ...
+ * }
+ *
+ * void MyClass::SaveData(TStream& data)  
+ * {
+ *    data.WriteLong(this->myInt);
+ *    data.WriteBinaryText(this->myText);
+ *    ...
+ * }
+ */
 class TStream
 {
 private:

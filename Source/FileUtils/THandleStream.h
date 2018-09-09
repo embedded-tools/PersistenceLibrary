@@ -20,6 +20,15 @@
 #include <stdio.h>
 #include "tstream.h"
 
+/**
+ * Handle stream can be used for reading / writing data from various 
+ * resources. Handle can be used for accessing file, serial port, socket
+ * or anything else what can be represented by handle.
+ *
+ * HandleStream can be combined with CachedStream if you want to decrease
+ * number of readings from file, or with LZ77Streamed if you want
+ * to compress/decompress data.
+ */
 class THandleStream:public TStream
 {
 private:

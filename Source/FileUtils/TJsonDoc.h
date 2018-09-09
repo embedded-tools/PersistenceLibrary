@@ -22,6 +22,27 @@
 #include "tstring.h"
 #include "tstream.h"
 
+/**
+ *  TJsonDoc is a json parser designed for low memory embedded systems.
+ *
+ *  JsonDoc class itself does not make any static or dynamic memory 
+ *  allocation. All memory allocations are done by tag pool class.
+ *  TXmlTagStaticPool makes static memory allocations only, class
+ *  TXmlTagDynamicPool uses dynamic memory allocation.
+ *
+ *  Json text data must be passed in rewriteable buffer (const char*
+ *  data can't be accepted), because this buffer is modified like this:
+ *
+ *
+ *  {                                {
+ *    names: ["Karel",                  names\0 ["Karel\0,
+ *            "Josef",                           "Josef\0
+ *            "Marcel"]                          "Marcel\0
+ *  }                                }
+ *
+ *  Strings like names and values are not reallocated, all string pointers
+ *  point to original buffer directly.
+ */
 class TJsonDoc 
 {
     friend class TJsonTag;

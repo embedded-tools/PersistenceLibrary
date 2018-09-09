@@ -19,6 +19,14 @@
 
 #include "tstream.h"
 
+
+/**
+ * Eeprom strean can be used for reading / writing data from/to memory 
+ * that is not mapped directly to main address space.
+ * 
+ * Usually you need to call a short method for reading/writing each byte to eeprom
+ * one by one.
+ */
 class TEEPROMStream : public TStream
 {
 private:

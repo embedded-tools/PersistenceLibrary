@@ -19,6 +19,11 @@
 
 #include "tstream.h"
 
+/**
+ *  ROM stream reads data from memory block. This memory 
+ *  block can be stored in ROM memory as a C array.
+
+*/
 class TROMStream : public TStream
 {
 private:

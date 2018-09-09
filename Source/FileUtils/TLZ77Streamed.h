@@ -26,6 +26,10 @@
 //compression ratio
 #define LZ77_MAGIC_BYTE 0xBF
 
+/**
+ *  TLZ77Streamed can do LZ77 data compression on data stream.
+ *
+ */
 class TLZ77Streamed : public TCachedStream
 {
     private:

@@ -23,6 +23,13 @@ public:
     TJsonTag* Next();
 };
 
+/**
+ *  TJsonTag represents one json element (string, boolean, array, object or null)
+ *
+ *  TJsonDoc class itself does not make any static or dynamic memory 
+ *  allocation.
+ *
+ */
 class TJsonTag
 {
 	friend class TJsonTagBasePool;

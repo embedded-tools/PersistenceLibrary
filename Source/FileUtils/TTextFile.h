@@ -21,6 +21,10 @@
 #include <stdio.h>
 #include "tstring.h"
 
+/**
+ *  Class for reading text files line by line.
+ * 
+*/
 class TTextFile
 {
 private:	

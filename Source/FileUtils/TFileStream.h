@@ -29,6 +29,14 @@ typedef enum EFileMode
 	efmCreate=0xFFFF
 } EFILEMODE;
 
+/**
+ * File stream can be used for reading / writing data from file.
+ * Filename must be used as a constructor argument.
+ *
+ * FileStream can be combined with CachedStream if you want to decrease
+ * number of readings from file, or with LZ77Streamed if you want
+ * to compress/decompress data.
+ */
 class TFileStream : public THandleStream
 {
 public:

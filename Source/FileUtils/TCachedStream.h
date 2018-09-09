@@ -19,6 +19,16 @@
 
 #include "tstream.h"
 
+/** 
+ *  This is class is used as a cache for all data reading / writing
+ *  operations, this way is minimalized number of readings / writings.
+ *  This makes sense if data media is slow (e.g. Flash EEPROM)
+ *
+ *  Reading - it loads X kB of data first and then reads data from cache
+ *
+ *  Writing - it wait until internal cache is full and then the data are 
+ *  written to target media
+ */
 class TCachedStream: public TStream
 {
 protected:
