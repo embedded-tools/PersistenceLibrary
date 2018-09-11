@@ -7,14 +7,24 @@
 
 bool terminated = false;
 
+
+
 void GetTime(TTime &time)
 {
     SYSTEMTIME localTime;
     GetLocalTime(&localTime);
-    time.SetHour(localTime.wHour);
-    time.SetMinute(localTime.wMinute);
-    time.SetSecond(localTime.wSecond);
-    time.SetMilliSecond(localTime.wMilliseconds);
+    time.SetHour((unsigned char)localTime.wHour);
+    time.SetMinute((unsigned char)localTime.wMinute);
+    time.SetSecond((unsigned char)localTime.wSecond);
+    time.SetMilliSecond((unsigned short)localTime.wMilliseconds);
+}
+
+void StatusChanged(TcpClient* sender)
+{
+    char buf[200];
+    sender->GetConnectionStatusString(buf, sizeof(buf));
+
+    printf("%s\r\n", buf);
 }
 
 int main(int argc, char **argv)
@@ -25,14 +35,16 @@ int main(int argc, char **argv)
 
     TConsoleLog::Init(GetTime);
 	TcpClient_Win client;
+    client.OnConnectionStatusChanged = StatusChanged;
 
-    bool res = client.Open("192.168.1.3", 4000);
+    bool res = client.Open("192.168.54.99", 4000);
     if (!res)
     {
         DEBUG(NULL, "Can't connect to the server");
         return 0;
     }
 	client.SendData("Hello there!");
+    
     
     char buf[64];
     

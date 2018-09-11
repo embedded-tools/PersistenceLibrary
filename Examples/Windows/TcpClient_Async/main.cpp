@@ -11,10 +11,10 @@ void GetTime(TTime &time)
 {
     SYSTEMTIME localTime;
     GetLocalTime(&localTime);
-    time.SetHour(localTime.wHour);
-    time.SetMinute(localTime.wMinute);
-    time.SetSecond(localTime.wSecond);
-    time.SetMilliSecond(localTime.wMilliseconds);
+    time.SetHour((unsigned char)localTime.wHour);
+    time.SetMinute((unsigned char)localTime.wMinute);
+    time.SetSecond((unsigned char)localTime.wSecond);
+    time.SetMilliSecond((unsigned short)localTime.wMilliseconds);
 }
 
 void TcpMessage(TcpClient* sender, const char* data, int dataLength)
@@ -38,8 +38,7 @@ int main(int argc, char **argv)
         return 0;
     }    
     client.SendData("Hello there!");
-    char buf[64];
-    
+
     while(client.IsConnected())
     {
         Sleep(5000);

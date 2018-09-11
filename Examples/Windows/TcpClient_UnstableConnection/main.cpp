@@ -11,9 +11,9 @@ void GetTime(TTime &time)
 {
     SYSTEMTIME localTime;
     GetLocalTime(&localTime);
-    time.SetHour(localTime.wHour);
-    time.SetMinute(localTime.wMinute);
-    time.SetSecond(localTime.wSecond);
+    time.SetHour((unsigned char)localTime.wHour);
+    time.SetMinute((unsigned char)localTime.wMinute);
+    time.SetSecond((unsigned char)localTime.wSecond);
     time.SetMilliSecond(localTime.wMilliseconds);
 }
 
@@ -46,7 +46,6 @@ int main(int argc, char **argv)
         return 0;
     }    
     client.SendData("Hello there!");
-    char buf[64];
     
     while(!quitRequested)
     {

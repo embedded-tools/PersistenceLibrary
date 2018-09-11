@@ -12,10 +12,10 @@ void GetTime(TTime &time)
 {
     SYSTEMTIME localTime;
     GetLocalTime(&localTime);
-    time.SetHour(localTime.wHour);
-    time.SetMinute(localTime.wMinute);
-    time.SetSecond(localTime.wSecond);
-    time.SetMilliSecond(localTime.wMilliseconds);
+    time.SetHour((unsigned char)localTime.wHour);
+    time.SetMinute((unsigned char)localTime.wMinute);
+    time.SetSecond((unsigned char)localTime.wSecond);
+    time.SetMilliSecond((unsigned short)localTime.wMilliseconds);
 }
 
 void ClientConnected(const struct sockaddr_in& address)

@@ -33,15 +33,15 @@ public:
 		Disconnected    //disconnected (user explicitelly called Close method)
 	};
 
-    typedef void (*TcpClientDataReceivedCallback)(TcpClient* client, const char* data, int dataLength);
-	typedef void (*ConnectionLostHandler)(TcpClient* sender);    
+    typedef void (*ClientReceivedDataCallback)(TcpClient* client, const char* data, int dataLength);
+	typedef void (*ConnectionStatusChangedHandler)(TcpClient* sender);  
 	
     TcpClient(int maxPacketSize);
     
     virtual ~TcpClient();
 
 	virtual bool Open(const char* serverAddress, int port, bool waitForConnection = true) = 0;
-    virtual bool OpenAsync(const char* serverAddress, int port, TcpClientDataReceivedCallback dataReceivedCallback, bool waitForConnection = true) = 0;
+    virtual bool OpenAsync(const char* serverAddress, int port, ClientReceivedDataCallback dataReceivedCallback, bool waitForConnection = true) = 0;
 	virtual bool Reopen() = 0;
 	
     virtual bool SendData (const char* data, int dataLength=-1) = 0;
@@ -50,19 +50,27 @@ public:
 	virtual int  ReadDataCount() = 0;
 	
 	virtual void Close(bool killThreadAlso=true) = 0;
-    virtual TcpServer*      GetParentServer() = 0;    
+    virtual TcpServer* GetParentServer() = 0;    
+    virtual int GetAddress(char *buffer, int bufferSize) = 0;
 
     int             GetMaxPacketSize();
     void            SetConnectionTimeout(int timeoutTotal);    	    
-	ConnectionState GetConnectionState();
     bool            IsConnected();
     bool            AutoReconnect;
 
     void*           UserData;	
 
-protected:
-    TcpClient::
+    void            SetConnectionStatus(ConnectionState state);
+    ConnectionState GetConnectionStatus();
+    int             GetConnectionStatusString(char* buf, int bufSize);
+
+    ConnectionStatusChangedHandler  OnConnectionStatusChanged;
+
+private:
     ConnectionState m_connectionState;
+
+protected:
+
     int             m_connectionTimeout;
     int             m_maxPacketSize;
     char*           m_packetBuffer;

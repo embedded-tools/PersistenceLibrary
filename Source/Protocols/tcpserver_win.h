@@ -29,9 +29,9 @@ class TcpServer
 friend class TcpClient_Win;
 public:
 
-    typedef void (*ServerReceivedDataCallback)(TcpClient* client, const char* command, int commandLength);
-    typedef void (*ClientConnectedCallback)   (const struct sockaddr_in& address);
-    typedef void (*ClientDisconnectedCallback)(const struct sockaddr_in& address);    
+    typedef void (*DataFromClientReceivedCallback)(TcpClient* client, const char* command, int commandLength);
+    typedef void (*ClientConnectedCallback)       (const struct sockaddr_in& address);
+    typedef void (*ClientDisconnectedCallback)    (const struct sockaddr_in& address);    
     
 	enum ServerState
 	{		
@@ -73,7 +73,7 @@ public:
 			
     ClientConnectedCallback    OnClientConnected;
     ClientDisconnectedCallback OnClientDisconnected;
-    TcpClient_Win::TcpClientDataReceivedCallback OnReceiveData;
+    DataFromClientReceivedCallback OnReceiveData;
 
     void* UserData;
 

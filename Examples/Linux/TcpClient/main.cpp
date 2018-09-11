@@ -24,12 +24,21 @@ void GetTime(TTime &time)
 	time.SetMilliSecond(tv.tv_usec/1000);	
 }
 
+void StateChanged(TcpClient* client)
+{
+	char buf[200];
+	client->GetConnectionStatusString(buf, sizeof(buf));
+	
+	printf("%s\r\n", buf);	
+}
+
 int main(int argc, char **argv)
 {
     TConsoleLog::Init(GetTime);
 	TcpClient_Linux client;
+	client.OnConnectionStatusChanged = StateChanged;
 
-    bool res = client.Open("192.168.1.3", 4000);
+    bool res = client.Open("192.168.54.99", 4000);
     if (!res)
     {
         DEBUG(NULL, "Can't connect to the server");

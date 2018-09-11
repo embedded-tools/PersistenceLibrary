@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 {
     TConsoleLog::Init(GetTime);
 	TcpClient_Linux client;
-    bool res = client.OpenAsync("192.168.1.3", 4000, TcpMessage);
+    bool res = client.OpenAsync("192.168.54.99", 4000, TcpMessage);
     if (!res)
     {
         DEBUG(NULL, "Can't connect to the server");

@@ -48,11 +48,11 @@ public:
 
     TcpClient_Linux(int maxPacketSize=256);
     
-    TcpClient_Linux(TcpServer* parent, int clientSocket, struct sockaddr_in* clientAddress, TcpClientDataReceivedCallback callback, void* userData);
+    TcpClient_Linux(TcpServer* parent, int clientSocket, struct sockaddr_in* clientAddress, DataReceivedCallback callback, void* userData);
     virtual ~TcpClient_Linux();
 	
 	virtual bool Open(const char* serverAddress, int port, bool waitForConnection = true);
-    virtual bool OpenAsync(const char* serverAddress, int port, TcpClientDataReceivedCallback dataReceivedCallback, bool waitForConnection = true);
+    virtual bool OpenAsync(const char* serverAddress, int port, DataReceivedCallback dataReceivedCallback, bool waitForConnection = true);
 	virtual bool Reopen();
 	
     virtual bool SendData (const char* data, int dataLength=-1);
@@ -62,6 +62,7 @@ public:
 	
 	virtual void Close(bool killThreadAlso=true);    
     virtual void CheckTimeout(int timeTick_MS);
+	virtual int  GetAddress(char *buffer, int bufferSize);
 
     TcpServer*      GetParentServer();    
     void*           UserData;
@@ -70,7 +71,7 @@ protected:
 	
 	static void* InternalThread(void* arg);
 	
-    TcpClientDataReceivedCallback m_onPacketReceived;
+    DataReceivedCallback m_onPacketReceived;
 	
 };
 

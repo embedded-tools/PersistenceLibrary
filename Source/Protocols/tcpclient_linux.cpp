@@ -38,7 +38,7 @@ TcpClient_Linux::TcpClient_Linux(int maxPacketSize)
 	memset((void*)&m_serverAddress, 0, sizeof(m_serverAddress));	
 }
 
-TcpClient_Linux::TcpClient_Linux(TcpServer* server, int clientSocket, struct sockaddr_in* clientAddress, TcpClientDataReceivedCallback callback, void* userData)
+TcpClient_Linux::TcpClient_Linux(TcpServer* server, int clientSocket, struct sockaddr_in* clientAddress, DataReceivedCallback callback, void* userData)
 : TcpClient(256),
   m_socketHandle(clientSocket),
   m_socketTimeout(0),
@@ -51,7 +51,7 @@ TcpClient_Linux::TcpClient_Linux(TcpServer* server, int clientSocket, struct soc
     m_server = server;
 	memset((void*)&m_serverAddress, 0, sizeof(m_serverAddress));
     
-    m_connectionState = Connected;
+    SetConnectionStatus(Connected);
     m_maxPacketSize = server->GetMaxPacketSize();
 	m_packetBuffer = (char*) malloc(m_maxPacketSize);    
     m_onPacketReceived = callback;
@@ -159,18 +159,18 @@ bool TcpClient_Linux::Open(const char* serverAddress, int port, bool waitForConn
 		unsigned long nbio = 1;	
 		ioctl(m_socketHandle, FIONBIO, &nbio);	
 
-		m_connectionState = Connected;
+		SetConnectionStatus(Connected);
 	}
 	else 
 	{
 		DEBUG(this, "TcpClient connection postponed");
-		m_connectionState = Connecting;
+		SetConnectionStatus(Connecting);
 	}
 	DEBUG(this, "TcpClient Open() end");	
 	return true;
 }
 
-bool TcpClient_Linux::OpenAsync(const char* serverAddress, int port, TcpClientDataReceivedCallback dataReceivedCallback, bool waitForConnection)
+bool TcpClient_Linux::OpenAsync(const char* serverAddress, int port, DataReceivedCallback dataReceivedCallback, bool waitForConnection)
 {
 	DEBUG(this, "TcpClient OpenAsync() begin");
 	bool res = Open(serverAddress, port, waitForConnection);
@@ -183,7 +183,7 @@ bool TcpClient_Linux::OpenAsync(const char* serverAddress, int port, TcpClientDa
 	} else {
 		//can't create thread 
 		DEBUG(this, "Can't create thread for receiving data");
-		m_connectionState = Disconnected;
+		SetConnectionStatus(Disconnected);
 		return false;
 	}
 	DEBUG(this, "TcpClient OpenAsync() end");
@@ -218,7 +218,7 @@ void TcpClient_Linux::Close(bool killThreadAlso)
 		//connection is deleted on server side
 		m_server->ClientTerminated(this);		
 	}			
-	m_connectionState = Disconnected;
+	SetConnectionStatus(Disconnected);
 	DEBUG(this, "TcpClient Close() end");
 }
 
@@ -245,7 +245,7 @@ void TcpClient_Linux::AfterConnectionLoss()
 		}
 	}
 	DEBUG(this, "Connection lost");
-    m_connectionState = ConnectionLost;
+    SetConnectionStatus(ConnectionLost);
 }
 
 TcpServer* TcpClient_Linux::GetParentServer()
@@ -262,9 +262,9 @@ bool TcpClient_Linux::SendData(const char* data, int dataLength)
 
 bool TcpClient_Linux::SendData (const void* data, int dataLength)
 {
-	if (AutoReconnect || (m_connectionState==Connecting))
+	if (AutoReconnect || (GetConnectionStatus()==Connecting))
 	{
-		if ((m_connectionState==Connecting) || (m_connectionState==ConnectionLost))
+		if ((GetConnectionStatus()==Connecting) || (GetConnectionStatus()==ConnectionLost))
 		{
 			if (!Reopen())
 			{
@@ -274,7 +274,7 @@ bool TcpClient_Linux::SendData (const void* data, int dataLength)
 		}
 	}		
 	
-	if (m_connectionState==Disconnected)
+	if (GetConnectionStatus()==Disconnected)
 	{
 		DEBUG(this, "SendData called without tcp connection");
 		return false;
@@ -307,9 +307,9 @@ bool TcpClient_Linux::SendData (const void* data, int dataLength)
 
 int TcpClient_Linux::ReadData(void* pBuffer, int bufferSize)
 {	
-	if (AutoReconnect || (m_connectionState==Connecting))
+	if (AutoReconnect || (GetConnectionStatus()==Connecting))
 	{
-		if ((m_connectionState==Connecting) || (m_connectionState==ConnectionLost))
+		if ((GetConnectionStatus()==Connecting) || (GetConnectionStatus()==ConnectionLost))
 		{
 			if (!Reopen())
 			{
@@ -319,7 +319,7 @@ int TcpClient_Linux::ReadData(void* pBuffer, int bufferSize)
 		}
 	}		
 	
-	if (m_connectionState==Disconnected)
+	if (GetConnectionStatus()==Disconnected)
 	{
 		DEBUG(this, "SendData called without tcp connection");
 		return 0;
@@ -340,7 +340,7 @@ int TcpClient_Linux::ReadData(void* pBuffer, int bufferSize)
 			AfterConnectionLoss();		
             if (!AutoReconnect)
             {
-                m_connectionState = TcpClient::Disconnected;
+                SetConnectionStatus(TcpClient::Disconnected);
             }
 		}	
     } catch(int e)
@@ -360,9 +360,9 @@ int TcpClient_Linux::ReadData(void* pBuffer, int bufferSize)
 
 int TcpClient_Linux::ReadDataCount()
 {
-	if (AutoReconnect || (m_connectionState==Connecting))
+	if (AutoReconnect || (GetConnectionStatus()==Connecting))
 	{
-		if ((m_connectionState==Connecting) || (m_connectionState==ConnectionLost))
+		if ((GetConnectionStatus()==Connecting) || (GetConnectionStatus()==ConnectionLost))
 		{
 			if (!Reopen())
 			{
@@ -372,7 +372,7 @@ int TcpClient_Linux::ReadDataCount()
 		}	
 	}		
 	
-	if (m_connectionState==Disconnected)
+	if (GetConnectionStatus()==Disconnected)
 	{
 		return 0;
 	}
@@ -393,7 +393,7 @@ int TcpClient_Linux::ReadDataCount()
 			AfterConnectionLoss();	
             if (!AutoReconnect)
             {
-                m_connectionState = TcpClient::Disconnected;
+                SetConnectionStatus(Disconnected);
             }
 		}	
     } catch(int e)
@@ -431,7 +431,7 @@ void* TcpClient_Linux::InternalThread(void* arg)
         if (instance->m_server==NULL)
         {
 			//on client side it tries to reconnect repeatedly
-            if ((instance->m_connectionState==Connecting) || (instance->m_connectionState==ConnectionLost))
+            if ((instance->GetConnectionStatus()==Connecting) || (instance->GetConnectionStatus()==ConnectionLost))
             {							
                 if (!instance->Reopen()) 
                 {
@@ -441,7 +441,7 @@ void* TcpClient_Linux::InternalThread(void* arg)
             }
         } else {
 			//on server side it never tries to reconnect clients
-            if (instance->m_connectionState==ConnectionLost)
+            if (instance->GetConnectionStatus()==ConnectionLost)
             {
                 instance->Close(false);                
                 break;

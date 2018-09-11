@@ -48,11 +48,11 @@ public:
 	
     TcpClient_Win(int maxPacketSize=256);
     
-    TcpClient_Win(TcpServer* parent, int clientSocket, struct sockaddr_in* clientAddress, TcpClientDataReceivedCallback callback, void* userData);
+    TcpClient_Win(TcpServer* parent, int clientSocket, struct sockaddr_in* clientAddress, ClientReceivedDataCallback callback, void* userData);
     virtual ~TcpClient_Win();
 	
 	virtual bool Open(const char* serverAddress, int port, bool waitForConnection = true);
-    virtual bool OpenAsync(const char* serverAddress, int port, TcpClientDataReceivedCallback dataReceivedCallback, bool waitForConnection = true);
+    virtual bool OpenAsync(const char* serverAddress, int port, ClientReceivedDataCallback dataReceivedCallback, bool waitForConnection = true);
 	virtual bool Reopen();
 	
     virtual bool SendData (const char* data, int dataLength=-1);
@@ -62,15 +62,16 @@ public:
 	
 	virtual void Close(bool killThreadAlso=true);    
     virtual void CheckTimeout(int timeTick_MS);
+    virtual int GetAddress(char *buffer, int bufferSize);
 
-    TcpServer*      GetParentServer();    
-    void*           UserData;
+    virtual TcpServer*      GetParentServer();    
+    void*   UserData;
 	
     static void* InternalThread(void* arg);
 
 protected:		
 	
-    TcpClientDataReceivedCallback m_onPacketReceived;
+    ClientReceivedDataCallback m_onPacketReceived;
 	
 };
 

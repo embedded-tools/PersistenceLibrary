@@ -127,8 +127,8 @@ int  TcpServer::GetMaxConnections()
 void TcpServer::PacketReceivedFromClient(TcpClient* client, const char* command, int commandLength)
 {	
     TcpServer* server = client->GetParentServer();
-    if ( (client->GetConnectionState()==TcpClient_Win::ConnectionLost) || 
-         (client->GetConnectionState()==TcpClient_Win::Disconnected)
+    if ( (client->GetConnectionStatus()==TcpClient_Win::ConnectionLost) || 
+         (client->GetConnectionStatus()==TcpClient_Win::Disconnected)
        )
     {
         for(int i = 0; i<server->m_maxConnections; i++)

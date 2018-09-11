@@ -1,7 +1,9 @@
 #ifndef DATARECEIVEDCALLBACK___H
 #define DATARECEIVEDCALLBACK___H
 
-typedef void (*DataReceivedCallback)(void* sender, const char* data, int dataLength);
+class TcpClient;
+
+typedef void (*DataReceivedCallback)(TcpClient* sender, const char* data, int dataLength);
 
 #endif
 

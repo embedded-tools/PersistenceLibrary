@@ -125,8 +125,8 @@ int  TcpServer::GetMaxConnections()
 void TcpServer::PacketReceivedFromClient(TcpClient* client, const char* command, int commandLength)
 {	
     TcpServer* server = client->GetParentServer();
-    if ( (client->GetConnectionState()==TcpClient::ConnectionLost) || 
-         (client->GetConnectionState()==TcpClient::Disconnected)
+    if ( (client->GetConnectionStatus()==TcpClient::ConnectionLost) || 
+         (client->GetConnectionStatus()==TcpClient::Disconnected)
        )
     {
         for(int i = 0; i<server->m_maxConnections; i++)
@@ -209,6 +209,7 @@ void* TcpServer::InternalThread(void* arg)
 	return NULL;
 }
 
+
 void TcpServer::ClientTerminated(TcpClient* client)
 {	
 	for(int i = 0; i<m_maxConnections; i++)
@@ -253,4 +254,14 @@ bool TcpServer::SendData(const struct sockaddr_in address, const void* data, int
 	return res;
 }
     
-	
+int TcpClient_Linux::GetAddress(char *buffer, int bufferSize)
+{
+    if (bufferSize<22) return 0;
+
+    char ipAddr[24];
+    int  ipPort;
+
+    inet_ntop(AF_INET, &m_serverAddress.sin_addr, ipAddr, sizeof(ipAddr));
+    ipPort = ntohs(m_serverAddress.sin_port);
+    return sprintf(buffer, "%s:%d", ipAddr, ipPort);
+}
