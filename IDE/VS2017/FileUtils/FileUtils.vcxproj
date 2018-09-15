@@ -123,6 +123,11 @@
     <ClInclude Include="..\..\..\Source\FileUtils\TEEPROMStream.h" />
     <ClInclude Include="..\..\..\Source\FileUtils\TFileStream.h" />
     <ClInclude Include="..\..\..\Source\FileUtils\THandleStream.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TJsonDoc.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TJsonTag.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TJsonTagBasePool.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TJsonTagDynamicPool.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TJsonTagStaticPool.h" />
     <ClInclude Include="..\..\..\Source\FileUtils\TLZ77.h" />
     <ClInclude Include="..\..\..\Source\FileUtils\TLZ77Streamed.h" />
     <ClInclude Include="..\..\..\Source\FileUtils\TMemoryStream.h" />
@@ -140,6 +145,11 @@
     <ClCompile Include="..\..\..\Source\FileUtils\TEEPROMStream.cpp" />
     <ClCompile Include="..\..\..\Source\FileUtils\TFileStream.cpp" />
     <ClCompile Include="..\..\..\Source\FileUtils\THandleStream.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TJsonDoc.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TJsonTag.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TJsonTagBasePool.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TJsonTagDynamicPool.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TJsonTagStaticPool.cpp" />
     <ClCompile Include="..\..\..\Source\FileUtils\TLZ77.cpp" />
     <ClCompile Include="..\..\..\Source\FileUtils\TLZ77Streamed.cpp" />
     <ClCompile Include="..\..\..\Source\FileUtils\TMemoryStream.cpp" />

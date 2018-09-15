@@ -183,13 +183,14 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint16M.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFont.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TGraphics.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TJsonDoc.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TList.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TLog.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TMemoryStream.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TObjectList.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TParamString.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TQueue.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TRandom.cpp" />
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TSafeArray.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TShortString.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TSortedDictionary.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TStack.cpp" />
