@@ -19,15 +19,33 @@
 
 #include "TGraphicsData.h"
 #include <stdlib.h>
+#include <stdio.h>
 
+/**
+ *  Opens large windows bitmap. You can operate with large amount of graphics
+ *  data even if you don't have enough RAM to load whole file at once.
+ */
 class TCachedWindowsBmpFile : public TGraphicsData
 {
+private:
+	FILE*          m_fileHandle;
+	unsigned long  m_bitmapDataOffset;		
+	bool           m_bitmapDataNeedsUnalloc;	
+	short          m_lastLine;
+
+protected:
+	virtual unsigned char* ScanLine(short line);
+
+	void           WriteDataBack();
 
 public:
-	TCachedWindowsBmpFile(const char* filename);
+	TCachedWindowsBmpFile();
 	virtual ~TCachedWindowsBmpFile();
 
-	unsigned char* ScanLine(short line);
+	bool OpenFile(const char* filename, unsigned char* buffer=NULL, int bufferSize=0);
+	void CloseFile();
+
+	
 
 };
 

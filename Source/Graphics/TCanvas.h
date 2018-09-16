@@ -41,6 +41,10 @@ typedef union
 
 typedef int (*FilteredPixelCallback)(short x, short y, TColorRGB color);
 
+
+/**
+ * It provides graphical operations like DrawLine, DrawRectangle, DrawText etc.
+ */
 class TCanvas
 {
 private:
