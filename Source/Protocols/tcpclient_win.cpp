@@ -129,7 +129,7 @@ bool TcpClient_Win::Open(const char* serverAddress, int port, bool waitForConnec
 	if((m_socketHandle = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP))< 0)
     {
         printf("Error at socket(): %ld\n", WSAGetLastError());
-
+        m_socketHandle = 0;
 		DEBUG(this, "Can't create socket");
 		DEBUG(this, "TcpClient Open() end");	
         return false;
@@ -146,11 +146,16 @@ bool TcpClient_Win::Open(const char* serverAddress, int port, bool waitForConnec
 			 errorCode = connect(m_socketHandle, (struct sockaddr *)&m_serverAddress, sizeof(struct sockaddr));
 		} catch (int e)
 		{			
-			DEBUG(this, "Socket exception %i.", e);
+			INFO(this, "Socket exception %i.", e);
+            closesocket(m_socketHandle);
+            m_socketHandle = 0;	
+            DEBUG(this, "TcpClient Open() end");
 		}
 		if(errorCode<0)
 		{
 			INFO  (this,"%s:%i not available", ipAddr, ipPort);
+            closesocket(m_socketHandle);
+            m_socketHandle = 0;	
 			DEBUG(this, "TcpClient Open() end");	
 			return false;
 		}		

@@ -127,10 +127,10 @@ bool TcpClient_Linux::Open(const char* serverAddress, int port, bool waitForConn
 	
 	DEBUG(this, "TcpClient_Linux Open(ip=%s, port=%i)", ipAddr, ipPort);
 	
-
 	if((m_socketHandle = socket(AF_INET, SOCK_STREAM, 0))< 0)
     {
-		DEBUG(this, "Can't create socket");
+		INFO(this, "Can't create socket");
+		m_socketHandle = 0;		
 		DEBUG(this, "TcpClient Open() end");	
         return false;
     }    
@@ -146,11 +146,16 @@ bool TcpClient_Linux::Open(const char* serverAddress, int port, bool waitForConn
 			 errorCode = connect(m_socketHandle, (struct sockaddr *)&m_serverAddress, sizeof(struct sockaddr));
 		} catch (int e)
 		{			
-			DEBUG(this, "Socket exception %i.", e);
+			INFO(this, "Socket exception %i.", e);			
+			close(m_socketHandle);
+			m_socketHandle = 0;				
+			DEBUG(this, "TcpClient Open() end");	
 		}
 		if(errorCode<0)
 		{
 			INFO  (this,"%s:%i not available", ipAddr, ipPort);
+			close(m_socketHandle);
+			m_socketHandle = 0;							
 			DEBUG(this, "TcpClient Open() end");	
 			return false;
 		}		
