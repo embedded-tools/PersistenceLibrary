@@ -48,7 +48,11 @@ struct TBitmapHeader
     
 };
 
-
+/**
+ *  Loads bitmap into memory. It usually uses dynamic memory
+ *  allocation, RAM must be big enough to load all graphics
+ *  data to RAM.
+ */
 class TWindowsBmpFile : public TGraphicsData
 {  
 public:

@@ -36,6 +36,7 @@ public:
 	unsigned short  GetBytesPerLine();
 	unsigned long   GetBytesTotal();
     short           GetBitsPerPixel();
+	virtual 
 	unsigned char*  ScanLine(short line);
     unsigned char*  CreatePalette(unsigned short colorCount);
 	unsigned char*  GetPalette();
