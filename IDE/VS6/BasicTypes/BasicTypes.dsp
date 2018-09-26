@@ -85,6 +85,10 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\..\..\Source\BasicTypes\EscapeSequences.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\BasicTypes\StringUtils.cpp
 # End Source File
 # Begin Source File
@@ -102,6 +106,10 @@ SOURCE=..\..\..\Source\BasicTypes\TDateTimeCounter.cpp
 # Begin Source File
 
 SOURCE=..\..\..\Source\BasicTypes\TFilePath.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\BasicTypes\TParamString.cpp
 # End Source File
 # Begin Source File
 
@@ -137,6 +145,10 @@ SOURCE=..\..\..\Source\BasicTypes\UTF8.c
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=..\..\..\Source\BasicTypes\EscapeSequences.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\BasicTypes\stringutils.h
 # End Source File
 # Begin Source File
@@ -158,6 +170,10 @@ SOURCE=..\..\..\Source\BasicTypes\tdatetimecounter.h
 # Begin Source File
 
 SOURCE=..\..\..\Source\BasicTypes\tfilepath.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\BasicTypes\TParamString.h
 # End Source File
 # Begin Source File
 

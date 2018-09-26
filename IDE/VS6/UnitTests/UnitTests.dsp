@@ -303,6 +303,10 @@ SOURCE=..\..\..\Source\UnitTests\Test_TGraphics.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\UnitTests\Test_TJsonDoc.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\UnitTests\Test_TList.cpp
 # End Source File
 # Begin Source File
@@ -319,6 +323,10 @@ SOURCE=..\..\..\Source\UnitTests\Test_TObjectList.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\UnitTests\Test_TParamString.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\UnitTests\Test_TQueue.cpp
 # End Source File
 # Begin Source File
@@ -327,15 +335,19 @@ SOURCE=..\..\..\Source\UnitTests\Test_TRandom.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\Source\UnitTests\Test_TSafeArray.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\Source\UnitTests\Test_TShortString.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\Source\UnitTests\Test_TSortedDictionary.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Test_TSortedList.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\UnitTests\Test_TStack.cpp
 # End Source File
 # Begin Source File
 

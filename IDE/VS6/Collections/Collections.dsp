@@ -161,10 +161,6 @@ SOURCE=..\..\..\Source\Collections\TQueue.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\Source\Collections\TSafeArray.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\Source\Collections\TSortedDictionary.h
 # End Source File
 # Begin Source File

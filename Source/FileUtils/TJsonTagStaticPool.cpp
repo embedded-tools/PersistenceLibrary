@@ -33,8 +33,9 @@ TJsonTag* TJsonTagStaticPool::CreateJsonTag(TJsonTag* parentTag)
 
 bool TJsonTagStaticPool::DeleteJsonTag(TJsonTag* tag)
 {
+    int i;
 	int selectedIndex = -1;
-	for (int i = 0; i<m_tagsCount; i++)
+	for (i = 0; i<m_tagsCount; i++)
 	{
 		if (tag == &m_tags[i])
 		{
@@ -45,7 +46,7 @@ bool TJsonTagStaticPool::DeleteJsonTag(TJsonTag* tag)
 	{
 		return false;
 	}
-	for(int i = selectedIndex; i<m_tagsCount-2; i++)
+	for(i = selectedIndex; i<m_tagsCount-2; i++)
 	{
 		m_tags[i]=m_tags[i+1];
 	}

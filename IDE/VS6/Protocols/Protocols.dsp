@@ -93,6 +93,10 @@ SOURCE=..\..\..\Source\Protocols\tconsolelog.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\Protocols\tcpclient.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\Protocols\tfilelog.cpp
 # End Source File
 # Begin Source File
@@ -125,6 +129,18 @@ SOURCE=..\..\..\Source\Protocols\tconsolelog.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\Protocols\tcpclient.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Protocols\tcpclient_linux.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Protocols\tcpserver_linux.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\Protocols\tfilelog.h
 # End Source File
 # Begin Source File
@@ -134,6 +150,14 @@ SOURCE=..\..\..\Source\Protocols\tlog.h
 # Begin Source File
 
 SOURCE=..\..\..\Source\Protocols\ttextprotocol.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Protocols\tudplog_linux.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\Protocols\udpclient_linux.h
 # End Source File
 # End Group
 # End Target

@@ -89,11 +89,35 @@ SOURCE=..\..\..\Source\FileUtils\TCachedStream.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\FileUtils\TEEPROMStream.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\FileUtils\TFileStream.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\Source\FileUtils\THandleStream.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TJsonDoc.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TJsonTag.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TJsonTagBasePool.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TJsonTagDynamicPool.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TJsonTagStaticPool.cpp
 # End Source File
 # Begin Source File
 
@@ -106,6 +130,10 @@ SOURCE=..\..\..\Source\FileUtils\TLZ77Streamed.cpp
 # Begin Source File
 
 SOURCE=..\..\..\Source\FileUtils\TMemoryStream.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TROMStream.cpp
 # End Source File
 # Begin Source File
 
@@ -145,11 +173,35 @@ SOURCE=..\..\..\Source\FileUtils\TCachedStream.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\Source\FileUtils\TEEPROMStream.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Source\FileUtils\TFileStream.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\Source\FileUtils\THandleStream.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TJsonDoc.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TJsonTag.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TJsonTagBasePool.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TJsonTagDynamicPool.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TJsonTagStaticPool.h
 # End Source File
 # Begin Source File
 
@@ -162,6 +214,10 @@ SOURCE=..\..\..\Source\FileUtils\TLZ77Streamed.h
 # Begin Source File
 
 SOURCE=..\..\..\Source\FileUtils\TMemoryStream.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Source\FileUtils\TROMStream.h
 # End Source File
 # Begin Source File
 
