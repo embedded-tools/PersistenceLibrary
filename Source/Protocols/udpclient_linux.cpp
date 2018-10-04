@@ -32,7 +32,8 @@ UdpClient::UdpClient(int maxPacketSize)
   m_threadStopped(false),
   m_onPacketReceived(NULL),
   m_maxPacketSize(maxPacketSize),
-  m_packetBuffer(0)
+  m_packetBuffer(0),
+  UserData(NULL)
 {
 	memset((void*)&m_serverAddress, 0, sizeof(m_serverAddress));
 	memset((void*)&m_localAddress, 0,  sizeof(m_localAddress));
@@ -48,21 +49,21 @@ UdpClient::~UdpClient()
 	DEBUG(this, "UdpClient destroyed");
 }
 		
-bool UdpClient::Init(const char* address, int outgoingPort, int incomingPort)        
+bool UdpClient::Init(const char* remoteAddress, int remotePort, int localPort)
 {
-    if (incomingPort==-1)
+    if (localPort==-1)
     {
-        incomingPort = outgoingPort;
+        localPort = remotePort;
     }
-    memset(&m_serverAddress, 0, sizeof(m_serverAddress));
+    memset(&m_serverAddress, 0, sizeof(remoteAddress));
     m_serverAddress.sin_family = AF_INET;
-	if (address)
+	if (remoteAddress)
 	{
-		m_serverAddress.sin_addr.s_addr = inet_addr(address);
+		m_serverAddress.sin_addr.s_addr = inet_addr(remoteAddress);
 	} else {
 		m_serverAddress.sin_addr.s_addr = inet_addr("127.0.0.1");
 	}
-    m_serverAddress.sin_port = htons(outgoingPort);
+    m_serverAddress.sin_port = htons(remotePort);
 
     if (m_socketHandle>0)
     {
@@ -75,13 +76,13 @@ bool UdpClient::Init(const char* address, int outgoingPort, int incomingPort)
         return false;
     }
     	
-    if(incomingPort!=0)
+    if(localPort!=0)
 	{
 		//bind socket to port
 		memset(&m_localAddress, 0, sizeof(m_localAddress));
 		m_localAddress.sin_family = AF_INET;
 		m_localAddress.sin_addr.s_addr = htonl(INADDR_ANY);
-		m_localAddress.sin_port = htons(incomingPort);
+		m_localAddress.sin_port = htons(localPort);
 		
 		if( bind(m_socketHandle, (struct sockaddr*)&m_localAddress, sizeof(m_localAddress) ) < 0)
 		{
@@ -101,14 +102,14 @@ bool UdpClient::Init(const char* address, int outgoingPort, int incomingPort)
 	return true;	
 }
 
-bool UdpClient::InitAsync(const char* serverAddress, int outgoingPort, int incomingPort, DataReceivedCallback packetReceivedCallback)
+bool UdpClient::InitAsync(const char* remoteAddress, int remotePort, int localPort, UdpDataReceivedCallback dataReceivedCallback)
 {
-	if (!Init(serverAddress, outgoingPort, incomingPort)) return false;
+	if (!Init(remoteAddress, remotePort, localPort)) return false;
 	
 	int res = pthread_create( &m_threadHandle, 0, InternalThread, this );
 	if (res==0)
 	{				
-		m_onPacketReceived = packetReceivedCallback;			
+		m_onPacketReceived = dataReceivedCallback;			
 		return true;
 	}				
 	return false;	

@@ -16,8 +16,8 @@
 
 #include "tcpserver_win.h"
 #include "tcpclient_win.h"
+#include "tlog.h"
 #include <string.h>
-#include <tlog.h>
 #include <stdio.h>
    
 TcpServer::TcpServer(int maxPacketSize, int maxConnections)

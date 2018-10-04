@@ -19,8 +19,10 @@
 
 #include <stdlib.h>
 #include <arpa/inet.h>
-#include "datareceivedcallback.h"
 #include <pthread.h>
+
+class UdpClient;
+typedef void (*UdpDataReceivedCallback)(UdpClient* sender, const char* data, int dataLength);
 
 class UdpClient
 {	
@@ -30,7 +32,7 @@ private:
     int          m_socketHandle;
 	pthread_t    m_threadHandle;
 	bool         m_threadStopped;
-	DataReceivedCallback m_onPacketReceived;	
+	UdpDataReceivedCallback m_onPacketReceived;	
 	
 	int          m_maxPacketSize;
 	char*        m_packetBuffer;
@@ -41,14 +43,16 @@ public:
     UdpClient(int maxPacketSize=256);
     ~UdpClient();
 
-    bool Init(const char* address, int outgoingPort, int incomingPort=-1);
-	bool InitAsync(const char* serverAddress, int outgoingPort, int incomingPort, DataReceivedCallback dataReceivedCallback);	
+    bool Init(const char* remoteAddress, int remotePort, int localPort=-1);
+	bool InitAsync(const char* remoteAddress, int remotePort, int localPort, UdpDataReceivedCallback dataReceivedCallback);	
     void Uninit();
 
     bool SendData(const char* data, int dataLength=-1);
     bool SendData(const void* data, int dataLength);
 	int  ReadData(void* pBuffer, int bufferSize);	
 	int  ReadDataCount();	
+	
+	void* UserData;
 
 	
 };
