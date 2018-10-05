@@ -37,8 +37,8 @@ TcpClient_Linux::TcpClient_Linux(int maxPacketSize)
 	DEBUG(this, "TcpClient created");
 	memset((void*)&m_serverAddress, 0, sizeof(m_serverAddress));	
 }
-
-TcpClient_Linux::TcpClient_Linux(TcpServer* server, int clientSocket, struct sockaddr_in* clientAddress, DataReceivedCallback callback, void* userData)
+                 
+TcpClient_Linux::TcpClient_Linux(TcpServer* server, int clientSocket, struct sockaddr_in* clientAddress, ClientReceivedDataCallback callback, void* userData)
 : TcpClient(256),
   m_socketHandle(clientSocket),
   m_socketTimeout(0),
@@ -175,7 +175,7 @@ bool TcpClient_Linux::Open(const char* serverAddress, int port, bool waitForConn
 	return true;
 }
 
-bool TcpClient_Linux::OpenAsync(const char* serverAddress, int port, DataReceivedCallback dataReceivedCallback, bool waitForConnection)
+bool TcpClient_Linux::OpenAsync(const char* serverAddress, int port, ClientReceivedDataCallback dataReceivedCallback, bool waitForConnection)
 {
 	DEBUG(this, "TcpClient OpenAsync() begin");
 	bool res = Open(serverAddress, port, waitForConnection);

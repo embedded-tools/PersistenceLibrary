@@ -22,7 +22,6 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <pthread.h>
-#include "datareceivedcallback.h"
 #include "tcpclient.h"
 
 class TcpClient;
@@ -46,13 +45,12 @@ private:
     
 public:
 
-    TcpClient_Linux(int maxPacketSize=256);
-    
-    TcpClient_Linux(TcpServer* parent, int clientSocket, struct sockaddr_in* clientAddress, DataReceivedCallback callback, void* userData);
+    TcpClient_Linux(int maxPacketSize=256);    
+    TcpClient_Linux(TcpServer* server, int clientSocket, struct sockaddr_in* clientAddress, ClientReceivedDataCallback callback, void* userData);
     virtual ~TcpClient_Linux();
 	
 	virtual bool Open(const char* serverAddress, int port, bool waitForConnection = true);
-    virtual bool OpenAsync(const char* serverAddress, int port, DataReceivedCallback dataReceivedCallback, bool waitForConnection = true);
+    virtual bool OpenAsync(const char* serverAddress, int port, ClientReceivedDataCallback dataReceivedCallback, bool waitForConnection = true);
 	virtual bool Reopen();
 	
     virtual bool SendData (const char* data, int dataLength=-1);
@@ -71,7 +69,7 @@ protected:
 	
 	static void* InternalThread(void* arg);
 	
-    DataReceivedCallback m_onPacketReceived;
+    ClientReceivedDataCallback m_onPacketReceived;
 	
 };
 

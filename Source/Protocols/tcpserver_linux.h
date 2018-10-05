@@ -77,7 +77,7 @@ public:
 			
     ClientConnectedCallback    OnClientConnected;
     ClientDisconnectedCallback OnClientDisconnected;
-    DataReceivedCallback OnReceiveData;
+    TcpClient::ClientReceivedDataCallback OnReceiveData;
 
     void* UserData;
     
