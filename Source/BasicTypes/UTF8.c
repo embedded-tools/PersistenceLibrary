@@ -4,7 +4,7 @@
 
 int UTF8TextToUnicodeText(const char* utf8text, wchar_t* unicodeBuffer, unsigned long unicodeMaxCharacterCount)
 {
-	unsigned int   utf8textLength = strlen(utf8text);
+	unsigned int   utf8textLength = (unsigned int)strlen(utf8text);
 	unsigned long  unicodeCharacterCount = 0;
 	unsigned char* pChar = (unsigned char*)utf8text;
     unsigned char  c;
@@ -43,7 +43,7 @@ int UTF8TextToUnicodeText(const char* utf8text, wchar_t* unicodeBuffer, unsigned
 
 int UnicodeTextToUTF8Text(const wchar_t* unicodeText, char* utf8buffer, unsigned long utf8BufferByteSize)
 {
-	unsigned long unicodeTextLength = wcslen(unicodeText);
+	unsigned long unicodeTextLength = (unsigned long)wcslen(unicodeText);
 	unsigned long utf8Length = 0;
     unsigned long i;
 

@@ -46,7 +46,8 @@ bool TTextFile::Open(const char* fileName)
 {
     m_fileHandle = fopen(fileName, "rb");
     m_bufferDataCount = 0;
-    return (((unsigned long)m_fileHandle)!=0) && (((unsigned long)m_fileHandle)!=0xFFFFFFFF);
+    return   (((long)m_fileHandle)!=0) && 
+			 (((long)m_fileHandle)!=-1);
 }
 
 
@@ -59,15 +60,20 @@ void TTextFile::Close()
     }    
 }
 
-bool TTextFile::AddText(TString& line, unsigned short numberOfChars)
+bool TTextFile::AddText(TString& line, long numberOfChars)
 {
-    int oldLength = line.Length();
-	if (!line.SetLength(line.Length()+numberOfChars))
+    long oldLength = line.Length();
+	long newLength = line.Length()+numberOfChars;
+	if (newLength>=65535)
+	{
+		newLength=65534;		
+	}
+	if (!line.SetLength((unsigned short)newLength))
 	{
 		return false;
 	}
-	int newLength = line.Length();
-    int dataToCopy = newLength-oldLength;
+	newLength = line.Length();
+    long dataToCopy = newLength-oldLength;
 
 	unsigned char* stringBuffer = (unsigned char*)line.ToPChar();
     if (dataToCopy>0)
@@ -77,7 +83,7 @@ bool TTextFile::AddText(TString& line, unsigned short numberOfChars)
     return dataToCopy>0;
 }
 
-bool TTextFile::ReadLine(TString& line, unsigned short maxLineLength)
+bool TTextFile::ReadLine(TString& line, long maxLineLength)
 {    
     bool lfFound = false;
     
@@ -92,9 +98,9 @@ bool TTextFile::ReadLine(TString& line, unsigned short maxLineLength)
         }
         if (m_bufferDataCount<m_bufferDataMaxCount)
         {
-            m_bufferDataCount+= fread (m_buffer+m_bufferDataCount, 1, m_bufferDataMaxCount-m_bufferDataCount, m_fileHandle);
+            m_bufferDataCount+= (long)fread (m_buffer+m_bufferDataCount, 1, m_bufferDataMaxCount-m_bufferDataCount, m_fileHandle);
         }
-        for (unsigned int i = 0; i<m_bufferDataCount; i++)
+        for (long i = 0; i<m_bufferDataCount; i++)
         {
             if (m_buffer[i]==10)
             {

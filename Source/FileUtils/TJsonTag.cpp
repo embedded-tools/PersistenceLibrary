@@ -167,7 +167,7 @@ void TJsonTag::SaveToStream(TStream& stream, int indent)
         case JSONString:    
              {
                 stream.WriteBuffer("\"", 1);
-                int len = strlen(m_stringValue);
+                int len = (int)strlen(m_stringValue);
 
                 bool escCharsNeeded = false;
                 for(int i = 0; i<len; i++)

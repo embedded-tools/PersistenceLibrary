@@ -36,7 +36,8 @@ long TROMStream::ReadBuffer   (void* Buffer, long Count)
     }
     if (Count>0)
     {
-        memcpy(Buffer, (const void*)(m_memoryBlockAddress+m_currentAddress), Count);
+		char* pointer = (char*)m_memoryBlockAddress;
+        memcpy(Buffer, pointer + m_currentAddress, Count);
     }    
 	return Count;
 }

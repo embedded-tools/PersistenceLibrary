@@ -21,7 +21,7 @@ class Test_TCachedFileStream : public TestFixture<Test_TCachedFileStream>
         TCachedStream* cs = new TCachedStream(fs, 64);
 
 		cs->WriteLine("<Root>");
-		for(int i = 1; i<=1000000; i++)
+		for(int i = 1; i<=50000; i++)
 		{
 			char uid[50];
 			char age[50];

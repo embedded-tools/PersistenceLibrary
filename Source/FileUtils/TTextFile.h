@@ -33,10 +33,10 @@ private:
     const char*     m_fileName;
     FILE*           m_fileHandle;
     unsigned char*  m_buffer;
-    unsigned short  m_bufferDataCount;
-    unsigned short  m_bufferDataMaxCount;
+    long			m_bufferDataCount;
+    long			m_bufferDataMaxCount;
 
-    bool AddText(TString& line, unsigned short numberOfChars);
+    bool AddText(TString& line, long numberOfChars);
 public:
 
     TTextFile ();
@@ -45,7 +45,7 @@ public:
     bool Open(const char* fileName);
     void Close();    
     
-    bool ReadLine(TString& line, unsigned short maxLineLength=1024);
+    bool ReadLine(TString& line, long maxLineLength=1024);
 };
 
 

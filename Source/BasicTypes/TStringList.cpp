@@ -100,7 +100,7 @@ void TStringList::Add (const char* s, int stringLength)
     if (s==NULL) return;
     if (stringLength==-1)
     {
-        stringLength = strlen(s);
+        stringLength = (int)strlen(s);
     }
     Insert (m_substringCount,s,stringLength);
     if (m_sorted) Sort();

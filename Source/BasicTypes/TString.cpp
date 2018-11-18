@@ -37,7 +37,7 @@ TString::TString(const char* pChar, unsigned short pCharLen, bool useExistingRef
 	{
 		if (pCharLen==0)
 		{
-			pCharLen = strlen(pChar);
+			pCharLen = (unsigned short)strlen(pChar);
 		}			
 	}
 	if (useExistingReference)
@@ -127,7 +127,7 @@ bool TString::CopyFrom (const char* s)
 {
 	if (s==NULL) return false;
 
-	return CopyFrom(s, strlen(s));
+	return CopyFrom(s, (unsigned short)strlen(s));
 }
 
 bool TString::CopyFrom (const char* s, unsigned short length)
@@ -184,7 +184,7 @@ bool TString::Contains(const char* pChar) const
         pCharLen = 0;
         if (pChar!=NULL)
         {
-            pCharLen = strlen(pChar);
+            pCharLen = (int)strlen(pChar);
         }
     }
     
@@ -220,7 +220,7 @@ int TString::IndexOf(char c, unsigned short startIndex) const
 int TString::IndexOf(const char* pChar, unsigned short startIndex) const
 {
     unsigned short len = Length();
-    unsigned char pCharLen = 0;
+    unsigned short pCharLen = 0;
 	if (pChar==NULL)
 	{
 		return -1;
@@ -230,7 +230,7 @@ int TString::IndexOf(const char* pChar, unsigned short startIndex) const
         pCharLen = 0;
         if (pChar!=NULL)
         {
-            pCharLen = strlen(pChar);
+            pCharLen = (unsigned short)strlen(pChar);
         }
     }
 
@@ -277,7 +277,7 @@ int TString::LastIndexOf(char c) const
 int TString::LastIndexOf(const char* pChar) const
 {
 	unsigned short len = Length();
-	unsigned char pCharLen = 0;
+	unsigned short pCharLen = 0;
 
 	if (pChar==NULL)
 	{
@@ -288,7 +288,7 @@ int TString::LastIndexOf(const char* pChar) const
 		pCharLen = 0;
 		if (pChar!=NULL)
 		{
-			pCharLen = strlen(pChar);
+			pCharLen = (unsigned short)strlen(pChar);
 		}
 	}
 
@@ -441,7 +441,7 @@ TString& TString::Append(const char* s)
 {
 	int oldLength = Length();
 	int sLength = 0;
-	if (s!=NULL) sLength = strlen(s);
+	if (s!=NULL) sLength = (int)strlen(s);
 	
 	if (SetLength(oldLength+sLength, false))
 	{
@@ -481,7 +481,7 @@ TString& TString::Insert(unsigned short index, const char* s)
 	if (index>Length()) return *this;
 
 	int sLength = 0;
-	if (s!=NULL) sLength=strlen(s);
+	if (s!=NULL) sLength=(int)strlen(s);
 	
 	int oldLength = Length();
 	int newLength = oldLength+sLength;	
@@ -685,7 +685,7 @@ TString& TString::operator += ( const char* pChar )
         pCharLen = 0;
         if (pChar!=NULL)
         {
-            pCharLen = strlen(pChar);    
+            pCharLen = (int)strlen(pChar);    
         }
     }
     if (pCharLen==0) return *this;        
@@ -724,7 +724,7 @@ bool TString::operator > (const char* pChar) const
         pCharLen = 0;
         if (pChar!=NULL)
         {
-            pCharLen = strlen(pChar);
+            pCharLen = (int)strlen(pChar);
         }
     }
 
@@ -758,7 +758,7 @@ bool TString::operator < (const char* pChar) const
         pCharLen = 0;
         if (pChar!=NULL)
         {
-            pCharLen = strlen(pChar);
+            pCharLen = (int)strlen(pChar);
         }
     }
 	if (Length()<pCharLen) minlength=Length(); else minlength=pCharLen;

@@ -62,7 +62,7 @@ public:
 		{
 			if (pCharLen==0)
 			{	
-				pCharLen = strlen(pChar);
+				pCharLen = (unsigned short)strlen(pChar);
 			}
 			CopyFrom(pChar, pCharLen);
 		}

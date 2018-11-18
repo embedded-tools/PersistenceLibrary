@@ -37,7 +37,7 @@ void TTextProtocol::PacketReceived(void* sender, const char* textData, int textD
 	sprintf(buf, "%i bytes received.", textDataLength);	
     DEBUG(this, buf);
     
-    if (textDataLength<0) textDataLength = strlen(textData);
+    if (textDataLength<0) textDataLength = (int)strlen(textData);
 
     while ((textDataLength+m_incomingDataWritingPosition)>=m_incomingDataMaxSize)
     {

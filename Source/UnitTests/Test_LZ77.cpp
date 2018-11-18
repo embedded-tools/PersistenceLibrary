@@ -132,7 +132,7 @@ class Test_LZ77 : public TestFixture<Test_LZ77>
         unsigned char* pCompressedData = (unsigned char*)malloc(150000);
 
         FILE* hFile = fopen("LZ77-1.xml", "rb");
-        int compressedDataLength = fread(pCompressedData, 1, 150000, hFile);
+        int compressedDataLength = (int)fread(pCompressedData, 1, 150000, hFile);
         fclose(hFile);
 
         unsigned char* pDecompressedData = (unsigned char*)malloc(150000);

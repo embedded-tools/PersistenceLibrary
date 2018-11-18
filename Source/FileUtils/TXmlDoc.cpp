@@ -109,7 +109,7 @@ bool TXMLDoc::LoadFromBuffer (char* rewriteableBuffer, int xmlLength)
     parserDataNeedUnalloc = false;
 	if (xmlLength==0)
     {
-		xmlLength = strlen(rewriteableBuffer);
+		xmlLength = (int)strlen(rewriteableBuffer);
     }    
 	parserDataLength = xmlLength;
     parserPosition = 0;

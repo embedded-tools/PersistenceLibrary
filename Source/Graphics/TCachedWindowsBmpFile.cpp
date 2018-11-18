@@ -45,26 +45,26 @@ bool TCachedWindowsBmpFile::OpenFile(const char* filename, unsigned char* buffer
 		return false;
 	}
 
-	bytesRead += fread(&header.usMagicBytes, 1, 2, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.usMagicBytes, 1, 2, m_fileHandle);
 	if (header.usMagicBytes!=0x4D42)
 	{
 		fclose(m_fileHandle);
 		return false;
 	}
-	bytesRead += fread(&header.ulTotalLength, 1, 4, m_fileHandle);
-	bytesRead += fread(&header.ulReserved,    1, 4, m_fileHandle);
-	bytesRead += fread(&header.ulBitmapDataOffset, 1, 4, m_fileHandle);
-	bytesRead += fread(&header.ulBitmapHeaderSize, 1, 4, m_fileHandle);
-	bytesRead += fread(&header.ulWidth, 1, 4, m_fileHandle);
-	bytesRead += fread(&header.ulHeight, 1, 4, m_fileHandle);
-	bytesRead += fread(&header.usPlanes, 1, 2, m_fileHandle);
-	bytesRead += fread(&header.usBitsPerPixel, 1, 2, m_fileHandle);
-	bytesRead += fread(&header.ulCompression, 1, 4, m_fileHandle);
-	bytesRead += fread(&header.ulBitmapDataSize, 1, 4, m_fileHandle);
-	bytesRead += fread(&header.ulPixelsPerMeterHorizontal, 1, 4, m_fileHandle);
-	bytesRead += fread(&header.ulPixelsPerMeterVertical, 1, 4, m_fileHandle);
-	bytesRead += fread(&header.ulNumberOfColors, 1, 4, m_fileHandle);
-	bytesRead += fread(&header.ulNumberOfImportantColors, 1, 4, m_fileHandle);	
+	bytesRead += (unsigned long)fread(&header.ulTotalLength, 1, 4, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.ulReserved,    1, 4, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.ulBitmapDataOffset, 1, 4, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.ulBitmapHeaderSize, 1, 4, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.ulWidth, 1, 4, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.ulHeight, 1, 4, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.usPlanes, 1, 2, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.usBitsPerPixel, 1, 2, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.ulCompression, 1, 4, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.ulBitmapDataSize, 1, 4, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.ulPixelsPerMeterHorizontal, 1, 4, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.ulPixelsPerMeterVertical, 1, 4, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.ulNumberOfColors, 1, 4, m_fileHandle);
+	bytesRead += (unsigned long)fread(&header.ulNumberOfImportantColors, 1, 4, m_fileHandle);	
 	switch(header.usBitsPerPixel)
 	{
 		case 1:  m_pixelFormat = pfBGR2ColorsPalette; break;
@@ -201,7 +201,7 @@ unsigned char* TCachedWindowsBmpFile::ScanLine(short line)
 		}
 		fseek(m_fileHandle, offset, SEEK_SET);
 
-		unsigned long bytesRead = fread(m_bitmapData, 1, m_bytesPerLine, m_fileHandle);
+		long bytesRead = (long)fread(m_bitmapData, 1, m_bytesPerLine, m_fileHandle);
 		if (bytesRead<m_bytesPerLine)
 		{
 			return NULL;

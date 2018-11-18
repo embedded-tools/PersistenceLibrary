@@ -53,7 +53,7 @@ void TLog::Log(LogType logType, void* objectId, const char* message, short messa
 	}
 	if (messageLength==-1)
 	{
-		messageLength = strlen(message);
+		messageLength = (short)strlen(message);
 	}
     
     while(simpleMutex);    
@@ -87,7 +87,7 @@ void TLog::Log(LogType logType, void* objectId, const char* message, short messa
 		case ltError:     logTypeString = "Error  \t\""; break;
 		case ltException: logTypeString = "Exceptn\t\""; break;
 	}
-	m_writeToLogHandler(logTypeString, strlen(logTypeString));
+	m_writeToLogHandler(logTypeString, (int)strlen(logTypeString));
     m_writeToLogHandler(message, messageLength);
 
     char crlf[3];

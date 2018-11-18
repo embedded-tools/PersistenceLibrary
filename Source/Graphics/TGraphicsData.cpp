@@ -634,10 +634,10 @@ bool TGraphicsData::LoadFromFile (const char* filename)
 		return false;
 	}
 
-	bytesRead += fread(&totalLength, 1, 4, file);
-	bytesRead += fread(&m_transparentColor, 1, 4, file);
-	bytesRead += fread(&bitmapOffset, 1, 4, file);
-	bytesRead += fread(&headerSize, 1, 4, file);
+	bytesRead += (unsigned short)fread(&totalLength, 1, 4, file);
+	bytesRead += (unsigned short)fread(&m_transparentColor, 1, 4, file);
+	bytesRead += (unsigned short)fread(&bitmapOffset, 1, 4, file);
+	bytesRead += (unsigned short)fread(&headerSize, 1, 4, file);
 	if (bytesRead!=18)
 	{
 		fclose(file);

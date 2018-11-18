@@ -36,7 +36,7 @@ class Test_XMLParser : public TestFixture<Test_XMLParser>
 							"</Helper>";
 
 		parser.SetTalker((TXMLTalkerInterface*)&xmlCache);
-		parser.Parse(xml1, strlen(xml1));
+		parser.Parse(xml1, (int)strlen(xml1));
 		parser.FlushCache();
 
 		ASSERT_EQUALS(3, (int)xmlCache.Attributes.Count());
@@ -63,7 +63,7 @@ class Test_XMLParser : public TestFixture<Test_XMLParser>
 		TXMLParser parser;
 		const char* xml1 = "Hello!";
 		parser.LastError = exeNoError;
-		parser.Parse(xml1, strlen(xml1));
+		parser.Parse(xml1, (int)strlen(xml1));
 		parser.FlushCache();
 		ASSERT(parser.LastError == exeBeginTagNotFound);
 	}
@@ -72,7 +72,7 @@ class Test_XMLParser : public TestFixture<Test_XMLParser>
 	{
 		TXMLParser parser;
 		const char* xml2 = "<Tag>Hello!";
-		parser.Parse(xml2, strlen(xml2));
+		parser.Parse(xml2, (int)strlen(xml2));
 		parser.FlushCache();
 		ASSERT(parser.LastError == exeEndTagNotFound);
 	}
@@ -81,7 +81,7 @@ class Test_XMLParser : public TestFixture<Test_XMLParser>
 	{
 		TXMLParser parser;
 		const char* xml3 = "<Tag>Hello!<Tag2";
-		parser.Parse(xml3, strlen(xml3));
+		parser.Parse(xml3, (int)strlen(xml3));
 		parser.FlushCache();
 		ASSERT(parser.LastError == exeUnterminatedTagName);
 	}
@@ -90,7 +90,7 @@ class Test_XMLParser : public TestFixture<Test_XMLParser>
 	{
 		TXMLParser parser;
 		const char* xml4 = "<Tag UID=1>Hello!<Tag>";
-		parser.Parse(xml4, strlen(xml4));
+		parser.Parse(xml4, (int)strlen(xml4));
 		parser.FlushCache();
 		ASSERT(parser.LastError == exeInvalidAttribute);
 	}
@@ -99,7 +99,7 @@ class Test_XMLParser : public TestFixture<Test_XMLParser>
 	{
 		TXMLParser parser;
 		const char* xml5 = "<Tag UID='1>Hello!<Tag>";
-		parser.Parse(xml5, strlen(xml5));
+		parser.Parse(xml5, (int)strlen(xml5));
 		parser.FlushCache();
 		ASSERT(parser.LastError == exeUnterminatedAttributeValue);
 	}
@@ -108,7 +108,7 @@ class Test_XMLParser : public TestFixture<Test_XMLParser>
 	{
 		TXMLParser parser;
 		const char* xml6 = "<Tag>Hello!</Tag2>";
-		parser.Parse(xml6, strlen(xml6));
+		parser.Parse(xml6, (int)strlen(xml6));
 		parser.FlushCache();
 		ASSERT(parser.LastError == exeBeginAndEndTagDiffers);
 	}
@@ -117,7 +117,7 @@ class Test_XMLParser : public TestFixture<Test_XMLParser>
 	{
 		TXMLParser parser;
 		const char* xml7 = "<Root><Tag>Hello!<Tag></Root>";
-		parser.Parse(xml7, strlen(xml7));
+		parser.Parse(xml7, (int)strlen(xml7));
 		parser.FlushCache();
 		ASSERT(parser.LastError == exeBeginAndEndTagDiffers);
 	}

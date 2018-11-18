@@ -261,7 +261,7 @@ TcpServer* TcpClient_Win::GetParentServer()
 
 bool TcpClient_Win::SendData(const char* data, int dataLength)	
 {
-    if (data && (dataLength==-1)) dataLength = strlen(data);    
+    if (data && (dataLength==-1)) dataLength = (int)strlen(data);    
     if (dataLength<0) dataLength = 0;
     return SendData((void*)data, dataLength);
 }

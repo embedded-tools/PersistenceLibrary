@@ -92,7 +92,7 @@ bool TJsonDoc::LoadFromBuffer (char* rewriteableBuffer, int jsonLength)
 
     if (jsonLength==-1)
     {
-        jsonLength = strlen(rewriteableBuffer);
+        jsonLength = (int)strlen(rewriteableBuffer);
     }
 	parserLevel = NULL;
 	parserDataLength = jsonLength;

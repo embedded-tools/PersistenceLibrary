@@ -145,7 +145,7 @@ const char* TXMLTag::GetAttributeValue(const char* attributeName)
         }    
 		if (pp>=LastAttribute) break;
 
-        unsigned short attrNameLen = strlen(attributeName);
+        unsigned short attrNameLen = (unsigned short)strlen(attributeName);
         bool nameMatch = true;
         for(unsigned short i = 0; i<attrNameLen; i++)
         {

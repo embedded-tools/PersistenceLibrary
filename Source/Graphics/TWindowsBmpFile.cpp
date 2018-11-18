@@ -159,26 +159,26 @@ bool TWindowsBmpFile::LoadFromWindowsBmp(const char* filename)
         return false;
     }
     
-    bytesRead += fread(&header.usMagicBytes, 1, 2, hFile);
+    bytesRead += (unsigned long)fread(&header.usMagicBytes, 1, 2, hFile);
     if (header.usMagicBytes!=0x4D42)
     {
         fclose(hFile);
         return false;
     }
-    bytesRead += fread(&header.ulTotalLength, 1, 4, hFile);
-    bytesRead += fread(&header.ulReserved,    1, 4, hFile);
-    bytesRead += fread(&header.ulBitmapDataOffset, 1, 4, hFile);
-    bytesRead += fread(&header.ulBitmapHeaderSize, 1, 4, hFile);
-    bytesRead += fread(&header.ulWidth, 1, 4, hFile);
-    bytesRead += fread(&header.ulHeight, 1, 4, hFile);
-    bytesRead += fread(&header.usPlanes, 1, 2, hFile);
-    bytesRead += fread(&header.usBitsPerPixel, 1, 2, hFile);
-    bytesRead += fread(&header.ulCompression, 1, 4, hFile);
-    bytesRead += fread(&header.ulBitmapDataSize, 1, 4, hFile);
-    bytesRead += fread(&header.ulPixelsPerMeterHorizontal, 1, 4, hFile);
-    bytesRead += fread(&header.ulPixelsPerMeterVertical, 1, 4, hFile);
-    bytesRead += fread(&header.ulNumberOfColors, 1, 4, hFile);
-    bytesRead += fread(&header.ulNumberOfImportantColors, 1, 4, hFile);	
+    bytesRead += (unsigned long)fread(&header.ulTotalLength, 1, 4, hFile);
+    bytesRead += (unsigned long)fread(&header.ulReserved,    1, 4, hFile);
+    bytesRead += (unsigned long)fread(&header.ulBitmapDataOffset, 1, 4, hFile);
+    bytesRead += (unsigned long)fread(&header.ulBitmapHeaderSize, 1, 4, hFile);
+    bytesRead += (unsigned long)fread(&header.ulWidth, 1, 4, hFile);
+    bytesRead += (unsigned long)fread(&header.ulHeight, 1, 4, hFile);
+    bytesRead += (unsigned long)fread(&header.usPlanes, 1, 2, hFile);
+    bytesRead += (unsigned long)fread(&header.usBitsPerPixel, 1, 2, hFile);
+    bytesRead += (unsigned long)fread(&header.ulCompression, 1, 4, hFile);
+    bytesRead += (unsigned long)fread(&header.ulBitmapDataSize, 1, 4, hFile);
+    bytesRead += (unsigned long)fread(&header.ulPixelsPerMeterHorizontal, 1, 4, hFile);
+    bytesRead += (unsigned long)fread(&header.ulPixelsPerMeterVertical, 1, 4, hFile);
+    bytesRead += (unsigned long)fread(&header.ulNumberOfColors, 1, 4, hFile);
+    bytesRead += (unsigned long)fread(&header.ulNumberOfImportantColors, 1, 4, hFile);	
     switch(header.usBitsPerPixel)
     {
 		case 1:  m_pixelFormat = pfBGR2ColorsPalette; break;
@@ -225,7 +225,7 @@ bool TWindowsBmpFile::LoadFromWindowsBmp(const char* filename)
     m_bytesPerLine = (short)(m_bitmapDataSize / m_bitmapHeight);
 	m_flipImage = true;
 
-    bytesRead = fread(m_bitmapData, 1, m_bitmapDataSize, hFile);
+    bytesRead = (unsigned long)fread(m_bitmapData, 1, m_bitmapDataSize, hFile);
     fclose(hFile);
 
 	if ((m_pixelFormat==pfBGR888) || (m_pixelFormat==pfBGRA8888))
@@ -238,7 +238,7 @@ bool TWindowsBmpFile::LoadFromWindowsBmp(const char* filename)
 bool TWindowsBmpFile::SaveToWindowsBmp(const char* filename)
 {
     TBitmapHeader header;
-	int bytesWritten = 0;
+	unsigned long bytesWritten = 0;
 	unsigned char tmp = 0;
     if (m_colorPalette==NULL)
     {
@@ -272,21 +272,21 @@ bool TWindowsBmpFile::SaveToWindowsBmp(const char* filename)
     {
         return false;
     }
-    bytesWritten += fwrite(&header.usMagicBytes, 1, 2, hFile);
-    bytesWritten += fwrite(&header.ulTotalLength, 1, 4, hFile);
-    bytesWritten += fwrite(&header.ulReserved,    1, 4, hFile);
-    bytesWritten += fwrite(&header.ulBitmapDataOffset, 1, 4, hFile);
-    bytesWritten += fwrite(&header.ulBitmapHeaderSize, 1, 4, hFile);
-    bytesWritten += fwrite(&header.ulWidth,  1, 4, hFile);
-    bytesWritten += fwrite(&header.ulHeight, 1, 4, hFile);
-    bytesWritten += fwrite(&header.usPlanes, 1, 2, hFile);
-    bytesWritten += fwrite(&header.usBitsPerPixel, 1, 2, hFile);
-    bytesWritten += fwrite(&header.ulCompression, 1, 4, hFile);
-    bytesWritten += fwrite(&header.ulBitmapDataSize, 1, 4, hFile);
-    bytesWritten += fwrite(&header.ulPixelsPerMeterHorizontal, 1, 4, hFile);
-    bytesWritten += fwrite(&header.ulPixelsPerMeterVertical, 1, 4, hFile);
-    bytesWritten += fwrite(&header.ulNumberOfColors, 1, 4, hFile);
-    bytesWritten += fwrite(&header.ulNumberOfImportantColors, 1, 4, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.usMagicBytes, 1, 2, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.ulTotalLength, 1, 4, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.ulReserved,    1, 4, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.ulBitmapDataOffset, 1, 4, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.ulBitmapHeaderSize, 1, 4, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.ulWidth,  1, 4, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.ulHeight, 1, 4, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.usPlanes, 1, 2, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.usBitsPerPixel, 1, 2, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.ulCompression, 1, 4, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.ulBitmapDataSize, 1, 4, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.ulPixelsPerMeterHorizontal, 1, 4, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.ulPixelsPerMeterVertical, 1, 4, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.ulNumberOfColors, 1, 4, hFile);
+    bytesWritten += (unsigned long)fwrite(&header.ulNumberOfImportantColors, 1, 4, hFile);
     if (bytesWritten!=54)
     {
         fclose(hFile);
@@ -305,7 +305,7 @@ bool TWindowsBmpFile::SaveToWindowsBmp(const char* filename)
 	bool needsToSwitchComponents = (m_pixelFormat==pfRGB888) || (m_pixelFormat==pfRGBA8888);
 
 	if (needsToSwitchComponents) SwitchRedAndBlue();
-    unsigned long n = fwrite(m_bitmapData, 1, header.ulBitmapDataSize, hFile);
+    unsigned long n = (unsigned long)fwrite(m_bitmapData, 1, header.ulBitmapDataSize, hFile);
 	if (needsToSwitchComponents) SwitchRedAndBlue();
     fclose(hFile);
 

@@ -394,7 +394,7 @@ TFilePath& TFilePath::operator += (const char* pChar )
 		pCharLen = 0;
 		if (pChar!=NULL)
 		{
-			pCharLen = strlen(pChar);    
+			pCharLen = (int)strlen(pChar);    
 		}
 	}
     if (pCharLen>=3)

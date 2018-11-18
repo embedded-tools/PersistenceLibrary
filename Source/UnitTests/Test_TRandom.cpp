@@ -13,25 +13,23 @@ class Test_TRandom : public TestFixture<Test_TRandom>
 
 
     void TestRandom1()
-    {
-        TRandom rnd;
-        int n1 = rnd.GetRandomNumber(49)+1;
-        int n2 = rnd.GetRandomNumber(49)+1;
-        int n3 = rnd.GetRandomNumber(49)+1;
-        int n4 = rnd.GetRandomNumber(49)+1;
-        int n5 = rnd.GetRandomNumber(49)+1;
-        int n6 = rnd.GetRandomNumber(49)+1;
-        int n7 = rnd.GetRandomNumber(49)+1;
-        int n8 = rnd.GetRandomNumber(49)+1;
-        int n9 = rnd.GetRandomNumber(49)+1;
-        int n10 = rnd.GetRandomNumber(49)+1;
+    {      
+		int n1 = TRandom::GetRandomNumber(49)+1;
+        int n2 = TRandom::GetRandomNumber(49)+1;
+        int n3 = TRandom::GetRandomNumber(49)+1;
+        int n4 = TRandom::GetRandomNumber(49)+1;
+        int n5 = TRandom::GetRandomNumber(49)+1;
+        int n6 = TRandom::GetRandomNumber(49)+1;
+        int n7 = TRandom::GetRandomNumber(49)+1;
+        int n8 = TRandom::GetRandomNumber(49)+1;
+        int n9 = TRandom::GetRandomNumber(49)+1;
+        int n10 = TRandom::GetRandomNumber(49)+1;
 	}
 
     void TestRandom2()
     {
         unsigned char array[256];
-        TRandom rnd;
-        rnd.GetRandomByteArray(array, sizeof(array));
+		TRandom::GetRandomByteArray(array, sizeof(array));
 
     }
 
