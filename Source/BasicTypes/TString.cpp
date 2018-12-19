@@ -601,7 +601,12 @@ bool TString::SetLength(unsigned short len, bool addSpaces)
         //in this case just sets new string length
         if (len>=DataMax)
         {
-            len = DataMax-1;
+			if (DataMax==0)
+			{
+				len = 0;
+			} else {
+	            len = DataMax-1;
+			}
         }
     }
     if (addSpaces)
