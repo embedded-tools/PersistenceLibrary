@@ -30,6 +30,9 @@
  *  Static dictionary avoids memory fragmentation on embedded system with low RAM size.
  */
 template <typename KEY, typename VALUE, int N> class TStaticDictionary 
+#ifndef COLLECTIONS_SIMPLIFY
+: public TEnumerator<TPair<KEY, VALUE> >
+#endif
 {
 protected:
 
@@ -49,6 +52,9 @@ public:
 	TStaticDictionary();	
 	~TStaticDictionary();
 
+#ifndef COLLECTIONS_SIMPLIFY
+	virtual
+#endif
 	TEnumerator<TPair<KEY, VALUE> > GetEnumerator();
 
 	bool  Add(KEY key, VALUE value);

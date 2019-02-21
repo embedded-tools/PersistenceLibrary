@@ -33,6 +33,9 @@
 
 
 template <typename KEY, typename VALUE> class TDictionary 
+#ifndef COLLECTIONS_SIMPLIFY
+: public TEnumerator<TPair<KEY, VALUE> >
+#endif
 {
 public:
 
@@ -58,6 +61,9 @@ public:
 	TDictionary(const TDictionary<KEY,VALUE> &dictionary);
     ~TDictionary();	
 
+#ifndef COLLECTIONS_SIMPLIFY
+	virtual
+#endif
 	TEnumerator<TPair<KEY, VALUE> > GetEnumerator();
 
 	bool  Add(KEY key, VALUE value);

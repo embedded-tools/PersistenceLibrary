@@ -31,6 +31,9 @@
  *  it is needed to decrease memory fragmentation.
  */
 template <typename KEY, typename VALUE> class TSortedDictionary 
+#ifndef COLLECTIONS_SIMPLIFY
+: public TEnumerator<TPair<KEY, VALUE> >
+#endif
 {
 
 private:
@@ -56,6 +59,9 @@ public:
     TSortedDictionary(short capacity=8);    
     ~TSortedDictionary();
 
+#ifndef COLLECTIONS_SIMPLIFY
+	virtual
+#endif
 	TEnumerator<TPair<KEY, VALUE> > GetEnumerator();
 
 	bool  Add(KEY key, VALUE value);

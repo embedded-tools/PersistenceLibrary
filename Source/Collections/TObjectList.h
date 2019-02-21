@@ -30,6 +30,9 @@
  */
 
 template <class T> class TObjectList 
+#ifndef COLLECTIONS_SIMPLIFY
+: public TEnumerator<T*>
+#endif
 {
 
 protected:
@@ -46,6 +49,9 @@ public:
     TObjectList();
     ~TObjectList();
 
+#ifndef COLLECTIONS_SIMPLIFY
+	virtual
+#endif
 	TEnumerator<T*> GetEnumerator();
 	
     T*    Add();

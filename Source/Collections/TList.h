@@ -30,6 +30,9 @@
  *  on embedded systems with low RAM size (e.g. 32kB or less)
  */
 template <typename T> class TList 
+#ifndef COLLECTIONS_SIMPLIFY
+: public TEnumerator<T>
+#endif
 {
 protected:
 
@@ -43,6 +46,9 @@ public:
 	TList(const TList& list);
     ~TList();
 
+#ifndef COLLECTIONS_SIMPLIFY
+	virtual
+#endif
 	TEnumerator<T> GetEnumerator();
 	
 	short Count() const;

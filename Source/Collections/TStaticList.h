@@ -30,6 +30,9 @@
  *  Static dictionary avoids memory fragmentation on embedded system with low RAM size.
  */
 template <typename T, int N> class TStaticList
+#ifndef COLLECTIONS_SIMPLIFY
+: public TEnumerator<T>
+#endif
 {
 protected:
 
@@ -43,6 +46,9 @@ public:
     TStaticList();
     ~TStaticList();
 
+#ifndef COLLECTIONS_SIMPLIFY
+	virtual
+#endif
 	TEnumerator<T> GetEnumerator();
 
 	short Count();
