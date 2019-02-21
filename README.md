@@ -1,12 +1,33 @@
 # PersistenceLibrary
-Set of classes storing basic data types like string, date, time and serialization to file, xml, data compression etc. All classes are designed for using in embeeded systems. In this case embedded system means a system based on 32 bit MCUs like ARM Cortex M3 (with 8kB - 256kB of RAM). Some classes (BasicTypes and Collections) are designed to work with even less memory and with 8 bit CPU like Atmel AVR.
 
-In such systems you should follow these rules:
+C++ library designed especially for embedded system with very limited resources, e.g. 32kB RAM.
 
--you cant allocate too big buffer at stack (stack size is often 256 or 512 bytes, therefore you can hardly allocate 512 bytes or even more at stack!!!)
+Library is divided to more parts:
 
--you cant use std:: namespace!!! This namespace is often not available
-
--you cant use any helper library like Boost! Bootst includes up to 150MB of source codes. It can never fit in such small ROM.
-
--you should allocate memory statically whenever it is possible. Use dynamic memory allocation if there really is no other choice. Always make a notice in a description that particular class uses dynamic memory allocation.
+-BasicTypes (optimized for Atmel AVR)
+  -TString - simple string with possibility to allocate memory in both ways - statically or dynamically
+  -TStringList - class for working with list of strings in one memory block
+  -TParamString - class for parsing multiple parameters from one string, e.g. "TEXT=\"Hello\";AUDIO=Ding.wav;VIDEO=\"Dong.avi\"";
+  -TFilePath - string class with additional functions for extracting file path, combining file paths etc.
+  -TDate, TTime, TDateTime - classes for date time calculations
+ 
+-Collections - container classes with both STL like interface and .NET like interface. All classes are designed to achieve low memory fragmentation.
+  -TDictionary - dictionary compatible with STL dictionary template
+  -TList       - list compatible with STL vector/list template
+  -TObjectList - list designed for storing class instances
+  -TStack      - class compatible with STL stack
+  -TQueue      - class compatible with STL queue
+ 
+ -FileUtils 
+   a) classes for reading and writing data from/to generic source.   
+     -TFileStream - reading/writing data from/to file
+     -THandleStream - reading/writing data from generic source (e.g. COM port on Windows)
+     -TRomStream - reading data from specific address (read only)
+     -TMemoryStream - reading/writing data from/to specific address
+     -TEEPROMStream - reading/writing data via specific callback function     
+   b) stream decorators
+     -TCachedStream - cache - forces reading/writing data through cache, e.g. TEEpromStream+TCacheStream can be used for writing data to Flash memory - data are not written to Flash until cache is full.
+     -TLZ77Stream - contains internal cache. When cache is full, compression algorithm is used and compressed data are written to parent stream. Reading works in opposite way - cache is filled by data, compression algorithm is used to decompress data and data are read from this cache.
+   c) JsonDoc class - class for loading json file to memory. You can choose whether you want to use static memory allocation (TJsonTagStaticPool) or dynamic memory allocation (TJsonTagDynamicPool)
+   d) XmlDoc class - class for loading xml file to memory. Class uses simplified XPath syntax for searching tags in XML doc. You can choose whether you want to use static memory allocation (TJsonTagStaticPool) or dynamic memory allocation (TJsonTagDynamicPool)
+  
