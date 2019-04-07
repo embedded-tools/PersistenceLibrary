@@ -18,16 +18,25 @@
 #include <stdio.h>
 #include "ttextfile.h"
 
-TTextFile::TTextFile ()
+TTextFile::TTextFile (int maxLineWidth)
 {
     m_fileName = NULL;
     m_fileHandle = 0;
     m_bufferDataCount = 0;
-    m_bufferDataMaxCount = 64;
-    m_buffer = (unsigned char*)malloc(m_bufferDataMaxCount);
-  
+    m_bufferDataMaxCount = maxLineWidth+1;
+    m_buffer = (unsigned char*)malloc(m_bufferDataMaxCount);  
+    m_bufferIsStatic = false;
 }
 
+TTextFile::TTextFile (void* buffer, int bufferSize)
+{
+    m_fileName = NULL;
+    m_fileHandle = 0;
+    m_bufferDataCount = 0;
+    m_bufferDataMaxCount = bufferSize;
+    m_buffer = (unsigned char*) buffer;  
+    m_bufferIsStatic = true;
+}
 
 TTextFile::~TTextFile ()
 {
@@ -35,10 +44,13 @@ TTextFile::~TTextFile ()
     {
         Close();
     }
-    if (m_buffer)
+    if (!m_bufferIsStatic)
     {
-        free(m_buffer);
-        m_buffer = NULL;
+        if (m_buffer)
+        {
+            free(m_buffer);
+            m_buffer = NULL;
+        }
     }
 }
 

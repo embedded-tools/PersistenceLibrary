@@ -35,11 +35,13 @@ private:
     unsigned char*  m_buffer;
     long			m_bufferDataCount;
     long			m_bufferDataMaxCount;
+    bool            m_bufferIsStatic;
 
     bool AddText(TString& line, long numberOfChars);
 public:
 
-    TTextFile ();
+    TTextFile (int maxLineWidth=128);
+    TTextFile (void* buffer, int bufferSize);
     ~TTextFile ();
 
     bool Open(const char* fileName);
