@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes"
+				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes;..\..\..\Source\Collections"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_WINSOCK2API_;_CRT_SECURE_NO_WARNINGS;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -105,7 +105,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes"
+				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes;..\..\..\Source\Collections"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_WINSOCK2API_;_CRT_SECURE_NO_WARNINGS;"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -173,6 +173,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\Protocols\teventreceiver.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\teventsender.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\teventserializer.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\Protocols\tfilelog.cpp"
 				>
 			</File>
@@ -212,6 +224,26 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\Protocols\tcpserver_win.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\tevent.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\teventcallback.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\teventreceiver.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\teventsender.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\Protocols\teventserializer.h"
 				>
 			</File>
 			<File

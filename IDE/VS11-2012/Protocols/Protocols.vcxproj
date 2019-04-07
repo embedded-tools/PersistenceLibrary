@@ -13,6 +13,9 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\Source\Protocols\tbinaryprotocol.cpp" />
     <ClCompile Include="..\..\..\Source\Protocols\tconsolelog.cpp" />
+    <ClCompile Include="..\..\..\Source\Protocols\teventreceiver.cpp" />
+    <ClCompile Include="..\..\..\Source\Protocols\teventsender.cpp" />
+    <ClCompile Include="..\..\..\Source\Protocols\teventserializer.cpp" />
     <ClCompile Include="..\..\..\Source\Protocols\tfilelog.cpp" />
     <ClCompile Include="..\..\..\Source\Protocols\tlog.cpp" />
     <ClCompile Include="..\..\..\Source\Protocols\ttextprotocol.cpp" />
@@ -22,6 +25,11 @@
     <ClInclude Include="..\..\..\Source\Protocols\eCommand.h" />
     <ClInclude Include="..\..\..\Source\Protocols\tbinaryprotocol.h" />
     <ClInclude Include="..\..\..\Source\Protocols\tconsolelog.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\tevent.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\teventcallback.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\teventreceiver.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\teventsender.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\teventserializer.h" />
     <ClInclude Include="..\..\..\Source\Protocols\tfilelog.h" />
     <ClInclude Include="..\..\..\Source\Protocols\tlog.h" />
     <ClInclude Include="..\..\..\Source\Protocols\ttextprotocol.h" />
@@ -80,7 +88,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\..\Source\Protocols;..\..\..\Source\BasicTypes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;..\..\..\Source\Collections</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -109,7 +117,7 @@
       <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;..\..\..\Source\Collections</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>

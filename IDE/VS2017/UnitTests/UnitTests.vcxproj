@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3B4700CD-77F5-4190-AE31-22C5C4627894}</ProjectGuid>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -176,6 +176,7 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TDictionary.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_Template.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TEndlessLine.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TEventSender.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFilePath.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFileStream.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint1024.cpp" />

@@ -252,5 +252,8 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TEventSender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

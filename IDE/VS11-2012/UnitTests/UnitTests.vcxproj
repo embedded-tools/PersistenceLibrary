@@ -164,6 +164,7 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TBinaryProtocol.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedFileStream.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedMemoryStream.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedWindowsBmp.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TCanvas.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TColor.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TCompression.cpp" />
@@ -174,6 +175,7 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TDictionary.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_Template.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TEndlessLine.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TEventSender.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFilePath.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFileStream.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint1024.cpp" />
