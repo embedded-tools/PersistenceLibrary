@@ -92,6 +92,17 @@ void TList<T>::Add(T R)
 	}
 };
 
+template<typename T>
+void TList<T>::Remove(T R)
+{
+	for(short i = 0; i<m_dataCount-1; i++)
+	{
+		if (m_dataArray[i]==R)
+		{
+			RemoveAt(i);
+		}
+	}
+};
 
 template<typename T>
 void TList<T>::RemoveAt(short index)

@@ -53,7 +53,8 @@ public:
 	
 	short Count() const;
     void  Add(T R);
-    void  RemoveAt(short index);	
+	void  Remove(T R);
+    void  RemoveAt(short index);
     void  Insert (short index, T x);
     bool  Contains (T x) const;
     short IndexOf(T x, short startIndex=0) const;
