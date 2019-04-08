@@ -12,6 +12,7 @@ TEventReceiver::~TEventReceiver()
 	{
 		m_subscribedEvents[i].eventSender->unsubscribe(this);
 	}	
+    m_subscribedEvents.Clear();
 }
 
 bool TEventReceiver::connect(TEventSender* sender, int eventID, TEventCallback eventCallback)
