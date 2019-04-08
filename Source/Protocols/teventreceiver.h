@@ -18,6 +18,7 @@ class TEventReceiver
 
 	public:		
 		TEventReceiver();
+        ~TEventReceiver();
 
 		bool connect(TEventSender* sender, int eventID, TEventCallback eventCallback);
 

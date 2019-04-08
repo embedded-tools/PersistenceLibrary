@@ -1,8 +1,12 @@
 #include "teventreceiver.h"
 #include "teventsender.h"
 
-
 TEventReceiver::TEventReceiver()	
+{
+
+}
+
+TEventReceiver::~TEventReceiver()	
 {
 	for(int i = 0; i<m_subscribedEvents.Count(); i++)
 	{
