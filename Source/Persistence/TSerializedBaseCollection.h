@@ -38,7 +38,7 @@ class TSerializedBaseCollection : public TXMLTalkerInterface, public TEnumerable
 
 	protected:
 
-		TObjectList<TSerializedBaseCollection> subManagers;
+		TList<TSerializedBaseCollection*> subManagers;
 		TCustomString<XMLMAXNAMESIZE> newItemUID;
 		TCustomString<XMLMAXNAMESIZE> newItemType;				
 		

@@ -36,7 +36,7 @@ class TMainSerializer : TXMLTalkerInterface
 		bool  xmlSerializationComplete;
 	protected:
 
-		TObjectList<TSerializedBaseCollection> registeredManagers;
+		TList<TSerializedBaseCollection*> registeredManagers;
 		
 		virtual bool Serialize(unsigned short version)=0;
 		virtual void Clear()=0;

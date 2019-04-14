@@ -18,13 +18,13 @@
 #define TSERIALIZEDSHORTCOLLECTION___H
 
 #include "TSerializedBaseCollection.h"
-#include "TObjectList.h"
+#include "TList.h"
 
 template<class ITEM>
 class TSerializedShortCollection : public TSerializedBaseCollection
 {
 	private:
-		TObjectList<ITEM> itemCollection;
+		TList<ITEM*> itemCollection;
 	
 	protected:
 
@@ -85,7 +85,12 @@ class TSerializedShortCollection : public TSerializedBaseCollection
 
 		virtual void Clear()
 		{
-			itemCollection.UnallocAndClear();
+            for(int i = 0; i<itemCollection.Count(); i++)
+            {
+                TSerializedItem* objectToDelete = itemCollection[i];
+                delete objectToDelete;
+            }
+			itemCollection.Clear();
 		}
 
 

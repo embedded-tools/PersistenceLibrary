@@ -387,7 +387,7 @@ void TSerializedItem::SerializeUID  (const char* paramName, void** object, bool 
 
 void TSerializedItem::SerializeUIDArray (const char* arrayName, void* objectList, int maxArrayLength, TSerializedBaseCollection* collection)
 {
-	TObjectList<TSerializedItem>* selectedList = (TObjectList<TSerializedItem>*) objectList;
+	TList<TSerializedItem*>* selectedList = (TList<TSerializedItem*>*) objectList;
 
 	switch(TSerializer::Mode)
 	{
