@@ -33,6 +33,7 @@ private:
 public:	
 	TArray(T* pData, short itemCount, short itemPitch = 0);
 	TArray(const TArray& a);
+    ~TArray();
 
 	T& operator [] (int index);
 

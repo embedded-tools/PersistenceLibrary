@@ -26,6 +26,14 @@ TArray<T>::TArray(const TArray& a)
 }
 
 template<typename T>
+TArray<T>::~TArray()
+{
+    m_itemCount = 0;
+    m_itemArray = NULL;    
+    m_itemPitch = 0;
+}
+
+template<typename T>
 T& TArray<T>::operator [] (int index)
 {	
 	static T tmp;
