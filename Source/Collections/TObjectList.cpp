@@ -35,8 +35,6 @@ template<class T>
 TObjectList<T>::~TObjectList()
 {
     Clear();
-	if (m_dataPointerArray!=NULL) free(m_dataPointerArray);
-	m_dataPointerArray=NULL;
 }
 
 template<class T> 
@@ -55,7 +53,7 @@ TEnumerator<T*> TObjectList<T>::GetEnumerator()
 template<class T> 
 T* TObjectList<T>::Add()
 {
-    if (SetCount(m_dataPointerCount+1))
+    if (SetCount_NoCreate(m_dataPointerCount+1))
 	{		
 		if (m_dataPointerCount>0)
 		{
@@ -70,7 +68,7 @@ T* TObjectList<T>::Add()
 template<class T>
 bool TObjectList<T>::Add(T* R)
 {    
-    if (SetCount(m_dataPointerCount+1))
+    if (SetCount_NoCreate(m_dataPointerCount+1))
 	{
 		if (m_dataPointerCount>0)
 		{
@@ -88,11 +86,18 @@ bool TObjectList<T>::RemoveAt(int id)
     if (id<0) return false;
     if (id>=m_dataPointerCount) return false;
     
+    T* objectToDelete = m_dataPointerArray[id];
     for (int j=id;j<m_dataPointerCount-1;j++)
     {
         m_dataPointerArray[j]=m_dataPointerArray[j+1];
     }
-    return SetCount(m_dataPointerCount-1);
+    bool result = SetCount_NoCreate(m_dataPointerCount-1);
+
+    if (objectToDelete)
+    {
+        delete objectToDelete;
+    }
+    return result;
 };
 
 template<class T>
@@ -112,7 +117,7 @@ bool TObjectList<T>::Remove(T* R)
 template<class T>
 T* TObjectList<T>::Insert (int i)
 {
-    if (!SetCount(m_dataPointerCount+1))
+    if (!SetCount_NoCreate(m_dataPointerCount+1))
 	{
 		return NULL;
 	}
@@ -136,7 +141,7 @@ T* TObjectList<T>::Insert (int i)
 template<class T>
 void TObjectList<T>::Insert (int i, T* R)
 {
-	if (!SetCount(m_dataPointerCount+1))
+	if (!SetCount_NoCreate(m_dataPointerCount+1))
 	{
 		return NULL;
 	}
@@ -181,7 +186,7 @@ short TObjectList<T>::Capacity()
 }
 
 template<class T>
-bool TObjectList<T>::SetCount(short count)
+bool TObjectList<T>::SetCount_NoCreate(short count)
 {
 	if (count == 0)
 	{
@@ -217,18 +222,18 @@ bool TObjectList<T>::SetCount(short count)
 };
 
 template<class T>
-bool TObjectList<T>::SetCountAndCreate(short count)
+bool TObjectList<T>::SetCount(short reservedCapacity)
 {
-    if (!SetCount(count))
-	{
-		return false;
-	}
-	for (short i=0;i<m_dataPointerCount;i++) 
-	{
+    int oldCount = m_dataPointerCount;
+    SetCount(reservedCapacity);
+
+    for (short i=oldCount; i<m_dataPointerCount; i++) 
+    {
+        //only new items are allocated
         m_dataPointerArray[i]=new T();
     }
-    return true;
-};
+}
+
 
 template<class T>
 bool TObjectList<T>::SetCapacity(short reservedCapacity)
@@ -268,21 +273,15 @@ bool TObjectList<T>::SetCapacity(short reservedCapacity)
 template<class T>
 void TObjectList<T>::Clear()
 {
-    SetCount(0);   
-};
+    int n = m_dataPointerCount;
 
-template<class T>
-void TObjectList<T>::UnallocAndClear()
-{
-    for(short i=0; i<m_dataPointerCount; i++)
+    m_dataPointerCount = 0;
+    for(int i = 0; i<n; i++)
     {
-        if (m_dataPointerArray[i]!=NULL)
-        {
-            delete m_dataPointerArray[i];
-            m_dataPointerArray[i] = NULL;
-        }
+        T* objectToDelete = m_dataPointerArray[i];
+        delete objectToDelete;
     }
-    SetCount(0);    
+    SetCount_NoCreate(0);   
 };
 
 template<class T>
@@ -424,12 +423,6 @@ template<typename T>
 void TObjectList<T>::clear()
 {
 	Clear();
-}
-
-template<typename T>
-void TObjectList<T>::unalloc_clear()
-{
-	UnallocAndClear();
 }
 
 #endif

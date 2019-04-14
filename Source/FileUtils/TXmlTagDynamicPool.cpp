@@ -37,5 +37,5 @@ bool TXMLTagDynamicPool::DeleteXMLTag(TXMLTag* tag)
 
 void TXMLTagDynamicPool::Clear()
 {
-	Tags.UnallocAndClear();
+	Tags.Clear();
 }

@@ -74,7 +74,7 @@ class Test_ObjectList : public TestFixture<Test_ObjectList>
 		ASSERT_EQUALS(4, o4->id);
 		ASSERT_EQUALS(4, (int)list.Count());
 
-		list.UnallocAndClear();
+		list.Clear();
 	}
 
 	void RemoveObjects()
@@ -120,7 +120,7 @@ class Test_ObjectList : public TestFixture<Test_ObjectList>
 		list.RemoveAt(0);
 		ASSERT_EQUALS(0, (int)list.Count());
 		
-		list.UnallocAndClear();
+		list.Clear();
 	}
 
 	void Enumerator()
@@ -224,7 +224,7 @@ class Test_ObjectList : public TestFixture<Test_ObjectList>
 		ASSERT_EQUALS(19, objects[2]->id);
 		ASSERT_EQUALS(20, objects[3]->id);
 
-		list.unalloc_clear();
+		list.clear();
 		ASSERT_EQUALS(0, list.size());
 		ASSERT(list.empty());
 	}

@@ -43,6 +43,7 @@ protected:
 	bool	m_dataStatic;    //flag TRUE means that data was allocated 
 	                           //dynamically therefore need to unalloc
     TObjectList(TObjectList<T> &list){};
+    bool    SetCount_NoCreate(short count);
 
 public:
 
@@ -64,10 +65,8 @@ public:
 	bool  Contains(T* R);
     short Capacity();
     bool  SetCount(short count);
-    bool  SetCountAndCreate(short count);
     bool  SetCapacity(short maxItemCount);
     void  Clear();
-    void  UnallocAndClear();
     
     T* operator [] (short id);
 	T* Items (short id);
@@ -92,7 +91,6 @@ public:
 	int         size();
 	int         max_size();
 	void        clear();
-	void        unalloc_clear();
 #endif
 
 };
