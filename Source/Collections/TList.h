@@ -52,8 +52,8 @@ public:
 	TEnumerator<T> GetEnumerator();
 	
 	short Count() const;
-    void  Add(T R);
-	void  Remove(T R);
+    bool  Add(T R);
+	bool  Remove(T R);
     void  RemoveAt(short index);
     void  Insert (short index, T x);
     bool  Contains (T x) const;
@@ -85,6 +85,7 @@ public:
 	void       push_front(T value);
 	void       pop_front();
 	void       pop_back();
+    void       reserve(int i);
 	T          front();
 	T          back();
     T*         insert(T* it, T value);

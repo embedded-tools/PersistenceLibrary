@@ -76,11 +76,11 @@ short TList<T>::Count() const
 }
 
 template<typename T>
-void TList<T>::Add(T R)
+bool TList<T>::Add(T R)
 {
 	if (m_dataCount==32767) 
 	{
-		return;
+		return false;
 	}
 	short oldm_dataCount = m_dataCount;
 	if (SetCount(m_dataCount+1))
@@ -89,19 +89,24 @@ void TList<T>::Add(T R)
 		{
 			m_dataArray[m_dataCount-1]  = R;
 		}		
+        return true;
 	}
+    return false;
 };
 
 template<typename T>
-void TList<T>::Remove(T R)
+bool TList<T>::Remove(T R)
 {
+    bool result = false;
 	for(short i = 0; i<m_dataCount-1; i++)
 	{
 		if (m_dataArray[i]==R)
 		{
-			RemoveAt(i);
+			 RemoveAt(i);
+             result = true;
 		}
 	}
+    return result;
 };
 
 template<typename T>
@@ -459,6 +464,13 @@ template<typename T>
 void TList<T>::pop_front()
 {
 	RemoveAt(0);
+}
+
+template<typename T>
+void TList<T>::reserve(int i)
+{
+    if (i>=32767) i = 32767;
+    return SetCount((short)i);
 }
 
 template<typename T>
