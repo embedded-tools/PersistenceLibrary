@@ -1,9 +1,9 @@
 #include "UnitTests.h"
 
-#include "stringutils.h"
-#include "tstring.h"
-#include "tshortstring.h"
-#include "tcustomstring.h"
+#include "StringUtils.h"
+#include "TString.h"
+#include "TShortString.h"
+#include "TCustomString.h"
 
 class Test_StringUtils : public TestFixture<Test_StringUtils>
 {

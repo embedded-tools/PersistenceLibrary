@@ -14,7 +14,7 @@
  *
  */
 
-#include "tshortstring.h"
+#include "TShortString.h"
 
 TShortString::TShortString()
 {

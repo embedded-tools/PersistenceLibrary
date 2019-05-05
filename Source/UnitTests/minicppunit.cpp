@@ -18,7 +18,7 @@
  *
  */
 
-#include "MiniCppUnit.hxx"
+#include "minicppunit.hxx"
 #include <string>
 #include <cmath>
 #include <algorithm>

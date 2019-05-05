@@ -20,8 +20,8 @@
 
 #include "TXMLParserInterface.h"
 #include "TXMLTalkerInterface.h"
-#include "tstream.h"
-#include "txmldoc.h"
+#include "TStream.h"
+#include "TXmlDoc.h"
 #include "TXMLParser.h"
 #include "TPair.h"
 

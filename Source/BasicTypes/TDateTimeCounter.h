@@ -18,7 +18,7 @@
 #define TDATETIMECOUNTER___H
 
 #include "TDateTime.h"
-#include "Time.h"
+#include "TTime.h"
 
 /**
  *  TDateTimeCounter increases current date and time every second

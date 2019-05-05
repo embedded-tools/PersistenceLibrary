@@ -1,6 +1,6 @@
 #include "UnitTests.h"
-#include "txmldoc.h"
-#include "txmltagstaticpool.h"
+#include "TXmlDoc.h"
+#include "TXmlTagStaticPool.h"
 
 class Test_TXMLDoc : public TestFixture<Test_TXMLDoc>
 {

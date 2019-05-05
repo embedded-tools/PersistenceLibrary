@@ -14,8 +14,8 @@
  *
  */
 
-#include "txmldoc.h"
-#include "stringutils.h"
+#include "TXmlDoc.h"
+#include "StringUtils.h"
 #include "TFileStream.h"
     
 TXMLDoc::TXMLDoc()

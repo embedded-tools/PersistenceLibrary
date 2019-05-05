@@ -2,7 +2,7 @@
 
 #include "TCachedStream.h"
 #include "TFileStream.h"
-#include "stringutils.h"
+#include "StringUtils.h"
 
 class Test_TCachedFileStream : public TestFixture<Test_TCachedFileStream>
 {     

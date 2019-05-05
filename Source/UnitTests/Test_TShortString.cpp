@@ -164,7 +164,7 @@ public:
 		int  textLength = 0;
 
 		TShortString s = "Hello world!";
-		sprintf(text, "%s", s);
+		sprintf(text, "%s", s.ToPChar());
 		
 		ASSERT_EQUALS(12, (int)strlen(text));
 	}

@@ -14,7 +14,7 @@
  *
  */
 
-#include "tcachedstream.h"
+#include "TCachedStream.h"
 
 TCachedStream::TCachedStream(TStream* mainStream, void* cache, int cacheSize)
 {

@@ -17,7 +17,7 @@
 #ifndef TPARAMSTRING___H
 #define TPARAMSTRING___H
 
-#include "tstring.h"
+#include "TString.h"
 
 /**
  *  This class can find multiple parameters in one string.

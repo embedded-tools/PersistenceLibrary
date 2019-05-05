@@ -18,7 +18,7 @@
 #define THANDLESTREAM___H
 
 #include <stdio.h>
-#include "tstream.h"
+#include "TStream.h"
 
 /**
  * Handle stream can be used for reading / writing data from various 

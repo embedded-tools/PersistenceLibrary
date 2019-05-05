@@ -2,7 +2,7 @@
 #define ZXSPECTRUM___H
 
 #include "TFontDataAlignment.h"
-#include "EPixelFormat.h"
+#include "ePixelFormat.h"
 
 extern const unsigned char      ZXSpectrum[768];
 extern const unsigned short     ZXSpectrum_Width;

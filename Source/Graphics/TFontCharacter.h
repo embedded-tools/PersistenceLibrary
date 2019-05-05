@@ -22,7 +22,7 @@
 #include "TFontDataAlignment.h"
 #include "TColorRGB.h"
 #include "TSize.h"
-#include "EPixelFormat.h"
+#include "ePixelFormat.h"
 
 struct TFontCharacter
 {    

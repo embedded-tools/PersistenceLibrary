@@ -14,12 +14,12 @@
  *
  */
 
-#include "tstream.h"
+#include "TStream.h"
 #include <stdlib.h> 
 #include <stdio.h>
-#include "tstring.h"
-#include "tcustomstring.h"
-#include "stringutils.h"
+#include "TString.h"
+#include "TCustomString.h"
+#include "StringUtils.h"
 
 TStream::TStream()
 {

@@ -17,7 +17,7 @@
 #ifndef TSTREAM___H
 #define TSTREAM___H
 
-#include "tstring.h"
+#include "TString.h"
 
 #define EReadError      0x0000001
 #define EWriteError     0x0000002

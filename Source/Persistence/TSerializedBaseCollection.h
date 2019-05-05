@@ -21,8 +21,8 @@
 #include "TSerializedItem.h"
 #include "TCustomString.h"
 #include "TXMLTalkerInterface.h"
-#include "tobjectlist.h"
-#include "EItemState.h"
+#include "TObjectList.h"
+#include "eItemState.h"
 
 #define MANAGER_BEGIN_FLAG 0xF0
 #define MANAGER_END_FLAG 0xF1
@@ -62,10 +62,10 @@ class TSerializedBaseCollection : public TXMLTalkerInterface, public TEnumerable
 		virtual unsigned long  GetUID();				
 		virtual unsigned short GetSubType();		
 		virtual unsigned short GetVersion();
-		virtual EItemState     GetState();
+		virtual eItemState     GetState();
 		virtual void		   SetUID(unsigned long uid);
 		virtual void           SetSubType(unsigned short subType);
-		virtual void           SetState(EItemState state);
+		virtual void           SetState(eItemState state);
 		
 
 	public:

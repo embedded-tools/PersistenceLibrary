@@ -44,7 +44,7 @@ unsigned short TSerializedBaseCollection::GetVersion()
 	return 0;
 }
 
-EItemState TSerializedBaseCollection::GetState()
+eItemState TSerializedBaseCollection::GetState()
 {
 	//collection has no state
 	return eisUnchanged;
@@ -60,7 +60,7 @@ void TSerializedBaseCollection::SetSubType(unsigned short subType)
 	//collection has no subType
 }
 
-void TSerializedBaseCollection::SetState(EItemState state)
+void TSerializedBaseCollection::SetState(eItemState state)
 {
 	//nothing to do
 }

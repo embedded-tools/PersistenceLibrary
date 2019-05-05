@@ -17,9 +17,9 @@
 #ifndef XMLDOC___H
 #define XMLDOC___H
 
-#include "txmltag.h"
-#include "txmltagbasepool.h"
-#include "tstring.h"
+#include "TXmlTag.h"
+#include "TXmlTagBasePool.h"
+#include "TString.h"
 
 
 /**

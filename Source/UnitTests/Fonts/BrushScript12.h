@@ -2,7 +2,7 @@
 #define BRUSHSCRIPT12___H
 
 #include "TFontDataAlignment.h"
-#include "EPixelFormat.h"
+#include "ePixelFormat.h"
 
 extern const unsigned char      BrushScript12[2292];
 extern const unsigned short     BrushScript12_Index[137];

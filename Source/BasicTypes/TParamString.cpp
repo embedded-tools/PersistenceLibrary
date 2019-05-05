@@ -14,7 +14,7 @@
  *
  */
 
-#include "tparamstring.h"
+#include "TParamString.h"
 
 TParamString::TParamString(const char* text, int textLen, char nameSeparator, char valueSeparator )
 : m_text(text, textLen, true, true)

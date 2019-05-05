@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "tstring.h"
+#include "TString.h"
 
 /**
  *  TWideString is a class for handling 16 bit unicode strings with maximum 

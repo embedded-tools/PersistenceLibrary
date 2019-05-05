@@ -1,9 +1,9 @@
 #include "UnitTests.h"
 
-#include "tlz77.h"
+#include "TLZ77.h"
 #include "TLZ77Streamed.h"
-#include "tmemorystream.h"
-#include "stringutils.h"
+#include "TMemoryStream.h"
+#include "StringUtils.h"
 
 class Test_LZ77 : public TestFixture<Test_LZ77>
 {

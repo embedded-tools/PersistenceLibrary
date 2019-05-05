@@ -1,8 +1,8 @@
 #include "UnitTests.h"
-#include "tjsondoc.h"
-#include "tjsontag.h"
-#include "tjsontagstaticpool.h"
-#include "tjsontagdynamicpool.h"
+#include "TJsonDoc.h"
+#include "TJsonTag.h"
+#include "TJsonTagStaticPool.h"
+#include "TJsonTagDynamicPool.h"
 #include "TFileStream.h"
 
 class Test_TJsonDoc : public TestFixture<Test_TJsonDoc>
@@ -11,13 +11,13 @@ class Test_TJsonDoc : public TestFixture<Test_TJsonDoc>
     
     TEST_FIXTURE( Test_TJsonDoc)
     {
-		TEST_CASE( JsonDoc_ConstructorDestructor );
-		TEST_CASE( JsonPool_ConstructorDestructor );
-        TEST_CASE( ParseString );
-        TEST_CASE( ParseNumber );
-        TEST_CASE( ParseBoolean );
-
-		TEST_CASE( OverallTest_Static );
+	TEST_CASE( JsonDoc_ConstructorDestructor );
+	TEST_CASE( JsonPool_ConstructorDestructor );
+	TEST_CASE( ParseString );
+	TEST_CASE( ParseNumber );
+	TEST_CASE( ParseBoolean );
+	
+	TEST_CASE( OverallTest_Static );
         TEST_CASE( OverallTest_Dynamic );
     }
 

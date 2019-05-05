@@ -17,7 +17,7 @@
 #ifndef TSHORTSTRING___H
 #define TSHORTSTRING___H
 
-#include "tstring.h"
+#include "TString.h"
 
 #define SHORTSTRINGLENGTH 40
 //40 characters is usually enough to store any name, surname, address, city, etc.

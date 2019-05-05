@@ -18,7 +18,7 @@
 #define TXMLBASEPOOL___H
 
 #include <stdlib.h>
-#include "txmltag.h"
+#include "TXmlTag.h"
 
 
 /**

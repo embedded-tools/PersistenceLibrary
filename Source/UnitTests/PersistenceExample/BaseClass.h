@@ -8,7 +8,7 @@ class BaseClass : public TSerializedItem
 	protected:
 
 		unsigned long   UID;
-		EItemState      State;
+		eItemState      State;
 		unsigned short  SubType;	
 		unsigned char   Tag;
 
@@ -16,11 +16,11 @@ class BaseClass : public TSerializedItem
 		
 		virtual unsigned long  GetUID();
 		virtual unsigned short GetSubType();		
-		virtual EItemState     GetState();					
+		virtual eItemState     GetState();					
 
 		virtual void		   SetUID(unsigned long uid);
 		virtual void           SetSubType(unsigned short subType);
-		virtual void		   SetState(EItemState state);
+		virtual void		   SetState(eItemState state);
 
 		virtual void Serialize(unsigned short version)=0;
 };

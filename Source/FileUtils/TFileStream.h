@@ -17,7 +17,7 @@
 #ifndef TFILESTREAM___H
 #define TFILESTREAM___H
 
-#include "thandlestream.h"
+#include "THandleStream.h"
 #include <stdlib.h>
 #include <stdio.h>
 

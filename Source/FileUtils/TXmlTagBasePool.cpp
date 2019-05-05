@@ -14,7 +14,7 @@
  *
  */
 
-#include "txmltagbasepool.h"
+#include "TXmlTagBasePool.h"
 
 
 void TXMLTagBasePool::SetXMLTagName(TXMLTag* tag, const char* tagName)

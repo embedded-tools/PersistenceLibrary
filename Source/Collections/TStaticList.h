@@ -91,7 +91,7 @@ public:
 
 };
 
-#include "tstaticlist.cpp"
+#include "TStaticList.cpp"
  
 #endif
 

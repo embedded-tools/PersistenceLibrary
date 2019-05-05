@@ -1,6 +1,6 @@
                                                 
 #include "UnitTests.h"
-#include "tstringlist.h"
+#include "TStringList.h"
 #include "StringUtils.h"
 
 class Test_TStringList : public TestFixture<Test_TStringList>

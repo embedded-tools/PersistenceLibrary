@@ -14,7 +14,7 @@
  *
  */
 
-#include "thandlestream.h"
+#include "THandleStream.h"
 
 /////////////////////////////
 //      THandleStream

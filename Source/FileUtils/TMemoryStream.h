@@ -17,7 +17,7 @@
 #ifndef TMEMORYSTREAM___H
 #define TMEMORYSTREAM___H
 
-#include "tstream.h"
+#include "TStream.h"
 
 /**
 /*  Memory stream reads/writes data from/to memory block.

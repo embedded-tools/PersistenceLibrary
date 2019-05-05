@@ -1,5 +1,5 @@
 /*
- * Persistence Library / Persistence / ESerializationMode
+ * Persistence Library / Persistence / EItemState
  *
  * Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
  *
@@ -14,16 +14,15 @@
  *
  */
 
-#ifndef TSERIALIZATIONMODE___H
-#define TSERIALIZATIONMODE___H
+#ifndef TITEMSTATE___H
+#define TITEMSTATE___H
 
-enum ESerializationMode
+enum eItemState
 {     
-   esmXMLOutput,        //writing configuration data to xml stream
-   esmXMLInput,         //reading configuration data from xml parser
-   esmBinaryOutput,     //writing configuration data to binary stream
-   esmBinaryInput,      //reading configuration data from binary stream
-   esmXSDOutput         //output to XSD file (description of xml and binary format)
+	eisUnchanged = 0,
+	eisAdded,
+	eisModified,
+	eisDeleted
 };
 
 #endif

@@ -17,8 +17,8 @@
 #ifndef TFILEPATH___H
 #define TFILEPATH___H
 
-#include "tcustomstring.h"
-#include "stringutils.h"
+#include "StringUtils.h"
+#include "TCustomString.h"
 
 #define FILEPATH_MAXLENGTH 128
 

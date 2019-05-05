@@ -89,7 +89,7 @@ public:
 
 };
 
-#include "tstaticdictionary.cpp"
+#include "TStaticDictionary.cpp"
 
 #endif
 

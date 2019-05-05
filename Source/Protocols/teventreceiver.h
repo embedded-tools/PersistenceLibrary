@@ -3,7 +3,7 @@
 
 #include "tevent.h"
 #include "teventcallback.h"
-#include "tlist.h"
+#include "TList.h"
 
 class TEventReceiver
 {

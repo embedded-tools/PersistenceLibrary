@@ -17,11 +17,11 @@
 #ifndef TSERIALIZATIONITEM___H
 #define TSERIALIZATIONITEM___H
 
-#include "tlist.h"
-#include "tstring.h"
-#include "stringutils.h"
+#include "TList.h"
+#include "TString.h"
+#include "StringUtils.h"
 #include "TSerializer.h"
-#include "EItemState.h"
+#include "eItemState.h"
 
 #define HELPER_BINARY_ARRAY_FLAG 0xF7
 
@@ -37,11 +37,11 @@ class TSerializedItem
 	public:
 		virtual unsigned long  GetUID()=0;				
 		virtual unsigned short GetSubType()=0;
-		virtual EItemState     GetState()=0;
+		virtual eItemState     GetState()=0;
 
-		virtual void		   SetUID(unsigned long uid)=0;
+		virtual void	       SetUID(unsigned long uid)=0;
 		virtual void           SetSubType(unsigned short subType)=0;
-		virtual void           SetState(EItemState state)=0;
+		virtual void           SetState(eItemState state)=0;
 		
 		virtual void Serialize (unsigned short version)=0;
 

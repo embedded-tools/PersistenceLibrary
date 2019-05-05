@@ -17,7 +17,7 @@
 #ifndef TSTATICSTATICLIST_INL
 #define TSTATICSTATICLIST_INL
 
-#include "tstaticlist.h"
+#include "TStaticList.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>

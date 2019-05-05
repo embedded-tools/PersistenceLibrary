@@ -17,7 +17,7 @@
 #ifndef TSTRINGLIST___H
 #define TSTRINGLIST___H
 
-#include "tstring.h"
+#include "TString.h"
 
 const static int NUMBER_OF_TERMINAL_ZEROS = 1;
 

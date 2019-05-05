@@ -16,7 +16,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "ttextfile.h"
+#include "TTextFile.h"
 
 TTextFile::TTextFile (int maxLineWidth)
 {

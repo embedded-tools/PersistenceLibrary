@@ -17,7 +17,7 @@
 #ifndef TCACHEDSTREAM___H
 #define TCACHEDSTREAM___H
 
-#include "tstream.h"
+#include "TStream.h"
 
 /** 
  *  This is class is used as a cache for all data reading / writing

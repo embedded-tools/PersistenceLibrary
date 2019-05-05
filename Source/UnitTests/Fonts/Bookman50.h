@@ -2,7 +2,7 @@
 #define BOOKMANOLDSTYLE___H
 
 #include "TFontDataAlignment.h"
-#include "EPixelFormat.h"
+#include "ePixelFormat.h"
 
 extern const unsigned char      Bookman50[38599];
 extern const unsigned short     Bookman50_Index[97];

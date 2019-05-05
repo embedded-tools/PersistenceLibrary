@@ -17,7 +17,7 @@
 #ifndef TCUSTOMSTRING____H
 #define TCUSTOMSTRING____H
 
-#include "tstring.h"
+#include "TString.h"
 
 /**
  *  TCustomString is a string that stores string data in static char array with predefined length.

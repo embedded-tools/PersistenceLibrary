@@ -14,7 +14,7 @@
  *
  */
 
-#include "TBinaryProtocol.h"
+#include "tbinaryprotocol.h"
 #include <stdlib.h>
 
 TBinaryProtocol::TBinaryProtocol()

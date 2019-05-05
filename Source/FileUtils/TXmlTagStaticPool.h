@@ -18,8 +18,8 @@
 #define TXMLSTATICPOOL___H
 
 #include <stdlib.h>
-#include "txmltag.h"
-#include "txmltagbasepool.h"
+#include "TXmlTag.h"
+#include "TXmlTagBasePool.h"
 
 #define XMLTAGSTATICPOOLSIZE 64
 

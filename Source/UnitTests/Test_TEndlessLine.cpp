@@ -1,6 +1,7 @@
 #include "UnitTests.h"
 #include "TEndlessLine.h"
 #include "TPosition.h"
+#include <stdlib.h>
 
 class Test_TEndlessLine: public TestFixture<Test_TEndlessLine>
 {

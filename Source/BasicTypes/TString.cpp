@@ -14,7 +14,7 @@
  *
  */
 
-#include "tstring.h"
+#include "TString.h"
 
 TString::TString()
 : PData(NULL), 

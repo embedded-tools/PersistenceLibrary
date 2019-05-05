@@ -16,9 +16,6 @@
  *
  */
 
-#include "txmltagbasepool.h"
-
-
 void TJsonTagBasePool::SetJsonTagName(TJsonTag* tag, const char* tagName)
 {
     tag->m_name      = tagName;

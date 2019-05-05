@@ -17,7 +17,7 @@
 #ifndef TLIST_INL
 #define TLIST_INL
 
-#include "tlist.h"
+#include "TList.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>

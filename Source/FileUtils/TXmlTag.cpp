@@ -14,9 +14,9 @@
  *
  */
 
-#include "txmltag.h"
-#include "stringutils.h"
-#include "txmltagbasepool.h"
+#include "TXmlTag.h"
+#include "StringUtils.h"
+#include "TXmlTagBasePool.h"
 
 TXMLTagList::TXMLTagList()
 {

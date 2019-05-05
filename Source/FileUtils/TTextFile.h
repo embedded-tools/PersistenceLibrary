@@ -19,7 +19,7 @@
 
 #include <stdlib.h> 
 #include <stdio.h>
-#include "tstring.h"
+#include "TString.h"
 
 /**
  *  Class for reading text files line by line.

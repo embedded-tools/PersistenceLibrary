@@ -20,7 +20,7 @@ TStream*			TSerializer::DataStream = NULL;
 TXMLCache*			TSerializer::XMLCache = NULL;
 TXMLParser*			TSerializer::XMLParser = NULL;
 
-ESerializationMode	TSerializer::Mode;  
+eSerializationMode	TSerializer::Mode;  
 bool				TSerializer::IncrementalChanges = false;
 unsigned short      TSerializer::TimeStamp = 0;
 unsigned char       TSerializer::ErrorCode = 0;

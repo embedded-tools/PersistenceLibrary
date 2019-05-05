@@ -1,7 +1,7 @@
 #ifndef TEVENTSENDER___H
 #define TEVENTSENDER___H
 
-#include "tlist.h"
+#include "TList.h"
 #include "teventreceiver.h"
 
 class TEventSender

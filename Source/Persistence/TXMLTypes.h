@@ -17,8 +17,8 @@
 #ifndef TXMLTYPES___H
 #define TXMLTYPES___H
 
-#include "tlist.h"
-#include "tcustomstring.h"
+#include "TList.h"
+#include "TCustomString.h"
 
 class TXMLType
 {

@@ -2,7 +2,7 @@
 #define ROBOTRON___H
 
 #include "TFontDataAlignment.h"
-#include "EPixelFormat.h"
+#include "ePixelFormat.h"
 
 extern const unsigned char      Robotron[1152];
 extern const unsigned short     Robotron_Width;

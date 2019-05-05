@@ -17,7 +17,7 @@
 #ifndef TEEPROMSTREAM___H
 #define TEEPROMSTREAM___H
 
-#include "tstream.h"
+#include "TStream.h"
 
 
 /**

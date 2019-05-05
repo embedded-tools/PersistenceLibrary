@@ -14,7 +14,7 @@
  *
  */
 
-#include "tmemorystream.h"
+#include "TMemoryStream.h"
 
 TMemoryStream::TMemoryStream(void* rewriteableBuffer, short rewriteableBufferLength)
 {

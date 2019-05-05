@@ -1,5 +1,5 @@
 #include "minicppunit.hxx"
-#include "TBinaryProtocol.h"
+#include "tbinaryprotocol.h"
 
 static unsigned char  dataInTheWire[512];
 static unsigned short dataInTheWireLength;

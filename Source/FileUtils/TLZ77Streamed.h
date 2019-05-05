@@ -18,8 +18,8 @@
 #ifndef LZ77COMPRESSION___H
 #define LZ77COMPRESSION___H
 
-#include "tstream.h"
-#include "tcachedstream.h"
+#include "TStream.h"
+#include "TCachedStream.h"
 
 //magic byte should be the least used value.
 //wrong value can have a negative impact on

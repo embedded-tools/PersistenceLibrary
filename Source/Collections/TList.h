@@ -36,15 +36,15 @@ template <typename T> class TList
 {
 protected:
 
-    T*		m_dataArray;		   
-    short	m_dataCount;     //number of items (really inserted to list)
-    short	m_dataMaxCount;  //number of items preallocated in memory
+	T*		m_dataArray;		   
+	short	m_dataCount;     //number of items (really inserted to list)
+	short	m_dataMaxCount;  //number of items preallocated in memory
 
 public:
 
-    TList(int capacity=8);
+	TList(int capacity=8);
 	TList(const TList& list);
-    ~TList();
+	~TList();
 
 #ifndef COLLECTIONS_SIMPLIFY
 	virtual
@@ -52,46 +52,46 @@ public:
 	TEnumerator<T> GetEnumerator();
 	
 	short Count() const;
-    bool  Add(T R);
+	bool  Add(T R);
 	bool  Remove(T R);
-    void  RemoveAt(short index);
-    void  Insert (short index, T x);
-    bool  Contains (T x) const;
-    short IndexOf(T x, short startIndex=0) const;
+	void  RemoveAt(short index);
+	void  Insert (short index, T x);
+	bool  Contains (T x) const;
+	short IndexOf(T x, short startIndex=0) const;
 	short LastIndexOf(T x) const;
-    short Capacity() const;
-    bool  SetCount(short count);
-    bool  SetCapacity(short capacity);
-    void  Clear(bool unallocMemory=true);
+	short Capacity() const;
+	bool  SetCount(short count);
+	bool  SetCapacity(short capacity);
+	void  Clear(bool unallocMemory=true);
 	void  Reverse();
 	void  Sort(bool ascending=true, bool deleteDoubleEntries=false);
 	TArray<T> ToArray();
 
-    T&  operator [] (short index);
+	T&  operator [] (short index);
 	T&  Items (short index);
 	TList<T>& operator = (const TList<T>& list);
 
 #ifdef STL_STYLE
 	typedef T* iterator;
-    typedef const T* const_iterator;
+	typedef const T* const_iterator;
 
 	T*         begin();
 	T*         end();
-    const T*   cbegin() const;
-    const T*   cend() const;
+	const T*   cbegin() const;
+	const T*   cend() const;
 	T*         data();
 	T&         at(int i);
 	void       push_back(T value);
 	void       push_front(T value);
 	void       pop_front();
 	void       pop_back();
-    void       reserve(int i);
+	void       reserve(int i);
 	T          front();
 	T          back();
-    T*         insert(T* it, T value);
-    void       splice(T* position, TList<T>& list, T* first=NULL, T* last=NULL);
-    T*         erase (T* first, T* last=NULL);
-    void       unique();
+	T*         insert(T* it, T value);
+	void       splice(T* position, TList<T>& list, T* first=NULL, T* last=NULL);
+	T*         erase (T* first, T* last=NULL);
+	void       unique();
 	bool       empty();
 	int        size();
 	int        max_size();
@@ -102,7 +102,7 @@ public:
 
 };
 
-#include "tlist.cpp"
+#include "TList.cpp"
  
 #endif
 

@@ -17,10 +17,10 @@
 #ifndef JSONDOC___H
 #define JSONDOC___H
 
-#include "tjsontag.h"
-#include "tjsontagbasepool.h"
-#include "tstring.h"
-#include "tstream.h"
+#include "TJsonTag.h"
+#include "TJsonTagBasePool.h"
+#include "TString.h"
+#include "TStream.h"
 
 /**
  *  TJsonDoc is a json parser designed for low memory embedded systems.

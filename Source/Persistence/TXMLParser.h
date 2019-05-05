@@ -29,7 +29,7 @@
 
 #define APOSTROPHE 39
 
-#include "TCustomstring.h"
+#include "TCustomString.h"
 #include "TStaticDictionary.h"
 #include "TXMLTalkerInterface.h"
 #include "TXMLParserInterface.h"

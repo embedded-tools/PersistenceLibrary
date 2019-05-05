@@ -17,10 +17,10 @@
 #ifndef SERIALIZATIONPARAMS____H
 #define SERIALIZATIONPARAMS____H
 
-#include "txmldoc.h"
-#include "txmltag.h"
-#include "tstream.h"
-#include "ESerializationMode.h"
+#include "TXmlDoc.h"
+#include "TXmlTag.h"
+#include "TStream.h"
+#include "eSerializationMode.h"
 #include "TXMLTypes.h"
 #include "TXMLCache.h"
 #include "TXMLParser.h"
@@ -43,7 +43,7 @@ class TSerializer
 		static	TXMLCache*			XMLCache;
 		static	TXMLParser*			XMLParser;
 
-		static	ESerializationMode	Mode;  
+		static	eSerializationMode	Mode;  
 		static	bool				IncrementalChanges;		
 		static	unsigned short		TimeStamp;
 		static  unsigned char       ErrorCode;

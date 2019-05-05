@@ -14,7 +14,7 @@
  *
  */
 
-#include "stringutils.h"
+#include "StringUtils.h"
 #include <stdlib.h>
 
 

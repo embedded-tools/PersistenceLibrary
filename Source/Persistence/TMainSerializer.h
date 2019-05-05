@@ -18,11 +18,11 @@
 #ifndef TSERIALIZATION___H
 #define TSERIALIZATION___H
 
-#include "tstream.h"
+#include "TStream.h"
 #include "TSerializer.h"
 #include "TSerializedBaseCollection.h"
 #include "TXMLTalkerInterface.h"
-#include "ESerializationMode.h"
+#include "eSerializationMode.h"
 
 #define XML_HELPER_BUFFER_SIZE 32
 #define SERIALIZER_BEGIN_FLAG 0xF8

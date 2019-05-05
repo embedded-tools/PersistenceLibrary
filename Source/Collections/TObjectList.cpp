@@ -17,7 +17,7 @@
 #ifndef TOBJECTLIST_INL
 #define TOBJECTLIST_INL
 
-#include "tobjectlist.h"
+#include "TObjectList.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
@@ -143,11 +143,11 @@ void TObjectList<T>::Insert (int i, T* R)
 {
 	if (!SetCount_NoCreate(m_dataPointerCount+1))
 	{
-		return NULL;
+		return;
 	}
 	if (m_dataPointerArray==NULL)
 	{
-		return NULL;
+		return;
 	}
 
     if (i<0) i=0;

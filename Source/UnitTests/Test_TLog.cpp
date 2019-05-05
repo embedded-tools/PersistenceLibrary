@@ -1,6 +1,6 @@
 #include "UnitTests.h"
-#include "TFileLog.h"
-#include "TLog.h"
+#include "tfilelog.h"
+#include "tlog.h"
 #include "TTime.h"
 
 #ifdef WIN32

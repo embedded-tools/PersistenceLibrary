@@ -18,7 +18,7 @@
 #define TJSONSTATICPOOL___H
 
 #include <stdlib.h>
-#include "tjsontag.h"
+#include "TJsonTag.h"
 #include "TJsonTagBasePool.h"
 
 #define JSONTAGSTATICPOOLSIZE 64

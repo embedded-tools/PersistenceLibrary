@@ -1,10 +1,10 @@
 #include "UnitTests.h"
 
-#include "tmemorystream.h"
-#include "tfilestream.h"
-#include "tcachedstream.h"
-#include "stringutils.h"
-#include "tcustomstring.h"
+#include "TMemoryStream.h"
+#include "TFileStream.h"
+#include "TCachedStream.h"
+#include "StringUtils.h"
+#include "TCustomString.h"
 #include "TLZ77Streamed.h"
 
 

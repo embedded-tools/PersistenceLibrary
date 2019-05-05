@@ -16,7 +16,7 @@
 #ifndef TFILELOG___H
 #define TFILELOG___H
 
-#include "TLog.h"
+#include "tlog.h"
 
 class TFileLog : public TLog
 {

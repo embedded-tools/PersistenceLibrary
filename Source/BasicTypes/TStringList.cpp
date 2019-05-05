@@ -15,7 +15,7 @@
  */
 
 #include <stdlib.h>
-#include "tstringlist.h"
+#include "TStringList.h"
 
 TStringList::TStringList (const TStringList &list)
 {

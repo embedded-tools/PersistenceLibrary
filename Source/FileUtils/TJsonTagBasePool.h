@@ -18,8 +18,8 @@
 #define TJSONBASEPOOL___H
 
 #include <stdlib.h>
-#include "tjsontag.h"
-#include "tjsondoc.h"
+#include "TJsonTag.h"
+#include "TJsonDoc.h"
 
 
 /**

@@ -14,7 +14,7 @@
  *
  */
 
-#include "tlz77.h"
+#include "TLZ77.h"
 
 LZ77Error LZ77_Compress  (unsigned char* pbDataToCompress, unsigned long cbDataToCompress, unsigned char* pbOutputBuffer, unsigned long& cbOutputBuffer)
 {

@@ -2,7 +2,7 @@
 #define AMATA13___H
 
 #include "TFontDataAlignment.h"
-#include "EPixelFormat.h"
+#include "ePixelFormat.h"
 
 extern const unsigned char      Amata13[2840];
 extern const unsigned short     Amata13_Index[137];

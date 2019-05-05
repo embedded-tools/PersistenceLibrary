@@ -1,4 +1,5 @@
 #include "UnitTests.h"
+#include <string.h>
 extern "C"
 {
     #include "EscapeSequences.h"

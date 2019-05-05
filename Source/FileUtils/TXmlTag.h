@@ -18,8 +18,8 @@
 #define XMLTAG___H
 
 #include <stdlib.h>
-#include "tshortstring.h"
-#include "tstream.h"
+#include "TShortString.h"
+#include "TStream.h"
 
 #define XMLPATHMAXLENGTH 80
 #define XMLTAGPOOLFOOTPRINT (sizeof(TXMLTag)*XMLTAGPOOLSIZE)

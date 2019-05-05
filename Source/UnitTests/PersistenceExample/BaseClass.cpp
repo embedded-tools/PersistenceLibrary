@@ -15,12 +15,12 @@ unsigned short  BaseClass::GetSubType()
 	return SubType;
 }
 
-EItemState  BaseClass::GetState()
+eItemState  BaseClass::GetState()
 {
 	return State;
 }
 
-void BaseClass::SetState(EItemState aState)
+void BaseClass::SetState(eItemState aState)
 {
 	State = aState;
 }

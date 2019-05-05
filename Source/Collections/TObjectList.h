@@ -95,7 +95,7 @@ public:
 
 };
 
-#include "tobjectlist.cpp"
+#include "TObjectList.cpp"
 
 #endif
 

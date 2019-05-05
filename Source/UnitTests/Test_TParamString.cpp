@@ -1,7 +1,7 @@
 #include "UnitTests.h"
-#include "tparamstring.h"
-#include "tstring.h"
-#include "tshortstring.h"
+#include "TParamString.h"
+#include "TString.h"
+#include "TShortString.h"
 
 class Test_TParamString : public TestFixture<Test_TParamString>
 {

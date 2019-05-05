@@ -18,9 +18,9 @@
 #define TXMLDYNAMICPOOL___H
 
 #include <stdlib.h>
-#include "txmltag.h"
-#include "txmltagbasepool.h"
-#include "tobjectlist.h"
+#include "TXmlTag.h"
+#include "TXmlTagBasePool.h"
+#include "TObjectList.h"
 
 
 /**
