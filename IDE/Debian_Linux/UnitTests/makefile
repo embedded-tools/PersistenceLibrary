@@ -13,7 +13,8 @@
 # It is provided "as is" without express or implied warranty.
 #
 
-PROJECT = test
+PROJECT = unittests
+OUTPUTDIR =../
 OUTPUTFILE =$(PROJECT).so
 ROOTDIR = ../../..
 LIBDIR = -L../lib
@@ -129,13 +130,9 @@ $(OUTPUTFILE): $(OBJ)
 	then \
 		$(MD) $(OUTPUTDIR);\
 	fi
-	@if [ ! -d $(TMPDIR) ];\
-	then \
-		$(MD) $(TMPDIR);\
-	fi
-	@$(LD) $(OBJ) $(LIBDIR) $(LIBS) -o $@
+	@$(LD) $(OBJ) $(LIBDIR) $(LIBS) -o $(OUTPUTDIR)/$(OUTPUTFILE)
 	@echo $(OUTPUTFILE)	
-	@$(OS) $@
+	@$(OS) $(OUTPUTDIR)/$(OUTPUTFILE)
 	
 $(CPPOBJ): %.o: %.cpp
 	@echo $<;
@@ -150,5 +147,5 @@ $(SOBJ): %.o: %.s
 	@$(AS) -c $(ASFLAGS) $< -o $@
 
 clean:
-	@rm -f $(OUTPUTFILE) $(OBJ)
+	@rm -f $(OUTPUTDIR)/$(OUTPUTFILE) $(OBJ)
 

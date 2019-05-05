@@ -87,5 +87,5 @@ $(SOBJ): %.o: %.s
 	@$(AS) -c $(ASFLAGS) $< -o $@
 
 clean:
-	@rm -f $(OUTPUTFILE) $(OBJ)
+	@rm -f $(OUTPUTDIR)/$(OUTPUTFILE) $(OBJ)
 
