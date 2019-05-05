@@ -207,7 +207,7 @@ SOURCE=..\..\..\Source\UnitTests\Fonts\ZXSpectrum.cpp
 # End Group
 # Begin Source File
 
-SOURCE=..\..\..\Source\UnitTests\minicppunit.cxx
+SOURCE=..\..\..\Source\UnitTests\minicppunit.cpp
 # End Source File
 # Begin Source File
 

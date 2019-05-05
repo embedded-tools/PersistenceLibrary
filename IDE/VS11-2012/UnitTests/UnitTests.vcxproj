@@ -157,7 +157,7 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Fonts\BrushScript12.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Robotron.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.cpp" />
-    <ClCompile Include="..\..\..\Source\UnitTests\minicppunit.cxx" />
+    <ClCompile Include="..\..\..\Source\UnitTests\minicppunit.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_LZ77.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_Persistence.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_StringUtils.cpp" />

@@ -289,7 +289,7 @@
 			Name="Source Files"
 			>
 			<File
-				RelativePath="..\..\..\Source\UnitTests\minicppunit.cxx"
+				RelativePath="..\..\..\Source\UnitTests\minicppunit.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
