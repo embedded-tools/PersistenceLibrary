@@ -118,36 +118,57 @@ bool TStream::ReadBinaryText(TString* text, short maxLength)
 
 bool TStream::ReadChar (signed char  &c)
 {
+    c = 0;
     long bytes = ReadBuffer(&c, sizeof(char));
     return bytes==sizeof(char);
 }
 
 bool TStream::ReadByte(unsigned char  &c)
 {
+    c = 0;
     long bytes = ReadBuffer(&c, sizeof(unsigned char));
     return bytes==sizeof(unsigned char);
 }
 
 bool TStream::ReadWord (short &w)
 {
+    w = 0;
     long bytes = ReadBuffer(&w, sizeof(short));
     return bytes==sizeof(short);
 }
 
 bool TStream::ReadUWord(unsigned short &w)
 {
+    w = 0;
     long bytes = ReadBuffer(&w, sizeof(unsigned short));
     return bytes==sizeof(unsigned short);
 }
 
+bool TStream::ReadInt (int &i)
+{
+    i = 0;
+    long bytes = ReadBuffer(&i, sizeof(int));
+    return bytes==sizeof(long);    
+}
+
+bool TStream::ReadUInt (unsigned int &i)
+{
+    i = 0;
+    long bytes = ReadBuffer(&i, sizeof(long));
+    return bytes==sizeof(long);    
+}
+
+
 bool TStream::ReadLong  (long &i)
 {
+    i = 0;
     long bytes = ReadBuffer(&i, sizeof(long));
     return bytes==sizeof(long);
 }
 
 bool TStream::ReadULong (unsigned long &i)
 {
+    i = 0;
     long bytes = ReadBuffer(&i, sizeof(unsigned int));
     return bytes==sizeof(unsigned int);
 }
@@ -267,16 +288,28 @@ bool TStream::WriteUWord(unsigned short w)
     return bytes==sizeof(unsigned short);
 }
 
-bool TStream::WriteLong (long i)
+bool TStream::WriteInt(int i)
 {
     long bytes = WriteBuffer(&i, sizeof(int));
     return bytes==sizeof(int);
 }
 
-bool TStream::WriteULong (unsigned long i)
+bool TStream::WriteUInt (unsigned int i)
 {
     long bytes = WriteBuffer(&i, sizeof(unsigned int));
     return bytes==sizeof(unsigned int);
+}
+
+bool TStream::WriteLong (long i)
+{
+    long bytes = WriteBuffer(&i, sizeof(long));
+    return bytes==sizeof(long);
+}
+
+bool TStream::WriteULong (unsigned long i)
+{
+    long bytes = WriteBuffer(&i, sizeof(unsigned long));
+    return bytes==sizeof(unsigned long);
 }
 
 bool TStream::WriteByteAsText (char  c)

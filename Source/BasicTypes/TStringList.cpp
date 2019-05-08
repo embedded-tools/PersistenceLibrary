@@ -179,13 +179,20 @@ void TStringList::Insert (int i, const char* s, int sLength)
 
     const char* source;
     char* target;
+    const char* ss;
+    char* pp;    
     int   length;
 	if (i<m_substringCount-1)
 	{
 		source = m_stringData + m_substringOffset[i];
         target = m_stringData + m_substringOffset[i+1];
         length = m_substringCapacity - m_substringOffset[i+1];
-		memcpy(target, source, length);
+        pp = target;
+        ss = source;
+        for(int k = 0; k<length; k++)
+        {
+            *pp++ = *ss++;
+        }
         for(int j = m_substringCount-1; j>i; j--)
         {
             m_substringOffset[j] = m_substringOffset[j-1];            
@@ -194,7 +201,13 @@ void TStringList::Insert (int i, const char* s, int sLength)
     source = s;
     target = m_stringData+m_substringOffset[i];
     length = sLength + 1;
-    memcpy(target, source, length);
+    pp = target;
+    ss = source;
+    for(int m = 0; m<length; m++)
+    {
+        *pp++ = *ss++;
+    }
+
     m_stringData[m_stringDataSize]=0;
 }
 
@@ -205,6 +218,8 @@ void TStringList::Delete (int i)
 
     char* target;
     char* source;
+    char* pp;
+    char* ss;
     int   length;
     
     if (i<m_substringCount-1)
@@ -214,7 +229,12 @@ void TStringList::Delete (int i)
         length = m_stringDataCapacity - m_substringOffset[i+1];
         if (length>0)
         {
-            memcpy(target, source, length);
+            pp = target;
+            ss = source;
+            for(int k = 0; k<length; k++)
+            {
+                *pp++ = *ss++;
+            }
         }
     }    
     length = m_substringOffset[i+1] - m_substringOffset[i];

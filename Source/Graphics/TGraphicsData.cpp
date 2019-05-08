@@ -503,9 +503,9 @@ TColorRGB TGraphicsData::GetPaletteColor(unsigned char colorIndex)
     {
         if (colorIndex<m_colorCount)
         {
-            result.B = m_colorPalette[0];
-            result.G = m_colorPalette[1];
-            result.R = m_colorPalette[2];
+            result.B = m_colorPalette[colorIndex*3 + 0];
+            result.G = m_colorPalette[colorIndex*3 + 1];
+            result.R = m_colorPalette[colorIndex*3 + 2];
         }
     }
     return result;

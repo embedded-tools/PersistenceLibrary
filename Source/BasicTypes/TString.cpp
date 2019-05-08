@@ -462,7 +462,10 @@ TString& TString::Append(const TString& oString)
 
 TString& TString::Insert(unsigned short index, char c)
 {
-	if (index>Length()) return *this;
+	if ((index<0) || (index>Length()))
+    {
+        return *this;
+    }
 	
 	int oldLength = Length();
 	if (SetLength(oldLength+1, false))
@@ -478,7 +481,10 @@ TString& TString::Insert(unsigned short index, char c)
 
 TString& TString::Insert(unsigned short index, const char* s)
 {
-	if (index>Length()) return *this;
+	if ((index<0) || (index>Length()))
+    {
+        return *this;
+    }
 
 	int sLength = 0;
 	if (s!=NULL) sLength=(int)strlen(s);
@@ -499,7 +505,10 @@ TString& TString::Insert(unsigned short index, const char* s)
 
 TString& TString::Insert(unsigned short index, const char* s, int length)
 {
-	if (index>Length()) return *this;
+	if ((index<0) || (index>Length()))
+    {
+        return *this;
+    }
 	
 	int oldLength = Length();
 	int newLength = oldLength+length;
@@ -523,16 +532,19 @@ TString& TString::Insert(unsigned short index, const TString& oString)
 
 TString& TString::Delete(unsigned short index, unsigned short length)
 {
-	if (length<1) return *this;
-	if (PData==NULL) return *this;
-
-	if ((index+length)>DataLen)
+    if ((index<0) || (index>=Length()))
+    {
+        return *this;
+    }	  
+	if ((index+length)>=DataLen)
 	{
 		length = DataLen - index;
 	}
-	memcpy(PData+index, PData+index+length, DataLen - index - length + 1);
+    for(int i = 0; i<DataLen-index; i++)
+    {
+        PData[index+i] = PData[index+length+i];
+    }
 	DataLen-=length;
-
 	return *this;
 }
 

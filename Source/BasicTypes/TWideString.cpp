@@ -119,7 +119,7 @@ bool TWideString::CopyFrom (const wchar_t* pChar, unsigned short length)
         }
 		if (SetLength(length))
 		{
-			memcpy(PData,pChar,DataLen*2);
+			memcpy(PData,pChar,DataLen*sizeof(wchar_t));
 			PData[DataLen] = 0;
             return true;
 		}		
@@ -172,16 +172,16 @@ bool TWideString::SetLength(unsigned short len, bool addSpaces)
 
 			if (PData==NULL)
 			{
-				PData = (wchar_t*) malloc(DataMax*2);
+				PData = (wchar_t*) malloc(DataMax*sizeof(wchar_t));
 				if (PData==NULL)
 				{
 					DataLen = 0;
 					DataMax = 0;
 					return false;
 				}
-				memset((void*)PData, 0, DataMax);
+				memset((void*)PData, 0, DataMax*sizeof(wchar_t));
 			} else {
-				PData = (wchar_t*) realloc(PData,DataMax*2);
+				PData = (wchar_t*) realloc(PData,DataMax*sizeof(wchar_t));
 				if (PData==NULL)
 				{
 					DataLen = 0;
@@ -221,7 +221,7 @@ const wchar_t* TWideString::ToPWChar() const
 
 bool TWideString::Contains(wchar_t c) const
 {
-	wchar_t buf[2];
+	wchar_t buf[2];    
 	buf[0] = c;
 	buf[1] = 0;
 	wchar_t* pChar = (wchar_t*) &buf;
@@ -271,9 +271,10 @@ bool TWideString::Contains(const wchar_t* pChar) const
 
 int TWideString::IndexOf(wchar_t c, unsigned short startIndex) const
 {
-	wchar_t buf[2];
+	wchar_t buf[2];    
 	buf[0] = c;
 	buf[1] = 0;
+    
 	wchar_t* pChar = (wchar_t*) &buf;
 	return IndexOf(pChar, startIndex);
 }
@@ -320,9 +321,10 @@ int TWideString::IndexOf(const wchar_t* pChar, unsigned short startIndex) const
 
 int TWideString::LastIndexOf(wchar_t c) const
 {
-    wchar_t buf[2];
-    buf[0] = c;
-    buf[1] = 0;
+	wchar_t buf[2];    
+	buf[0] = c;
+	buf[1] = 0;
+    
     wchar_t* pChar = (wchar_t*) &buf;
     return IndexOf(pChar);
 }
@@ -473,7 +475,7 @@ TWideString& TWideString::Append(const wchar_t* s)
 	if (SetLength(oldLength+sLength))
 	{
 		sLength = DataLen - oldLength;
-		memcpy(PData+oldLength, s, sLength*2);
+		memcpy(PData+oldLength, s, sLength*sizeof(wchar_t));
 	}
 	return *this;
 }
@@ -485,7 +487,7 @@ TWideString& TWideString::Append(TWideString& oString)
 	if (SetLength(oldLength+oString.Length()))
 	{
 		sLength = DataLen - oldLength;
-		memcpy(PData+oldLength, oString.ToPWChar(), sLength);
+		memcpy(PData+oldLength, oString.ToPWChar(), sLength*sizeof(wchar_t));
 	}
 	return *this;
 }
@@ -521,7 +523,7 @@ TWideString& TWideString::Insert(unsigned short index, const wchar_t* s)
 		{
 			PData[i] = PData[i-sLength];
 		}
-		memcpy(PData+index, s, sLength*2);
+		memcpy(PData+index, s, sLength*sizeof(wchar_t));
 	}
 	return *this;
 }
@@ -533,18 +535,20 @@ TWideString& TWideString::Insert(unsigned short index, TWideString& oString)
 
 TWideString& TWideString::Delete(unsigned short index, unsigned short length)
 {
-	if (length<1) return *this;
-
-	int oldLength = Length();
-	if ((index+length)>oldLength)
+    if ((index<0) || (index>=Length()))
+    {
+        return *this;
+    }	 
+	if ((index+length)>=DataLen)
 	{
-		length = oldLength - index;
+		length = DataLen - index;
 	}
-	for(int i = index; i<oldLength-length; i--)
-	{
-		PData[i] = PData[i];
-	}		
-	return *this;
+    for(int i = 0; i<DataLen-index; i++)
+    {
+        PData[index+i] = PData[index+length+i];
+    }
+	DataLen-=length;
+    return *this;
 }
 
 TWideString& TWideString::operator = (const TString oString )
@@ -618,7 +622,7 @@ TWideString& TWideString::operator += ( const wchar_t* pChar )
 	if (newLength==65535) newLength=65534;
 	if (SetLength(newLength))
 	{
-		memcpy(&PData[oldLength], pChar, (DataLen-oldLength)*2);
+		memcpy(&PData[oldLength], pChar, (DataLen-oldLength)*sizeof(wchar_t));
 	}
 	return *this;
 }
@@ -643,7 +647,7 @@ TWideString& TWideString::operator += ( TWideString& oString )
 	if (newLength==65535) newLength=65534;
 	if (SetLength(newLength))
 	{
-		memcpy(&PData[oldLength], pChar, (DataLen-oldLength)*2);
+		memcpy(&PData[oldLength], pChar, (DataLen-oldLength)*sizeof(wchar_t));
 	}
 	return *this;
 }

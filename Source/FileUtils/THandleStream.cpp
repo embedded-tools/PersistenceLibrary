@@ -47,31 +47,51 @@ void THandleStream::Close()
 
 long THandleStream::ReadBuffer(void* Buffer, long Count)
 {
+    if (m_fileHandle==NULL)
+    {
+        return 0;
+    }        
     unsigned short result = (unsigned short)fread(Buffer,1,Count,m_fileHandle);
     return result;
 }
 
 long THandleStream::WriteBuffer(const void* Buffer, long Count)
 {
+    if (m_fileHandle==NULL)
+    {
+        return 0;
+    }
     unsigned short result = (unsigned short)fwrite(Buffer,1,Count,m_fileHandle);
     return result;
 }
 
 long THandleStream::Seek(long Offset, ESeekOrigin origin)
-{
-    fseek(m_fileHandle, Offset, origin);
-	int position = ftell(m_fileHandle);
+{    
+	int position = 0;
+    if (m_fileHandle)
+    {
+        fseek(m_fileHandle, Offset, origin);
+        position = ftell(m_fileHandle);
+    }
 	return position;
 }
 
 long THandleStream::GetPosition()
-{
-	int position = ftell(m_fileHandle);
+{    
+	int position = 0;
+    if (m_fileHandle)
+    {
+        position = ftell(m_fileHandle);
+    }
 	return position;
 }
 
 long THandleStream::GetSize()
 {
+    if (m_fileHandle==NULL)
+    {
+        return 0;
+    }
 	if ((m_fileSize==0) || (m_canWrite))
 	{
 		int pos  = ftell(m_fileHandle);

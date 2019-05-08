@@ -93,8 +93,10 @@ public:
     bool ReadByte (unsigned char  &c);
     bool ReadWord (short &w);
     bool ReadUWord(unsigned short &w);
-    bool ReadLong  (long &i);
-    bool ReadULong (unsigned long   &i);	
+    bool ReadInt   (int &i);          //32 bit 
+    bool ReadUInt  (unsigned int &i); //32 bit	
+    bool ReadLong  (long &i);         //64 bit (or 32bit if not supported) 
+    bool ReadULong (unsigned long   &i);//64 bit (or 32bit if not supported)
     bool ReadLine(TString& line);	
 
     bool WriteBinaryText(TString* text);
@@ -107,8 +109,10 @@ public:
     bool WriteByte (unsigned char  c);
     bool WriteWord (short w);
     bool WriteUWord(unsigned short w);
-    bool WriteLong  (long i);
-    bool WriteULong (unsigned long   i);
+    bool WriteInt  (int i);          //32 bit 
+    bool WriteUInt (unsigned int i); //32 bit 
+    bool WriteLong  (long i);        //64 bit (or 32bit if not supported)
+    bool WriteULong (unsigned long   i);//64 bit (or 32bit if not supported)
 
     bool WriteByteAsText (char  c);
     bool WriteUByteAsText(unsigned char  c);

@@ -152,6 +152,7 @@ bool TWindowsBmpFile::LoadFromWindowsBmp(const char* filename)
     TBitmapHeader header;
 	unsigned long bytesRead = 0;
 	unsigned char tmp;
+    memset(&header, 0, sizeof(header));
 
     FILE* hFile = fopen(filename, "rb");
     if (hFile==NULL)
@@ -201,7 +202,7 @@ bool TWindowsBmpFile::LoadFromWindowsBmp(const char* filename)
     }
     if (header.ulBitmapDataOffset!=54)
     {
-        m_colorPaletteSize = header.ulBitmapDataOffset - (sizeof(header) - 2);
+        m_colorPaletteSize = header.ulBitmapDataOffset - 52;
         if ((m_colorPaletteSize>2048) || (m_colorPaletteSize<0))
         {
             fclose(hFile);

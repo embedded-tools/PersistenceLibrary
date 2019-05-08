@@ -40,7 +40,7 @@ private:
     bool AddText(TString& line, long numberOfChars);
 public:
 
-    TTextFile (int maxLineWidth=128);
+    TTextFile (int maxLineWidth=256);
     TTextFile (void* buffer, int bufferSize);
     ~TTextFile ();
 
