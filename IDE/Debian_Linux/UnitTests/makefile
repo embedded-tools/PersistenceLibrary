@@ -14,7 +14,7 @@
 #
 
 PROJECT = unittests
-OUTPUTDIR =../
+OUTPUTDIR =.
 OUTPUTFILE =$(PROJECT).so
 ROOTDIR = ../../..
 LIBDIR = -L../lib
@@ -130,9 +130,8 @@ $(OUTPUTFILE): $(OBJ)
 	then \
 		$(MD) $(OUTPUTDIR);\
 	fi
-	@$(LD) $(OBJ) $(LIBDIR) $(LIBS) -o $(OUTPUTDIR)/$(OUTPUTFILE)
-	@echo $(OUTPUTFILE)	
-	@$(OS) $(OUTPUTDIR)/$(OUTPUTFILE)
+	@$(LD) $(OBJ) $(LIBDIR) $(LIBS) -o $(OUTPUTDIR)/$(OUTPUTFILE)	
+	@$(OS) $(OUTPUTDIR)/$(OUTPUTFILE)	
 	
 $(CPPOBJ): %.o: %.cpp
 	@echo $<;
