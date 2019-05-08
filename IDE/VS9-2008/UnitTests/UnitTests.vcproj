@@ -209,10 +209,6 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="..\..\..\Source\UnitTests\TStringList.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\Source\UnitTests\UnitTests.h"
 				>
 			</File>
