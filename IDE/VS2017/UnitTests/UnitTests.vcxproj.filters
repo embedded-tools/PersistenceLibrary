@@ -1,124 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{6901395c-0f6f-4af6-bd7a-193419059460}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl</Extensions>
-    </Filter>
-    <Filter Include="Header Files\PersistenceExample">
-      <UniqueIdentifier>{6ec81c1f-da8f-4a99-ab4b-985fffa08dd7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{3bd16355-86a6-46a1-8786-398f7c837f43}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Persistence Example">
-      <UniqueIdentifier>{f8b9a842-a0a7-451a-9582-aa38c3011642}</UniqueIdentifier>
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Source Files\Fonts">
-      <UniqueIdentifier>{56354845-27be-4e9b-adcf-6d41ff5924f3}</UniqueIdentifier>
+      <UniqueIdentifier>{ea02828f-e152-413d-9bd7-ac7491fefdca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PersistenceExample">
+      <UniqueIdentifier>{af224431-66fe-4683-8129-20f30196f368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Fonts">
+      <UniqueIdentifier>{fa420973-5caa-4128-9ba3-df58607c48fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PersistenceExample">
+      <UniqueIdentifier>{ffe836c6-b18f-435d-8607-1efbe0675671}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Source\UnitTests\UnitTests.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\BaseClass.h">
-      <Filter>Header Files\PersistenceExample</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassA.h">
-      <Filter>Header Files\PersistenceExample</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassB.h">
-      <Filter>Header Files\PersistenceExample</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassC.h">
-      <Filter>Header Files\PersistenceExample</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassD.h">
-      <Filter>Header Files\PersistenceExample</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerA.h">
-      <Filter>Header Files\PersistenceExample</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerB.h">
-      <Filter>Header Files\PersistenceExample</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerC.h">
-      <Filter>Header Files\PersistenceExample</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerD.h">
-      <Filter>Header Files\PersistenceExample</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\MainObject.h">
-      <Filter>Header Files\PersistenceExample</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Amata13.h">
-      <Filter>Source Files\Fonts</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Bookman50.h">
-      <Filter>Source Files\Fonts</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\BrushScript12.h">
-      <Filter>Source Files\Fonts</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Robotron.h">
-      <Filter>Source Files\Fonts</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.h">
-      <Filter>Source Files\Fonts</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\Source\UnitTests\minicppunit.cxx">
+    <ClCompile Include="..\..\..\Source\UnitTests\minicppunit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\UnitTests.cpp">
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_EscapeSequences.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\BaseClass.cpp">
-      <Filter>Source Files\Persistence Example</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassA.cpp">
-      <Filter>Source Files\Persistence Example</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassB.cpp">
-      <Filter>Source Files\Persistence Example</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassC.cpp">
-      <Filter>Source Files\Persistence Example</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassD.cpp">
-      <Filter>Source Files\Persistence Example</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerA.cpp">
-      <Filter>Source Files\Persistence Example</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerB.cpp">
-      <Filter>Source Files\Persistence Example</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerC.cpp">
-      <Filter>Source Files\Persistence Example</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerD.cpp">
-      <Filter>Source Files\Persistence Example</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\MainObject.cpp">
-      <Filter>Source Files\Persistence Example</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Amata13.cpp">
-      <Filter>Source Files\Fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Bookman50.cpp">
-      <Filter>Source Files\Fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\BrushScript12.cpp">
-      <Filter>Source Files\Fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Robotron.cpp">
-      <Filter>Source Files\Fonts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.cpp">
-      <Filter>Source Files\Fonts</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_LZ77.cpp">
       <Filter>Source Files</Filter>
@@ -136,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedMemoryStream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedWindowsBmp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TCanvas.cpp">
@@ -168,19 +80,22 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TEndlessLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TEventSender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFilePath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFileStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint16M.cpp">
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint1024.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint128.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint1024.cpp">
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint16M.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TFont.cpp">
@@ -252,8 +167,106 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\UnitTests\Test_TEventSender.cpp">
+    <ClCompile Include="..\..\..\Source\UnitTests\UnitTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Amata13.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Bookman50.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\BrushScript12.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Robotron.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.cpp">
+      <Filter>Source Files\Fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\BaseClass.cpp">
+      <Filter>Source Files\PersistenceExample</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassA.cpp">
+      <Filter>Source Files\PersistenceExample</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassB.cpp">
+      <Filter>Source Files\PersistenceExample</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassC.cpp">
+      <Filter>Source Files\PersistenceExample</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassD.cpp">
+      <Filter>Source Files\PersistenceExample</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerA.cpp">
+      <Filter>Source Files\PersistenceExample</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerB.cpp">
+      <Filter>Source Files\PersistenceExample</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerC.cpp">
+      <Filter>Source Files\PersistenceExample</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerD.cpp">
+      <Filter>Source Files\PersistenceExample</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\MainObject.cpp">
+      <Filter>Source Files\PersistenceExample</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Source\UnitTests\minicppunit.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\UnitTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Amata13.h">
+      <Filter>Header Files\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Bookman50.h">
+      <Filter>Header Files\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\BrushScript12.h">
+      <Filter>Header Files\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Robotron.h">
+      <Filter>Header Files\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.h">
+      <Filter>Header Files\Fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\BaseClass.h">
+      <Filter>Header Files\PersistenceExample</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassA.h">
+      <Filter>Header Files\PersistenceExample</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassB.h">
+      <Filter>Header Files\PersistenceExample</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassC.h">
+      <Filter>Header Files\PersistenceExample</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassD.h">
+      <Filter>Header Files\PersistenceExample</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerA.h">
+      <Filter>Header Files\PersistenceExample</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerB.h">
+      <Filter>Header Files\PersistenceExample</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerC.h">
+      <Filter>Header Files\PersistenceExample</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerD.h">
+      <Filter>Header Files\PersistenceExample</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\MainObject.h">
+      <Filter>Header Files\PersistenceExample</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

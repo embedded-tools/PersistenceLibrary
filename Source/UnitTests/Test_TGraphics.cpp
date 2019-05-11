@@ -291,6 +291,6 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 	}
 };
 
-//REGISTER_FIXTURE( Test_TGraphics);
+REGISTER_FIXTURE( Test_TGraphics);
 
 

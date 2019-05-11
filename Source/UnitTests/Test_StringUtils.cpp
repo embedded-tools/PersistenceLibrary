@@ -638,7 +638,7 @@ class Test_StringUtils : public TestFixture<Test_StringUtils>
 };
 
 
-//REGISTER_FIXTURE( Test_StringUtils);
+REGISTER_FIXTURE( Test_StringUtils);
 
 
 
