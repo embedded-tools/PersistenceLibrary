@@ -23,9 +23,9 @@ public:
         TWindowsBmpFile bmp(640, 480, pfBGR888);
         TCanvas canvas(&bmp);
         canvas.DrawGradient(TRectangle(10,20,600,400), 
-            TColorRGB(255,128,0), TColorRGB(255,255,0),
-            TColorRGB(0,128,255), TColorRGB(128,128,128));
-		bmp.SaveToWindowsBmp("Gradient.bmp");
+        TColorRGB(255,128,0), TColorRGB(255,255,0),
+        TColorRGB(0,128,255), TColorRGB(128,128,128));
+		ASSERT(bmp.SaveToWindowsBmp("./TestData/Gradient.bmp"));
     }
 
     void DrawElipse()
@@ -36,7 +36,7 @@ public:
         canvas.SetForegroundColor(TColorRGB(255,0,0));
 
         canvas.DrawElipse(TRectangle(1,1,799,479)); 
-		bmp.SaveToWindowsBmp("Ellipse.bmp");
+		ASSERT(bmp.SaveToWindowsBmp("./TestData/Ellipse.bmp"));
     }
 
 
@@ -60,8 +60,7 @@ public:
 		canvas.DrawLine(p3, p4, 40, 40, 4, &p2,  &p5);	
 		canvas.DrawLine(p4, p5, 40, 80, 4, &p3,  NULL);	
 		
-
-		bmp.SaveToWindowsBmp("Line.bmp");
+		ASSERT(bmp.SaveToWindowsBmp("./TestData/Line.bmp"));
 	}
 
 	void DrawRectangle()
@@ -72,13 +71,13 @@ public:
 		canvas.SetForegroundColor(TColorRGB(255,0,0));
 
 		canvas.DrawRoundedRectangle(TRectangle(30, 100, 400, 400), 80, 20);
-		bmp.SaveToWindowsBmp("Rectangle.bmp");
+		ASSERT(bmp.SaveToWindowsBmp("./TestData/Rectangle.bmp"));
 	}
 
 	void DrawScaledImage()
 	{
 		TWindowsBmpFile claudia;
-		bool res = claudia.LoadFromWindowsBmp("..\\..\\..\\TestData\\Claudia.bmp");
+		bool res = claudia.LoadFromWindowsBmp("./TestData/Claudia.bmp");
 		ASSERT(res);
 
 		TWindowsBmpFile bmp(800, 480, pfBGR888, 0);
@@ -88,13 +87,13 @@ public:
 
 		TRectangle src(630, 10, 630+300, 10+300);
 		canvas.DrawScaledImage(TRectangle(10, 10, 310, 460), &claudia, &src);
-		bmp.SaveToWindowsBmp("Miniature.bmp");
+		ASSERT(bmp.SaveToWindowsBmp("./TestData/Miniature.bmp"));
 	}
 
 	void DrawTiledImage()
 	{
 		TWindowsBmpFile tile;
-		bool res = tile.LoadFromWindowsBmp("..\\..\\..\\TestData\\Tile.bmp");
+		bool res = tile.LoadFromWindowsBmp("./TestData/Tile.bmp");
 		ASSERT(res);
 
 		TWindowsBmpFile bmp(800, 480, pfBGR888, 0);
@@ -103,7 +102,7 @@ public:
 		canvas.SetForegroundColor(TColorRGB(255,0,0));
 
 		canvas.DrawTiledImage(TRectangle(10, 10, 790, 470), &tile);
-		bmp.SaveToWindowsBmp("TiledImage.bmp");
+		ASSERT(bmp.SaveToWindowsBmp("./TestData/TiledImage.bmp"));
 	}
 };
 

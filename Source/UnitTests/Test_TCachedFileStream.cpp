@@ -17,7 +17,7 @@ class Test_TCachedFileStream : public TestFixture<Test_TCachedFileStream>
 
     void CreateTextFile()
     {
-		TFileStream*   fs = new TFileStream("CachedUsers.dat", efmCreate);
+		TFileStream*   fs = new TFileStream("./TestData/CachedUsers.dat", efmCreate);
         TCachedStream* cs = new TCachedStream(fs, 64);
 
 		cs->WriteLine("<Root>");
@@ -50,11 +50,11 @@ class Test_TCachedFileStream : public TestFixture<Test_TCachedFileStream>
 
 	void VerifyTextFile()
 	{
-		TFileStream* fsr = new TFileStream("CachedUsers.dat", efmOpenRead);
+		TFileStream* fsr = new TFileStream("./TestData/CachedUsers.dat", efmOpenRead);
         TCachedStream* csr = new TCachedStream(fsr, 128);
 		int filesize = fsr->GetSize();
 		
-		TFileStream* fsw = new TFileStream("ClonedUsers.dat", efmCreate);
+		TFileStream* fsw = new TFileStream("./TestData/ClonedUsers.dat", efmCreate);
         TCachedStream* csw = new TCachedStream(fsw, 999);
 
 		int sum1 = 0;

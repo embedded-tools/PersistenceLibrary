@@ -28,7 +28,7 @@ class Test_TCompression : public TestFixture<Test_TCompression>
 
 	void WriteUsers()
 	{
-        TFileStream* fs = new TFileStream("LZ77Streamed.xml", efmCreate);;
+        TFileStream* fs = new TFileStream("./TestData/LZ77Streamed.xml", efmCreate);;
         TLZ77Streamed* cs = new TLZ77Streamed(fs);
         ASSERT(fs->GetPosition()==0);
         ASSERT(cs->GetPosition()==0);
@@ -125,7 +125,7 @@ class Test_TCompression : public TestFixture<Test_TCompression>
 
     void ReadUsers()
     {
-        TFileStream* fs = new TFileStream("LZ77Streamed.xml", efmOpenRead);;
+        TFileStream* fs = new TFileStream("./TestData/LZ77Streamed.xml", efmOpenRead);;
         TLZ77Streamed* cs = new TLZ77Streamed(fs);
 
         char* buf = (char*)malloc(150000);
@@ -134,7 +134,7 @@ class Test_TCompression : public TestFixture<Test_TCompression>
         cs->Close(); delete cs;
         fs->Close(); delete fs;
 
-        FILE* hFile = fopen("LZ77Streamed2.xml", "wb");
+        FILE* hFile = fopen("./TestData/LZ77Streamed2.xml", "wb");
         fwrite(buf, 1, realLength, hFile);
         fclose(hFile);
 
@@ -146,8 +146,8 @@ class Test_TCompression : public TestFixture<Test_TCompression>
 
     void CompressBitmap()
     {
-        TFileStream inputFile  ("..\\..\\..\\TestData\\Squares.bmp", efmOpenRead);
-        TFileStream outputFile ("..\\..\\..\\TestData\\Squares.tmp", efmCreate);
+        TFileStream inputFile  ("./TestData/Squares.bmp", efmOpenRead);
+        TFileStream outputFile ("./TestData/Squares.tmp", efmCreate);
         TLZ77Streamed compressor(&outputFile);
 
         unsigned char readingBuffer[256];
@@ -164,8 +164,8 @@ class Test_TCompression : public TestFixture<Test_TCompression>
 
     void DecompressBitmap()
     {
-        TFileStream inputFile  ("..\\..\\..\\TestData\\Squares.tmp", efmOpenRead);
-        TFileStream outputFile ("..\\..\\..\\TestData\\Squares2.bmp", efmCreate);
+        TFileStream inputFile  ("./TestData/Squares.tmp", efmOpenRead);
+        TFileStream outputFile ("./TestData/Squares2.bmp", efmCreate);
         TLZ77Streamed decompressor (&inputFile);
 
         unsigned char readingBuffer[256];

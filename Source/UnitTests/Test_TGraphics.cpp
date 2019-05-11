@@ -37,54 +37,54 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
     void LoadBmpFromFile()
     {
         TWindowsBmpFile bmp;
-        bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches__16colors.bmp");
+        bool res = bmp.LoadFromWindowsBmp("./TestData/Watches__16colors.bmp");
         ASSERT(res);
 	}
 
     void LoadAndSaveBmpFromFile()
     {
         TWindowsBmpFile bmp;
-        bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches__16colors.bmp");
+        bool res = bmp.LoadFromWindowsBmp("./TestData/Watches__16colors.bmp");
         ASSERT(res);
 
-        bmp.SaveToWindowsBmp("Watches__16colorsMcolors-2.bmp");
+        bmp.SaveToWindowsBmp("./TestData/Watches__16colorsMcolors-2.bmp");
     }
 
 
     void LoadAndSaveBmp256()
     {
         TWindowsBmpFile bmp;
-        bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches_256colors.bmp");
+        bool res = bmp.LoadFromWindowsBmp("./TestData/Watches_256colors.bmp");
         ASSERT(res);
 
-        bmp.SaveToWindowsBmp("Watches_256colors-2.bmp");
+        bmp.SaveToWindowsBmp("./TestData/Watches_256colors-2.bmp");
     }
 
     void LoadAndSaveBmp16()
     {
         TWindowsBmpFile bmp;
-        bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches__16colors.bmp");
+        bool res = bmp.LoadFromWindowsBmp("./TestData/Watches__16colors.bmp");
         ASSERT(res);
 
-        bmp.SaveToWindowsBmp("Watches__16colors-2.bmp");
+        bmp.SaveToWindowsBmp("./TestData/Watches__16colors-2.bmp");
     }
 
 	void LoadAndSaveBmp4()
 	{
 		TWindowsBmpFile bmp;
-		bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches___4colors.bmp");
+		bool res = bmp.LoadFromWindowsBmp("./TestData/Watches___4colors.bmp");
 		ASSERT(res);
 
-		bmp.SaveToWindowsBmp("Watches___4colors-2.bmp");
+		bmp.SaveToWindowsBmp("./TestData/Watches___4colors-2.bmp");
 	}
 
 	void LoadAndSaveBmp2()
 	{
 		TWindowsBmpFile bmp;
-		bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches___2colors.bmp");
+		bool res = bmp.LoadFromWindowsBmp("./TestData/Watches___2colors.bmp");
 		ASSERT(res);
 
-		bmp.SaveToWindowsBmp("Watches___2colors-2.bmp");
+		bmp.SaveToWindowsBmp("./TestData/Watches___2colors-2.bmp");
 	}
 
 	void CreateBmp16M()
@@ -95,13 +95,13 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
     void ConvertPalette16ToRGB888()
     {
         TWindowsBmpFile videoRam(640, 480, pfRGB888, 0xFFFF00);
-		videoRam.SaveToWindowsBmp("VRam1.bmp");
+		videoRam.SaveToWindowsBmp("./TestData/VRam1.bmp");
 
 		TPixelFormatConverter conv;
         TWindowsBmpFile bmp,bmp2;
         bool res;
-		res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches__16colors.bmp");
-		res = bmp2.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches__16colorsMcolors.bmp");
+		res = bmp.LoadFromWindowsBmp("./TestData/Watches__16colors.bmp");
+		res = bmp2.LoadFromWindowsBmp("./TestData/Watches__16colorsMcolors.bmp");
 
         TPosition pos(24,40);
 		conv.CopyRect(videoRam, pos, bmp);
@@ -109,19 +109,19 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 		TPosition pos2(244,105);
 		conv.CopyRect(videoRam, pos2, bmp2);
                 
-		videoRam.SaveToWindowsBmp("ConvertPalette16ToRGB888.bmp");
+		videoRam.SaveToWindowsBmp("./TestData/ConvertPalette16ToRGB888.bmp");
 	}
 
 	void ConvertPalette16ToRGB565()
 	{
 		TWindowsBmpFile videoRam(640, 480, pfRGB565, 0xFFFF00);
-		videoRam.SaveToWindowsBmp("VRam1.bmp");
+		videoRam.SaveToWindowsBmp("./TestData/VRam1.bmp");
 
 		TPixelFormatConverter conv;
 		TWindowsBmpFile bmp,bmp2;
 		bool res;
-		res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches__16colors.bmp");
-		res = bmp2.LoadFromWindowsBmp("..\\..\\..\\TestData\\Money_16Mcolors.bmp");
+		res = bmp.LoadFromWindowsBmp("./TestData/Watches__16colors.bmp");
+		res = bmp2.LoadFromWindowsBmp("./TestData/Money_16Mcolors.bmp");
 
 		TPosition pos(24,40);
 		conv.CopyRect(videoRam, pos, bmp);
@@ -132,7 +132,7 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 		TWindowsBmpFile tmpData(640, 480, pfRGB888);
 		TPosition       tmpPos(0,0);
 		conv.CopyRect(tmpData, tmpPos, videoRam, TRectangle(0, 0, 640, 480));
-		tmpData.SaveToWindowsBmp("ConvertPalette16ToRGB565.bmp");
+		tmpData.SaveToWindowsBmp("./TestData/ConvertPalette16ToRGB565.bmp");
 	}
 
 
@@ -143,15 +143,15 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 		TPixelFormatConverter conv;
 		TWindowsBmpFile bmp4,bmp2;
 		bool res;
-		res = bmp4.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches___4colors.bmp");
-		res = bmp2.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches___2colors.bmp");
+		res = bmp4.LoadFromWindowsBmp("./TestData/Watches___4colors.bmp");
+		res = bmp2.LoadFromWindowsBmp("./TestData/Watches___2colors.bmp");
 
 		TPosition pos(24,40);		
 		conv.CopyRect(videoRam, pos, bmp4);		
 		TPosition pos2(244,105);
 		conv.CopyRect(videoRam, pos2, bmp2);
 
-		videoRam.SaveToWindowsBmp("ConvertPalette1and2ToRGB888.bmp");				
+		videoRam.SaveToWindowsBmp("./TestData/ConvertPalette1and2ToRGB888.bmp");				
     }
 
 	void ConvertPalette1and2ToRGB565()
@@ -162,9 +162,9 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 		TPixelFormatConverter conv;
 		TWindowsBmpFile bmp4,bmp2;
 		bool res;
-		res = bmp4.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches___4colors.bmp");
-		res = bmp2.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches___2colors.bmp");
-		bmp2.SaveToWindowsBmp("Watches___2colors-3.bmp");
+		res = bmp4.LoadFromWindowsBmp("./TestData/Watches___4colors.bmp");
+		res = bmp2.LoadFromWindowsBmp("./TestData/Watches___2colors.bmp");
+		bmp2.SaveToWindowsBmp("./TestData/Watches___2colors-3.bmp");
 
 		pixel1 = bmp2.GetPixelColor(395,0);
 
@@ -185,14 +185,14 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 		pixel5 = tmpData.GetPixelColor(639,105);
 
 
-		tmpData.SaveToWindowsBmp("ConvertPalette1and2ToRGB565.bmp");
+		tmpData.SaveToWindowsBmp("./TestData/ConvertPalette1and2ToRGB565.bmp");
 	}
 
 
 	void ConvertDXT1toRGB888()
 	{
 		TWindowsBmpFile bmp;
-		bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches16Mcolors.bmp");
+		bool res = bmp.LoadFromWindowsBmp("./TestData/Watches16Mcolors.bmp");
 
 		TGraphicsData dxt (bmp.GetWidth(), bmp.GetHeight(), pfDXT1);
 		
@@ -205,13 +205,13 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 		TWindowsBmpFile vram(600, 400, pfRGB888, 0xFF0080);
 		converter.CopyRect(vram, TPosition(0,0), dxt, TRectangle(0,0, dxt.GetWidth(), dxt.GetHeight()));
 		converter.CopyRect(vram, TPosition(12,350), dxt, TRectangle(0,0, dxt.GetWidth(), dxt.GetHeight()));
-		vram.SaveToWindowsBmp("ConvertDXT1toRGB888.bmp");
+		vram.SaveToWindowsBmp("./TestData/ConvertDXT1toRGB888.bmp");
 	}
 
 	void ConvertDXT1toRGB565()
 	{
 		TWindowsBmpFile bmp;
-		bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Watches16Mcolors.bmp");
+		bool res = bmp.LoadFromWindowsBmp("./TestData/Watches16Mcolors.bmp");
 
 		TGraphicsData dxt (bmp.GetWidth(), bmp.GetHeight(), pfDXT1);
 
@@ -229,7 +229,7 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 		TPosition       tmpPos(0,0);
 		TRectangle      tmpRect(0, 0, 640, 480);
 		converter.CopyRect(tmpData, tmpPos, vram, tmpRect);
-		tmpData.SaveToWindowsBmp("ConvertDXT1toRGB565.bmp");
+		tmpData.SaveToWindowsBmp("./TestData/ConvertDXT1toRGB565.bmp");
 
 	}
 
@@ -237,7 +237,7 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 	void ConvertTransparentDXT1toRGB888()
 	{		
 		TWindowsBmpFile bmp;
-		bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Money_16Mcolors.bmp");
+		bool res = bmp.LoadFromWindowsBmp("./TestData/Money_16Mcolors.bmp");
 		
 
 		TGraphicsData dxt (bmp.GetWidth(), bmp.GetHeight(), pfDXT1);
@@ -256,14 +256,14 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 		converter.CopyRect(vram, TPosition(3,3), dxt, TRectangle(0,0, dxt.GetWidth(), dxt.GetHeight()));
 		converter.CopyRect(vram, TPosition(10,300), dxt, TRectangle(0,0, dxt.GetWidth(), dxt.GetHeight()));
 		
-		vram.SaveToWindowsBmp("ConvertTransparentDXT1toRGB888.bmp");
+		vram.SaveToWindowsBmp("./TestData/ConvertTransparentDXT1toRGB888.bmp");
 
  	}
 
 	void ConvertTransparentDXT1toRGB565()
 	{		
 		TWindowsBmpFile bmp;
-		bool res = bmp.LoadFromWindowsBmp("..\\..\\..\\TestData\\Money_16Mcolors.bmp");
+		bool res = bmp.LoadFromWindowsBmp("./TestData/Money_16Mcolors.bmp");
 
 
 		TGraphicsData dxt (bmp.GetWidth(), bmp.GetHeight(), pfDXT1);
@@ -287,10 +287,10 @@ class Test_TGraphics : public TestFixture<Test_TGraphics>
 		TRectangle      tmpRect(0, 0, 640, 480);
 		converter.CopyRect(tmpData, tmpPos, vram, tmpRect);
 
-		tmpData.SaveToWindowsBmp("ConvertTransparentDXT1toRGB565.bmp");
+		tmpData.SaveToWindowsBmp("./TestData/ConvertTransparentDXT1toRGB565.bmp");
 	}
 };
 
-REGISTER_FIXTURE( Test_TGraphics);
+//REGISTER_FIXTURE( Test_TGraphics);
 
 

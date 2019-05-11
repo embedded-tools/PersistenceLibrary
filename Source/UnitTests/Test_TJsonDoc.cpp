@@ -124,7 +124,7 @@ class Test_TJsonDoc : public TestFixture<Test_TJsonDoc>
 
 		doc.LoadFromBuffer(jsonData, sizeof(jsonData));
 
-        TFileStream fs("json.txt", efmCreate);
+        TFileStream fs("./TestData/json.txt", efmCreate);
         doc.SaveToStream(fs);
         fs.Close();
 	}
@@ -160,7 +160,7 @@ class Test_TJsonDoc : public TestFixture<Test_TJsonDoc>
 
         doc.LoadFromBuffer(jsonData, sizeof(jsonData));
 
-        TFileStream fs("json1.txt", efmCreate);
+        TFileStream fs("./TestData/json1.txt", efmCreate);
         doc.SaveToStream(fs);
         fs.Close();
     }

@@ -60,57 +60,57 @@ class Test_Persistence : public TestFixture<Test_Persistence>
 
 	void SerializationToXSD()
 	{
-		TFileStream* fs = new TFileStream("D:\\Test.xsd", efmCreate);
+		TFileStream* fs = new TFileStream("./TestData/Test.xsd", efmCreate);
 		mainObject.SaveToXSD(fs, "DataSet");
 		fs->Close();
 	}
 
     void FullSerializationToXML()
     {
-		TFileStream* fs = new TFileStream("D:\\Test.xml", efmCreate);
+		TFileStream* fs = new TFileStream("./TestData/Test.xml", efmCreate);
 		mainObject.SaveAllDataToXML(fs, "DataSet");
 		fs->Close();
 	}
 
     void UpdateSerializationToXML()
     {
-		TFileStream* fs = new TFileStream("D:\\TestI.xml", efmCreate);
+		TFileStream* fs = new TFileStream("./TestData/TestI.xml", efmCreate);
 		mainObject.SaveDataUpdateToXML(fs, "DataSet");
 		fs->Close();
 	}
 	
     void SerializationFromXML()
     {
-		TFileStream* fs = new TFileStream("D:\\Test.xml", efmOpenRead);
+		TFileStream* fs = new TFileStream("./TestData/Test.xml", efmOpenRead);
 		mainObject.LoadAllDataFromXML(fs);
 		fs->Close();
 
-		TFileStream* fs2 = new TFileStream("D:\\Test2.xml", efmCreate);
+		TFileStream* fs2 = new TFileStream("./TestData/Test2.xml", efmCreate);
 		mainObject.SaveAllDataToXML(fs2, "DataSet");
 		fs2->Close();
 	}
 
 	void FullSerializationToBinaryData()
 	{
-		TFileStream* fs = new TFileStream("D:\\Test.dat", efmCreate);
+		TFileStream* fs = new TFileStream("./TestData/Test.dat", efmCreate);
 		mainObject.SaveAllDataToBinary(fs);
 		fs->Close();
 	}
 
 	void UpdateSerializationToBinaryData()
 	{
-		TFileStream* fs = new TFileStream("D:\\TestInc.dat", efmCreate);
+		TFileStream* fs = new TFileStream("./TestData/TestInc.dat", efmCreate);
 		mainObject.SaveDataUpdateToBinary(fs);
 		fs->Close();
 	}
 
 	void SerializationFromBinaryData()
 	{		
-		TFileStream* fs = new TFileStream("D:\\Test.dat", efmOpenRead);
+		TFileStream* fs = new TFileStream("./TestData/Test.dat", efmOpenRead);
 		mainObject.LoadAllDataFromBinary(fs);
 		fs->Close();
 
-		TFileStream* fs2 = new TFileStream("D:\\Test2.dat", efmCreate);
+		TFileStream* fs2 = new TFileStream("./TestData/Test2.dat", efmCreate);
 		mainObject.SaveAllDataToBinary(fs2);
 		fs2->Close();
 	}

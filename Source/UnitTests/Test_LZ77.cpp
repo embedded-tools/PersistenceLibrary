@@ -111,7 +111,8 @@ class Test_LZ77 : public TestFixture<Test_LZ77>
         unsigned char* pData = (unsigned char*) ms->ToPtr();
         dataLength = ms->GetPosition();
 
-        FILE* hFile = fopen("LZ77.xml", "wb");
+        FILE* hFile = fopen("TestData/LZ77_data_sample.xml", "wb");
+        ASSERT(hFile!=NULL);
         fwrite(pData, 1, dataLength, hFile);
         fclose(hFile);
 
@@ -120,7 +121,7 @@ class Test_LZ77 : public TestFixture<Test_LZ77>
         LZ77Error error = LZ77_Compress(pData, dataLength, pCompressedData, compressedDataLength);
         ASSERT(error==lzeSuccess);
 
-        hFile = fopen("LZ77-1.xml", "wb");
+        hFile = fopen("./TestData/LZ77_compressed.xml", "wb");
         fwrite(pCompressedData, 1, compressedDataLength, hFile);
         fclose(hFile);
 
@@ -131,7 +132,8 @@ class Test_LZ77 : public TestFixture<Test_LZ77>
     {
         unsigned char* pCompressedData = (unsigned char*)malloc(150000);
 
-        FILE* hFile = fopen("LZ77-1.xml", "rb");
+        FILE* hFile = fopen("./TestData/LZ77_compressed.xml", "rb");
+        ASSERT(hFile!=NULL);
         int compressedDataLength = (int)fread(pCompressedData, 1, 150000, hFile);
         fclose(hFile);
 
@@ -140,7 +142,8 @@ class Test_LZ77 : public TestFixture<Test_LZ77>
         LZ77Error error = LZ77_Decompress(pCompressedData, compressedDataLength, pDecompressedData, decompressedDataLength );
         ASSERT(error==lzeSuccess);
 
-        hFile = fopen("LZ77-2.xml", "wb");
+        hFile = fopen("./TestData/LZ77_decompressed.xml", "wb");
+        ASSERT(hFile!=NULL);
         fwrite(pDecompressedData, 1, decompressedDataLength, hFile);
         fclose(hFile);
 

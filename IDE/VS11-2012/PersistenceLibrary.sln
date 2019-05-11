@@ -21,7 +21,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Persistence", "Persistence\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Protocols", "Protocols\Protocols.vcxproj", "{B51F88F6-1359-4CCA-8D32-EFD50A1666D5}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTests", "UnitTests\UnitTests.vcxproj", "{3B4700CD-77F5-4190-AE31-22C5C4627894}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTests", "UnitTests\UnitTests.vcxproj", "{E99163D1-E6A9-46CB-85E7-437D2333EA47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +57,10 @@ Global
 		{B51F88F6-1359-4CCA-8D32-EFD50A1666D5}.Debug|Win32.Build.0 = Debug|Win32
 		{B51F88F6-1359-4CCA-8D32-EFD50A1666D5}.Release|Win32.ActiveCfg = Release|Win32
 		{B51F88F6-1359-4CCA-8D32-EFD50A1666D5}.Release|Win32.Build.0 = Release|Win32
-		{3B4700CD-77F5-4190-AE31-22C5C4627894}.Debug|Win32.ActiveCfg = Debug|Win32
-		{3B4700CD-77F5-4190-AE31-22C5C4627894}.Debug|Win32.Build.0 = Debug|Win32
-		{3B4700CD-77F5-4190-AE31-22C5C4627894}.Release|Win32.ActiveCfg = Release|Win32
-		{3B4700CD-77F5-4190-AE31-22C5C4627894}.Release|Win32.Build.0 = Release|Win32
+		{E99163D1-E6A9-46CB-85E7-437D2333EA47}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E99163D1-E6A9-46CB-85E7-437D2333EA47}.Debug|Win32.Build.0 = Debug|Win32
+		{E99163D1-E6A9-46CB-85E7-437D2333EA47}.Release|Win32.ActiveCfg = Release|Win32
+		{E99163D1-E6A9-46CB-85E7-437D2333EA47}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -27,7 +27,9 @@ class Test_TTextFile : public TestFixture<Test_TTextFile>
         bool projectBeginFound = false;
         bool projectEndFound   = false;
 
-        textFile.Open("..\\..\\..\\TestData\\ConfigFile.ini");
+        bool res = textFile.Open("./TestData/ConfigFile.ini");
+        ASSERT(res);
+        
         while(textFile.ReadLine(line))
         {
             linesCount++;
@@ -49,7 +51,7 @@ class Test_TTextFile : public TestFixture<Test_TTextFile>
         }        
         ASSERT(projectBeginFound);
         ASSERT(projectEndFound);
-        ASSERT(tagCount==965);
+        ASSERT_EQUALS(976, tagCount);
     }
 
 };

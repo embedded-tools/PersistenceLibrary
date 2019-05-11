@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+<?xml version="1.0" encoding="windows-1250"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="UnitTests"
-	ProjectGUID="{3B4700CD-77F5-4190-AE31-22C5C4627894}"
-	RootNamespace="UnitTests"
-	TargetFrameworkVersion="0"
+	ProjectGUID="{E99163D1-E6A9-46CB-85E7-437D2333EA47}"
+	RootNamespace="UnitTests2"
+	Keyword="Win32Proj"
+	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -17,13 +18,10 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\"
-			IntermediateDirectory=".\obj"
+			OutputDirectory="..\..\..\"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="2"
+			CharacterSet="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -39,24 +37,17 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\Debug/UnitTests.tlb"
-				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample;..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols"
-				PreprocessorDefinitions="STL_STYLE;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE; _CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				PrecompiledHeaderFile=".\obj/UnitTests.pch"
-				AssemblerListingLocation=".\obj/"
-				ObjectFile=".\obj/"
-				ProgramDataBaseFileName=".\obj/"
-				BrowseInformation="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -64,24 +55,16 @@
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="2057"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="basictypesd.lib collectionsd.lib fileutilsd.lib mathd.lib persistenced.lib protocolsd.lib odbc32.lib odbccp32.lib"
-				OutputFile=".\UnitTestsD.exe"
+				AdditionalDependencies="BasicTypesD.lib CollectionsD.lib FileUtilsD.lib GraphicsD.lib MathD.lib PersistenceD.lib ProtocolsD.lib"
 				LinkIncremental="2"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\UnitTests.pdb"
 				SubSystem="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -95,8 +78,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				SuppressStartupBanner="true"
-				OutputFile=".\Debug/UnitTests.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -110,13 +91,11 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\"
-			IntermediateDirectory=".\obj"
+			OutputDirectory="..\..\..\"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="2"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -132,48 +111,36 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\Release/UnitTests.tlb"
-				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample;..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols"
-				PreprocessorDefinitions="STL_STYLE;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE"
-				StringPooling="true"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
-				PrecompiledHeaderFile=".\obj/UnitTests.pch"
-				AssemblerListingLocation=".\obj/"
-				ObjectFile=".\obj/"
-				ProgramDataBaseFileName=".\obj/"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
-				Culture="2057"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="basictypes.lib collections.lib fileutils.lib math.lib persistence.lib protocols.lib odbc32.lib odbccp32.lib"
-				OutputFile=".\UnitTests.exe"
+				AdditionalDependencies="BasicTypes.lib Collections.lib FileUtils.lib Graphics.lib Math.lib Persistence.lib Protocols.lib"
 				LinkIncremental="1"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\UnitTests.pdb"
 				SubSystem="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -187,8 +154,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				SuppressStartupBanner="true"
-				OutputFile=".\Release/UnitTests.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -205,105 +170,13 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl"
-			>
-			<File
-				RelativePath="..\..\..\Source\UnitTests\UnitTests.h"
-				>
-			</File>
-			<Filter
-				Name="PersistenceExample"
-				>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\BaseClass.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassA.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassB.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassC.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassD.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerA.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerB.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerC.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerD.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\MainObject.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Fonts"
-				>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\Fonts\Amata13.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\Fonts\Bookman50.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\Fonts\BrushScript12.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\Fonts\Robotron.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.h"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
 			Name="Source Files"
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
 				RelativePath="..\..\..\Source\UnitTests\minicppunit.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_EscapeSequences.cpp"
@@ -496,238 +369,7 @@
 			<File
 				RelativePath="..\..\..\Source\UnitTests\UnitTests.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
-			<Filter
-				Name="Persistence Example"
-				>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\BaseClass.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassA.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassB.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassC.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassD.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerA.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerB.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerC.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerD.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\MainObject.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							PreprocessorDefinitions=""
-						/>
-					</FileConfiguration>
-				</File>
-			</Filter>
 			<Filter
 				Name="Fonts"
 				>
@@ -749,6 +391,132 @@
 				</File>
 				<File
 					RelativePath="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="PersistenceExample"
+				>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\BaseClass.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassA.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassB.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassC.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassD.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerA.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerB.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerC.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerD.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\MainObject.cpp"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
+			<File
+				RelativePath="..\..\..\Source\UnitTests\minicppunit.hxx"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\UnitTests\UnitTests.h"
+				>
+			</File>
+			<Filter
+				Name="Fonts"
+				>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\Amata13.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\Bookman50.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\BrushScript12.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\Robotron.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="PersistenceExample"
+				>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\BaseClass.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassA.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassB.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassC.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassD.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerA.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerB.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerC.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerD.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\Source\UnitTests\PersistenceExample\MainObject.h"
 					>
 				</File>
 			</Filter>

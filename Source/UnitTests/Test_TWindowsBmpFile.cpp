@@ -56,7 +56,7 @@ public:
                 *target = SwapBits(*source++);
             }
         }
-        bmp->SaveToWindowsBmp("Ikona1.bmp");
+        bmp->SaveToWindowsBmp("./TestData/Ikona1.bmp");
     }
 
     void CreateBmpWith4Colors()
@@ -81,7 +81,7 @@ public:
         bmp->SetPixelColorIndex(0, 1, 1);
         bmp->SetPixelColorIndex(1, 0, 1);
         bmp->SetPixelColorIndex(1, 1, 1);
-        bmp->SaveToWindowsBmp("Ikona2.bmp");
+        bmp->SaveToWindowsBmp("./TestData/Ikona2.bmp");
     }
 
     void CreateBmpWith16Colors()
@@ -112,7 +112,7 @@ public:
                 bmp->SetPixelColorIndex(x,  y,  ((x/16)*4)+(y/16));
             }
         }
-        bmp->SaveToWindowsBmp("Ikona3.bmp");
+        bmp->SaveToWindowsBmp("./TestData/Ikona3.bmp");
     }
 
     void CreateBmpWith256Colors()
@@ -125,7 +125,7 @@ public:
                 bmp->SetPixelColorIndex(x,  y,  x*2+y*2);
             }
         }
-        bmp->SaveToWindowsBmp("Ikona4.bmp");
+        bmp->SaveToWindowsBmp("./TestData/Ikona4.bmp");
     }
 
 };

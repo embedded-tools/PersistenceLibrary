@@ -74,7 +74,7 @@ class Test_TFont : public TestFixture<Test_TFont>
         TCanvas canvasBmp(&bmp);
         canvasBmp.DrawImage(tgtPos, &vram, &srcRect);
 
-        bmp.SaveToWindowsBmp("PrintMonospacedFont.bmp");        
+        bmp.SaveToWindowsBmp("./TestData/PrintMonospacedFont.bmp");        
     }
     
     void PrintMonospacedFont2()
@@ -100,7 +100,7 @@ class Test_TFont : public TestFixture<Test_TFont>
         TCanvas canvasBmp(&bmp);
         canvasBmp.DrawImage(tgtPos, &vram, &srcRect);
 
-        bmp.SaveToWindowsBmp("PrintMonospacedFont2.bmp");        
+        bmp.SaveToWindowsBmp("./TestData/PrintMonospacedFont2.bmp");        
     }
 
     void PrintVariableLengthFont()
@@ -126,7 +126,7 @@ class Test_TFont : public TestFixture<Test_TFont>
         TCanvas canvasBmp(&bmp);
         canvasBmp.DrawImage(tgtPos, &vram, &srcRect);
 
-        bmp.SaveToWindowsBmp("PrintVariableLengthFont.bmp");        
+        bmp.SaveToWindowsBmp("./TestData/PrintVariableLengthFont.bmp");        
     }
 
     void PrintVariableLengthFont2()
@@ -152,7 +152,7 @@ class Test_TFont : public TestFixture<Test_TFont>
         TCanvas canvasBmp(&bmp);
         canvasBmp.DrawImage(tgtPos, &vram, &srcRect);
 
-        bmp.SaveToWindowsBmp("PrintVariableLengthFont2.bmp");        
+        bmp.SaveToWindowsBmp("./TestData/PrintVariableLengthFont2.bmp");        
     }
 
     void PrintVariableLengthFont3()
@@ -184,7 +184,7 @@ class Test_TFont : public TestFixture<Test_TFont>
         TCanvas canvasBmp(&bmp);
         canvasBmp.DrawImage(tgtPos, &vram, &srcRect);
 
-        bmp.SaveToWindowsBmp("PrintVariableLengthFont3.bmp");        
+        bmp.SaveToWindowsBmp("./TestData/PrintVariableLengthFont3.bmp");        
     }
 
 

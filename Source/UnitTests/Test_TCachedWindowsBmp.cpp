@@ -22,7 +22,7 @@ class Test_CachedWindowsBmp : public TestFixture<Test_CachedWindowsBmp>
 	void OpenFile()
 	{
  		TCachedWindowsBmpFile cachedBmp;	
-		cachedBmp.OpenFile("Image1.bmp");
+		cachedBmp.OpenFile("./TestData/CachedImage.bmp");
 		cachedBmp.CloseFile();
 	}
 
@@ -30,7 +30,7 @@ class Test_CachedWindowsBmp : public TestFixture<Test_CachedWindowsBmp>
 	{
 		TCachedWindowsBmpFile cachedBmp;	
 		TCanvas canvas(&cachedBmp);
-		cachedBmp.OpenFile("Image1.bmp");
+		cachedBmp.OpenFile("./TestData/CachedImage.bmp");
 
 		canvas.DrawGradient( 
 			                 TRectangle(0,0,cachedBmp.GetWidth(),cachedBmp.GetHeight()),

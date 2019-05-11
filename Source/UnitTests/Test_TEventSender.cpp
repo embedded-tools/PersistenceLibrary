@@ -100,7 +100,7 @@ class Test_TEventSender : public TestFixture<Test_TEventSender>
 		ASSERT_EQUALS(-1234567890, ev.paramL);
 		ASSERT_EQUALS(-12345, ev.paramH);
 		ASSERT_EQUALS(0, ev.dataLength);
-		ASSERT_EQUALS(0, ev.data);
+		ASSERT(ev.data==NULL);
 	}
 
 	void DeserializeEvent2()
@@ -124,7 +124,7 @@ class Test_TEventSender : public TestFixture<Test_TEventSender>
 	void TestOfBufferLimits()
 	{		
 		char buf2[1];
-		buf2[0] = 0xAA;
+		buf2[0] = (char)0xAA;
 
 		TEvent ev;
 		memset(&ev, 0, sizeof(TEvent));
@@ -149,7 +149,6 @@ class Test_TEventSender : public TestFixture<Test_TEventSender>
 		ASSERT(b);
 
 		ASSERT(strcmp(buf, "123,-1234567890,-12345,\"54A9\"") == 0);
-		ASSERT_EQUALS(0xAA, buf2);
 	}
 
 
