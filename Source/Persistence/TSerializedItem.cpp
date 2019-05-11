@@ -235,7 +235,7 @@ void TSerializedItem::SerializeShortUInt (const char* paramName, unsigned short 
 	}
 }
 
-void TSerializedItem::SerializeLongInt  (const char* paramName, long &value, long aMinValue, long aMaxValue)
+void TSerializedItem::SerializeInt  (const char* paramName, int &value, int aMinValue, int aMaxValue)
 {
 	switch(TSerializer::Mode)
 	{
@@ -261,12 +261,12 @@ void TSerializedItem::SerializeLongInt  (const char* paramName, long &value, lon
 			break;
 		case esmBinaryOutput: 
 			{
-				TSerializer::DataStream->WriteLong(value);
+				TSerializer::DataStream->WriteInt(value);
 			}			
 			break;
 		case esmBinaryInput: 
 			{
-				TSerializer::DataStream->ReadLong(value);
+				TSerializer::DataStream->ReadInt(value);
 			}
 			break;
 		case esmXSDOutput: 
@@ -277,7 +277,7 @@ void TSerializedItem::SerializeLongInt  (const char* paramName, long &value, lon
 	}
 }
 
-void TSerializedItem::SerializeLongUInt (const char* paramName, unsigned long &value, unsigned long aMinValue, unsigned long aMaxValue)
+void TSerializedItem::SerializeUInt (const char* paramName, unsigned int &value, unsigned int aMinValue, unsigned int aMaxValue)
 {
 	switch(TSerializer::Mode)
 	{
@@ -304,12 +304,12 @@ void TSerializedItem::SerializeLongUInt (const char* paramName, unsigned long &v
 
 		case esmBinaryOutput: 
 			{
-				TSerializer::DataStream->WriteULong(value);
+				TSerializer::DataStream->WriteUInt(value);
 			}			
 			break;
 		case esmBinaryInput: 
 			{
-				TSerializer::DataStream->ReadULong(value);
+				TSerializer::DataStream->ReadUInt(value);
 			}
 			break;
 
@@ -324,7 +324,7 @@ void TSerializedItem::SerializeLongUInt (const char* paramName, unsigned long &v
 void TSerializedItem::SerializeUID  (const char* paramName, void** object, bool canBeNull, TSerializedBaseCollection* collection)
 {
 	TSerializedItem** referencedItem = (TSerializedItem**)(object);	
-	unsigned long     referencedUID  = 0;
+	unsigned int      referencedUID  = 0;
 	if (referencedItem[0]!=NULL)
 	{
 		referencedUID = referencedItem[0]->GetUID();
@@ -360,12 +360,12 @@ void TSerializedItem::SerializeUID  (const char* paramName, void** object, bool 
 			break;
 		case esmBinaryOutput: 
 			{
-				TSerializer::DataStream->WriteULong(referencedUID);
+				TSerializer::DataStream->WriteUInt(referencedUID);
 			}
 			break;
 		case esmBinaryInput:
 			{
-				TSerializer::DataStream->ReadULong(referencedUID);
+				TSerializer::DataStream->ReadUInt(referencedUID);
 				referencedItem[0] = collection->FindItem(referencedUID);
 			}			
 			break;
@@ -469,12 +469,12 @@ void TSerializedItem::SerializeUIDArray (const char* arrayName, void* objectList
 
 				selectedList->Clear();
 				unsigned short len = 0;
-				unsigned long  uid = 0;
+				unsigned int   uid = 0;
 				TSerializer::DataStream->ReadUWord(len);
 
 				for(unsigned short i = 0; i<len; i++)
 				{
-					TSerializer::DataStream->ReadULong(uid);
+					TSerializer::DataStream->ReadUInt(uid);
 					TSerializedItem* item = collection->FindItem(uid);
 					if (item!=NULL)
 					{

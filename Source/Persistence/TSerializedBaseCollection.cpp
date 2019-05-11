@@ -196,13 +196,13 @@ void TSerializedBaseCollection::SerializeBody(unsigned short version)
 		case esmBinaryInput:    //reading configuration data from binary stream
 			{
 				unsigned char c = 0;
-				unsigned long UID = 0;
+				unsigned int UID = 0;
 				unsigned short SubType = 0;
 
 				TSerializer::DataStream->ReadByte(c);
 				while(c==ELEMENT_FLAG)
 				{
-					TSerializer::DataStream->ReadULong(UID);
+					TSerializer::DataStream->ReadUInt(UID);
 					TSerializer::DataStream->ReadUWord(SubType);
 					TSerializedItem* item = FindItem(UID);
 					if (item==NULL)

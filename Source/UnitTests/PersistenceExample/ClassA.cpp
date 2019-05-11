@@ -16,6 +16,6 @@ void ClassA::Serialize(unsigned short version0)
 {
 	SerializeString("Name", DeviceName, false);
 	SerializeString("Device", DeviceType, false);
-	SerializeLongUInt("Flags", Flags);
+	SerializeUInt("Flags", Flags);
 }
 

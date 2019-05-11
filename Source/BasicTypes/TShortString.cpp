@@ -107,5 +107,5 @@ bool TShortString::operator != (const char* pChar)
 
 int TShortString::MaxLength()
 {
-    return SHORTSTRINGLENGTH-1;
+    return SHORTSTRINGLENGTH;
 }

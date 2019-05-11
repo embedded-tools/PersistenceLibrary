@@ -17,35 +17,46 @@ class Test_TFileStream : public TestFixture<Test_TFileStream>
 
     void CreateBinaryFile()
     {
-        TFileStream* fs = new TFileStream("binary.dat", efmCreate);
-        fs->WriteChar('P');
-        fs->WriteChar('K');
-        fs->WriteByte(1);
-        fs->WriteWord(1234);
-        fs->WriteUWord(1235);
-        fs->WriteLong(12345678);
-        fs->WriteULong(12345679);
+        TFileStream* fs = new TFileStream("./TestData/binary.dat", efmCreate);
+        ASSERT(fs->WriteChar('P'));
+        ASSERT(fs->WriteChar('K'));
+        ASSERT(fs->WriteByte(1));
+        ASSERT(fs->WriteWord(1234));
+        ASSERT(fs->WriteUWord(1235));
+        ASSERT(fs->WriteInt(12345678));
+        ASSERT(fs->WriteUInt(12345679));
+        ASSERT(fs->WriteLong(12345678));
+        ASSERT(fs->WriteULong(12345679));
         fs->Close();
         delete fs;
     }
 
     void OpenBinaryFile()
     {
-        TFileStream* fs = new TFileStream("binary.dat", efmOpenRead);
+        TFileStream* fs = new TFileStream("./TestData/binary.dat", efmOpenRead);
         signed char c1, c2;
         unsigned char c3;
         short c4;
         unsigned short c5;
-        long c6;
-        unsigned long c7;
+        int c6;
+        unsigned int c7;
+#ifdef WIN32
+        long long c8;
+        unsigned long long c9;
+#else 
+        long c8;
+        unsigned long c9;
+#endif
 
-        fs->ReadChar(c1);
-        fs->ReadChar(c2);
-        fs->ReadByte(c3);
-        fs->ReadWord(c4);
-        fs->ReadUWord(c5);
-        fs->ReadLong(c6);
-        fs->ReadULong(c7);
+        ASSERT(fs->ReadChar(c1));
+        ASSERT(fs->ReadChar(c2));
+        ASSERT(fs->ReadByte(c3));
+        ASSERT(fs->ReadWord(c4));
+        ASSERT(fs->ReadUWord(c5));
+        ASSERT(fs->ReadInt(c6));
+        ASSERT(fs->ReadUInt(c7));
+        ASSERT(fs->ReadLong(c8));
+        ASSERT(fs->ReadULong(c9));
 
         ASSERT(c1=='P');
         ASSERT(c2=='K');
@@ -54,6 +65,8 @@ class Test_TFileStream : public TestFixture<Test_TFileStream>
         ASSERT(c5==1235);
         ASSERT(c6==12345678);
         ASSERT(c7==12345679);
+        ASSERT(c8==12345678);
+        ASSERT(c9==12345679);
         
         fs->Close();
         delete fs;               
@@ -61,7 +74,7 @@ class Test_TFileStream : public TestFixture<Test_TFileStream>
 
     void CreateTextFile()
     {
-        TFileStream* fs = new TFileStream("xml.dat", efmCreate);
+        TFileStream* fs = new TFileStream("./TestData/xml.dat", efmCreate);
         fs->WriteLine("<Root>");
         fs->WriteLine("  <Array>");
         fs->WriteLine("    <Value>1</Value>");
@@ -77,7 +90,7 @@ class Test_TFileStream : public TestFixture<Test_TFileStream>
     {
         TString line;
         
-        TFileStream* fs = new TFileStream("xml.dat", efmOpenRead);
+        TFileStream* fs = new TFileStream("./TestData/xml.dat", efmOpenRead);
         fs->ReadLine(line); ASSERT(line=="<Root>");
         fs->ReadLine(line); ASSERT(line=="  <Array>");
         fs->ReadLine(line); ASSERT(line=="    <Value>1</Value>");

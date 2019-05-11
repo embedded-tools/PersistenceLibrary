@@ -20,7 +20,7 @@ TFileStream::TFileStream(const char* filename, EFileMode fileMode)
 {
 	switch(fileMode)
 	{
-		case efmCreate:		    m_fileHandle = fopen(filename,"wb"); 						
+		case efmCreate:		    m_fileHandle = fopen(filename,"wb"); 			
                                 m_canRead=false;
                                 m_canWrite=m_fileHandle!=0;  
                                 m_canSeek=false; 

@@ -15,7 +15,7 @@ class ClassA : public BaseClass
 			
 		TShortString DeviceName;
 		TShortString DeviceType;
-		unsigned long Flags;
+		unsigned int Flags;
 
 		
 

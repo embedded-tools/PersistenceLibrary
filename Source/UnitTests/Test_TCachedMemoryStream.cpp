@@ -16,7 +16,7 @@ class Test_TCachedMemoryStream : public TestFixture<Test_TCachedMemoryStream>
     {
         TEST_CASE( OpenStream );
         TEST_CASE( WriteByteByByte );
-        TEST_CASE( WriteLongByLong );
+        TEST_CASE( WriteIntByInt );
         TEST_CASE( WriteBigBuffer );
         TEST_CASE( CloseStream );
     }
@@ -49,14 +49,14 @@ class Test_TCachedMemoryStream : public TestFixture<Test_TCachedMemoryStream>
         
     }
 
-    void WriteLongByLong()
+    void WriteIntByInt()
     {
         int* buffer = (int*)( ((char*)ms->ToPtr()) + ms->GetPosition());
         
         int pos1 = cs->GetPosition();
         for(long i = 0; i<32; i++)
         {
-            cs->WriteLong(i);
+            cs->WriteInt(i);
         }
         int pos2 = cs->GetPosition();
         ASSERT((pos2-pos1)==128);        

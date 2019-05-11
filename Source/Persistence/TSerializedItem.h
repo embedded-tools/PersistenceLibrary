@@ -49,8 +49,8 @@ class TSerializedItem
 		void SerializeByte      (const char* paramName, unsigned char &value, unsigned char aMinValue=0, unsigned char aMaxValue=255);
 		void SerializeShortInt  (const char* paramName, short &value, short aMinValue=-32768, short aMaxValue=32767);
 		void SerializeShortUInt (const char* paramName, unsigned short &value, unsigned short aMinValue=0, unsigned short aMaxValue=65535);
-		void SerializeLongInt   (const char* paramName, long &value, long aMinValue=-2147483647, long aMaxValue=2147483647);
-		void SerializeLongUInt  (const char* paramName, unsigned long &value, unsigned long aMinValue=0, unsigned long aMaxValue=0xFFFFFFFFU);
+		void SerializeInt       (const char* paramName, int &value, int aMinValue=-2147483647, int aMaxValue=2147483647);
+		void SerializeUInt      (const char* paramName, unsigned int &value, unsigned int aMinValue=0, unsigned int aMaxValue=0xFFFFFFFFU);
 		void SerializeUID       (const char* paramName, void** object, bool canBeNull, TSerializedBaseCollection* collection);
 		void SerializeUIDArray  (const char* arrayName, void* objectList, int maxArrayLength, TSerializedBaseCollection* collection);
 		void SerializeString(const char* paramName, TString& string, bool canBeEmpty, int minLenght=0, int maxLength=65536);

@@ -22,16 +22,16 @@ class Test_TMemoryStream : public TestFixture<Test_TMemoryStream>
         fs->WriteByte(1);
         fs->WriteWord(1234);
         fs->WriteUWord(1235);
-        fs->WriteLong(12345678);
-        fs->WriteULong(12345679);   
+        fs->WriteInt(12345678);
+        fs->WriteUInt(12345679);   
         fs->WriteBinaryText("John Doe");
         
         signed char c1, c2;
         unsigned char c3;
         short c4;
         unsigned short c5;
-        long c6;
-        unsigned long c7;
+        int c6;
+        unsigned int c7;
         TShortString name;
 
         fs->Seek(0, esoFromBeginning);
@@ -40,9 +40,9 @@ class Test_TMemoryStream : public TestFixture<Test_TMemoryStream>
         fs->ReadByte(c3);
         fs->ReadWord(c4);
         fs->ReadUWord(c5);
-        fs->ReadLong(c6);
-        fs->ReadULong(c7);
-        fs->ReadBinaryText(&name, 20);
+        fs->ReadInt(c6);
+        fs->ReadUInt(c7);
+        fs->ReadBinaryText(&name, name.MaxLength());
 
         ASSERT(c1=='P');
         ASSERT(c2=='K');
@@ -50,7 +50,8 @@ class Test_TMemoryStream : public TestFixture<Test_TMemoryStream>
         ASSERT(c4==1234);
         ASSERT(c5==1235);
         ASSERT(c6==12345678);
-        ASSERT(c7==12345679);        
+        ASSERT(c7==12345679);   
+        ASSERT(name=="John Doe");
         delete fs;               
 	}
 
