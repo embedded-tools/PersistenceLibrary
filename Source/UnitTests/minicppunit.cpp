@@ -25,18 +25,18 @@
 #include <float.h>
 
 #ifdef _MSC_VER
-#if _MSC_VER<1800
 #include <float.h>
-template <typename T>  inline bool isnan(T x) 
+namespace std
 {
+  template <typename T>
+  inline bool isnan(T x) { 
       return _isnan(x) != 0;
 }
-
-template <typename T>  inline bool isinf(T x) 
-{
+	template <typename T>
+	inline bool isinf(T x) { 
       return _finite(x) == 0;
 }
-#endif
+}
 #endif
 
 TestsListener& TestsListener::theInstance()
@@ -170,7 +170,7 @@ bool isNaN(double x)
 double scaledEpsilon(const double& expected, const double& fuzzyEpsilon )
 {
    const double aa = fabs(expected)+1;
-   return (isinf(aa))? fuzzyEpsilon: fuzzyEpsilon * aa;
+	return (std::isinf(aa))? fuzzyEpsilon: fuzzyEpsilon * aa;
 }
 bool fuzzyEquals(double expected, double result, double fuzzyEpsilon)
 {
