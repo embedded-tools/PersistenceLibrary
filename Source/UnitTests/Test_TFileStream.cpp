@@ -40,13 +40,8 @@ class Test_TFileStream : public TestFixture<Test_TFileStream>
         unsigned short c5;
         int c6;
         unsigned int c7;
-#ifdef WIN32
         long long c8;
         unsigned long long c9;
-#else 
-        long c8;
-        unsigned long c9;
-#endif
 
         ASSERT(fs->ReadChar(c1));
         ASSERT(fs->ReadChar(c2));
