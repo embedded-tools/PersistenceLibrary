@@ -17,7 +17,7 @@ PROJECT = unittests
 OUTPUTDIR =.
 OUTPUTFILE =$(PROJECT).exe
 ROOTDIR = ../../..
-LIBDIR = -L../lib -L/cygdrive/c/cygwin/lib/gcc/i686-w64-mingw32/7.4.0
+LIBDIR = -L../lib
 LIBS = -lbasictypes -lcollections -lfileutils -lgraphics -lmath -lpersistence -lprotocols
 
 SRCDIR = $(ROOTDIR)/Source
