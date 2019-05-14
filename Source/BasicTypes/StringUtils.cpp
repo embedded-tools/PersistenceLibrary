@@ -72,7 +72,7 @@ short StrPos (char c, const char* string, short startIndex)
 
 
 
-bool ByteToStr (char Value, char* buffer, unsigned short bufferSize)
+bool ByteToStr (short Value, char* buffer, unsigned short bufferSize)
 {
     if (bufferSize<1)
     {
@@ -125,7 +125,7 @@ bool ByteToStr (char Value, char* buffer, unsigned short bufferSize)
     return true;
 }
 
-bool UByteToStr (unsigned char Value, char* buffer, unsigned short bufferSize)
+bool UByteToStr (short Value, char* buffer, unsigned short bufferSize)
 {
     if (bufferSize<1)
     {
@@ -149,7 +149,8 @@ bool UByteToStr (unsigned char Value, char* buffer, unsigned short bufferSize)
         pp++;
         bufferSize--;
         if (bufferSize==0) return false;
-    };
+    };    
+
     bool leadingSpaces = true;
     for (short xx=100; xx>0; xx=xx/10)
     {

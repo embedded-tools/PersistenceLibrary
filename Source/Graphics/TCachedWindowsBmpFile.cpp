@@ -79,15 +79,16 @@ bool TCachedWindowsBmpFile::OpenFile(const char* filename, unsigned char* buffer
         fclose(m_fileHandle);
         return false;
     }
-    if ((header.ulBitmapDataOffset<0) || (header.ulBitmapHeaderSize<0) || (header.ulWidth<0) || (header.ulWidth>131072) || (header.ulHeight<0) || (header.ulHeight>131072))
+    if ((header.ulBitmapDataOffset>=0x10000000) || (header.ulBitmapHeaderSize>=0x10000000) || (header.ulWidth>=65536) || (header.ulHeight>=65536))
     {
+        //some parameters is out of expected range, file must be corrupted
         fclose(m_fileHandle);
         return false;
     }
     if (header.ulBitmapDataOffset!=54)
     {
         m_colorPaletteSize = header.ulBitmapDataOffset - (sizeof(header) - 2);
-        if ((m_colorPaletteSize>2048) || (m_colorPaletteSize<0))
+        if (m_colorPaletteSize>2048)
         {
             fclose(m_fileHandle);
             return false;

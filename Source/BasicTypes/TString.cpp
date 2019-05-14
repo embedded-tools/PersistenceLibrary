@@ -232,10 +232,6 @@ int TString::IndexOf(const char* pChar, unsigned short startIndex) const
         }
     }
 
-    if (startIndex<0)
-    {
-        startIndex = 0;
-    }
     if (startIndex>=len)
     {
         return -1;
@@ -460,7 +456,7 @@ TString& TString::Append(const TString& oString)
 
 TString& TString::Insert(unsigned short index, char c)
 {
-    if ((index<0) || (index>Length()))
+    if (index>Length())
     {
         return *this;
     }
@@ -479,7 +475,7 @@ TString& TString::Insert(unsigned short index, char c)
 
 TString& TString::Insert(unsigned short index, const char* s)
 {
-    if ((index<0) || (index>Length()))
+    if (index>Length())
     {
         return *this;
     }
@@ -503,7 +499,7 @@ TString& TString::Insert(unsigned short index, const char* s)
 
 TString& TString::Insert(unsigned short index, const char* s, int length)
 {
-    if ((index<0) || (index>Length()))
+    if (index>Length())
     {
         return *this;
     }
@@ -530,7 +526,7 @@ TString& TString::Insert(unsigned short index, const TString& oString)
 
 TString& TString::Delete(unsigned short index, unsigned short length)
 {
-    if ((index<0) || (index>=Length()))
+    if (index>=Length())
     {
         return *this;
     }	  
@@ -843,7 +839,6 @@ char& TString::operator[] (unsigned short index)
         tmp = PData[index];
         return tmp;
     }
-    if (index<0) return tmp;
     if (index>=Length()) return tmp;
     return PData[index];
 }

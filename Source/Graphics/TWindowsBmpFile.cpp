@@ -195,16 +195,18 @@ bool TWindowsBmpFile::LoadFromWindowsBmp(const char* filename)
         fclose(hFile);
         return false;
     }
-    if ((header.ulBitmapDataOffset<0) || (header.ulBitmapHeaderSize<0) || (header.ulWidth<0) || (header.ulWidth>131072) || (header.ulHeight<0) || (header.ulHeight>131072))
+    if ((header.ulBitmapDataOffset>=0x10000000) || (header.ulBitmapHeaderSize>=0x10000000) || (header.ulWidth>=65536) || (header.ulHeight>=65536))
     {
+        //some parameters are out of expected range, therefore file must be corrupted
         fclose(hFile);
         return false;
     }
     if (header.ulBitmapDataOffset!=54)
     {
         m_colorPaletteSize = header.ulBitmapDataOffset - 52;
-        if ((m_colorPaletteSize>2048) || (m_colorPaletteSize<0))
+        if (m_colorPaletteSize>2048)
         {
+            //pallete size is out of standard range, file is probably corrupted
             fclose(hFile);
             return false;
         }
