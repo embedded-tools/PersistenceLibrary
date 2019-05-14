@@ -1,18 +1,18 @@
 /*
- * Persistence Library / Graphics / TPixelFormatConverter
- *
- * Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
- *
- * https://github.com/embedded-tools/PersistenceLibrary
- *
- * Permission to use, copy, modify, distribute and sell this software
- * and its documentation for any purpose is hereby granted without fee,
- * provided that the above copyright notice appear in all copies and
- * that both that copyright notice and this permission notice appear
- * in supporting documentation.
- * It is provided "as is" without express or implied warranty.
- *
- */
+* Persistence Library / Graphics / TPixelFormatConverter
+*
+* Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
+*
+* https://github.com/embedded-tools/PersistenceLibrary
+*
+* Permission to use, copy, modify, distribute and sell this software
+* and its documentation for any purpose is hereby granted without fee,
+* provided that the above copyright notice appear in all copies and
+* that both that copyright notice and this permission notice appear
+* in supporting documentation.
+* It is provided "as is" without express or implied warranty.
+*
+*/
 
 #include "TPixelFormatConverter.h"
 #include <stdlib.h>
@@ -82,59 +82,59 @@ void TPixelFormatConverter::BGRPalette2toRGB565  (unsigned char* targetData, con
         return;
     }
 
-	unsigned char* color;
-	while(pixelCount>0)
-	{		
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x80?1:0)));
-		*targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
-		*targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
-		pixelCount--;
-		if (pixelCount==0) break;
+    unsigned char* color;
+    while(pixelCount>0)
+    {		
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x80?1:0)));
+        *targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
+        *targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x40)?1:0));
-		*targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
-		*targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x40)?1:0));
+        *targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
+        *targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x20)?1:0));
-		*targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
-		*targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x20)?1:0));
+        *targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
+        *targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x10)?1:0));
-		*targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
-		*targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x10)?1:0));
+        *targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
+        *targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x08)?1:0));
-		*targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
-		*targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x08)?1:0));
+        *targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
+        *targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x04)?1:0));
-		*targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
-		*targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x04)?1:0));
+        *targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
+        *targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x02)?1:0));
-		*targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
-		*targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x02)?1:0));
+        *targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
+        *targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x01)?1:0));
-		*targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
-		*targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)&0x01)?1:0));
+        *targetData++  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );
+        *targetData++  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3);
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		sourceData++;
-	}
+        sourceData++;
+    }
 }
 
 void TPixelFormatConverter::BGRPalette4toRGB565  (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
@@ -153,34 +153,34 @@ void TPixelFormatConverter::BGRPalette4toRGB565  (unsigned char* targetData, con
     }
 
 
-	unsigned char* color;
-	while(pixelCount>0)
-	{		
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)>>6)&3)); 
-		*targetData  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );   targetData++;
-		*targetData  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3); targetData++;
-		pixelCount--;
-		if (pixelCount==0) break;
+    unsigned char* color;
+    while(pixelCount>0)
+    {		
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)>>6)&3)); 
+        *targetData  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );   targetData++;
+        *targetData  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3); targetData++;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)>>4)&3));
-		*targetData  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );   targetData++;
-		*targetData  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3); targetData++;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)>>4)&3));
+        *targetData  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );   targetData++;
+        *targetData  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3); targetData++;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)>>2)&3)); 
-		*targetData  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );   targetData++;
-		*targetData  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3); targetData++;
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)>>2)&3)); 
+        *targetData  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );   targetData++;
+        *targetData  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3); targetData++;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData))&3));
-		*targetData  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );   targetData++;
-		*targetData  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3); targetData++;
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData))&3));
+        *targetData  = (unsigned char)(color[1]>>5)        + ( color[2] & 0xF8 );   targetData++;
+        *targetData  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3); targetData++;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		sourceData++;		
-	}
+        sourceData++;		
+    }
 }
 
 void TPixelFormatConverter::BGRPalette16toRGB565  (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
@@ -202,182 +202,182 @@ void TPixelFormatConverter::BGRPalette16toRGB565  (unsigned char* targetData, co
         return;
     }
 
-	unsigned char* color;
-	while(pixelCount>0)
-	{		
-		color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)>>4)); 
-		*targetData  = (unsigned char)(color[2]&0xF8)      + ( color[1] >> 5 );      targetData++;
-		*targetData  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3); targetData++;
-		pixelCount--;
-		if (pixelCount==0) break;
+    unsigned char* color;
+    while(pixelCount>0)
+    {		
+        color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)>>4)); 
+        *targetData  = (unsigned char)(color[2]&0xF8)      + ( color[1] >> 5 );      targetData++;
+        *targetData  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3); targetData++;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&15));
-		*targetData  = (unsigned char)(color[2]&0xF8)      + ( color[1] >> 5 );      targetData++;
-		*targetData  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3); targetData++;
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&15));
+        *targetData  = (unsigned char)(color[2]&0xF8)      + ( color[1] >> 5 );      targetData++;
+        *targetData  = (unsigned char)((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3); targetData++;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		sourceData++;		
-	}
+        sourceData++;		
+    }
 }
 
 void TPixelFormatConverter::BGRPalette256toRGB565 (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
 {
-	while(pixelCount>0)
-	{
-		unsigned char* color = (unsigned char*)(m_sourceColorPalette + 3**sourceData);
-		*targetData  = (unsigned char)( (color[1]>>5)       + ( color[2] & 0xF8 ));   targetData++;
-		*targetData  = (unsigned char)(((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3)); targetData++;
-		pixelCount--;
-	}
+    while(pixelCount>0)
+    {
+        unsigned char* color = (unsigned char*)(m_sourceColorPalette + 3**sourceData);
+        *targetData  = (unsigned char)( (color[1]>>5)       + ( color[2] & 0xF8 ));   targetData++;
+        *targetData  = (unsigned char)(((color[1]<<3)&0xE0) + ((color[0] & 0xF8)>>3)); targetData++;
+        pixelCount--;
+    }
 }
 
 void TPixelFormatConverter::RGB565toRGB565     (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
 {
-	memcpy(targetData, sourceData, pixelCount*2);
+    memcpy(targetData, sourceData, pixelCount*2);
 }
 
 void TPixelFormatConverter::RGB888toRGB565     (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
 {
-	while(pixelCount>0)
-	{
-		*targetData++  = (unsigned char)((sourceData[0] & 0xF8)   + (sourceData[1]>>5));   
-		*targetData++  = (unsigned char)((sourceData[1]<<3)&0xE0) + ((sourceData[2] & 0xF8)>>3); 
-		sourceData+=3;
-		pixelCount--;
-	}
+    while(pixelCount>0)
+    {
+        *targetData++  = (unsigned char)((sourceData[0] & 0xF8)   + (sourceData[1]>>5));   
+        *targetData++  = (unsigned char)((sourceData[1]<<3)&0xE0) + ((sourceData[2] & 0xF8)>>3); 
+        sourceData+=3;
+        pixelCount--;
+    }
 }
 
 void TPixelFormatConverter::RGBX8888toRGB565   (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
 {
-	while(pixelCount>0)
-	{
-		*targetData  = (unsigned char)( sourceData[1]>>5)        + (sourceData[0] & 0xE0 );   targetData++;
-		*targetData  = (unsigned char)((sourceData[1]<<3)&0xE0) + ((sourceData[2] & 0xE0)/8); targetData++;
-		sourceData+=4;
-		pixelCount--;
-	}
+    while(pixelCount>0)
+    {
+        *targetData  = (unsigned char)( sourceData[1]>>5)        + (sourceData[0] & 0xE0 );   targetData++;
+        *targetData  = (unsigned char)((sourceData[1]<<3)&0xE0) + ((sourceData[2] & 0xE0)/8); targetData++;
+        sourceData+=4;
+        pixelCount--;
+    }
 }
 
 void TPixelFormatConverter::RGBA8888toRGB565   (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
 {
-	unsigned char a,b1,b2;
-	unsigned short c1,c2;
-	while(pixelCount>0)
-	{
-		b1  = (unsigned char)( sourceData[1]>>5)        + (sourceData[0] & 0xE0 );   targetData++;
-		b2  = (unsigned char)((sourceData[1]<<3)&0xE0) + ((sourceData[2] & 0xE0)/8); targetData++;
-		a   = sourceData[3];
-		c1 = (b1*a + (*targetData) *(256-a)); c1>>=8;
-		c2 = (b2*a + (*targetData) *(256-a)); c2>>=8;
-		*targetData = (unsigned char)c1; targetData++;
-		*targetData = (unsigned char)c2; targetData++;
-		sourceData+=4;
-		pixelCount--;
-	}
+    unsigned char a,b1,b2;
+    unsigned short c1,c2;
+    while(pixelCount>0)
+    {
+        b1  = (unsigned char)( sourceData[1]>>5)        + (sourceData[0] & 0xE0 );   targetData++;
+        b2  = (unsigned char)((sourceData[1]<<3)&0xE0) + ((sourceData[2] & 0xE0)/8); targetData++;
+        a   = sourceData[3];
+        c1 = (b1*a + (*targetData) *(256-a)); c1>>=8;
+        c2 = (b2*a + (*targetData) *(256-a)); c2>>=8;
+        *targetData = (unsigned char)c1; targetData++;
+        *targetData = (unsigned char)c2; targetData++;
+        sourceData+=4;
+        pixelCount--;
+    }
 }
 
 void TPixelFormatConverter::DXT1toRGB565 (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
 {
-	short cx = addParam & 3;
-	bool pixel1 = cx<1;
-	bool pixel2 = cx<2;
-	bool pixel3 = cx<3;
-	bool pixel4 = cx<4;
-	while(pixelCount>0)
-	{		
-		unsigned char color[12];
-		color[0] =  (sourceData[4]&0xF8);
-		color[1] = ((sourceData[4]&0x07)<<5) + ((sourceData[5]&0xE0)>>3);
-		color[2] =  (sourceData[5]<<3);
-		color[3] =  (sourceData[6]&0xF8);
-		color[4] = ((sourceData[6]&0x07)<<5) + ((sourceData[7]&0xE0)>>3);
-		color[5] =  (sourceData[7]<<3);
+    short cx = addParam & 3;
+    bool pixel1 = cx<1;
+    bool pixel2 = cx<2;
+    bool pixel3 = cx<3;
+    bool pixel4 = cx<4;
+    while(pixelCount>0)
+    {		
+        unsigned char color[12];
+        color[0] =  (sourceData[4]&0xF8);
+        color[1] = ((sourceData[4]&0x07)<<5) + ((sourceData[5]&0xE0)>>3);
+        color[2] =  (sourceData[5]<<3);
+        color[3] =  (sourceData[6]&0xF8);
+        color[4] = ((sourceData[6]&0x07)<<5) + ((sourceData[7]&0xE0)>>3);
+        color[5] =  (sourceData[7]<<3);
 
-		short colors = 4;
+        short colors = 4;
 
-		if (sourceData[5]<sourceData[7]) colors=3;	
-		if (sourceData[5]==sourceData[7])
-		{
-			if (sourceData[4]<sourceData[6]) colors =3;
-		}
-		if (colors==3)
-		{
-			color[6]  = (color[0] + color[3]) / 2;
-			color[7]  = (color[1] + color[4]) / 2;
-			color[8]  = (color[2] + color[5]) / 2;
-			color[9]  = 0;
-			color[10] = 0;
-			color[11] = 0;
-		} else {
-			color[6]  = (color[0] * 2 + color[3]) / 3;
-			color[7]  = (color[1] * 2 + color[4]) / 3;
-			color[8]  = (color[2] * 2 + color[5]) / 3;
-			color[9]  = (color[0] + color[3]  * 2) / 3;
-			color[10] = (color[1] + color[4] * 2) / 3;
-			color[11] = (color[2] + color[5] * 2) / 3;
-		}
+        if (sourceData[5]<sourceData[7]) colors=3;	
+        if (sourceData[5]==sourceData[7])
+        {
+            if (sourceData[4]<sourceData[6]) colors =3;
+        }
+        if (colors==3)
+        {
+            color[6]  = (color[0] + color[3]) / 2;
+            color[7]  = (color[1] + color[4]) / 2;
+            color[8]  = (color[2] + color[5]) / 2;
+            color[9]  = 0;
+            color[10] = 0;
+            color[11] = 0;
+        } else {
+            color[6]  = (color[0] * 2 + color[3]) / 3;
+            color[7]  = (color[1] * 2 + color[4]) / 3;
+            color[8]  = (color[2] * 2 + color[5]) / 3;
+            color[9]  = (color[0] + color[3]  * 2) / 3;
+            color[10] = (color[1] + color[4] * 2) / 3;
+            color[11] = (color[2] + color[5] * 2) / 3;
+        }
 
-		unsigned char b,i;
+        unsigned char b,i;
 
-		b = sourceData[addParam >> 2];
+        b = sourceData[addParam >> 2];
 
-		if (pixel1)
-		{
-			i = ((b&0xC0)>>6)*3;
-			if ((colors==3) && (i==9))
-			{
-				targetData+=2;
-			} else {
-				*targetData++ = (color[i]&0xF8) + (color[i+1]>>5);
-				*targetData++ = ((color[i+1]<<3)&0xE0) + (color[i+2]>>3);
-			}
-			pixelCount--;
-		}
-		if (pixel2)
-		{
-			i = ((b&0x30)>>4)*3;
-			if ((colors==3) && (i==9))
-			{
-				targetData+=2;
-			} else {
-				*targetData++ = (color[i]&0xF8) + (color[i+1]>>5);
-				*targetData++ = ((color[i+1]<<3)&0xE0) + (color[i+2]>>3);
-			}
-			pixelCount--;
-		}
-		if (pixel3)
-		{
-			i = ((b&0x0C)>>2)*3;
-			if ((colors==3) && (i==9))
-			{
-				targetData+=2;
-			} else {
-				*targetData++ = (color[i]&0xF8) + (color[i+1]>>5);
-				*targetData++ = ((color[i+1]<<3)&0xE0) + (color[i+2]>>3);
-			}
-			pixelCount--;
-		}
-		if (pixel4)
-		{
-			i = (b & 3)*3;
-			if ((colors==3) && (i==9))
-			{
-				targetData+=2;
-			} else {
-				*targetData++ = (color[i]&0xF8) + (color[i+1]>>5);
-				*targetData++ = ((color[i+1]<<3)&0xE0) + (color[i+2]>>3);
-			}
-			pixelCount--;
-		}
-		sourceData+=8;
+        if (pixel1)
+        {
+            i = ((b&0xC0)>>6)*3;
+            if ((colors==3) && (i==9))
+            {
+                targetData+=2;
+            } else {
+                *targetData++ = (color[i]&0xF8) + (color[i+1]>>5);
+                *targetData++ = ((color[i+1]<<3)&0xE0) + (color[i+2]>>3);
+            }
+            pixelCount--;
+        }
+        if (pixel2)
+        {
+            i = ((b&0x30)>>4)*3;
+            if ((colors==3) && (i==9))
+            {
+                targetData+=2;
+            } else {
+                *targetData++ = (color[i]&0xF8) + (color[i+1]>>5);
+                *targetData++ = ((color[i+1]<<3)&0xE0) + (color[i+2]>>3);
+            }
+            pixelCount--;
+        }
+        if (pixel3)
+        {
+            i = ((b&0x0C)>>2)*3;
+            if ((colors==3) && (i==9))
+            {
+                targetData+=2;
+            } else {
+                *targetData++ = (color[i]&0xF8) + (color[i+1]>>5);
+                *targetData++ = ((color[i+1]<<3)&0xE0) + (color[i+2]>>3);
+            }
+            pixelCount--;
+        }
+        if (pixel4)
+        {
+            i = (b & 3)*3;
+            if ((colors==3) && (i==9))
+            {
+                targetData+=2;
+            } else {
+                *targetData++ = (color[i]&0xF8) + (color[i+1]>>5);
+                *targetData++ = ((color[i+1]<<3)&0xE0) + (color[i+2]>>3);
+            }
+            pixelCount--;
+        }
+        sourceData+=8;
 
-		pixel1 = pixelCount>=1;
-		pixel2 = pixelCount>=2;
-		pixel3 = pixelCount>=3;
-		pixel4 = pixelCount>=4;
+        pixel1 = pixelCount>=1;
+        pixel2 = pixelCount>=2;
+        pixel3 = pixelCount>=3;
+        pixel4 = pixelCount>=4;
 
-	}
+    }
 
 }
 
@@ -394,74 +394,74 @@ void TPixelFormatConverter::BGRPalette2toRGB888 (unsigned char* targetData, cons
         return;
     }
 
-	unsigned char* color;
-	while(pixelCount>0)
-	{		
-		color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x80?1:0));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
-		if (pixelCount==0) break;
+    unsigned char* color;
+    while(pixelCount>0)
+    {		
+        color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x80?1:0));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x40?1:0));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x40?1:0));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x20?1:0));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x20?1:0));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x10?1:0));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x10?1:0));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x08?1:0));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x08?1:0));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x04?1:0));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x04?1:0));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x02?1:0));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x02?1:0));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x01?1:0));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
+        color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&0x01?1:0));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
 
-		sourceData++;
-	}
+        sourceData++;
+    }
 
 }
 
@@ -481,42 +481,42 @@ void TPixelFormatConverter::BGRPalette4toRGB888 (unsigned char* targetData, cons
     }
 
 
-	unsigned char* color;
-	while(pixelCount>0)
-	{		
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)>>6)&3));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
-		if (pixelCount==0) break;
+    unsigned char* color;
+    while(pixelCount>0)
+    {		
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)>>6)&3));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)>>4)&3));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)>>4)&3));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)>>2)&3));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
-		if (pixelCount==0) break;
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData)>>2)&3));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData))&3));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
+        color = (unsigned char*)(m_sourceColorPalette + 3*(((*sourceData))&3));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
 
-		sourceData++;
-	}
+        sourceData++;
+    }
 
 }
 
@@ -540,193 +540,193 @@ void TPixelFormatConverter::BGRPalette16toRGB888  (unsigned char* targetData, co
         return;
     }
 
-	unsigned char* color;
-	while(pixelCount>0)
-	{		
-		color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)>>4));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
-		if (pixelCount==0) break;
+    unsigned char* color;
+    while(pixelCount>0)
+    {		
+        color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)>>4));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
+        if (pixelCount==0) break;
 
-		color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&15));
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
+        color = (unsigned char*)(m_sourceColorPalette + 3*((*sourceData)&15));
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
 
-		sourceData++;
-		pixelCount--;
-	}
+        sourceData++;
+        pixelCount--;
+    }
 }
 
 void TPixelFormatConverter::BGRPalette256toRGB888 (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
 {
-	unsigned char* color;
-	while(pixelCount>0)
-	{		
-		color = (unsigned char*)(m_sourceColorPalette + 3**sourceData);
-		*targetData  = color[2];  targetData++;
-		*targetData  = color[1];  targetData++;
-		*targetData  = color[0];  targetData++;
-		color+=3;
-		pixelCount--;
-	}
+    unsigned char* color;
+    while(pixelCount>0)
+    {		
+        color = (unsigned char*)(m_sourceColorPalette + 3**sourceData);
+        *targetData  = color[2];  targetData++;
+        *targetData  = color[1];  targetData++;
+        *targetData  = color[0];  targetData++;
+        color+=3;
+        pixelCount--;
+    }
 }
 
 void TPixelFormatConverter::RGB565toRGB888     (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
 {
-	while(pixelCount>0)
-	{
-		*targetData++ = ( sourceData[0]&0xF8);
-		*targetData++ = ((sourceData[0]&0x07)<<5) + ((sourceData[1]&0xE0)>>3);
-		*targetData++ = ( sourceData[1]&0x1F)<<3;
-		sourceData+=2;
-		pixelCount--;
-	}
+    while(pixelCount>0)
+    {
+        *targetData++ = ( sourceData[0]&0xF8);
+        *targetData++ = ((sourceData[0]&0x07)<<5) + ((sourceData[1]&0xE0)>>3);
+        *targetData++ = ( sourceData[1]&0x1F)<<3;
+        sourceData+=2;
+        pixelCount--;
+    }
 }
 
 void TPixelFormatConverter::RGB888toRGB888     (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
 {
-	memcpy(targetData, sourceData, pixelCount*3);
+    memcpy(targetData, sourceData, pixelCount*3);
 }
 
 void TPixelFormatConverter::RGBX8888toRGB888   (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
 {
-	while(pixelCount>0)
-	{
-		*targetData++ = *sourceData++;
-		*targetData++ = *sourceData++;
-		*targetData++ = *sourceData++;
-		sourceData++;
-		pixelCount--;
-	}
+    while(pixelCount>0)
+    {
+        *targetData++ = *sourceData++;
+        *targetData++ = *sourceData++;
+        *targetData++ = *sourceData++;
+        sourceData++;
+        pixelCount--;
+    }
 }
 
 void TPixelFormatConverter::RGBA8888toRGB888   (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
 {
-	while(pixelCount>0)
-	{
-		unsigned char a = sourceData[3];
-		*targetData++ = a*(*sourceData++) + (256-a)*(*targetData);
-		*targetData++ = a*(*sourceData++) + (256-a)*(*targetData);
-		*targetData++ = a*(*sourceData++) + (256-a)*(*targetData);
-		sourceData++;
-		pixelCount--;
-	}	
+    while(pixelCount>0)
+    {
+        unsigned char a = sourceData[3];
+        *targetData++ = a*(*sourceData++) + (256-a)*(*targetData);
+        *targetData++ = a*(*sourceData++) + (256-a)*(*targetData);
+        *targetData++ = a*(*sourceData++) + (256-a)*(*targetData);
+        sourceData++;
+        pixelCount--;
+    }	
 }
 
 void TPixelFormatConverter::DXT1toRGB888 (unsigned char* targetData, const unsigned char* sourceData, short pixelCount, short addParam)
 {
-	short cx = addParam & 3;
-	bool pixel1 = cx<1;
-	bool pixel2 = cx<2;
-	bool pixel3 = cx<3;
-	bool pixel4 = cx<4;
-	while(pixelCount>0)
-	{		
-		
-		unsigned char color[12]; //four colors * (r + g + b)
-		color[0] =  (sourceData[4]&0xF8);
-		color[1] = ((sourceData[4]&0x07)<<5) + ((sourceData[5]&0xE0)>>3);
-		color[2] =  (sourceData[5]<<3);
-		color[3] =  (sourceData[6]&0xF8);
-		color[4] = ((sourceData[6]&0x07)<<5) + ((sourceData[7]&0xE0)>>3);
-		color[5] =  (sourceData[7]<<3);
+    short cx = addParam & 3;
+    bool pixel1 = cx<1;
+    bool pixel2 = cx<2;
+    bool pixel3 = cx<3;
+    bool pixel4 = cx<4;
+    while(pixelCount>0)
+    {		
 
-		short colors = 4;
-		
-		if (sourceData[5]<sourceData[7]) colors=3;	
-		if (sourceData[5]==sourceData[7])
-		{
-			if (sourceData[4]<sourceData[6]) colors =3;
-		}
-		if (colors==3)
-		{
-			color[6]  = (color[0] + color[3]) / 2;
-			color[7]  = (color[1] + color[4]) / 2;
-			color[8]  = (color[2] + color[5]) / 2;
-			color[9]  = 0;
-			color[10] = 0;
-			color[11] = 0;
-		} else {
-			color[6]  = (color[0] * 2 + color[3]) / 3;
-			color[7]  = (color[1] * 2 + color[4]) / 3;
-			color[8]  = (color[2] * 2 + color[5]) / 3;
-			color[9]  = (color[0] + color[3]  * 2) / 3;
-			color[10] = (color[1] + color[4] * 2) / 3;
-			color[11] = (color[2] + color[5] * 2) / 3;
-		}
+        unsigned char color[12]; //four colors * (r + g + b)
+        color[0] =  (sourceData[4]&0xF8);
+        color[1] = ((sourceData[4]&0x07)<<5) + ((sourceData[5]&0xE0)>>3);
+        color[2] =  (sourceData[5]<<3);
+        color[3] =  (sourceData[6]&0xF8);
+        color[4] = ((sourceData[6]&0x07)<<5) + ((sourceData[7]&0xE0)>>3);
+        color[5] =  (sourceData[7]<<3);
 
-		unsigned char b,i;
+        short colors = 4;
 
-		short cx = addParam  & 3;
-		short cy = addParam >> 2;
+        if (sourceData[5]<sourceData[7]) colors=3;	
+        if (sourceData[5]==sourceData[7])
+        {
+            if (sourceData[4]<sourceData[6]) colors =3;
+        }
+        if (colors==3)
+        {
+            color[6]  = (color[0] + color[3]) / 2;
+            color[7]  = (color[1] + color[4]) / 2;
+            color[8]  = (color[2] + color[5]) / 2;
+            color[9]  = 0;
+            color[10] = 0;
+            color[11] = 0;
+        } else {
+            color[6]  = (color[0] * 2 + color[3]) / 3;
+            color[7]  = (color[1] * 2 + color[4]) / 3;
+            color[8]  = (color[2] * 2 + color[5]) / 3;
+            color[9]  = (color[0] + color[3]  * 2) / 3;
+            color[10] = (color[1] + color[4] * 2) / 3;
+            color[11] = (color[2] + color[5] * 2) / 3;
+        }
 
-		b = sourceData[cy];
+        unsigned char b,i;
 
-		if (pixel1)
-		{
-			i = ((b&0xC0)>>6)*3;
-			if ((colors==3) && (i==9))
-			{
-				targetData+=3;
-			} else {
-				*targetData++ = color[i++];
-				*targetData++ = color[i++];
-				*targetData++ = color[i++];
-			}
-			pixelCount--;
-		}
-		if (pixel2)
-		{
-			i = ((b&0x30)>>4)*3;
-			if ((colors==3) && (i==9))
-			{
-				targetData+=3;
-			} else {
-				*targetData++ = color[i++];
-				*targetData++ = color[i++];
-				*targetData++ = color[i++];
-			}
-			pixelCount--;
-		}
-		if (pixel3)
-		{
-			i = ((b&0x0C)>>2)*3;
-			if ((colors==3) && (i==9))
-			{
-				targetData+=3;
-			} else {
-				*targetData++ = color[i++];
-				*targetData++ = color[i++];
-				*targetData++ = color[i++];
-			}
-			pixelCount--;
-		}
-		if (pixel4)
-		{
-			i = (b & 3)*3;
-			if ((colors==3) && (i==9))
-			{
-				targetData+=3;
-			} else {
-				*targetData++ = color[i++];
-				*targetData++ = color[i++];
-				*targetData++ = color[i++];
-			}
-			pixelCount--;
-		}
-		sourceData+=8;
-		
-		pixel1 = pixelCount>=1;
-		pixel2 = pixelCount>=2;
-		pixel3 = pixelCount>=3;
-		pixel4 = pixelCount>=4;
-		
-	}
+        short cx = addParam  & 3;
+        short cy = addParam >> 2;
+
+        b = sourceData[cy];
+
+        if (pixel1)
+        {
+            i = ((b&0xC0)>>6)*3;
+            if ((colors==3) && (i==9))
+            {
+                targetData+=3;
+            } else {
+                *targetData++ = color[i++];
+                *targetData++ = color[i++];
+                *targetData++ = color[i++];
+            }
+            pixelCount--;
+        }
+        if (pixel2)
+        {
+            i = ((b&0x30)>>4)*3;
+            if ((colors==3) && (i==9))
+            {
+                targetData+=3;
+            } else {
+                *targetData++ = color[i++];
+                *targetData++ = color[i++];
+                *targetData++ = color[i++];
+            }
+            pixelCount--;
+        }
+        if (pixel3)
+        {
+            i = ((b&0x0C)>>2)*3;
+            if ((colors==3) && (i==9))
+            {
+                targetData+=3;
+            } else {
+                *targetData++ = color[i++];
+                *targetData++ = color[i++];
+                *targetData++ = color[i++];
+            }
+            pixelCount--;
+        }
+        if (pixel4)
+        {
+            i = (b & 3)*3;
+            if ((colors==3) && (i==9))
+            {
+                targetData+=3;
+            } else {
+                *targetData++ = color[i++];
+                *targetData++ = color[i++];
+                *targetData++ = color[i++];
+            }
+            pixelCount--;
+        }
+        sourceData+=8;
+
+        pixel1 = pixelCount>=1;
+        pixel2 = pixelCount>=2;
+        pixel3 = pixelCount>=3;
+        pixel4 = pixelCount>=4;
+
+    }
 }
 
 bool TPixelFormatConverter::ConvertBMPtoDXT(TGraphicsData& target, TGraphicsData& source)
@@ -770,7 +770,7 @@ bool TPixelFormatConverter::ConvertBMPtoDXT(TGraphicsData& target, TGraphicsData
         if (cy<height) src = source.ScanLine(cy); callback((unsigned char*)tmpBuffer2, src, width, 0); cy++;
         if (cy<height) src = source.ScanLine(cy); callback((unsigned char*)tmpBuffer3, src, width, 0); cy++;
         if (cy<height) src = source.ScanLine(cy); callback((unsigned char*)tmpBuffer4, src, width, 0); cy++;
-        
+
         unsigned char* p1 = tmpBuffer1;
         unsigned char* p2 = tmpBuffer2;
         unsigned char* p3 = tmpBuffer3;
@@ -843,88 +843,81 @@ TColorRGB TPixelFormatConverter::DecodeColor(const unsigned char* sourceData, un
 
 bool TPixelFormatConverter::CopyRect(TGraphicsData& target, TPosition targetPosition, TGraphicsData& source)
 {
-	TRectangle sourceArea(0, 0, source.GetWidth(), source.GetHeight());
-	return CopyRect(target, targetPosition, source, sourceArea);
+    TRectangle sourceArea(0, 0, source.GetWidth(), source.GetHeight());
+    return CopyRect(target, targetPosition, source, sourceArea);
 }
 
 bool TPixelFormatConverter::CopyRect(TGraphicsData& target, TPosition targetPosition, TGraphicsData& source, TRectangle sourceArea)
 {
-	m_sourceColorPalette = source.GetPalette();
+    m_sourceColorPalette = source.GetPalette();
 
-	ePixelFormat tgtFmt = target.GetPixelFormat();
-	if ((tgtFmt==pfDXT1) || (tgtFmt==pfDXT3))// || (tgtFmt==pfDXT5))
-	{ 
-		if ((targetPosition.X==0) && (targetPosition.Y==0))
-		{
-			return ConvertBMPtoDXT(target, source);
-		}		
-	}
+    ePixelFormat tgtFmt = target.GetPixelFormat();
+    if ((tgtFmt==pfDXT1) || (tgtFmt==pfDXT3))// || (tgtFmt==pfDXT5))
+    { 
+        if ((targetPosition.X==0) && (targetPosition.Y==0))
+        {
+            return ConvertBMPtoDXT(target, source);
+        }		
+    }
 
-	FormatConverterFunction callback = GetFormatConverter(target.GetPixelFormat(), source.GetPixelFormat());
-	if (callback==NULL)
-	{
-		return false;
-	}
+    FormatConverterFunction callback = GetFormatConverter(target.GetPixelFormat(), source.GetPixelFormat());
+    if (callback==NULL)
+    {
+        return false;
+    }
 
-	ePixelFormat srcFmt = source.GetPixelFormat();
-	bool dxt = (srcFmt==pfDXT1) || (srcFmt==pfDXT3);// || (srcFmt==pfDXT5);
+    ePixelFormat srcFmt = source.GetPixelFormat();
+    bool dxt = (srcFmt==pfDXT1) || (srcFmt==pfDXT3);// || (srcFmt==pfDXT5);
 
-	short addParam = 0;
-	unsigned char* tgt = NULL;
-	unsigned char* src = NULL;
+    short addParam = 0;
+    unsigned char* tgt = NULL;
+    unsigned char* src = NULL;
 
-	if (sourceArea.Left>source.GetWidth()) return true;
-	if (sourceArea.Top>source.GetHeight()) return true;
-	if (sourceArea.Right>source.GetWidth()) sourceArea.Right = source.GetWidth();
-	if (sourceArea.Bottom>source.GetHeight()) sourceArea.Bottom = source.GetHeight();
+    if (sourceArea.Left>source.GetWidth()) return true;
+    if (sourceArea.Top>source.GetHeight()) return true;
+    if (sourceArea.Right>source.GetWidth()) sourceArea.Right = source.GetWidth();
+    if (sourceArea.Bottom>source.GetHeight()) sourceArea.Bottom = source.GetHeight();
 
-	TRectangle targetArea(targetPosition.X, targetPosition.Y,
-                          targetPosition.X+sourceArea.Width(), targetPosition.Y+sourceArea.Height());
-	if (targetArea.Left>target.GetWidth()) return true;
-	if (targetArea.Top>target.GetHeight()) return true;
-	if (targetArea.Right>target.GetWidth())   targetArea.Right = target.GetWidth();
-	if (targetArea.Bottom>target.GetHeight()) targetArea.Bottom = target.GetHeight();
-	short cx    = sourceArea.Left;	
-	short width = targetArea.Width();
-	for(short cy = 0; cy<targetArea.Height(); cy++)
-	{
-		tgt = target.ScanLine(cy+targetPosition.Y);
-		if (tgt==NULL) continue;
-		tgt += (targetPosition.X*target.GetBitsPerPixel())/8;
+    TRectangle targetArea(targetPosition.X, targetPosition.Y,
+        targetPosition.X+sourceArea.Width(), targetPosition.Y+sourceArea.Height());
+    if (targetArea.Left>target.GetWidth()) return true;
+    if (targetArea.Top>target.GetHeight()) return true;
+    if (targetArea.Right>target.GetWidth())   targetArea.Right = target.GetWidth();
+    if (targetArea.Bottom>target.GetHeight()) targetArea.Bottom = target.GetHeight();
+    short cx    = sourceArea.Left;	
+    short width = targetArea.Width();
+    for(short cy = 0; cy<targetArea.Height(); cy++)
+    {
+        tgt = target.ScanLine(cy+targetPosition.Y);
+        if (tgt==NULL) continue;
+        tgt += (targetPosition.X*target.GetBitsPerPixel())/8;
 
-		if (dxt)
-		{
-			addParam = (cy & 3)*4 + (cx & 3);
-			src  = source.ScanLine((cy+sourceArea.Top)/4);
-			if (src==NULL) continue;
-			src += ((sourceArea.Left&0xFFFC) * 8);
-		} else {
-			src  = source.ScanLine(cy+sourceArea.Top);
-			if (src==NULL) continue;
-			src += (sourceArea.Left * source.GetBitsPerPixel())/8;
-		}		
-		callback(tgt, src, width, addParam);
-	}
-	return true;
+        if (dxt)
+        {
+            addParam = (cy & 3)*4 + (cx & 3);
+            src  = source.ScanLine((cy+sourceArea.Top)/4);
+            if (src==NULL) continue;
+            src += ((sourceArea.Left&0xFFFC) * 8);
+        } else {
+            src  = source.ScanLine(cy+sourceArea.Top);
+            if (src==NULL) continue;
+            src += (sourceArea.Left * source.GetBitsPerPixel())/8;
+        }		
+        callback(tgt, src, width, addParam);
+    }
+    return true;
 }
 
 bool TPixelFormatConverter::CopyRect(TGraphicsData& target, TRectangle targetArea, TGraphicsData& source, TRectangle sourceArea)
 {
-	//scaling
-	for(int cy = targetArea.Top; cy<targetArea.Height(); cy++)
-	{
-		for (int cx = targetArea.Left; cx<targetArea.Width(); cx++)
-		{
-			sourceArea.Left = 0;
+    //scaling
+    for(int cy = targetArea.Top; cy<targetArea.Height(); cy++)
+    {
+        for (int cx = targetArea.Left; cx<targetArea.Width(); cx++)
+        {
+            sourceArea.Left = 0;
 
-		}
-	}
-	return true;
+        }
+    }
+    return true;
 }
-
-
-
-
-
-
-

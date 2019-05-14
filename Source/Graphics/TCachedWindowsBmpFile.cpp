@@ -67,12 +67,12 @@ bool TCachedWindowsBmpFile::OpenFile(const char* filename, unsigned char* buffer
     bytesRead += (unsigned long)fread(&header.ulNumberOfImportantColors, 1, 4, m_fileHandle);	
     switch(header.usBitsPerPixel)
     {
-    case 1:  m_pixelFormat = pfBGR2ColorsPalette; break;
-    case 2:  m_pixelFormat = pfBGR4ColorsPalette; break;
-    case 4:  m_pixelFormat = pfBGR16ColorsPalette; break;
-    case 8:  m_pixelFormat = pfBGR256ColorsPalette; break;
-    case 24: m_pixelFormat = pfBGR888; break;
-    case 32: m_pixelFormat = pfBGRA8888; break;
+        case 1:  m_pixelFormat = pfBGR2ColorsPalette; break;
+        case 2:  m_pixelFormat = pfBGR4ColorsPalette; break;
+        case 4:  m_pixelFormat = pfBGR16ColorsPalette; break;
+        case 8:  m_pixelFormat = pfBGR256ColorsPalette; break;
+        case 24: m_pixelFormat = pfBGR888; break;
+        case 32: m_pixelFormat = pfBGRA8888; break;
     }
     if (bytesRead!=54)
     { 
