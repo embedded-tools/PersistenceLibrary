@@ -33,7 +33,6 @@ int TFontCharacter::ScanLine(unsigned short lineIndex, unsigned char* pLine, uns
 {
 	unsigned char offset = 0;
 	unsigned char bitsPerPixel = 0;
-	unsigned long colorValue = 0;
 
 	switch(m_charPixelFormat)
 	{

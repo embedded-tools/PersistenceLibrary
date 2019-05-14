@@ -1,65 +1,65 @@
 /*
- * Persistence Library / Basic types / TString
- *
- * Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
- *
- * https://github.com/embedded-tools/PersistenceLibrary
- *
- * Permission to use, copy, modify, distribute and sell this software
- * and its documentation for any purpose is hereby granted without fee,
- * provided that the above copyright notice appear in all copies and
- * that both that copyright notice and this permission notice appear
- * in supporting documentation.
- * It is provided "as is" without express or implied warranty.
- *
- */
+* Persistence Library / Basic types / TString
+*
+* Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
+*
+* https://github.com/embedded-tools/PersistenceLibrary
+*
+* Permission to use, copy, modify, distribute and sell this software
+* and its documentation for any purpose is hereby granted without fee,
+* provided that the above copyright notice appear in all copies and
+* that both that copyright notice and this permission notice appear
+* in supporting documentation.
+* It is provided "as is" without express or implied warranty.
+*
+*/
 
 #include "TString.h"
 
 TString::TString()
 : PData(NULL), 
-  DataLen(0), 
-  DataMax(0), 
-  DataStatic(false),
-  ReadOnly(false)
+DataLen(0), 
+DataMax(0), 
+DataStatic(false),
+ReadOnly(false)
 {
 
 }
-         
+
 TString::TString(const char* pChar, unsigned short pCharLen, bool useExistingReference, bool readOnly)
 : PData(NULL), 
-  DataLen(0), 
-  DataMax(0), 
-  DataStatic(false),
-  ReadOnly(false)
+DataLen(0), 
+DataMax(0), 
+DataStatic(false),
+ReadOnly(false)
 {
-	if (pChar)
-	{
-		if (pCharLen==0)
-		{
-			pCharLen = (unsigned short)strlen(pChar);
-		}			
-	}
-	if (useExistingReference)
-	{
-		PData = (char*)pChar;
-		DataLen = pCharLen;
- 		DataMax = pCharLen;
-		DataStatic = true;
-	} else {
+    if (pChar)
+    {
+        if (pCharLen==0)
+        {
+            pCharLen = (unsigned short)strlen(pChar);
+        }			
+    }
+    if (useExistingReference)
+    {
+        PData = (char*)pChar;
+        DataLen = pCharLen;
+        DataMax = pCharLen;
+        DataStatic = true;
+    } else {
         CopyFrom(pChar, pCharLen);	
-	}	
-	ReadOnly = readOnly;
+    }	
+    ReadOnly = readOnly;
 }
 
 TString::TString(const TString &s)
 : PData(NULL), 
-  DataLen(0), 
-  DataMax(0), 
-  DataStatic(false),
-  ReadOnly(false)
+DataLen(0), 
+DataMax(0), 
+DataStatic(false),
+ReadOnly(false)
 {
-	CopyFrom(s.ToPChar(), s.Length());
+    CopyFrom(s.ToPChar(), s.Length());
 }
 
 TString::~TString()
@@ -71,17 +71,17 @@ TString::~TString()
             free(PData);
         }
     }
-	PData=NULL;
+    PData=NULL;
 }
 
 unsigned short TString::GetBufferSize() const
 {
-	return DataMax;
+    return DataMax;
 }
 
 bool TString::IsBufferStatic() const
 {
-	return DataStatic;
+    return DataStatic;
 }
 
 unsigned short TString::Length() const
@@ -105,13 +105,13 @@ void TString::Clear(bool dontReleaseMemory)
 bool TString::Fill(char c, unsigned short number)
 {
     if (!SetLength(number, false))
-	{
-		return false;
-	}
-	if (number==0) 
-	{
-		return true;
-	}
+    {
+        return false;
+    }
+    if (number==0) 
+    {
+        return true;
+    }
 
     char* dst = PData;
     for(unsigned short i = DataLen; i>0; i--)
@@ -125,9 +125,9 @@ bool TString::Fill(char c, unsigned short number)
 
 bool TString::CopyFrom (const char* s)
 {
-	if (s==NULL) return false;
+    if (s==NULL) return false;
 
-	return CopyFrom(s, (unsigned short)strlen(s));
+    return CopyFrom(s, (unsigned short)strlen(s));
 }
 
 bool TString::CopyFrom (const char* s, unsigned short length)
@@ -137,19 +137,17 @@ bool TString::CopyFrom (const char* s, unsigned short length)
         Clear();
         return false;
     }
-        
+
     if (!SetLength(length, false))
-	{
-		return false;
-	}
-	
-	if (PData)
-	{
-		char* src = (char*)s;
-		char* dst = PData;
-		memcpy(PData, s, DataLen);
-		PData[DataLen] = 0;
-	}
+    {
+        return false;
+    }
+
+    if (PData)
+    {
+        memcpy(PData, s, DataLen);
+        PData[DataLen] = 0;
+    }
     return true;
 }
 
@@ -187,7 +185,7 @@ bool TString::Contains(const char* pChar) const
             pCharLen = (int)strlen(pChar);
         }
     }
-    
+
     bool found = false;
     for(int i = 0; i<len-pCharLen+1; i++)
     {
@@ -221,10 +219,10 @@ int TString::IndexOf(const char* pChar, unsigned short startIndex) const
 {
     unsigned short len = Length();
     unsigned short pCharLen = 0;
-	if (pChar==NULL)
-	{
-		return -1;
-	}
+    if (pChar==NULL)
+    {
+        return -1;
+    }
     if (pChar!=NULL)
     {
         pCharLen = 0;
@@ -242,7 +240,7 @@ int TString::IndexOf(const char* pChar, unsigned short startIndex) const
     {
         return -1;
     }
-    
+
     int result= -1;
     bool found = false;
     for(int i = startIndex; i<=len-pCharLen; i++)
@@ -267,64 +265,64 @@ int TString::IndexOf(const char* pChar, unsigned short startIndex) const
 
 int TString::LastIndexOf(char c) const
 {
-	char buf[2];
-	buf[0] = c;
-	buf[1] = 0;
-	char* pChar = (char*) &buf;
-	return LastIndexOf(pChar);
+    char buf[2];
+    buf[0] = c;
+    buf[1] = 0;
+    char* pChar = (char*) &buf;
+    return LastIndexOf(pChar);
 }
 
 int TString::LastIndexOf(const char* pChar) const
 {
-	unsigned short len = Length();
-	unsigned short pCharLen = 0;
+    unsigned short len = Length();
+    unsigned short pCharLen = 0;
 
-	if (pChar==NULL)
-	{
-		return -1;
-	}
-	if (pChar!=NULL)
-	{
-		pCharLen = 0;
-		if (pChar!=NULL)
-		{
-			pCharLen = (unsigned short)strlen(pChar);
-		}
-	}
+    if (pChar==NULL)
+    {
+        return -1;
+    }
+    if (pChar!=NULL)
+    {
+        pCharLen = 0;
+        if (pChar!=NULL)
+        {
+            pCharLen = (unsigned short)strlen(pChar);
+        }
+    }
 
-	int result= -1;
-	bool found = false;
-	for(int i = 0; i<=len-pCharLen; i++)
-	{
-		found = true;
-		for (int j = 0; j<pCharLen; j++)
-		{
-			if (PData[i+j]!=pChar[j])
-			{
-				found=false;
-				break;
-			}
-		}
-		if (found)
-		{
-			result = i;
-		}
-	}
-	return result;
+    int result= -1;
+    bool found = false;
+    for(int i = 0; i<=len-pCharLen; i++)
+    {
+        found = true;
+        for (int j = 0; j<pCharLen; j++)
+        {
+            if (PData[i+j]!=pChar[j])
+            {
+                found=false;
+                break;
+            }
+        }
+        if (found)
+        {
+            result = i;
+        }
+    }
+    return result;
 }
 
 char TString::FirstChar() const
 {
-	if (PData==NULL) return 0;
-	if (DataLen==0) return 0;
-	return PData[0];
+    if (PData==NULL) return 0;
+    if (DataLen==0) return 0;
+    return PData[0];
 }
 
 char TString::LastChar() const
 {
-	if (PData==NULL) return 0;
-	if (DataLen==0) return 0;
-	return PData[DataLen-1];
+    if (PData==NULL) return 0;
+    if (DataLen==0) return 0;
+    return PData[DataLen-1];
 }
 
 TString::operator char*()
@@ -339,10 +337,10 @@ TString::operator const char*() const
 
 TString& TString::Trim()
 {
-	if (ReadOnly)
-	{
-		return *this;
-	}
+    if (ReadOnly)
+    {
+        return *this;
+    }
     unsigned short len = Length();
     if (len==0)
     {
@@ -387,10 +385,10 @@ TString& TString::LowerCase()
     {
         return *this;
     }
-	if (ReadOnly)
-	{
-		return *this;
-	}
+    if (ReadOnly)
+    {
+        return *this;
+    }
     char* pp = (char*)PData;
     for(int i = DataLen; i!=0; i--)
     {
@@ -410,10 +408,10 @@ TString& TString::UpperCase()
     {
         return *this;
     }
-	if (ReadOnly)
-	{
-		return *this;
-	}
+    if (ReadOnly)
+    {
+        return *this;
+    }
     char* pp = (char*)PData;
     for(int i = DataLen; i!=0; i--)
     {
@@ -429,105 +427,105 @@ TString& TString::UpperCase()
 
 TString& TString::Append(char c)
 {
-	int oldLength = Length();
-	if (SetLength(oldLength+1, false))
-	{
-		PData[oldLength] = c;
-	}
-	return *this;
+    int oldLength = Length();
+    if (SetLength(oldLength+1, false))
+    {
+        PData[oldLength] = c;
+    }
+    return *this;
 }
 
 TString& TString::Append(const char* s)
 {
-	int oldLength = Length();
-	int sLength = 0;
-	if (s!=NULL) sLength = (int)strlen(s);
-	
-	if (SetLength(oldLength+sLength, false))
-	{
-		memcpy(PData+oldLength, s, DataLen - oldLength);
-	}
-	return *this;
+    int oldLength = Length();
+    int sLength = 0;
+    if (s!=NULL) sLength = (int)strlen(s);
+
+    if (SetLength(oldLength+sLength, false))
+    {
+        memcpy(PData+oldLength, s, DataLen - oldLength);
+    }
+    return *this;
 }
 
 TString& TString::Append(const TString& oString)
 {
-	int oldLength = Length();	
-	if (SetLength(oldLength+oString.Length(), false))
-	{
-		memcpy(PData+oldLength, oString.ToPChar(), DataLen - oldLength);
-	}
-	return *this;
+    int oldLength = Length();	
+    if (SetLength(oldLength+oString.Length(), false))
+    {
+        memcpy(PData+oldLength, oString.ToPChar(), DataLen - oldLength);
+    }
+    return *this;
 }
 
 TString& TString::Insert(unsigned short index, char c)
 {
-	if ((index<0) || (index>Length()))
+    if ((index<0) || (index>Length()))
     {
         return *this;
     }
-	
-	int oldLength = Length();
-	if (SetLength(oldLength+1, false))
-	{
-		for(int i = DataLen; i>index; i--)
-		{
-			PData[i] = PData[i-1];
-		}
-		PData[index] = c;	
-	}
-	return *this;
+
+    int oldLength = Length();
+    if (SetLength(oldLength+1, false))
+    {
+        for(int i = DataLen; i>index; i--)
+        {
+            PData[i] = PData[i-1];
+        }
+        PData[index] = c;	
+    }
+    return *this;
 }
 
 TString& TString::Insert(unsigned short index, const char* s)
 {
-	if ((index<0) || (index>Length()))
+    if ((index<0) || (index>Length()))
     {
         return *this;
     }
 
-	int sLength = 0;
-	if (s!=NULL) sLength=(int)strlen(s);
-	
-	int oldLength = Length();
-	int newLength = oldLength+sLength;	
-	if (SetLength(newLength, false))
-	{		
-		sLength = DataLen - oldLength;
-		for(int i = DataLen; i>index; i--)
-		{
-			PData[i] = PData[i-sLength];
-		}
-		memcpy(PData+index, s, sLength);
-	}
-	return *this;
+    int sLength = 0;
+    if (s!=NULL) sLength=(int)strlen(s);
+
+    int oldLength = Length();
+    int newLength = oldLength+sLength;	
+    if (SetLength(newLength, false))
+    {		
+        sLength = DataLen - oldLength;
+        for(int i = DataLen; i>index; i--)
+        {
+            PData[i] = PData[i-sLength];
+        }
+        memcpy(PData+index, s, sLength);
+    }
+    return *this;
 }
 
 TString& TString::Insert(unsigned short index, const char* s, int length)
 {
-	if ((index<0) || (index>Length()))
+    if ((index<0) || (index>Length()))
     {
         return *this;
     }
-	
-	int oldLength = Length();
-	int newLength = oldLength+length;
-	if (SetLength(newLength, false))
-	{
-		length = DataLen - oldLength;
-		for(int i = newLength; i>index; i--)
-		{
-			PData[i] = PData[i-length];
-		}
-		memcpy(PData+index, s, length);
-	}
-	return *this;
+
+    int oldLength = Length();
+    int newLength = oldLength+length;
+    if (SetLength(newLength, false))
+    {
+        length = DataLen - oldLength;
+        for(int i = newLength; i>index; i--)
+        {
+            PData[i] = PData[i-length];
+        }
+        memcpy(PData+index, s, length);
+    }
+    return *this;
 }
 
 
 TString& TString::Insert(unsigned short index, const TString& oString)
 {
-	return *this;
+    return *this;
 }
 
 TString& TString::Delete(unsigned short index, unsigned short length)
@@ -536,23 +534,23 @@ TString& TString::Delete(unsigned short index, unsigned short length)
     {
         return *this;
     }	  
-	if ((index+length)>=DataLen)
-	{
-		length = DataLen - index;
-	}
+    if ((index+length)>=DataLen)
+    {
+        length = DataLen - index;
+    }
     for(int i = 0; i<DataLen-index; i++)
     {
         PData[index+i] = PData[index+length+i];
     }
-	DataLen-=length;
-	return *this;
+    DataLen-=length;
+    return *this;
 }
 
 TString& TString::Replace(char oldChar, char newChar)
 {
     int len = Length();
     if (len==0) return *this;
-	if (PData==NULL) return *this;
+    if (PData==NULL) return *this;
 
     for(unsigned short i = 0; i<len; i++)
     {
@@ -567,13 +565,13 @@ TString& TString::Replace(char oldChar, char newChar)
 bool TString::SetLength(unsigned short len, bool addSpaces)
 {
     if (len==65535) len=65534;
-    
+
     if (!DataStatic)
     {
         if (len==0)
         {
-			SetCapacity(0);
-			return false;
+            SetCapacity(0);
+            return false;
         }    
         if (DataMax<=len)
         {
@@ -587,38 +585,38 @@ bool TString::SetLength(unsigned short len, bool addSpaces)
                     newDataMax = 65535;
                     break;
                 } else
-                if (newDataMax>=4096)
-                {
-                    newDataMax += 4096;
-                } else 
-                if (newDataMax>=1024)
-                {
-                    newDataMax += 1024;
-                } else 
-                if (newDataMax>=128)
-                {
-                    newDataMax += 128;
-                } else {
-                    newDataMax += 16;
-                }				
-			}            
-			SetCapacity(newDataMax);
-			if (PData==NULL)
-			{
-				return false;
-			}
-		}
+                    if (newDataMax>=4096)
+                    {
+                        newDataMax += 4096;
+                    } else 
+                        if (newDataMax>=1024)
+                        {
+                            newDataMax += 1024;
+                        } else 
+                            if (newDataMax>=128)
+                            {
+                                newDataMax += 128;
+                            } else {
+                                newDataMax += 16;
+                            }				
+            }            
+            SetCapacity(newDataMax);
+            if (PData==NULL)
+            {
+                return false;
+            }
+        }
     } else {
         //no reallocation if string is preallocated statically.
         //in this case just sets new string length
         if (len>=DataMax)
         {
-			if (DataMax==0)
-			{
-				len = 0;
-			} else {
-	            len = DataMax-1;
-			}
+            if (DataMax==0)
+            {
+                len = 0;
+            } else {
+                len = DataMax-1;
+            }
         }
     }
     if (addSpaces)
@@ -638,10 +636,10 @@ bool TString::SetCapacity(unsigned short capacity)
 {
     if (PData==NULL)
     {
-		if (capacity==0) 
-		{
-			return false;
-		}
+        if (capacity==0) 
+        {
+            return false;
+        }
         PData = (char*) malloc(capacity);
         if (PData==NULL)
         {
@@ -649,17 +647,17 @@ bool TString::SetCapacity(unsigned short capacity)
             DataMax = 0;
             return false;
         }
-		DataMax = capacity;
-		return true;
+        DataMax = capacity;
+        return true;
     } 
-	if (capacity==0)
-	{
-		free(PData);
-		PData = NULL;
+    if (capacity==0)
+    {
+        free(PData);
+        PData = NULL;
         DataLen = 0;
         DataMax = 0;
         return false;
-	}
+    }
     PData = (char*) realloc(PData,capacity);
     if (PData==NULL)
     {
@@ -667,12 +665,12 @@ bool TString::SetCapacity(unsigned short capacity)
         DataMax = 0;
         return false;
     }
-	if (DataLen>DataMax)
-	{
-		DataLen=DataMax-1;
-	}
-	DataMax = capacity;
-	return true;
+    if (DataLen>DataMax)
+    {
+        DataLen=DataMax-1;
+    }
+    DataMax = capacity;
+    return true;
 }
 
 TString& TString::operator = (const TString& oString )
@@ -711,16 +709,16 @@ TString& TString::operator += ( const char* pChar )
     if (newLength<oldLength) newLength=65534;
     if (newLength==65535) newLength=65534;
     if (SetLength(newLength, false))
-	{
-		memcpy(&PData[oldLength], pChar, DataLen-oldLength);
-	}
+    {
+        memcpy(&PData[oldLength], pChar, DataLen-oldLength);
+    }
     return *this;
 }
 
 TString& TString::operator += ( const char AChar )
 {    
     int length = Length();
-	int newLength = length + 1;
+    int newLength = length + 1;
     if (SetLength(newLength, false))
     {
         PData[length] = AChar;
@@ -751,12 +749,12 @@ bool TString::operator > (const char* pChar) const
     int i;
     char* pp = (char*)ToPChar();
     char* ss = (char*)pChar; 
-		
+
     for (i=0; i<minlength; i++) 
     {
-	    if (*pp>*ss) return (true);
-	    if (*pp<*ss) return (false);
-	    pp++; ss++;
+        if (*pp>*ss) return (true);
+        if (*pp<*ss) return (false);
+        pp++; ss++;
     }	
     if (Length()==pCharLen) return (false);
     if (Length()>pCharLen)  return (true);
@@ -765,10 +763,10 @@ bool TString::operator > (const char* pChar) const
 
 bool TString::operator < (const char* pChar) const
 {
-	int minlength;
-	if (Length()==0)   return (true);
-	if (pChar==NULL)   return (false);
-	
+    int minlength;
+    if (Length()==0)   return (true);
+    if (pChar==NULL)   return (false);
+
     int pCharLen=0;
     if (pChar!=NULL)
     {
@@ -778,86 +776,86 @@ bool TString::operator < (const char* pChar) const
             pCharLen = (int)strlen(pChar);
         }
     }
-	if (Length()<pCharLen) minlength=Length(); else minlength=pCharLen;
-	int i;
+    if (Length()<pCharLen) minlength=Length(); else minlength=pCharLen;
+    int i;
 
-	char* pp = (char*)ToPChar();
-	char* ss = (char*)pChar; 
-		
-	for (i=0; i<minlength; i++) 
+    char* pp = (char*)ToPChar();
+    char* ss = (char*)pChar; 
+
+    for (i=0; i<minlength; i++) 
     {
-		if (*pp<*ss) return (true);
-		if (*pp>*ss) return (false);
-		pp++; ss++;
-	}	
-	if (Length()==pCharLen) return (false);
-	if (Length()<pCharLen)  return (true);
-	return (false);
+        if (*pp<*ss) return (true);
+        if (*pp>*ss) return (false);
+        pp++; ss++;
+    }	
+    if (Length()==pCharLen) return (false);
+    if (Length()<pCharLen)  return (true);
+    return (false);
 
 }
 
 bool TString::operator >= (const char* pChar) const
 {
-	if (*this>pChar) return (true);
-	if (*this==pChar) return (true);
-	return false;
+    if (*this>pChar) return (true);
+    if (*this==pChar) return (true);
+    return false;
 }
 
 bool TString::operator <= (const char* pChar) const
 {        
-	if (*this<pChar) return (true);
-	if (*this==pChar) return (true);
-	return false;
+    if (*this<pChar) return (true);
+    if (*this==pChar) return (true);
+    return false;
 }
 
 bool TString::operator == (const char* pChar) const
 {
     if ((ToPChar()==NULL) && (pChar==NULL)) return true;
     if ((ToPChar()==NULL) && (*pChar==0)) return true;
-	if (ToPChar()==NULL) return false;
-	if (pChar==NULL) return false;
+    if (ToPChar()==NULL) return false;
+    if (pChar==NULL) return false;
     return strcmp(ToPChar(), pChar) == 0;
 }
 
 bool TString::operator == (const TString& s) const
 {
-	if ((ToPChar()==NULL) && (s.Length()==0)) return true;
     if ((ToPChar()==NULL) && (s.Length()==0)) return true;
-	if (ToPChar()==NULL) return false;
-	if (s.Length()==0) return false;
-	return strcmp(ToPChar(), s.ToPChar()) == 0;
+    if ((ToPChar()==NULL) && (s.Length()==0)) return true;
+    if (ToPChar()==NULL) return false;
+    if (s.Length()==0) return false;
+    return strcmp(ToPChar(), s.ToPChar()) == 0;
 }
 
 
 bool TString::operator != (const char* pChar) const
 {
     if ((ToPChar()==NULL) && (pChar==NULL)) return false;
-	if (ToPChar()==NULL) return true;
-	if (pChar==NULL) return true;
+    if (ToPChar()==NULL) return true;
+    if (pChar==NULL) return true;
     return strcmp(ToPChar(), pChar) != 0;
 }
 
 char& TString::operator[] (unsigned short index)
 {
-	static char tmp = 0;
-	if (ReadOnly)
-	{
-		tmp = PData[index];
-		return tmp;
-	}
-	if (index<0) return tmp;
-	if (index>=Length()) return tmp;
-	return PData[index];
+    static char tmp = 0;
+    if (ReadOnly)
+    {
+        tmp = PData[index];
+        return tmp;
+    }
+    if (index<0) return tmp;
+    if (index>=Length()) return tmp;
+    return PData[index];
 }
 
 char& TString::operator[] (int index)
 {
-	static char tmp = 0;
-	if (ReadOnly)
-	{
-		tmp = PData[index];
-		return tmp;
-	}
+    static char tmp = 0;
+    if (ReadOnly)
+    {
+        tmp = PData[index];
+        return tmp;
+    }
     if (index<0) return tmp;
     if (index>=Length()) return tmp;
     return PData[index];
@@ -867,198 +865,198 @@ char& TString::operator[] (int index)
 
 char* TString::begin()
 {
-	if (PData==NULL)
-	{	
-		SetCapacity(16);
-	}
-	return PData;
+    if (PData==NULL)
+    {	
+        SetCapacity(16);
+    }
+    return PData;
 }
 char* TString::end()
 {
-	return PData + DataLen;
+    return PData + DataLen;
 }
 
 int TString::size() const
 {
-	return DataLen;
+    return DataLen;
 }
 
 int TString::length() const
 {
-	return DataLen;
+    return DataLen;
 }
 
 int TString::max_size() const
 {
-	return 65535;
+    return 65535;
 }
 
 int TString::resize(int n, char c)
 {
-	Fill(c, n);
+    Fill(c, n);
     return DataLen;
 }
 
 int TString::capacity() const
 {
-	return DataMax;
+    return DataMax;
 }
 
 int TString::reserve(int n)
 {
-	return SetCapacity(n);
+    return SetCapacity(n);
 }
 
 void TString::clear()
 {
-	SetLength(0);
+    SetLength(0);
 }
 
 bool TString::empty() const
 {
-	return DataLen==0;
+    return DataLen==0;
 }
 
 char& TString::at(int i)
 {
-	static char c = 0;
-	if (i<0) return c;
-	if (i>=DataLen) return c;
-	return PData[i];
+    static char c = 0;
+    if (i<0) return c;
+    if (i>=DataLen) return c;
+    return PData[i];
 }
 
 char& TString::back()
 {
-	static char c = 0;
-	if (DataLen<1) return c;
-	return PData[DataLen-1];
+    static char c = 0;
+    if (DataLen<1) return c;
+    return PData[DataLen-1];
 }
 
 char& TString::front()
 {
-	static char c = 0;
-	if (DataLen<1) return c;
-	return PData[0];
+    static char c = 0;
+    if (DataLen<1) return c;
+    return PData[0];
 }
 
 TString& TString::append(const char* str)
 {
-	return Append(str);
+    return Append(str);
 }
 
 TString& TString::append(const TString& str)
 {
-	return Append(str);
+    return Append(str);
 }
 
 void TString::push_back(char c)
 {
-	int newLength = DataLen+1;
-	if (SetLength(newLength))
-	{
-		PData[DataLen-1] = c;
-	}
+    int newLength = DataLen+1;
+    if (SetLength(newLength))
+    {
+        PData[DataLen-1] = c;
+    }
 }
 
 TString& TString::assign(const TString& str)
 {
-	CopyFrom(str.PData, str.Length());
-	return *this; 
+    CopyFrom(str.PData, str.Length());
+    return *this; 
 }
 
 TString& TString::assign(const TString& str, int position, int length)
 {
-	CopyFrom(str.PData + position, length);
-	return *this; 
+    CopyFrom(str.PData + position, length);
+    return *this; 
 }
 
 TString& TString::assign(const char* str)
 {
-	if (str)
-	{
-		CopyFrom(str, strlen(str));
-	} else {
-		SetLength(0);
-	}
-	return *this; 
+    if (str)
+    {
+        CopyFrom(str, strlen(str));
+    } else {
+        SetLength(0);
+    }
+    return *this; 
 }
 
 TString& TString::assign(const char* str, int n)
 {
-	CopyFrom(str, n);
-	return *this; 
+    CopyFrom(str, n);
+    return *this; 
 }
 
 TString& TString::assign(int n, char c)
 {
-	Fill(c, n);
-	return *this; 
+    Fill(c, n);
+    return *this; 
 }
 
 TString& TString::insert(int position, const TString& str)
 {
-	Insert(position, str);
-	return *this; 
+    Insert(position, str);
+    return *this; 
 }
 
 TString& TString::insert(int position, const TString& str, int subpos, int sublen)
 {
-	Insert(position, str.PData + subpos, sublen);
-	return *this; 
+    Insert(position, str.PData + subpos, sublen);
+    return *this; 
 }
 
 TString& TString::insert(int position, const char* str)
 {
-	Insert(position, str);
-	return *this; 
+    Insert(position, str);
+    return *this; 
 }
 
 TString& TString::insert(int position, const char* str, int length)
 {
-	Insert(position, str);
-	return *this; 
+    Insert(position, str);
+    return *this; 
 }
 
 TString& TString::remove(int position, int length)
 {
-	Delete(position, length);
-	return *this;
+    Delete(position, length);
+    return *this;
 }
 
 void TString::swap(TString& str)
 {
-	TString tmp;
-	tmp = str;
-	str = *this;
-	*this = tmp;
+    TString tmp;
+    tmp = str;
+    str = *this;
+    *this = tmp;
 }
 
 void TString::pop_back()
 {
-	if (DataLen>0)
-	{
-		SetLength(DataLen-1);
-	}
+    if (DataLen>0)
+    {
+        SetLength(DataLen-1);
+    }
 }
 
 const char* TString::c_str()
 {
-	return PData;
+    return PData;
 }
 
 const char* TString::data()
 {
-	return PData;
+    return PData;
 }
 
 int TString::find(const TString& str, int pos) const
 {
-	return IndexOf(str.PData, pos);
+    return IndexOf(str.PData, pos);
 }
 
 int TString::find(const char* str, int pos) const
 {
-	return IndexOf(str, pos);
+    return IndexOf(str, pos);
 }
 
 #endif

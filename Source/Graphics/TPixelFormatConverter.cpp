@@ -268,8 +268,8 @@ void TPixelFormatConverter::RGBA8888toRGB565   (unsigned char* targetData, const
 		b1  = (unsigned char)( sourceData[1]>>5)        + (sourceData[0] & 0xE0 );   targetData++;
 		b2  = (unsigned char)((sourceData[1]<<3)&0xE0) + ((sourceData[2] & 0xE0)/8); targetData++;
 		a   = sourceData[3];
-		c1 = (b1*a + *targetData*(256-a)); c1>>=8;
-		c2 = (b1*a + *targetData*(256-a)); c2>>=8;
+		c1 = (b1*a + (*targetData) *(256-a)); c1>>=8;
+		c2 = (b2*a + (*targetData) *(256-a)); c2>>=8;
 		*targetData = (unsigned char)c1; targetData++;
 		*targetData = (unsigned char)c2; targetData++;
 		sourceData+=4;
@@ -320,10 +320,7 @@ void TPixelFormatConverter::DXT1toRGB565 (unsigned char* targetData, const unsig
 
 		unsigned char b,i;
 
-		short cx = addParam  & 3;
-		short cy = addParam >> 2;
-
-		b = sourceData[cy];
+		b = sourceData[addParam >> 2];
 
 		if (pixel1)
 		{

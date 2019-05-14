@@ -53,11 +53,11 @@ TJsonTag* TJsonTagList::Next()
 TJsonTagBasePool*  TJsonTag::TagPool = NULL;
 
 TJsonTag::TJsonTag()
-  : m_parentTag(NULL),
+  : m_tagType(JSONNull),
+    m_parentTag(NULL),
     m_name(NULL),
     m_stringValue(NULL),
-    m_intValue(0),
-    m_tagType(JSONNull)  
+    m_intValue(0)     
 {
 
 }

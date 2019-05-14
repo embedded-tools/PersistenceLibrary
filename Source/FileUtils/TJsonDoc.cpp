@@ -273,16 +273,15 @@ const char* TJsonDoc::ParseName()
     char c = CurrentChar();    
 
     const char* name   = &parserData[parserPosition];
-    bool  nameFound    = false;
     bool  alphaNumeric = false;
     while(c!=0)
     {
         if (c==':')
         {
             parserData[parserPosition] = 0;
+          
             //name is now terminated by zero
-            nameFound = true;
-			break;
+            break;
         }        
         alphaNumeric = ((c>='A') && (c<='Z')) ||
                        ((c>='a') && (c<='z')) ||
@@ -290,7 +289,7 @@ const char* TJsonDoc::ParseName()
                        ( c=='_');
         if (!alphaNumeric) return NULL;       
 
-		c =NextChar();
+		    c =NextChar();
     }
     c = NextNonEmptyChar();
     return name;

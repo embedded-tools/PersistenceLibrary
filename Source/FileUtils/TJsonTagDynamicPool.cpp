@@ -34,15 +34,12 @@ TJsonTag* TJsonTagDynamicPool::CreateJsonTag(TJsonTag* parentTag)
 
 bool TJsonTagDynamicPool::DeleteJsonTag(TJsonTag* tag)
 {
-    int selectedIndex = -1;
     for (int i = 0; i<m_tags.Count(); i++)
     {
         if (tag == m_tags[i])
         {
-            selectedIndex = i;            
             m_tags.RemoveAt(i);    
             delete tag;
-
             return true;
         }
     }    

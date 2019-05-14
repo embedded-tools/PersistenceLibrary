@@ -1,18 +1,18 @@
 /*
- * Persistence Library / Graphics / TCanvas
- *
- * Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
- *
- * https://github.com/embedded-tools/PersistenceLibrary
- *
- * Permission to use, copy, modify, distribute and sell this software
- * and its documentation for any purpose is hereby granted without fee,
- * provided that the above copyright notice appear in all copies and
- * that both that copyright notice and this permission notice appear
- * in supporting documentation.
- * It is provided "as is" without express or implied warranty.
- *
- */
+* Persistence Library / Graphics / TCanvas
+*
+* Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
+*
+* https://github.com/embedded-tools/PersistenceLibrary
+*
+* Permission to use, copy, modify, distribute and sell this software
+* and its documentation for any purpose is hereby granted without fee,
+* provided that the above copyright notice appear in all copies and
+* that both that copyright notice and this permission notice appear
+* in supporting documentation.
+* It is provided "as is" without express or implied warranty.
+*
+*/
 
 #include "TCanvas.h"
 #include "TFixedPoint16M.h"
@@ -33,15 +33,15 @@ TCanvas::TCanvas(TGraphicsData* vram)
 
 TCanvas::~TCanvas()
 {
-     m_graphicsData = NULL;
+    m_graphicsData = NULL;
 }
 
 int TCanvas::FastSqrt(int x)
 {
-	if (x<1)
-	{
-		return 0;
-	}
+    if (x<1)
+    {
+        return 0;
+    }
     int y0 = -2147483647;
     int y1 = 1;
     int timeout = 0;
@@ -50,18 +50,18 @@ int TCanvas::FastSqrt(int x)
         y0 = y1;
         y1 = (x / y0 + y0) / 2;
         timeout++;
-        if (timeout==20) break;        
+        if (timeout==20) break;				
     }
     return y1;
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+
 void TCanvas::DrawElipse(TRectangle area, unsigned char antialiasingFactor)
 {
-	short cX, cY;
+    short cX, cY;
     short ec1X, ec1Y, ec2X, ec2Y;
-    int   e,d,d2,div;
-	short width   = area.Right  - area.Left;
-	short height  = area.Bottom - area.Top;
+    int	 e,d,d2,div;
+    short width	 = area.Right	- area.Left;
+    short height	= area.Bottom - area.Top;
     short a = width / 2;
     short b = height / 2;
 
@@ -84,15 +84,15 @@ void TCanvas::DrawElipse(TRectangle area, unsigned char antialiasingFactor)
         ec2Y = cY + e;
     }
     div = 1;
-	if ((a*b)>40000) div = 100;
-	if ((a*b)>250000) div = 10000;
+    if ((a*b)>40000) div = 100;
+    if ((a*b)>250000) div = 10000;
 
-    d   = a * a * b /div * b;
-    d2  = (a-antialiasingFactor)*(a-antialiasingFactor)*(b-antialiasingFactor)/div*(b-antialiasingFactor);
+    d	 = a * a * b /div * b;
+    d2	= (a-antialiasingFactor)*(a-antialiasingFactor)*(b-antialiasingFactor)/div*(b-antialiasingFactor);
 
     int dx, dy, delta, deltaY;
     int colorThresholdTable[15];
-    colorThresholdTable[0]  = d;
+    colorThresholdTable[0]	= d;
     colorThresholdTable[14] = d2;
     delta = colorThresholdTable[14] - colorThresholdTable[0];
     for(short i = 1; i<14; i++)
@@ -100,16 +100,16 @@ void TCanvas::DrawElipse(TRectangle area, unsigned char antialiasingFactor)
         colorThresholdTable[i] = delta * i / 15 + colorThresholdTable[0];
     }
     unsigned char colorIndex;
-    TColorRGB     colorTable[16];
-    TColorRGB     colorRGB, colorVector, srcColor, dstColor;
+    TColorRGB		 colorTable[16];
+    TColorRGB		 colorRGB, colorVector, srcColor, dstColor;
 
     if (!m_blending)
     {
-        colorTable[0]  = m_backgroundColor;
+        colorTable[0]	= m_backgroundColor;
         colorTable[15] = m_foregroundColor;
-        colorVector.R  = m_foregroundColor.R - m_backgroundColor.R;
-        colorVector.G  = m_foregroundColor.G - m_backgroundColor.G;
-        colorVector.B  = m_foregroundColor.B - m_backgroundColor.B;
+        colorVector.R	= m_foregroundColor.R - m_backgroundColor.R;
+        colorVector.G	= m_foregroundColor.G - m_backgroundColor.G;
+        colorVector.B	= m_foregroundColor.B - m_backgroundColor.B;
         for(short i = 1; i<15; i++)
         {
             colorTable[i].R = colorVector.R * i / 15 + colorTable[0].R;
@@ -118,14 +118,14 @@ void TCanvas::DrawElipse(TRectangle area, unsigned char antialiasingFactor)
         }
     }
 
-	for(short y = 0; y<height; y++)
-	{
+    for(short y = 0; y<height; y++)
+    {
         deltaY = 0;
-        dy = (cY - y); dy*=dy; dy *= a; dy /= div; dy *= a; deltaY+=dy;        
+        dy = (cY - y); dy*=dy; dy *= a; dy /= div; dy *= a; deltaY+=dy;				
         for(short x = 0; x<width; x++)
         {
             delta = 0;
-            dx = (cX - x); dx*=dx; dx *= b; dx /= div; dx *= b; delta += dx;           
+            dx = (cX - x); dx*=dx; dx *= b; dx /= div; dx *= b; delta += dx;					 
             delta += deltaY;
             colorIndex = 0;
             if (delta > colorThresholdTable[0])
@@ -133,31 +133,31 @@ void TCanvas::DrawElipse(TRectangle area, unsigned char antialiasingFactor)
                 //background color
                 if (!m_blending) continue;
             } else
-            if (delta < colorThresholdTable[15])
-            {
-                //foreground color
-                colorIndex = 15;
-            } else {
-                for(short i = 1; i<15; i++)
+                if (delta < colorThresholdTable[15])
                 {
-                    if (delta < colorThresholdTable[i-1])
+                    //foreground color
+                    colorIndex = 15;
+                } else {
+                    for(short i = 1; i<15; i++)
                     {
-                        colorIndex = (unsigned char)i;                            
+                        if (delta < colorThresholdTable[i-1])
+                        {
+                            colorIndex = (unsigned char)i;														
+                        }
                     }
                 }
-            }
-            if (m_blending)
-            {
-                srcColor = GetPixelColor(x, y);
-                dstColor.B = (m_foregroundColor.B * colorIndex) + (srcColor.B * (15 - colorIndex));
-                dstColor.G = (m_foregroundColor.G * colorIndex) + (srcColor.G * (15 - colorIndex));
-                dstColor.R = (m_foregroundColor.R * colorIndex) + (srcColor.R * (15 - colorIndex));                
-                SetPixelColor(x, y, dstColor);
-            } else {
-                SetPixelColor(x, y, colorTable[colorIndex]);
-            }            
+                if (m_blending)
+                {
+                    srcColor = GetPixelColor(x, y);
+                    dstColor.B = (m_foregroundColor.B * colorIndex) + (srcColor.B * (15 - colorIndex));
+                    dstColor.G = (m_foregroundColor.G * colorIndex) + (srcColor.G * (15 - colorIndex));
+                    dstColor.R = (m_foregroundColor.R * colorIndex) + (srcColor.R * (15 - colorIndex));								
+                    SetPixelColor(x, y, dstColor);
+                } else {
+                    SetPixelColor(x, y, colorTable[colorIndex]);
+                }						
         }
-	}	
+    }	
 }
 
 void TCanvas::DrawGradient(TRectangle area, TColorRGB topLeftColor, TColorRGB topRightColor, TColorRGB bottomLeftColor, TColorRGB bottomRightColor)
@@ -186,319 +186,318 @@ void TCanvas::DrawGradient(TRectangle area, TColorRGB topLeftColor, TColorRGB to
         colorVectorX.G = colorRight.G - colorLeft.G;
         colorVectorX.B = colorRight.B - colorLeft.B;
         for(short x = 0; x<width; x++)
-        {            
+        {						
             color.R = (unsigned char)(colorVectorX.R * x / width) + colorLeft.R;
             color.G = (unsigned char)(colorVectorX.G * x / width) + colorLeft.G;
             color.B = (unsigned char)(colorVectorX.B * x / width) + colorLeft.B;
             SetPixelColor(area.Left + x, area.Top + y, color);
         }
-    }        
+    }				
 }
 
 void TCanvas::DrawLine(TPosition startPosition, TPosition endPosition, unsigned char startWidth, unsigned char endWidth, unsigned char antialiasFactor)
 {
-	DrawLine(startPosition, endPosition, startWidth, endWidth, antialiasFactor, NULL, NULL);
+    DrawLine(startPosition, endPosition, startWidth, endWidth, antialiasFactor, NULL, NULL);
 }
 
 void TCanvas::DrawLine(TPosition startPosition, TPosition endPosition, unsigned char startWidth, unsigned char endWidth, unsigned char antialiasFactor, TPosition* previousPoint, TPosition* nextPoint)
 {
-	TVector vector = endPosition - startPosition;
-	vector.Normalize();
-	
-	TVector normalVector;
-	normalVector.DirectionX =  vector.DirectionY;
-	normalVector.DirectionY = -vector.DirectionX;
-	normalVector.Normalize();
+    TVector vector = endPosition - startPosition;
+    vector.Normalize();
 
-	TPosition tmpPoint11 = startPosition + (normalVector * (startWidth/2));
-	TPosition tmpPoint12 = endPosition   + (normalVector * (endWidth/2  ));
-	TPosition tmpPoint21 = tmpPoint11    - (normalVector *  startWidth   );	
-	TPosition tmpPoint22 = tmpPoint12    - (normalVector *  endWidth );
+    TVector normalVector;
+    normalVector.DirectionX =	vector.DirectionY;
+    normalVector.DirectionY = -vector.DirectionX;
+    normalVector.Normalize();
 
-	TVector normalVectorStart;
-	if (previousPoint)
-	{
-		TVector previousVector = startPosition - (*previousPoint);
-		normalVectorStart.DirectionX =  previousVector.DirectionY;
-		normalVectorStart.DirectionY = -previousVector.DirectionX;
-		normalVectorStart.Normalize();
-		normalVectorStart.DirectionX += normalVector.DirectionX;
-		normalVectorStart.DirectionY += normalVector.DirectionY;
-	} else {
-		normalVectorStart.DirectionX = normalVector.DirectionX;
-		normalVectorStart.DirectionY = normalVector.DirectionY;
-	}	
-	normalVectorStart.Simplify();
+    TPosition tmpPoint11 = startPosition + (normalVector * (startWidth/2));
+    TPosition tmpPoint12 = endPosition	 + (normalVector * (endWidth/2	));
+    TPosition tmpPoint21 = tmpPoint11		- (normalVector *	startWidth	 );	
+    TPosition tmpPoint22 = tmpPoint12		- (normalVector *	endWidth );
 
-	TVector normalVectorEnd;
-	if (nextPoint)
-	{
-		TVector nextVector;
-		nextVector = (*nextPoint) - endPosition;
-		normalVectorEnd.DirectionX =  nextVector.DirectionY;
-		normalVectorEnd.DirectionY = -nextVector.DirectionX;
-		normalVectorEnd.Normalize();
-		normalVectorEnd.DirectionX += normalVector.DirectionX;
-		normalVectorEnd.DirectionY += normalVector.DirectionY;
-	} else {
-		normalVectorEnd.DirectionX = normalVector.DirectionX;
-		normalVectorEnd.DirectionY = normalVector.DirectionY;
-	}
-	normalVectorEnd.Simplify();
-	normalVector.Simplify();
+    TVector normalVectorStart;
+    if (previousPoint)
+    {
+        TVector previousVector = startPosition - (*previousPoint);
+        normalVectorStart.DirectionX =	previousVector.DirectionY;
+        normalVectorStart.DirectionY = -previousVector.DirectionX;
+        normalVectorStart.Normalize();
+        normalVectorStart.DirectionX += normalVector.DirectionX;
+        normalVectorStart.DirectionY += normalVector.DirectionY;
+    } else {
+        normalVectorStart.DirectionX = normalVector.DirectionX;
+        normalVectorStart.DirectionY = normalVector.DirectionY;
+    }	
+    normalVectorStart.Simplify();
 
+    TVector normalVectorEnd;
+    if (nextPoint)
+    {
+        TVector nextVector;
+        nextVector = (*nextPoint) - endPosition;
+        normalVectorEnd.DirectionX =	nextVector.DirectionY;
+        normalVectorEnd.DirectionY = -nextVector.DirectionX;
+        normalVectorEnd.Normalize();
+        normalVectorEnd.DirectionX += normalVector.DirectionX;
+        normalVectorEnd.DirectionY += normalVector.DirectionY;
+    } else {
+        normalVectorEnd.DirectionX = normalVector.DirectionX;
+        normalVectorEnd.DirectionY = normalVector.DirectionY;
+    }
+    normalVectorEnd.Simplify();
+    normalVector.Simplify();
 
-	TPosition centerPosition;
-	centerPosition.X = (startPosition.X + endPosition.X) / 2;
-	centerPosition.Y = (startPosition.Y + endPosition.Y) / 2;
+    TPosition centerPosition;
+    centerPosition.X = (startPosition.X + endPosition.X) / 2;
+    centerPosition.Y = (startPosition.Y + endPosition.Y) / 2;
 
-	TEndlessLine leftLine (tmpPoint11, tmpPoint12);
-	TEndlessLine rightLine(tmpPoint21, tmpPoint22);	
-	TEndlessLine startLine(startPosition, normalVectorStart);	
-	TEndlessLine endLine  (endPosition, normalVectorEnd);
+    TEndlessLine leftLine (tmpPoint11, tmpPoint12);
+    TEndlessLine rightLine(tmpPoint21, tmpPoint22);	
+    TEndlessLine startLine(startPosition, normalVectorStart);	
+    TEndlessLine endLine	(endPosition, normalVectorEnd);
 
-	TPosition startLeft  = startLine.Intersection(leftLine);
-	TPosition startRight = startLine.Intersection(rightLine);
-	TPosition endLeft    = endLine.Intersection(leftLine);
-	TPosition endRight   = endLine.Intersection(rightLine);
+    TPosition startLeft	= startLine.Intersection(leftLine);
+    TPosition startRight = startLine.Intersection(rightLine);
+    TPosition endLeft		= endLine.Intersection(leftLine);
+    TPosition endRight	 = endLine.Intersection(rightLine);
 
-	long minY =  2147483647;
-	long maxY = -2147483647;
-	long minX =  2147483647;
-	long maxX = -2147483647;
+    long minY =	2147483647;
+    long maxY = -2147483647;
+    long minX =	2147483647;
+    long maxX = -2147483647;
 
-	if (startLeft.Y<minY)  minY = startLeft.Y;
-	if (startRight.Y<minY) minY = startRight.Y;
-	if (endLeft.Y<minY)    minY = endLeft.Y;
-	if (endRight.Y<minY)   minY = endRight.Y;
-	if (startLeft.Y>maxY)  maxY = startLeft.Y;
-	if (startRight.Y>maxY) maxY = startRight.Y;
-	if (endLeft.Y>maxY)    maxY = endLeft.Y;
-	if (endRight.Y>maxY)   maxY = endRight.Y;
+    if (startLeft.Y<minY)	minY = startLeft.Y;
+    if (startRight.Y<minY) minY = startRight.Y;
+    if (endLeft.Y<minY)		minY = endLeft.Y;
+    if (endRight.Y<minY)	 minY = endRight.Y;
+    if (startLeft.Y>maxY)	maxY = startLeft.Y;
+    if (startRight.Y>maxY) maxY = startRight.Y;
+    if (endLeft.Y>maxY)		maxY = endLeft.Y;
+    if (endRight.Y>maxY)	 maxY = endRight.Y;
 
-	if (startLeft.X<minX)  minX = startLeft.X;
-	if (startRight.X<minX) minX = startRight.X;
-	if (endLeft.X<minX)    minX = endLeft.X;
-	if (endRight.X<minX)   minX = endRight.X;
-	if (startLeft.X>maxX)  maxX = startLeft.X;
-	if (startRight.X>maxX) maxX = startRight.X;
-	if (endLeft.X>maxX)    maxX = endLeft.X;
-	if (endRight.X>maxX)   maxX = endRight.X;
+    if (startLeft.X<minX)	minX = startLeft.X;
+    if (startRight.X<minX) minX = startRight.X;
+    if (endLeft.X<minX)		minX = endLeft.X;
+    if (endRight.X<minX)	 minX = endRight.X;
+    if (startLeft.X>maxX)	maxX = startLeft.X;
+    if (startRight.X>maxX) maxX = startRight.X;
+    if (endLeft.X>maxX)		maxX = endLeft.X;
+    if (endRight.X>maxX)	 maxX = endRight.X;
 
-	leftLine.Normalize();
-	rightLine.Normalize();
-	startLine.Normalize();
-	endLine.Normalize();
+    leftLine.Normalize();
+    rightLine.Normalize();
+    startLine.Normalize();
+    endLine.Normalize();
 
-	if (leftLine.Distance(centerPosition)<0)
-	{
-		leftLine.A  = -leftLine.A;  leftLine.B  = -leftLine.B;  leftLine.C  = -leftLine.C;
-	}
-	if (rightLine.Distance(centerPosition)<0)
-	{
-		rightLine.A  = -rightLine.A;  rightLine.B  = -rightLine.B;  rightLine.C  = -rightLine.C;
-	}
-	if (startLine.Distance(centerPosition)<0)
-	{
-		startLine.A  = -startLine.A;  startLine.B  = -startLine.B;  startLine.C  = -startLine.C;
-	}
-	if (endLine.Distance(centerPosition)<0)
-	{
-		endLine.A  = -endLine.A;  endLine.B  = -endLine.B;  endLine.C  = -endLine.C;
-	}
+    if (leftLine.Distance(centerPosition)<0)
+    {
+        leftLine.A	= -leftLine.A;	leftLine.B	= -leftLine.B;	leftLine.C	= -leftLine.C;
+    }
+    if (rightLine.Distance(centerPosition)<0)
+    {
+        rightLine.A	= -rightLine.A;	rightLine.B	= -rightLine.B;	rightLine.C	= -rightLine.C;
+    }
+    if (startLine.Distance(centerPosition)<0)
+    {
+        startLine.A	= -startLine.A;	startLine.B	= -startLine.B;	startLine.C	= -startLine.C;
+    }
+    if (endLine.Distance(centerPosition)<0)
+    {
+        endLine.A	= -endLine.A;	endLine.B	= -endLine.B;	endLine.C	= -endLine.C;
+    }
 
-	unsigned char colorIndex;
-	TColorRGB     colorTable[16];
-	TColorRGB     colorRGB, colorVector, srcColor, dstColor;
+    unsigned char colorIndex;
+    TColorRGB		 colorTable[16];
+    TColorRGB		 colorRGB, colorVector, srcColor, dstColor;
 
-	if (!m_blending)
-	{
-		colorTable[0]  = m_backgroundColor;
-		colorTable[15] = m_foregroundColor;
-		colorVector.R  = m_foregroundColor.R - m_backgroundColor.R;
-		colorVector.G  = m_foregroundColor.G - m_backgroundColor.G;
-		colorVector.B  = m_foregroundColor.B - m_backgroundColor.B;
-		for(short i = 1; i<15; i++)
-		{
-			colorTable[i].R = colorVector.R * i / 15 + colorTable[0].R;
-			colorTable[i].G = colorVector.G * i / 15 + colorTable[0].G;
-			colorTable[i].B = colorVector.B * i / 15 + colorTable[0].B;
-		}
-	}
+    if (!m_blending)
+    {
+        colorTable[0]	= m_backgroundColor;
+        colorTable[15] = m_foregroundColor;
+        colorVector.R	= m_foregroundColor.R - m_backgroundColor.R;
+        colorVector.G	= m_foregroundColor.G - m_backgroundColor.G;
+        colorVector.B	= m_foregroundColor.B - m_backgroundColor.B;
+        for(short i = 1; i<15; i++)
+        {
+            colorTable[i].R = colorVector.R * i / 15 + colorTable[0].R;
+            colorTable[i].G = colorVector.G * i / 15 + colorTable[0].G;
+            colorTable[i].B = colorVector.B * i / 15 + colorTable[0].B;
+        }
+    }
 
-	TPosition p1, p2, pnt;
-	int dist1, dist2, dist3, dist4, minDist;
+    TPosition p1, p2, pnt;
+    int dist1, dist2, dist3, dist4, minDist;
 
-	if ((maxY-minY)>(maxX-minX))
-	{
-		for(short y = (short)(minY-1); y<(short)(maxY+1); y++)
-		{
-			TEndlessLine horzAxis(TPosition(0, y), TPosition(1, y));
-			TPosition p1 = horzAxis.Intersection(leftLine);
-			TPosition p2 = horzAxis.Intersection(rightLine);
+    if ((maxY-minY)>(maxX-minX))
+    {
+        for(short y = (short)(minY-1); y<(short)(maxY+1); y++)
+        {
+            TEndlessLine horzAxis(TPosition(0, y), TPosition(1, y));
+            TPosition p1 = horzAxis.Intersection(leftLine);
+            TPosition p2 = horzAxis.Intersection(rightLine);
 
-			minX =  2147483647;
-			maxX = -2147483647;
+            minX =	2147483647;
+            maxX = -2147483647;
 
-			if (p1.X<minX) minX = p1.X;
-			if (p2.X<minX) minX = p2.X;
-			if (p1.X>maxX) maxX = p1.X;
-			if (p2.X>maxX) maxX = p2.X;
+            if (p1.X<minX) minX = p1.X;
+            if (p2.X<minX) minX = p2.X;
+            if (p1.X>maxX) maxX = p1.X;
+            if (p2.X>maxX) maxX = p2.X;
 
-			for(short x = (short)(minX-1); x<(short)(maxX+1); x++)
-			{	
-				pnt.X = x;
-				pnt.Y = y;
+            for(short x = (short)(minX-1); x<(short)(maxX+1); x++)
+            {	
+                pnt.X = x;
+                pnt.Y = y;
 
-				dist1 = leftLine.Distance(pnt); 
-				if (dist1<0) continue;
+                dist1 = leftLine.Distance(pnt); 
+                if (dist1<0) continue;
 
-				dist2 = rightLine.Distance(pnt);	
-				if (dist2<0) continue;
+                dist2 = rightLine.Distance(pnt);	
+                if (dist2<0) continue;
 
-				dist3 = startLine.Distance(pnt);				
-				if (previousPoint)
-				{
-					//dist3 += UNIFIED_VECTOR_SIZE;
-					if (dist3<0) continue;
-					dist3 = 2147483647;
-				} else {
-					if (dist3<0) continue;
-				}
+                dist3 = startLine.Distance(pnt);				
+                if (previousPoint)
+                {
+                    //dist3 += UNIFIED_VECTOR_SIZE;
+                    if (dist3<0) continue;
+                    dist3 = 2147483647;
+                } else {
+                    if (dist3<0) continue;
+                }
 
-				dist4 = endLine.Distance(pnt);
-				if (nextPoint)
-				{
-					//dist4 += UNIFIED_VECTOR_SIZE;
-					if (dist4<0) continue;
-					dist4 = 2147483647;
-				} else {
-					if (dist4<0) continue;
-				}
+                dist4 = endLine.Distance(pnt);
+                if (nextPoint)
+                {
+                    //dist4 += UNIFIED_VECTOR_SIZE;
+                    if (dist4<0) continue;
+                    dist4 = 2147483647;
+                } else {
+                    if (dist4<0) continue;
+                }
 
-				minDist = 2147483647;
-				if (dist1<minDist) minDist = dist1;
-				if (dist2<minDist) minDist = dist2;
-				if (dist3<minDist) minDist = dist3;
-				if (dist4<minDist) minDist = dist4;
+                minDist = 2147483647;
+                if (dist1<minDist) minDist = dist1;
+                if (dist2<minDist) minDist = dist2;
+                if (dist3<minDist) minDist = dist3;
+                if (dist4<minDist) minDist = dist4;
 
-				if (antialiasFactor==0)
-				{
-					colorIndex = 15;
-				} else {
-					colorIndex = minDist / (UNIFIED_VECTOR_SIZE * antialiasFactor / 16);
-					if (colorIndex>15) colorIndex = 15;
-				}						
+                if (antialiasFactor==0)
+                {
+                    colorIndex = 15;
+                } else {
+                    colorIndex = minDist / (UNIFIED_VECTOR_SIZE * antialiasFactor / 16);
+                    if (colorIndex>15) colorIndex = 15;
+                }						
 
-				if (m_blending)
-				{
-					srcColor = GetPixelColor(x, y);
-					dstColor.B = (m_foregroundColor.B * colorIndex) + (srcColor.B * (15 - colorIndex));
-					dstColor.G = (m_foregroundColor.G * colorIndex) + (srcColor.G * (15 - colorIndex));
-					dstColor.R = (m_foregroundColor.R * colorIndex) + (srcColor.R * (15 - colorIndex));                
-					SetPixelColor(x, y, dstColor);
-				} else {
-					SetPixelColor(x, y, colorTable[colorIndex]);
-				}  
-			}
-		}
-	} else {
-		for(short x = (short)(minX-1); x<(short)(maxX+1); x++)
-		{
-			TEndlessLine vertAxis(TPosition(x, 0), TPosition(x, 1));
-			TPosition p1 = vertAxis.Intersection(leftLine);
-			TPosition p2 = vertAxis.Intersection(rightLine);
+                if (m_blending)
+                {
+                    srcColor = GetPixelColor(x, y);
+                    dstColor.B = (m_foregroundColor.B * colorIndex) + (srcColor.B * (15 - colorIndex));
+                    dstColor.G = (m_foregroundColor.G * colorIndex) + (srcColor.G * (15 - colorIndex));
+                    dstColor.R = (m_foregroundColor.R * colorIndex) + (srcColor.R * (15 - colorIndex));								
+                    SetPixelColor(x, y, dstColor);
+                } else {
+                    SetPixelColor(x, y, colorTable[colorIndex]);
+                }	
+            }
+        }
+    } else {
+        for(short x = (short)(minX-1); x<(short)(maxX+1); x++)
+        {
+            TEndlessLine vertAxis(TPosition(x, 0), TPosition(x, 1));
+            TPosition p1 = vertAxis.Intersection(leftLine);
+            TPosition p2 = vertAxis.Intersection(rightLine);
 
-			minY =  2147483647;
-			maxY = -2147483647;
+            minY =	2147483647;
+            maxY = -2147483647;
 
-			if (p1.Y<minY) minY = p1.Y;
-			if (p2.Y<minY) minY = p2.Y;
-			if (p1.Y>maxY) maxY = p1.Y;
-			if (p2.Y>maxY) maxY = p2.Y;
+            if (p1.Y<minY) minY = p1.Y;
+            if (p2.Y<minY) minY = p2.Y;
+            if (p1.Y>maxY) maxY = p1.Y;
+            if (p2.Y>maxY) maxY = p2.Y;
 
-			for(short y = (short)(minY-1); y<(short)(maxY+1); y++)
-			{	
-				pnt.X = x;
-				pnt.Y = y;
+            for(short y = (short)(minY-1); y<(short)(maxY+1); y++)
+            {	
+                pnt.X = x;
+                pnt.Y = y;
 
-				dist1 = leftLine.Distance(pnt); 
-				if (dist1<0) 
-				{
-					continue;
-				} else
-				{
-					dist2 = rightLine.Distance(pnt);	
-					if (dist2<0) continue;
-				}
-				dist3 = startLine.Distance(pnt);				
-				if (previousPoint)
-				{
-					//dist3 += UNIFIED_VECTOR_SIZE;
-					if (dist3<0) continue;
-					dist3 = 2147483647;
-				} else {
-					if (dist3<0) continue;
-				}
+                dist1 = leftLine.Distance(pnt); 
+                if (dist1<0) 
+                {
+                    continue;
+                } else
+                {
+                    dist2 = rightLine.Distance(pnt);	
+                    if (dist2<0) continue;
+                }
+                dist3 = startLine.Distance(pnt);				
+                if (previousPoint)
+                {
+                    //dist3 += UNIFIED_VECTOR_SIZE;
+                    if (dist3<0) continue;
+                    dist3 = 2147483647;
+                } else {
+                    if (dist3<0) continue;
+                }
 
-				dist4 = endLine.Distance(pnt);
-				if (nextPoint)
-				{
-					//dist4 += UNIFIED_VECTOR_SIZE;
-					if (dist4<0) continue;
-					dist4 = 2147483647;
-				} else {
-					if (dist4<0) continue;
-				}
+                dist4 = endLine.Distance(pnt);
+                if (nextPoint)
+                {
+                    //dist4 += UNIFIED_VECTOR_SIZE;
+                    if (dist4<0) continue;
+                    dist4 = 2147483647;
+                } else {
+                    if (dist4<0) continue;
+                }
 
-				minDist = 2147483647;
-				if (dist1<minDist) minDist = dist1;
-				if (dist2<minDist) minDist = dist2;
-				if (dist3<minDist) minDist = dist3;
-				if (dist4<minDist) minDist = dist4;
+                minDist = 2147483647;
+                if (dist1<minDist) minDist = dist1;
+                if (dist2<minDist) minDist = dist2;
+                if (dist3<minDist) minDist = dist3;
+                if (dist4<minDist) minDist = dist4;
 
-				if (antialiasFactor==0)
-				{
-					colorIndex = 15;
-				} else {
-					colorIndex = minDist / (UNIFIED_VECTOR_SIZE * antialiasFactor / 16);
-					if (colorIndex>15) colorIndex = 15;
-				}						
+                if (antialiasFactor==0)
+                {
+                    colorIndex = 15;
+                } else {
+                    colorIndex = minDist / (UNIFIED_VECTOR_SIZE * antialiasFactor / 16);
+                    if (colorIndex>15) colorIndex = 15;
+                }						
 
-				if (m_blending)
-				{
-					srcColor = GetPixelColor(x, y);
-					dstColor.B = (m_foregroundColor.B * colorIndex) + (srcColor.B * (15 - colorIndex));
-					dstColor.G = (m_foregroundColor.G * colorIndex) + (srcColor.G * (15 - colorIndex));
-					dstColor.R = (m_foregroundColor.R * colorIndex) + (srcColor.R * (15 - colorIndex));                
-					SetPixelColor(x, y, dstColor);
-				} else {
-					SetPixelColor(x, y, colorTable[colorIndex]);
-				}  
-			}
-		}
-	}
+                if (m_blending)
+                {
+                    srcColor = GetPixelColor(x, y);
+                    dstColor.B = (m_foregroundColor.B * colorIndex) + (srcColor.B * (15 - colorIndex));
+                    dstColor.G = (m_foregroundColor.G * colorIndex) + (srcColor.G * (15 - colorIndex));
+                    dstColor.R = (m_foregroundColor.R * colorIndex) + (srcColor.R * (15 - colorIndex));								
+                    SetPixelColor(x, y, dstColor);
+                } else {
+                    SetPixelColor(x, y, colorTable[colorIndex]);
+                }	
+            }
+        }
+    }
 }
 
 void TCanvas::DrawPolyLine(TPosition* positionArray, short positionArrayLength, unsigned char width, unsigned char antialiasFactor)
 {
-	TPosition* p0 = NULL;
-	TPosition  p1,p2;
-	TPosition* p3 = NULL;
+    TPosition* p0 = NULL;
+    TPosition	p1,p2;
+    TPosition* p3 = NULL;
 
-	int n = 0;
-	while(n<positionArrayLength-1)
-	{
-		if (n>0) p0 = &positionArray[n-1];
-		else p0 = NULL;
+    int n = 0;
+    while(n<positionArrayLength-1)
+    {
+        if (n>0) p0 = &positionArray[n-1];
+        else p0 = NULL;
 
-		p1 = positionArray[n];
-		p2 = positionArray[n+1];
-		if (n<positionArrayLength-2) p3 = &positionArray[n+2];
-		else p3 = NULL;
+        p1 = positionArray[n];
+        p2 = positionArray[n+1];
+        if (n<positionArrayLength-2) p3 = &positionArray[n+2];
+        else p3 = NULL;
 
-		DrawLine(p1, p2, width, width, antialiasFactor, p0, p3);
-	}
+        DrawLine(p1, p2, width, width, antialiasFactor, p0, p3);
+    }
 }
 
 void TCanvas::DrawRectangle(TRectangle rectangle)
@@ -513,244 +512,244 @@ void TCanvas::DrawRectangle(TRectangle rectangle)
                 m_graphicsData->SetPixelColor(x, y, m_foregroundColor);
             }
         }
-    }        
+    }				
 }
 
 void TCanvas::DrawRoundedRectangle(TRectangle rectangle, short radius, unsigned char antialiasFactor)
 {
-	short width  = rectangle.Width();
-	short height = rectangle.Height();	
+    short width	= rectangle.Width();
+    short height = rectangle.Height();	
 
-	TEndlessLine topLine    ( TPosition(rectangle.Left + radius, rectangle.Top + radius), 
-		                      TPosition(rectangle.Right- radius, rectangle.Top + radius)
-							);
-	TEndlessLine leftLine   ( TPosition(rectangle.Left + radius, rectangle.Top), 
-		                      TPosition(rectangle.Left + radius, rectangle.Bottom)
-							);
-	TEndlessLine rightLine  ( TPosition(rectangle.Right - radius, rectangle.Top), 
-							  TPosition(rectangle.Right - radius, rectangle.Bottom)
-							);
-	TEndlessLine bottomLine ( TPosition(rectangle.Left + radius, rectangle.Bottom - radius), 
-							  TPosition(rectangle.Right- radius, rectangle.Bottom - radius)
-		                    );
+    TEndlessLine topLine		( TPosition(rectangle.Left + radius, rectangle.Top + radius), 
+        TPosition(rectangle.Right- radius, rectangle.Top + radius)
+        );
+    TEndlessLine leftLine	 ( TPosition(rectangle.Left + radius, rectangle.Top), 
+        TPosition(rectangle.Left + radius, rectangle.Bottom)
+        );
+    TEndlessLine rightLine	( TPosition(rectangle.Right - radius, rectangle.Top), 
+        TPosition(rectangle.Right - radius, rectangle.Bottom)
+        );
+    TEndlessLine bottomLine ( TPosition(rectangle.Left + radius, rectangle.Bottom - radius), 
+        TPosition(rectangle.Right- radius, rectangle.Bottom - radius)
+        );
 
-	TPosition centerPoint;
-	centerPoint.X  = (rectangle.Left + rectangle.Right)  / 2;
-	centerPoint.Y  = (rectangle.Top  + rectangle.Bottom) / 2;
+    TPosition centerPoint;
+    centerPoint.X	= (rectangle.Left + rectangle.Right)	/ 2;
+    centerPoint.Y	= (rectangle.Top	+ rectangle.Bottom) / 2;
 
-	TPosition topLeft     = topLine.Intersection(leftLine);
-	TPosition topRight    = topLine.Intersection(rightLine);
-	TPosition bottomLeft  = bottomLine.Intersection(leftLine);
-	TPosition bottomRight = bottomLine.Intersection(rightLine);
+    TPosition topLeft		 = topLine.Intersection(leftLine);
+    TPosition topRight		= topLine.Intersection(rightLine);
+    TPosition bottomLeft	= bottomLine.Intersection(leftLine);
+    TPosition bottomRight = bottomLine.Intersection(rightLine);
 
-	topLine.Normalize();
-	leftLine.Normalize();
-	rightLine.Normalize();
-	bottomLine.Normalize();
+    topLine.Normalize();
+    leftLine.Normalize();
+    rightLine.Normalize();
+    bottomLine.Normalize();
 
-	if (topLine.Distance(centerPoint)>0)
-	{
-		topLine.A = -topLine.A; topLine.B = -topLine.B; topLine.C = -topLine.C;
-	}
-	if (leftLine.Distance(centerPoint)>0)
-	{
-		leftLine.A = -leftLine.A; leftLine.B = -leftLine.B; leftLine.C = -leftLine.C;
-	}
-	if (bottomLine.Distance(centerPoint)>0)
-	{
-		bottomLine.A = -bottomLine.A; bottomLine.B = -bottomLine.B; bottomLine.C = -bottomLine.C;
-	}
-	if (rightLine.Distance(centerPoint)>0)
-	{
-		rightLine.A = -rightLine.A; rightLine.B = -rightLine.B; rightLine.C = -rightLine.C;
-	}
+    if (topLine.Distance(centerPoint)>0)
+    {
+        topLine.A = -topLine.A; topLine.B = -topLine.B; topLine.C = -topLine.C;
+    }
+    if (leftLine.Distance(centerPoint)>0)
+    {
+        leftLine.A = -leftLine.A; leftLine.B = -leftLine.B; leftLine.C = -leftLine.C;
+    }
+    if (bottomLine.Distance(centerPoint)>0)
+    {
+        bottomLine.A = -bottomLine.A; bottomLine.B = -bottomLine.B; bottomLine.C = -bottomLine.C;
+    }
+    if (rightLine.Distance(centerPoint)>0)
+    {
+        rightLine.A = -rightLine.A; rightLine.B = -rightLine.B; rightLine.C = -rightLine.C;
+    }
 
-	TPosition pnt;
-	int dist1, dist2, dist3, dist4;
-	int tmp;
+    TPosition pnt;
+    int dist1, dist2, dist3, dist4;
+    int tmp;
 
 
-	unsigned char colorIndex;
-	TColorRGB     colorTable[16];
-	TColorRGB     colorRGB, colorVector, srcColor, dstColor;
+    unsigned char colorIndex;
+    TColorRGB		 colorTable[16];
+    TColorRGB		 colorRGB, colorVector, srcColor, dstColor;
 
-	if (!m_blending)
-	{
-		colorTable[0]  = m_backgroundColor;
-		colorTable[15] = m_foregroundColor;
-		colorVector.R  = m_foregroundColor.R - m_backgroundColor.R;
-		colorVector.G  = m_foregroundColor.G - m_backgroundColor.G;
-		colorVector.B  = m_foregroundColor.B - m_backgroundColor.B;
-		for(short i = 1; i<15; i++)
-		{
-			colorTable[i].R = colorVector.R * i / 15 + colorTable[0].R;
-			colorTable[i].G = colorVector.G * i / 15 + colorTable[0].G;
-			colorTable[i].B = colorVector.B * i / 15 + colorTable[0].B;
-		}
-	}
+    if (!m_blending)
+    {
+        colorTable[0]	= m_backgroundColor;
+        colorTable[15] = m_foregroundColor;
+        colorVector.R	= m_foregroundColor.R - m_backgroundColor.R;
+        colorVector.G	= m_foregroundColor.G - m_backgroundColor.G;
+        colorVector.B	= m_foregroundColor.B - m_backgroundColor.B;
+        for(short i = 1; i<15; i++)
+        {
+            colorTable[i].R = colorVector.R * i / 15 + colorTable[0].R;
+            colorTable[i].G = colorVector.G * i / 15 + colorTable[0].G;
+            colorTable[i].B = colorVector.B * i / 15 + colorTable[0].B;
+        }
+    }
 
-	int dist;
-	int colorThresholdTable[15];
-	colorThresholdTable[0]  = radius * UNIFIED_VECTOR_SIZE;
-	colorThresholdTable[14] = (radius - antialiasFactor)*UNIFIED_VECTOR_SIZE ;
-	dist = colorThresholdTable[14] - colorThresholdTable[0];
-	for(short i = 1; i<14; i++)
-	{
-		colorThresholdTable[i] = dist * i / 15 + colorThresholdTable[0];
-	}
-	
-	for(short y = rectangle.Top; y<rectangle.Bottom; y++)
-	{
-		for(short x = rectangle.Left; x<rectangle.Right; x++)
-		{
-			pnt.X = x;
-			pnt.Y = y;
-			dist1 = topLine.Distance(pnt);    
-			dist2 = leftLine.Distance(pnt);   
-			dist3 = rightLine.Distance(pnt);  
-			dist4 = bottomLine.Distance(pnt); 
-			if (dist1>0)
-			{
-				if (dist2>0)
-				{
-					tmp = (pnt.X - topLeft.X);
-					tmp *= UNIFIED_VECTOR_SIZE_SQRT;
-					tmp *= tmp;
-					dist = tmp;
+    int dist;
+    int colorThresholdTable[15];
+    colorThresholdTable[0]	= radius * UNIFIED_VECTOR_SIZE;
+    colorThresholdTable[14] = (radius - antialiasFactor)*UNIFIED_VECTOR_SIZE ;
+    dist = colorThresholdTable[14] - colorThresholdTable[0];
+    for(short i = 1; i<14; i++)
+    {
+        colorThresholdTable[i] = dist * i / 15 + colorThresholdTable[0];
+    }
 
-					tmp = (pnt.Y - topLeft.Y);
-					tmp *= UNIFIED_VECTOR_SIZE_SQRT;
-					tmp *= tmp;
-					dist += tmp;
+    for(short y = rectangle.Top; y<rectangle.Bottom; y++)
+    {
+        for(short x = rectangle.Left; x<rectangle.Right; x++)
+        {
+            pnt.X = x;
+            pnt.Y = y;
+            dist1 = topLine.Distance(pnt);		
+            dist2 = leftLine.Distance(pnt);	 
+            dist3 = rightLine.Distance(pnt);	
+            dist4 = bottomLine.Distance(pnt); 
+            if (dist1>0)
+            {
+                if (dist2>0)
+                {
+                    tmp = (pnt.X - topLeft.X);
+                    tmp *= UNIFIED_VECTOR_SIZE_SQRT;
+                    tmp *= tmp;
+                    dist = tmp;
 
-					if (dist<2500000) 
-					{
-						dist *= UNIFIED_VECTOR_SIZE;
-						dist = TCanvas::FastSqrt(dist);
-					} else {
-						//avoids Int32 overflow
-						//but it is less accurate
-						dist = TCanvas::FastSqrt(dist);
-						dist *= UNIFIED_VECTOR_SIZE_SQRT;
-					}
+                    tmp = (pnt.Y - topLeft.Y);
+                    tmp *= UNIFIED_VECTOR_SIZE_SQRT;
+                    tmp *= tmp;
+                    dist += tmp;
 
-				} else
-				if (dist3>0)
-				{
-					tmp = (pnt.X - topRight.X);
-					tmp *= UNIFIED_VECTOR_SIZE_SQRT;
-					tmp *= tmp;
-					dist = tmp;
+                    if (dist<2500000) 
+                    {
+                        dist *= UNIFIED_VECTOR_SIZE;
+                        dist = TCanvas::FastSqrt(dist);
+                    } else {
+                        //avoids Int32 overflow
+                        //but it is less accurate
+                        dist = TCanvas::FastSqrt(dist);
+                        dist *= UNIFIED_VECTOR_SIZE_SQRT;
+                    }
 
-					tmp = (pnt.Y - topRight.Y);
-					tmp *= UNIFIED_VECTOR_SIZE_SQRT;
-					tmp *= tmp;
-					dist += tmp;
+                } else
+                    if (dist3>0)
+                    {
+                        tmp = (pnt.X - topRight.X);
+                        tmp *= UNIFIED_VECTOR_SIZE_SQRT;
+                        tmp *= tmp;
+                        dist = tmp;
 
-					if (dist<2500000) 
-					{
-						dist *= UNIFIED_VECTOR_SIZE;
-						dist = TCanvas::FastSqrt(dist);
-					} else {
-						//avoids Int32 overflow
-						//but it is less accurate
-						dist = TCanvas::FastSqrt(dist);
-						dist *= UNIFIED_VECTOR_SIZE_SQRT;
-					}
+                        tmp = (pnt.Y - topRight.Y);
+                        tmp *= UNIFIED_VECTOR_SIZE_SQRT;
+                        tmp *= tmp;
+                        dist += tmp;
 
-				} else 
-				dist = dist1;
-			} else
-			if (dist4>0)
-			{
-				if (dist2>0)
-				{
-					tmp = (pnt.X - bottomLeft.X);
-					tmp *= UNIFIED_VECTOR_SIZE_SQRT;
-					tmp *= tmp;
-					dist = tmp;
+                        if (dist<2500000) 
+                        {
+                            dist *= UNIFIED_VECTOR_SIZE;
+                            dist = TCanvas::FastSqrt(dist);
+                        } else {
+                            //avoids Int32 overflow
+                            //but it is less accurate
+                            dist = TCanvas::FastSqrt(dist);
+                            dist *= UNIFIED_VECTOR_SIZE_SQRT;
+                        }
 
-					tmp = (pnt.Y - bottomLeft.Y);
-					tmp *= UNIFIED_VECTOR_SIZE_SQRT;
-					tmp *= tmp;
-					dist += tmp;
+                    } else 
+                        dist = dist1;
+            } else
+                if (dist4>0)
+                {
+                    if (dist2>0)
+                    {
+                        tmp = (pnt.X - bottomLeft.X);
+                        tmp *= UNIFIED_VECTOR_SIZE_SQRT;
+                        tmp *= tmp;
+                        dist = tmp;
 
-					if (dist<2500000) 
-					{
-						dist *= UNIFIED_VECTOR_SIZE;
-						dist = TCanvas::FastSqrt(dist);
-					} else {
-						//avoids Int32 overflow
-						//but it is less accurate
-						dist = TCanvas::FastSqrt(dist);
-						dist *= UNIFIED_VECTOR_SIZE_SQRT;
-					}
-				} else
-				if (dist3>0)
-				{
-					tmp = (pnt.X - bottomRight.X);
-					tmp *= UNIFIED_VECTOR_SIZE_SQRT;
-					tmp *= tmp;
-					dist = tmp;
+                        tmp = (pnt.Y - bottomLeft.Y);
+                        tmp *= UNIFIED_VECTOR_SIZE_SQRT;
+                        tmp *= tmp;
+                        dist += tmp;
 
-					tmp = (pnt.Y - bottomRight.Y);
-					tmp *= UNIFIED_VECTOR_SIZE_SQRT;
-					tmp *= tmp;
-					dist += tmp;
+                        if (dist<2500000) 
+                        {
+                            dist *= UNIFIED_VECTOR_SIZE;
+                            dist = TCanvas::FastSqrt(dist);
+                        } else {
+                            //avoids Int32 overflow
+                            //but it is less accurate
+                            dist = TCanvas::FastSqrt(dist);
+                            dist *= UNIFIED_VECTOR_SIZE_SQRT;
+                        }
+                    } else
+                        if (dist3>0)
+                        {
+                            tmp = (pnt.X - bottomRight.X);
+                            tmp *= UNIFIED_VECTOR_SIZE_SQRT;
+                            tmp *= tmp;
+                            dist = tmp;
 
-					if (dist<2500000) 
-					{
-						dist *= UNIFIED_VECTOR_SIZE;
-						dist = TCanvas::FastSqrt(dist);
-					} else {
-						//avoids Int32 overflow
-						//but it is less accurate
-						dist = TCanvas::FastSqrt(dist);
-						dist *= UNIFIED_VECTOR_SIZE_SQRT;
-					}
-				} else
-				dist = dist4;
-			}
-			else {
-				dist = colorThresholdTable[14]-1;
-				if (dist1>dist) dist = dist1;
-				if (dist2>dist) dist = dist2;
-				if (dist3>dist) dist = dist3;
-				if (dist4>dist) dist = dist4;
-			}
+                            tmp = (pnt.Y - bottomRight.Y);
+                            tmp *= UNIFIED_VECTOR_SIZE_SQRT;
+                            tmp *= tmp;
+                            dist += tmp;
 
-			if (dist > colorThresholdTable[0])
-			{
-				//background color
-				if (!m_blending) continue;
-			} else
-			if (dist < colorThresholdTable[15])
-			{
-				//foreground color
-				colorIndex = 15;
-			} else {
-				colorIndex = 0;
-				for(short i = 1; i<15; i++)
-				{
-					if (dist < colorThresholdTable[i-1])
-					{
-						colorIndex = (unsigned char)i;                            
-					}
-				}				
-			}
-	
-			if (m_blending)
-			{
-				srcColor = GetPixelColor(x, y);
-				dstColor.B = (m_foregroundColor.B * colorIndex) + (srcColor.B * (15 - colorIndex));
-				dstColor.G = (m_foregroundColor.G * colorIndex) + (srcColor.G * (15 - colorIndex));
-				dstColor.R = (m_foregroundColor.R * colorIndex) + (srcColor.R * (15 - colorIndex));                
-				SetPixelColor(x, y, dstColor);
-			} else {
-				SetPixelColor(x, y, colorTable[colorIndex]);
-			} 
-		}
-	}
+                            if (dist<2500000) 
+                            {
+                                dist *= UNIFIED_VECTOR_SIZE;
+                                dist = TCanvas::FastSqrt(dist);
+                            } else {
+                                //avoids Int32 overflow
+                                //but it is less accurate
+                                dist = TCanvas::FastSqrt(dist);
+                                dist *= UNIFIED_VECTOR_SIZE_SQRT;
+                            }
+                        } else
+                            dist = dist4;
+                }
+                else {
+                    dist = colorThresholdTable[14]-1;
+                    if (dist1>dist) dist = dist1;
+                    if (dist2>dist) dist = dist2;
+                    if (dist3>dist) dist = dist3;
+                    if (dist4>dist) dist = dist4;
+                }
+
+                if (dist > colorThresholdTable[0])
+                {
+                    //background color
+                    if (!m_blending) continue;
+                } else
+                    if (dist < colorThresholdTable[15])
+                    {
+                        //foreground color
+                        colorIndex = 15;
+                    } else {
+                        colorIndex = 0;
+                        for(short i = 1; i<15; i++)
+                        {
+                            if (dist < colorThresholdTable[i-1])
+                            {
+                                colorIndex = (unsigned char)i;														
+                            }
+                        }				
+                    }
+
+                    if (m_blending)
+                    {
+                        srcColor = GetPixelColor(x, y);
+                        dstColor.B = (m_foregroundColor.B * colorIndex) + (srcColor.B * (15 - colorIndex));
+                        dstColor.G = (m_foregroundColor.G * colorIndex) + (srcColor.G * (15 - colorIndex));
+                        dstColor.R = (m_foregroundColor.R * colorIndex) + (srcColor.R * (15 - colorIndex));								
+                        SetPixelColor(x, y, dstColor);
+                    } else {
+                        SetPixelColor(x, y, colorTable[colorIndex]);
+                    } 
+        }
+    }
 }
 
 void TCanvas::DrawCharacter (TFontCharacter character, TPosition position)
@@ -761,7 +760,7 @@ void TCanvas::DrawCharacter (TFontCharacter character, TPosition position)
     short x,y,i1,i2;
 
     TSize charSize = character.GetSize();
-    short canvasWidth  = m_graphicsData->GetWidth();
+    short canvasWidth	= m_graphicsData->GetWidth();
     short canvasHeight = m_graphicsData->GetWidth();
 
     for(y = 0; y<charSize.Height; y++)
@@ -773,36 +772,36 @@ void TCanvas::DrawCharacter (TFontCharacter character, TPosition position)
             if (position.X+x>=canvasWidth) continue;
 
             srcColor = character.GetPixelColor(x, y);
-            
 
-            i1 = (srcColor.R * 28 + srcColor.G * 57 + srcColor.B * 15)/100;               
+
+            i1 = (srcColor.R * 28 + srcColor.G * 57 + srcColor.B * 15)/100;							 
             i2 = 255-i1;
 
             dstColor.R = (m_backgroundColor.R * i1 + m_foregroundColor.R * i2)>>8;
             dstColor.G = (m_backgroundColor.G * i1 + m_foregroundColor.G * i2)>>8;
             dstColor.B = (m_backgroundColor.B * i1 + m_foregroundColor.B * i2)>>8;
 
-            m_graphicsData->SetPixelColor(position.X + x, position.Y+y, dstColor);               
+            m_graphicsData->SetPixelColor(position.X + x, position.Y+y, dstColor);							 
         }
-    }             
+    }						 
 }
 
 void TCanvas::DrawText(TFont font, const char* text, TPosition position)
 {
     unsigned char* currentText = (unsigned char*)text;
-    TPosition      currentPosition;
-    TFontCharacter charData;     
-    TSize          charSize;
+    TPosition			currentPosition;
+    TFontCharacter charData;		 
+    TSize					charSize;
 
     currentPosition = position;
     while(*currentText>0)
     {
-       font.GetCharacter(*currentText, charData );
-       DrawCharacter(charData, position);
+        font.GetCharacter(*currentText, charData );
+        DrawCharacter(charData, position);
 
-       charSize = charData.GetSize();
-       position.X += charSize.Width;
-       currentText++;       
+        charSize = charData.GetSize();
+        position.X += charSize.Width;
+        currentText++;			 
     }
 }
 
@@ -810,37 +809,37 @@ void TCanvas::DrawText(TFont font, const char* text, TRectangle area, TAlign hor
 {
     unsigned char* currentText = (unsigned char*)text;
     TFontCharacter charData;
-    TSize          charSize;
-    TSize          textSize;
-    TPosition      alignedPos;
+    TSize					charSize;
+    TSize					textSize;
+    TPosition			alignedPos;
 
     textSize.Width = 0;
     textSize.Height = 0;
 
     while(*currentText>0)
     {
-        font.GetCharacter(*currentText, charData );        
+        font.GetCharacter(*currentText, charData );				
         charSize = charData.GetSize();
         currentText++;
 
-        textSize.Width  += charSize.Width;
+        textSize.Width	+= charSize.Width;
         textSize.Height = charSize.Height;
     }
     switch(horizontalAlign)
     {
-        case taLeft:    alignedPos.X  = area.Left; break; 
-        case taCenter:  alignedPos.X  = area.Left + (area.Width() - textSize.Width)/2; break;
-        case taRight:   alignedPos.X  = area.Left + (area.Width() - textSize.Width); break;
+    case taLeft:		alignedPos.X	= area.Left; break; 
+    case taCenter:	alignedPos.X	= area.Left + (area.Width() - textSize.Width)/2; break;
+    case taRight:	 alignedPos.X	= area.Left + (area.Width() - textSize.Width); break;
     }
     switch(horizontalAlign)
     {
-        case tvaTop:    alignedPos.Y   = area.Top; break;
-        case tvaCenter: alignedPos.Y   = area.Top + (area.Height()-textSize.Height)/2; break;
-        case tvaBottom: alignedPos.Y   = area.Top + (area.Height()-textSize.Height); break; 
-    }   
+    case tvaTop:		alignedPos.Y	 = area.Top; break;
+    case tvaCenter: alignedPos.Y	 = area.Top + (area.Height()-textSize.Height)/2; break;
+    case tvaBottom: alignedPos.Y	 = area.Top + (area.Height()-textSize.Height); break; 
+    }	 
 
     DrawText(font, text, alignedPos);
-    
+
 }
 
 void TCanvas::DrawCharacterVertical (TFontCharacter character, TPosition position, bool directionUp)
@@ -851,7 +850,7 @@ void TCanvas::DrawCharacterVertical (TFontCharacter character, TPosition positio
     short x,y,i1,i2;
 
     TSize charSize = character.GetSize();
-    short canvasWidth  = m_graphicsData->GetWidth();
+    short canvasWidth	= m_graphicsData->GetWidth();
     short canvasHeight = m_graphicsData->GetWidth();
 
     for(y = 0; y<charSize.Height; y++)
@@ -863,7 +862,7 @@ void TCanvas::DrawCharacterVertical (TFontCharacter character, TPosition positio
             if (position.X+x>=canvasWidth) continue;
 
             srcColor = character.GetPixelColor(x, y);
-            i1 = (srcColor.R * 28 + srcColor.G * 57 + srcColor.B * 15)/100;               
+            i1 = (srcColor.R * 28 + srcColor.G * 57 + srcColor.B * 15)/100;							 
             i2 = 255-i1;
 
             dstColor.R = (m_backgroundColor.R * i1 + m_foregroundColor.R * i2)>>8;
@@ -872,20 +871,20 @@ void TCanvas::DrawCharacterVertical (TFontCharacter character, TPosition positio
 
             if (directionUp)
             {
-                m_graphicsData->SetPixelColor(position.X + y, position.Y-x, dstColor);                    
+                m_graphicsData->SetPixelColor(position.X + y, position.Y-x, dstColor);										
             } else {
-                m_graphicsData->SetPixelColor(position.X + charSize.Height-y, position.Y+x, dstColor);                    
-            }  
+                m_graphicsData->SetPixelColor(position.X + charSize.Height-y, position.Y+x, dstColor);										
+            }	
         }
-    }             
+    }						 
 }
 
 void TCanvas::DrawTextVertical(TFont font, const char* text, TPosition position, bool directionUp)
 {
     unsigned char* currentText = (unsigned char*)text;
-    TPosition      currentPosition;
-    TFontCharacter charData;     
-    TSize          charSize;
+    TPosition			currentPosition;
+    TFontCharacter charData;		 
+    TSize					charSize;
 
     currentPosition = position;
     while(*currentText>0)
@@ -900,42 +899,42 @@ void TCanvas::DrawTextVertical(TFont font, const char* text, TPosition position,
         } else {
             position.Y += charSize.Width;
         }
-        currentText++;       
-    }     
+        currentText++;			 
+    }		 
 }
 
 void TCanvas::DrawTextVertical(TFont font, const char* text, TRectangle area, TAlign horizontalAlign, TVerticalAlign verticalAlign, bool directionUp)
 {
     unsigned char* currentText = (unsigned char*)text;
     TFontCharacter charData;
-    TSize          charSize;
-    TSize          textSize;
-    TPosition      alignedPos;
+    TSize					charSize;
+    TSize					textSize;
+    TPosition			alignedPos;
 
     textSize.Width = 0;
     textSize.Height = 0;
 
     while(*currentText>0)
     {
-        font.GetCharacter(*currentText, charData );        
+        font.GetCharacter(*currentText, charData );				
         charSize = charData.GetSize();
         currentText++;
 
-        textSize.Width  = charSize.Height;
+        textSize.Width	= charSize.Height;
         textSize.Height += charSize.Width;
     }
     switch(horizontalAlign)
     {
-        case taLeft:    alignedPos.X = area.Left; break; 
-        case taCenter:  alignedPos.X = area.Left + (area.Width() - textSize.Width)/2; break;
-        case taRight:   alignedPos.X = area.Left + (area.Width() - textSize.Width); break;
+    case taLeft:		alignedPos.X = area.Left; break; 
+    case taCenter:	alignedPos.X = area.Left + (area.Width() - textSize.Width)/2; break;
+    case taRight:	 alignedPos.X = area.Left + (area.Width() - textSize.Width); break;
     }
     switch(horizontalAlign)
     {
-        case tvaTop:    alignedPos.Y = area.Top; break;
-        case tvaCenter: alignedPos.Y = area.Top + (area.Height()-textSize.Height)/2; break;
-        case tvaBottom: alignedPos.Y = area.Top + (area.Height()-textSize.Height); break; 
-    }   
+    case tvaTop:		alignedPos.Y = area.Top; break;
+    case tvaCenter: alignedPos.Y = area.Top + (area.Height()-textSize.Height)/2; break;
+    case tvaBottom: alignedPos.Y = area.Top + (area.Height()-textSize.Height); break; 
+    }	 
 
 
     DrawTextVertical(font, text, alignedPos, directionUp);
@@ -947,11 +946,11 @@ void TCanvas::DrawImage(TPosition targetPosition, TGraphicsData* image, TRectang
     TColorRGB color;
     if (!m_graphicsData) return;
 
-	TRectangle defaultRectangle;
-	defaultRectangle.Left   = 0;
-	defaultRectangle.Top    = 0;
-	defaultRectangle.Right  = image->GetWidth();
-	defaultRectangle.Bottom = image->GetHeight();
+    TRectangle defaultRectangle;
+    defaultRectangle.Left	 = 0;
+    defaultRectangle.Top		= 0;
+    defaultRectangle.Right	= image->GetWidth();
+    defaultRectangle.Bottom = image->GetHeight();
 
     for(y = 0; y<imageRectangle->Height(); y++)
     {
@@ -960,7 +959,7 @@ void TCanvas::DrawImage(TPosition targetPosition, TGraphicsData* image, TRectang
             color = image->GetPixelColor(x + imageRectangle->Left, y + imageRectangle->Top);
             m_graphicsData->SetPixelColor(x + targetPosition.X, y + targetPosition.Y, color);
         }
-    }   
+    }	 
 }
 
 void TCanvas::DrawMaskedImage(TPosition targetPosition, TGraphicsData* image, TRectangle* imageRectangle, TColorRGB maskColor)
@@ -969,16 +968,16 @@ void TCanvas::DrawMaskedImage(TPosition targetPosition, TGraphicsData* image, TR
     TColorRGB color;
     if (!m_graphicsData) return;
 
-	TRectangle defaultRectangle;
-	defaultRectangle.Left   = 0;
-	defaultRectangle.Top    = 0;
-	defaultRectangle.Right  = image->GetWidth();
-	defaultRectangle.Bottom = image->GetHeight();
+    TRectangle defaultRectangle;
+    defaultRectangle.Left	 = 0;
+    defaultRectangle.Top		= 0;
+    defaultRectangle.Right	= image->GetWidth();
+    defaultRectangle.Bottom = image->GetHeight();
 
-	if (imageRectangle==NULL)
-	{
-		imageRectangle = &defaultRectangle;
-	}
+    if (imageRectangle==NULL)
+    {
+        imageRectangle = &defaultRectangle;
+    }
 
     for(y = imageRectangle->Top; y<imageRectangle->Bottom; y++)
     {
@@ -988,111 +987,111 @@ void TCanvas::DrawMaskedImage(TPosition targetPosition, TGraphicsData* image, TR
             if (color==maskColor) continue;
 
             m_graphicsData->SetPixelColor(x + targetPosition.X, 
-                                          y + targetPosition.Y,
-                                          color);
+                y + targetPosition.Y,
+                color);
         }
-    }   
+    }	 
 }
 
 void TCanvas::DrawTiledImage(TRectangle targetArea, TGraphicsData* image, TRectangle* imageRectangle)
 {
-	TRectangle defaultRectangle;
-	defaultRectangle.Left   = 0;
-	defaultRectangle.Top    = 0;
-	defaultRectangle.Right  = image->GetWidth();
-	defaultRectangle.Bottom = image->GetHeight();
+    TRectangle defaultRectangle;
+    defaultRectangle.Left	 = 0;
+    defaultRectangle.Top		= 0;
+    defaultRectangle.Right	= image->GetWidth();
+    defaultRectangle.Bottom = image->GetHeight();
 
-	if (imageRectangle==NULL)
-	{
-		imageRectangle = &defaultRectangle;
-	}
+    if (imageRectangle==NULL)
+    {
+        imageRectangle = &defaultRectangle;
+    }
 
-	TPosition srcPoint;
-	TColorRGB color;
+    TPosition srcPoint;
+    TColorRGB color;
 
-	srcPoint.Y = imageRectangle->Top;
-	for(short y = targetArea.Top; y<targetArea.Bottom; y++)
-	{
-		srcPoint.X = imageRectangle->Left;	
-		for(short x = targetArea.Left; x<targetArea.Right; x++)
-		{
-			color = image->GetPixelColor(srcPoint.X, srcPoint.Y);
-			m_graphicsData->SetPixelColor(x, y, color);			
-			srcPoint.X++;
-			if (srcPoint.X==imageRectangle->Right)
-			{
-				srcPoint.X = 0;
-			}
-		}
-		srcPoint.Y++;
-		if (srcPoint.Y==imageRectangle->Bottom)
-		{
-			srcPoint.Y = imageRectangle->Top;
-		}
-	}
+    srcPoint.Y = imageRectangle->Top;
+    for(short y = targetArea.Top; y<targetArea.Bottom; y++)
+    {
+        srcPoint.X = imageRectangle->Left;	
+        for(short x = targetArea.Left; x<targetArea.Right; x++)
+        {
+            color = image->GetPixelColor(srcPoint.X, srcPoint.Y);
+            m_graphicsData->SetPixelColor(x, y, color);			
+            srcPoint.X++;
+            if (srcPoint.X==imageRectangle->Right)
+            {
+                srcPoint.X = 0;
+            }
+        }
+        srcPoint.Y++;
+        if (srcPoint.Y==imageRectangle->Bottom)
+        {
+            srcPoint.Y = imageRectangle->Top;
+        }
+    }
 }
 
 void TCanvas::DrawScaledImage(TRectangle targetArea, TGraphicsData* image, TRectangle* imageRectangle)
 {
-	TRectangle defaultRectangle;
-	defaultRectangle.Left   = 0;
-	defaultRectangle.Top    = 0;
-	defaultRectangle.Right  = image->GetWidth();
-	defaultRectangle.Bottom = image->GetHeight();
+    TRectangle defaultRectangle;
+    defaultRectangle.Left	 = 0;
+    defaultRectangle.Top		= 0;
+    defaultRectangle.Right	= image->GetWidth();
+    defaultRectangle.Bottom = image->GetHeight();
 
-	if (imageRectangle==NULL)
-	{
-		imageRectangle = &defaultRectangle;
-	}
+    if (imageRectangle==NULL)
+    {
+        imageRectangle = &defaultRectangle;
+    }
 
-	short targetWidth  = targetArea.Width();
-	short targetHeight = targetArea.Height();
+    short targetWidth	= targetArea.Width();
+    short targetHeight = targetArea.Height();
 
-	long stepX = (imageRectangle->Width()  * 65536 / targetArea.Width());
-	long stepY = (imageRectangle->Height() * 65536 / targetArea.Height());
-	
-	TColorRGB pixel1;
-	TColorRGB pixel2;
-	TColorRGB pixel3;
-	TColorRGB pixel4;
-	TColorRGB pixel5;
+    long stepX = (imageRectangle->Width()	* 65536 / targetArea.Width());
+    long stepY = (imageRectangle->Height() * 65536 / targetArea.Height());
 
-	TScaledCoordinate sy; 
-	sy.Part.Integral = imageRectangle->Top;
-	sy.Part.Fractional = 0;
+    TColorRGB pixel1;
+    TColorRGB pixel2;
+    TColorRGB pixel3;
+    TColorRGB pixel4;
+    TColorRGB pixel5;
 
-	for(short y = targetArea.Top; y<targetArea.Bottom; y++)
-	{
-		TScaledCoordinate sx;
-		sx.Part.Integral = imageRectangle->Left;
-		sx.Part.Fractional = 0;
-		for(short x = targetArea.Left; x<targetArea.Right; x++)
-		{
-			pixel1 = image->GetPixelColor(sx.Part.Integral, sy.Part.Integral);
-			pixel2 = image->GetPixelColor(sx.Part.Integral+1, sy.Part.Integral);
-			if (sy.Part.Fractional!=0)
-			{
-				pixel3 = image->GetPixelColor(sx.Part.Integral, sy.Part.Integral+1);
-				pixel4 = image->GetPixelColor(sx.Part.Integral+1, sy.Part.Integral+1);
-			}
+    TScaledCoordinate sy; 
+    sy.Part.Integral = imageRectangle->Top;
+    sy.Part.Fractional = 0;
 
-			pixel5.R  = (
-				          (pixel1.R * (65536 - sx.Part.Fractional) + pixel2.R * sx.Part.Fractional)/65536 * (65536 - sy.Part.Fractional) +
-						  (pixel3.R * (65536 - sx.Part.Fractional) + pixel4.R * sx.Part.Fractional)/65536 * sy.Part.Fractional
-						) /65536;
-			pixel5.G  = (
-				          (pixel1.G * (65536 - sx.Part.Fractional) + pixel2.G * sx.Part.Fractional)/65536 * (65536 - sy.Part.Fractional) +
-				          (pixel3.G * (65536 - sx.Part.Fractional) + pixel4.G * sx.Part.Fractional)/65536 * sy.Part.Fractional
-						) /65536;
-			pixel5.B  = (
-				          (pixel1.B * (65536 - sx.Part.Fractional) + pixel2.B * sx.Part.Fractional)/65536 * (65536 - sy.Part.Fractional) +
-			              (pixel3.B * (65536 - sx.Part.Fractional) + pixel4.B * sx.Part.Fractional)/65536 * sy.Part.Fractional 
-						)/65536;					  
-			sx.Value += stepX;			
-			m_graphicsData->SetPixelColor(x, y, pixel5);
-		}
-		sy.Value += stepY;	
-	}
+    for(short y = targetArea.Top; y<targetArea.Bottom; y++)
+    {
+        TScaledCoordinate sx;
+        sx.Part.Integral = imageRectangle->Left;
+        sx.Part.Fractional = 0;
+        for(short x = targetArea.Left; x<targetArea.Right; x++)
+        {
+            pixel1 = image->GetPixelColor(sx.Part.Integral, sy.Part.Integral);
+            pixel2 = image->GetPixelColor(sx.Part.Integral+1, sy.Part.Integral);
+            if (sy.Part.Fractional!=0)
+            {
+                pixel3 = image->GetPixelColor(sx.Part.Integral, sy.Part.Integral+1);
+                pixel4 = image->GetPixelColor(sx.Part.Integral+1, sy.Part.Integral+1);
+            }
+
+            pixel5.R	= (
+                (pixel1.R * (65536 - sx.Part.Fractional) + pixel2.R * sx.Part.Fractional)/65536 * (65536 - sy.Part.Fractional) +
+                (pixel3.R * (65536 - sx.Part.Fractional) + pixel4.R * sx.Part.Fractional)/65536 * sy.Part.Fractional
+                ) /65536;
+            pixel5.G	= (
+                (pixel1.G * (65536 - sx.Part.Fractional) + pixel2.G * sx.Part.Fractional)/65536 * (65536 - sy.Part.Fractional) +
+                (pixel3.G * (65536 - sx.Part.Fractional) + pixel4.G * sx.Part.Fractional)/65536 * sy.Part.Fractional
+                ) /65536;
+            pixel5.B	= (
+                (pixel1.B * (65536 - sx.Part.Fractional) + pixel2.B * sx.Part.Fractional)/65536 * (65536 - sy.Part.Fractional) +
+                (pixel3.B * (65536 - sx.Part.Fractional) + pixel4.B * sx.Part.Fractional)/65536 * sy.Part.Fractional 
+                )/65536;						
+            sx.Value += stepX;			
+            m_graphicsData->SetPixelColor(x, y, pixel5);
+        }
+        sy.Value += stepY;	
+    }
 }
 
 void TCanvas::SetForegroundColor(TColorRGB foregroundColor)
@@ -1106,7 +1105,7 @@ void TCanvas::SetBackgroundColor(TColorRGB backgroundColor)
 }
 
 void TCanvas::SetPixelColor(short x, short y, TColorRGB color)
-{    
+{		
     if (m_graphicsData)
     {
         m_graphicsData->SetPixelColor(x, y, color);
@@ -1114,7 +1113,7 @@ void TCanvas::SetPixelColor(short x, short y, TColorRGB color)
 }
 
 void TCanvas::SetPixelColorIndex(short x, short y, unsigned char colorIndex)
-{    
+{		
     if (m_graphicsData)
     {
         m_graphicsData->SetPixelColor(x, y, colorIndex);
@@ -1123,7 +1122,7 @@ void TCanvas::SetPixelColorIndex(short x, short y, unsigned char colorIndex)
 
 TColorRGB TCanvas::GetForegroundColor()
 {
-    return m_foregroundColor;   
+    return m_foregroundColor;	 
 }
 
 TColorRGB TCanvas::GetBackgroundColor()
@@ -1154,644 +1153,644 @@ unsigned char TCanvas::GetPixelColorIndex(short x, short y)
 
 bool TCanvas::ApplyFilter(TFilter3x3* filter, FilteredPixelCallback callback)
 {
-	unsigned char* src1;
-	unsigned char* src2;
-	unsigned char* src3;
+    unsigned char* src1;
+    unsigned char* src2;
+    unsigned char* src3;
 
-	unsigned short bytes = m_graphicsData->GetBytesPerLine();
-	if (bytes==1)
-	{
-		for(short y = m_graphicsData->GetHeight(); y>0; y--)
-		{
-			src1 = m_graphicsData->ScanLine(y-1);
-			src2 = m_graphicsData->ScanLine(y);
-			src3 = m_graphicsData->ScanLine(y+1);
+    unsigned short bytes = m_graphicsData->GetBytesPerLine();
+    if (bytes==1)
+    {
+        for(short y = m_graphicsData->GetHeight(); y>0; y--)
+        {
+            src1 = m_graphicsData->ScanLine(y-1);
+            src2 = m_graphicsData->ScanLine(y);
+            src3 = m_graphicsData->ScanLine(y+1);
 
-			for(short x=m_graphicsData->GetWidth(); x>0; x--)
-			{
-				short color = 0;
-				if (src1)
-				{
-					color +=  ((short)*src1) * filter->_11; src1++;
-					color +=  ((short)*src1) * filter->_12; src1++;
-					color +=  ((short)*src1) * filter->_13; src1--;
-				}
-				color +=  ((short)*src2) * filter->_21; src2++;
-				color +=  ((short)*src2) * filter->_22; src2++;
-				color +=  ((short)*src2) * filter->_23; src2--;
-				if (src3)
-				{
-					color +=  ((short)*src3) * filter->_31; src3++;
-					color +=  ((short)*src3) * filter->_32; src3++;
-					color +=  ((short)*src3) * filter->_33; src3--;
-				}            
-				color /= filter->Divisor;
-				color += filter->Bias;
-				if (color<0)   color=0;
-				if (color>255) color=255;
+            for(short x=m_graphicsData->GetWidth(); x>0; x--)
+            {
+                short color = 0;
+                if (src1)
+                {
+                    color +=	((short)*src1) * filter->_11; src1++;
+                    color +=	((short)*src1) * filter->_12; src1++;
+                    color +=	((short)*src1) * filter->_13; src1--;
+                }
+                color +=	((short)*src2) * filter->_21; src2++;
+                color +=	((short)*src2) * filter->_22; src2++;
+                color +=	((short)*src2) * filter->_23; src2--;
+                if (src3)
+                {
+                    color +=	((short)*src3) * filter->_31; src3++;
+                    color +=	((short)*src3) * filter->_32; src3++;
+                    color +=	((short)*src3) * filter->_33; src3--;
+                }						
+                color /= filter->Divisor;
+                color += filter->Bias;
+                if (color<0)	 color=0;
+                if (color>255) color=255;
 
-				if (callback)
-				{
-					callback(x,y, TColorRGB(color, color, color));
-				}
-			}
-		}
-		return true;
-	}
-	if (bytes==3)
-	{
-		for(short y = m_graphicsData->GetHeight(); y>0; y--)
-		{
-			src1 = m_graphicsData->ScanLine(y-1);
-			src2 = m_graphicsData->ScanLine(y);
-			src3 = m_graphicsData->ScanLine(y+1);
+                if (callback)
+                {
+                    callback(x,y, TColorRGB(color, color, color));
+                }
+            }
+        }
+        return true;
+    }
+    if (bytes==3)
+    {
+        for(short y = m_graphicsData->GetHeight(); y>0; y--)
+        {
+            src1 = m_graphicsData->ScanLine(y-1);
+            src2 = m_graphicsData->ScanLine(y);
+            src3 = m_graphicsData->ScanLine(y+1);
 
-			for(short x=m_graphicsData->GetWidth(); x>0; x--)
-			{
-				short colorB = 0;
-				short colorG = 0;
-				short colorR = 0;
-				if (src1)
-				{
-					colorB +=  ((short)*src1) * filter->_11; src1++;
-					colorG +=  ((short)*src1) * filter->_11; src1++;
-					colorR +=  ((short)*src1) * filter->_11; src1++;
-					colorB +=  ((short)*src1) * filter->_12; src1++;
-					colorG +=  ((short)*src1) * filter->_12; src1++;
-					colorR +=  ((short)*src1) * filter->_12; src1++;
-					colorB +=  ((short)*src1) * filter->_13; src1++;
-					colorG +=  ((short)*src1) * filter->_13; src1++;
-					colorR +=  ((short)*src1) * filter->_13; src1-=5;
-				}
-				colorB +=  ((short)*src2) * filter->_21; src2++;
-				colorG +=  ((short)*src2) * filter->_21; src2++;
-				colorR +=  ((short)*src2) * filter->_21; src2++;
-				colorB +=  ((short)*src2) * filter->_22; src2++;
-				colorG +=  ((short)*src2) * filter->_22; src2++;
-				colorR +=  ((short)*src2) * filter->_22; src2++;
-				colorB +=  ((short)*src2) * filter->_23; src2++;
-				colorG +=  ((short)*src2) * filter->_23; src2++;
-				colorR +=  ((short)*src2) * filter->_23; src2-=5;
-				if (src3)
-				{
-					colorB +=  ((short)*src3) * filter->_31; src3++;
-					colorG +=  ((short)*src3) * filter->_31; src3++;
-					colorR +=  ((short)*src3) * filter->_31; src3++;
-					colorB +=  ((short)*src3) * filter->_32; src3++;
-					colorG +=  ((short)*src3) * filter->_32; src3++;
-					colorR +=  ((short)*src3) * filter->_32; src3++;
-					colorB +=  ((short)*src3) * filter->_33; src3++;
-					colorG +=  ((short)*src3) * filter->_33; src3++;
-					colorR +=  ((short)*src3) * filter->_33; src3-=5;
-				}            
-				colorB /= filter->Divisor;
-				colorG /= filter->Divisor;
-				colorR /= filter->Divisor;
-				colorB += filter->Bias; 
-				colorG += filter->Bias;
-				colorR += filter->Bias;
-				if (colorB<0)   colorB=0;
-				if (colorB>255) colorB=255;
-				if (colorG<0)   colorG=0;
-				if (colorG>255) colorG=255;
-				if (colorR<0)   colorR=0;
-				if (colorR>255) colorR=255;
+            for(short x=m_graphicsData->GetWidth(); x>0; x--)
+            {
+                short colorB = 0;
+                short colorG = 0;
+                short colorR = 0;
+                if (src1)
+                {
+                    colorB +=	((short)*src1) * filter->_11; src1++;
+                    colorG +=	((short)*src1) * filter->_11; src1++;
+                    colorR +=	((short)*src1) * filter->_11; src1++;
+                    colorB +=	((short)*src1) * filter->_12; src1++;
+                    colorG +=	((short)*src1) * filter->_12; src1++;
+                    colorR +=	((short)*src1) * filter->_12; src1++;
+                    colorB +=	((short)*src1) * filter->_13; src1++;
+                    colorG +=	((short)*src1) * filter->_13; src1++;
+                    colorR +=	((short)*src1) * filter->_13; src1-=5;
+                }
+                colorB +=	((short)*src2) * filter->_21; src2++;
+                colorG +=	((short)*src2) * filter->_21; src2++;
+                colorR +=	((short)*src2) * filter->_21; src2++;
+                colorB +=	((short)*src2) * filter->_22; src2++;
+                colorG +=	((short)*src2) * filter->_22; src2++;
+                colorR +=	((short)*src2) * filter->_22; src2++;
+                colorB +=	((short)*src2) * filter->_23; src2++;
+                colorG +=	((short)*src2) * filter->_23; src2++;
+                colorR +=	((short)*src2) * filter->_23; src2-=5;
+                if (src3)
+                {
+                    colorB +=	((short)*src3) * filter->_31; src3++;
+                    colorG +=	((short)*src3) * filter->_31; src3++;
+                    colorR +=	((short)*src3) * filter->_31; src3++;
+                    colorB +=	((short)*src3) * filter->_32; src3++;
+                    colorG +=	((short)*src3) * filter->_32; src3++;
+                    colorR +=	((short)*src3) * filter->_32; src3++;
+                    colorB +=	((short)*src3) * filter->_33; src3++;
+                    colorG +=	((short)*src3) * filter->_33; src3++;
+                    colorR +=	((short)*src3) * filter->_33; src3-=5;
+                }						
+                colorB /= filter->Divisor;
+                colorG /= filter->Divisor;
+                colorR /= filter->Divisor;
+                colorB += filter->Bias; 
+                colorG += filter->Bias;
+                colorR += filter->Bias;
+                if (colorB<0)	 colorB=0;
+                if (colorB>255) colorB=255;
+                if (colorG<0)	 colorG=0;
+                if (colorG>255) colorG=255;
+                if (colorR<0)	 colorR=0;
+                if (colorR>255) colorR=255;
 
-				if (callback)
-				{
-					switch(m_graphicsData->GetPixelFormat())
-					{
-						case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR));
-						case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB));
-					}				
-				}
-			}
-		}
-		return true;
-	}
-	return false;
+                if (callback)
+                {
+                    switch(m_graphicsData->GetPixelFormat())
+                    {
+                    case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR));
+                    case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB));
+                    }				
+                }
+            }
+        }
+        return true;
+    }
+    return false;
 }
 
 bool TCanvas::ApplyFilter(TFilter5x5* filter, FilteredPixelCallback callback)
 {
-	unsigned char* src1;
-	unsigned char* src2;
-	unsigned char* src3;
-	unsigned char* src4;
-	unsigned char* src5;
+    unsigned char* src1;
+    unsigned char* src2;
+    unsigned char* src3;
+    unsigned char* src4;
+    unsigned char* src5;
 
-	unsigned short bytes = m_graphicsData->GetBytesPerLine();
-	if (bytes==1)
-	{
-		for(short y = m_graphicsData->GetHeight(); y>0; y--)
-		{
-			src1 = m_graphicsData->ScanLine(y-2);
-			src2 = m_graphicsData->ScanLine(y-1);
-			src3 = m_graphicsData->ScanLine(y);
-			src4 = m_graphicsData->ScanLine(y+1);
-			src5 = m_graphicsData->ScanLine(y+2);
+    unsigned short bytes = m_graphicsData->GetBytesPerLine();
+    if (bytes==1)
+    {
+        for(short y = m_graphicsData->GetHeight(); y>0; y--)
+        {
+            src1 = m_graphicsData->ScanLine(y-2);
+            src2 = m_graphicsData->ScanLine(y-1);
+            src3 = m_graphicsData->ScanLine(y);
+            src4 = m_graphicsData->ScanLine(y+1);
+            src5 = m_graphicsData->ScanLine(y+2);
 
-			for(short x=m_graphicsData->GetWidth(); x>0; x--)
-			{
-				short color = 0;
-				if (src1)
-				{
-					color +=  ((short)*src1) * filter->_11; src1++;
-					color +=  ((short)*src1) * filter->_12; src1++;
-					color +=  ((short)*src1) * filter->_13; src1++;
-					color +=  ((short)*src1) * filter->_14; src1++;
-					color +=  ((short)*src1) * filter->_15; src1-=3;
-				}
-				if (src2)
-				{
-					color +=  ((short)*src2) * filter->_21; src2++;
-					color +=  ((short)*src2) * filter->_22; src2++;
-					color +=  ((short)*src2) * filter->_23; src2++;
-					color +=  ((short)*src2) * filter->_24; src2++;
-					color +=  ((short)*src2) * filter->_25; src2-=3;
-				}
-				color +=  ((short)*src3) * filter->_31; src3++;
-				color +=  ((short)*src3) * filter->_32; src3++;
-				color +=  ((short)*src3) * filter->_33; src3++;
-				color +=  ((short)*src3) * filter->_34; src3++;
-				color +=  ((short)*src3) * filter->_35; src3-=3;
-				if (src4)
-				{
-					color +=  ((short)*src4) * filter->_41; src4++;
-					color +=  ((short)*src4) * filter->_42; src4++;
-					color +=  ((short)*src4) * filter->_43; src4++;
-					color +=  ((short)*src4) * filter->_44; src4++;
-					color +=  ((short)*src4) * filter->_45; src4-=3;
-				}
-				if (src5)
-				{
-					color +=  ((short)*src5) * filter->_51; src5++;
-					color +=  ((short)*src5) * filter->_52; src5++;
-					color +=  ((short)*src5) * filter->_53; src5++;
-					color +=  ((short)*src5) * filter->_54; src5++;
-					color +=  ((short)*src5) * filter->_55; src5-=3;
-				}
-				color /= filter->Divisor;
-				color += filter->Bias;
-				if (color<0)   color=0;
-				if (color>255) color=255;
+            for(short x=m_graphicsData->GetWidth(); x>0; x--)
+            {
+                short color = 0;
+                if (src1)
+                {
+                    color +=	((short)*src1) * filter->_11; src1++;
+                    color +=	((short)*src1) * filter->_12; src1++;
+                    color +=	((short)*src1) * filter->_13; src1++;
+                    color +=	((short)*src1) * filter->_14; src1++;
+                    color +=	((short)*src1) * filter->_15; src1-=3;
+                }
+                if (src2)
+                {
+                    color +=	((short)*src2) * filter->_21; src2++;
+                    color +=	((short)*src2) * filter->_22; src2++;
+                    color +=	((short)*src2) * filter->_23; src2++;
+                    color +=	((short)*src2) * filter->_24; src2++;
+                    color +=	((short)*src2) * filter->_25; src2-=3;
+                }
+                color +=	((short)*src3) * filter->_31; src3++;
+                color +=	((short)*src3) * filter->_32; src3++;
+                color +=	((short)*src3) * filter->_33; src3++;
+                color +=	((short)*src3) * filter->_34; src3++;
+                color +=	((short)*src3) * filter->_35; src3-=3;
+                if (src4)
+                {
+                    color +=	((short)*src4) * filter->_41; src4++;
+                    color +=	((short)*src4) * filter->_42; src4++;
+                    color +=	((short)*src4) * filter->_43; src4++;
+                    color +=	((short)*src4) * filter->_44; src4++;
+                    color +=	((short)*src4) * filter->_45; src4-=3;
+                }
+                if (src5)
+                {
+                    color +=	((short)*src5) * filter->_51; src5++;
+                    color +=	((short)*src5) * filter->_52; src5++;
+                    color +=	((short)*src5) * filter->_53; src5++;
+                    color +=	((short)*src5) * filter->_54; src5++;
+                    color +=	((short)*src5) * filter->_55; src5-=3;
+                }
+                color /= filter->Divisor;
+                color += filter->Bias;
+                if (color<0)	 color=0;
+                if (color>255) color=255;
 
-				if (callback)
-				{
-					callback(x,y, TColorRGB(color, color, color));
-				}
-			}
-		}
-		return true;
-	}
-	if (bytes==3)
-	{
-		for(short y = m_graphicsData->GetHeight(); y>0; y--)
-		{
-			src1 = m_graphicsData->ScanLine(y-2);
-			src2 = m_graphicsData->ScanLine(y-1);
-			src3 = m_graphicsData->ScanLine(y);
-			src4 = m_graphicsData->ScanLine(y+1);
-			src5 = m_graphicsData->ScanLine(y+2);
+                if (callback)
+                {
+                    callback(x,y, TColorRGB(color, color, color));
+                }
+            }
+        }
+        return true;
+    }
+    if (bytes==3)
+    {
+        for(short y = m_graphicsData->GetHeight(); y>0; y--)
+        {
+            src1 = m_graphicsData->ScanLine(y-2);
+            src2 = m_graphicsData->ScanLine(y-1);
+            src3 = m_graphicsData->ScanLine(y);
+            src4 = m_graphicsData->ScanLine(y+1);
+            src5 = m_graphicsData->ScanLine(y+2);
 
-			for(short x=m_graphicsData->GetWidth(); x>0; x--)
-			{
-				short colorB = 0;
-				short colorG = 0;
-				short colorR = 0;
-				if (src1)
-				{
-					colorB +=  ((short)*src1) * filter->_11; src1++;
-					colorG +=  ((short)*src1) * filter->_11; src1++;
-					colorR +=  ((short)*src1) * filter->_11; src1++;
-					colorB +=  ((short)*src1) * filter->_12; src1++;
-					colorG +=  ((short)*src1) * filter->_12; src1++;
-					colorR +=  ((short)*src1) * filter->_12; src1++;
-					colorB +=  ((short)*src1) * filter->_13; src1++;
-					colorG +=  ((short)*src1) * filter->_13; src1++;
-					colorR +=  ((short)*src1) * filter->_13; src1++;
-					colorB +=  ((short)*src1) * filter->_14; src1++;
-					colorG +=  ((short)*src1) * filter->_14; src1++;
-					colorR +=  ((short)*src1) * filter->_14; src1++;
-					colorB +=  ((short)*src1) * filter->_15; src1++;
-					colorG +=  ((short)*src1) * filter->_15; src1++;
-					colorR +=  ((short)*src1) * filter->_15; src1-=11;
-				}
-				if (src2)
-				{
-					colorB +=  ((short)*src2) * filter->_21; src2++;
-					colorG +=  ((short)*src2) * filter->_21; src2++;
-					colorR +=  ((short)*src2) * filter->_21; src2++;
-					colorB +=  ((short)*src2) * filter->_22; src2++;
-					colorG +=  ((short)*src2) * filter->_22; src2++;
-					colorR +=  ((short)*src2) * filter->_22; src2++;
-					colorB +=  ((short)*src2) * filter->_23; src2++;
-					colorG +=  ((short)*src2) * filter->_23; src2++;
-					colorR +=  ((short)*src2) * filter->_23; src2++;
-					colorB +=  ((short)*src2) * filter->_24; src2++;
-					colorG +=  ((short)*src2) * filter->_24; src2++;
-					colorR +=  ((short)*src2) * filter->_24; src2++;
-					colorB +=  ((short)*src2) * filter->_25; src2++;
-					colorG +=  ((short)*src2) * filter->_25; src2++;
-					colorR +=  ((short)*src2) * filter->_25; src2-=11;
-				}
-				colorB +=  ((short)*src3) * filter->_31; src3++;
-				colorG +=  ((short)*src3) * filter->_31; src3++;
-				colorR +=  ((short)*src3) * filter->_31; src3++;
-				colorB +=  ((short)*src3) * filter->_32; src3++;
-				colorG +=  ((short)*src3) * filter->_32; src3++;
-				colorR +=  ((short)*src3) * filter->_32; src3++;
-				colorB +=  ((short)*src3) * filter->_33; src3++;
-				colorG +=  ((short)*src3) * filter->_33; src3++;
-				colorR +=  ((short)*src3) * filter->_33; src3++;
-				colorB +=  ((short)*src3) * filter->_34; src3++;
-				colorG +=  ((short)*src3) * filter->_34; src3++;
-				colorR +=  ((short)*src3) * filter->_34; src3++;
-				colorB +=  ((short)*src3) * filter->_35; src3++;
-				colorG +=  ((short)*src3) * filter->_35; src3++;
-				colorR +=  ((short)*src3) * filter->_35; src3-=11;
-				if (src4)
-				{
-					colorB +=  ((short)*src4) * filter->_41; src4++;
-					colorG +=  ((short)*src4) * filter->_41; src4++;
-					colorR +=  ((short)*src4) * filter->_41; src4++;
-					colorB +=  ((short)*src4) * filter->_42; src4++;
-					colorG +=  ((short)*src4) * filter->_42; src4++;
-					colorR +=  ((short)*src4) * filter->_42; src4++;
-					colorB +=  ((short)*src4) * filter->_43; src4++;
-					colorG +=  ((short)*src4) * filter->_43; src4++;
-					colorR +=  ((short)*src4) * filter->_43; src4++;
-					colorB +=  ((short)*src4) * filter->_44; src4++;
-					colorG +=  ((short)*src4) * filter->_44; src4++;
-					colorR +=  ((short)*src4) * filter->_44; src4++;
-					colorB +=  ((short)*src4) * filter->_45; src4++;
-					colorG +=  ((short)*src4) * filter->_45; src4++;
-					colorR +=  ((short)*src4) * filter->_45; src4-=11;
-				}
-				if (src5)
-				{
-					colorB +=  ((short)*src5) * filter->_51; src5++;
-					colorG +=  ((short)*src5) * filter->_51; src5++;
-					colorR +=  ((short)*src5) * filter->_51; src5++;
-					colorB +=  ((short)*src5) * filter->_52; src5++;
-					colorG +=  ((short)*src5) * filter->_52; src5++;
-					colorR +=  ((short)*src5) * filter->_52; src5++;
-					colorB +=  ((short)*src5) * filter->_53; src5++;
-					colorG +=  ((short)*src5) * filter->_53; src5++;
-					colorR +=  ((short)*src5) * filter->_53; src5++;
-					colorB +=  ((short)*src5) * filter->_54; src5++;
-					colorG +=  ((short)*src5) * filter->_54; src5++;
-					colorR +=  ((short)*src5) * filter->_54; src5++;
-					colorB +=  ((short)*src5) * filter->_55; src5++;
-					colorG +=  ((short)*src5) * filter->_55; src5++;
-					colorR +=  ((short)*src5) * filter->_55; src5-=11;
-				}
+            for(short x=m_graphicsData->GetWidth(); x>0; x--)
+            {
+                short colorB = 0;
+                short colorG = 0;
+                short colorR = 0;
+                if (src1)
+                {
+                    colorB +=	((short)*src1) * filter->_11; src1++;
+                    colorG +=	((short)*src1) * filter->_11; src1++;
+                    colorR +=	((short)*src1) * filter->_11; src1++;
+                    colorB +=	((short)*src1) * filter->_12; src1++;
+                    colorG +=	((short)*src1) * filter->_12; src1++;
+                    colorR +=	((short)*src1) * filter->_12; src1++;
+                    colorB +=	((short)*src1) * filter->_13; src1++;
+                    colorG +=	((short)*src1) * filter->_13; src1++;
+                    colorR +=	((short)*src1) * filter->_13; src1++;
+                    colorB +=	((short)*src1) * filter->_14; src1++;
+                    colorG +=	((short)*src1) * filter->_14; src1++;
+                    colorR +=	((short)*src1) * filter->_14; src1++;
+                    colorB +=	((short)*src1) * filter->_15; src1++;
+                    colorG +=	((short)*src1) * filter->_15; src1++;
+                    colorR +=	((short)*src1) * filter->_15; src1-=11;
+                }
+                if (src2)
+                {
+                    colorB +=	((short)*src2) * filter->_21; src2++;
+                    colorG +=	((short)*src2) * filter->_21; src2++;
+                    colorR +=	((short)*src2) * filter->_21; src2++;
+                    colorB +=	((short)*src2) * filter->_22; src2++;
+                    colorG +=	((short)*src2) * filter->_22; src2++;
+                    colorR +=	((short)*src2) * filter->_22; src2++;
+                    colorB +=	((short)*src2) * filter->_23; src2++;
+                    colorG +=	((short)*src2) * filter->_23; src2++;
+                    colorR +=	((short)*src2) * filter->_23; src2++;
+                    colorB +=	((short)*src2) * filter->_24; src2++;
+                    colorG +=	((short)*src2) * filter->_24; src2++;
+                    colorR +=	((short)*src2) * filter->_24; src2++;
+                    colorB +=	((short)*src2) * filter->_25; src2++;
+                    colorG +=	((short)*src2) * filter->_25; src2++;
+                    colorR +=	((short)*src2) * filter->_25; src2-=11;
+                }
+                colorB +=	((short)*src3) * filter->_31; src3++;
+                colorG +=	((short)*src3) * filter->_31; src3++;
+                colorR +=	((short)*src3) * filter->_31; src3++;
+                colorB +=	((short)*src3) * filter->_32; src3++;
+                colorG +=	((short)*src3) * filter->_32; src3++;
+                colorR +=	((short)*src3) * filter->_32; src3++;
+                colorB +=	((short)*src3) * filter->_33; src3++;
+                colorG +=	((short)*src3) * filter->_33; src3++;
+                colorR +=	((short)*src3) * filter->_33; src3++;
+                colorB +=	((short)*src3) * filter->_34; src3++;
+                colorG +=	((short)*src3) * filter->_34; src3++;
+                colorR +=	((short)*src3) * filter->_34; src3++;
+                colorB +=	((short)*src3) * filter->_35; src3++;
+                colorG +=	((short)*src3) * filter->_35; src3++;
+                colorR +=	((short)*src3) * filter->_35; src3-=11;
+                if (src4)
+                {
+                    colorB +=	((short)*src4) * filter->_41; src4++;
+                    colorG +=	((short)*src4) * filter->_41; src4++;
+                    colorR +=	((short)*src4) * filter->_41; src4++;
+                    colorB +=	((short)*src4) * filter->_42; src4++;
+                    colorG +=	((short)*src4) * filter->_42; src4++;
+                    colorR +=	((short)*src4) * filter->_42; src4++;
+                    colorB +=	((short)*src4) * filter->_43; src4++;
+                    colorG +=	((short)*src4) * filter->_43; src4++;
+                    colorR +=	((short)*src4) * filter->_43; src4++;
+                    colorB +=	((short)*src4) * filter->_44; src4++;
+                    colorG +=	((short)*src4) * filter->_44; src4++;
+                    colorR +=	((short)*src4) * filter->_44; src4++;
+                    colorB +=	((short)*src4) * filter->_45; src4++;
+                    colorG +=	((short)*src4) * filter->_45; src4++;
+                    colorR +=	((short)*src4) * filter->_45; src4-=11;
+                }
+                if (src5)
+                {
+                    colorB +=	((short)*src5) * filter->_51; src5++;
+                    colorG +=	((short)*src5) * filter->_51; src5++;
+                    colorR +=	((short)*src5) * filter->_51; src5++;
+                    colorB +=	((short)*src5) * filter->_52; src5++;
+                    colorG +=	((short)*src5) * filter->_52; src5++;
+                    colorR +=	((short)*src5) * filter->_52; src5++;
+                    colorB +=	((short)*src5) * filter->_53; src5++;
+                    colorG +=	((short)*src5) * filter->_53; src5++;
+                    colorR +=	((short)*src5) * filter->_53; src5++;
+                    colorB +=	((short)*src5) * filter->_54; src5++;
+                    colorG +=	((short)*src5) * filter->_54; src5++;
+                    colorR +=	((short)*src5) * filter->_54; src5++;
+                    colorB +=	((short)*src5) * filter->_55; src5++;
+                    colorG +=	((short)*src5) * filter->_55; src5++;
+                    colorR +=	((short)*src5) * filter->_55; src5-=11;
+                }
 
-				colorB /= filter->Divisor;
-				colorG /= filter->Divisor;
-				colorR /= filter->Divisor;
-				colorB += filter->Bias;
-				colorG += filter->Bias;
-				colorR += filter->Bias;
+                colorB /= filter->Divisor;
+                colorG /= filter->Divisor;
+                colorR /= filter->Divisor;
+                colorB += filter->Bias;
+                colorG += filter->Bias;
+                colorR += filter->Bias;
 
-				if (colorB<0)   colorB=0;
-				if (colorB>255) colorB=255;
-				if (colorG<0)   colorG=0;
-				if (colorG>255) colorG=255;
-				if (colorR<0)   colorR=0;
-				if (colorR>255) colorR=255;
+                if (colorB<0)	 colorB=0;
+                if (colorB>255) colorB=255;
+                if (colorG<0)	 colorG=0;
+                if (colorG>255) colorG=255;
+                if (colorR<0)	 colorR=0;
+                if (colorR>255) colorR=255;
 
-				if (callback)
-				{
-					switch(m_graphicsData->GetPixelFormat())
-					{
-					case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR));
-					case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB));
-					}				
-				}
-			}
-		}
-		return true;
-	}
-	return false;
+                if (callback)
+                {
+                    switch(m_graphicsData->GetPixelFormat())
+                    {
+                    case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR));
+                    case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB));
+                    }				
+                }
+            }
+        }
+        return true;
+    }
+    return false;
 }
 
 bool TCanvas::ApplyFilter(TFilter7x7* filter, FilteredPixelCallback callback)
 {
-	unsigned char* src1;
-	unsigned char* src2;
-	unsigned char* src3;
-	unsigned char* src4;
-	unsigned char* src5;
-	unsigned char* src6;
-	unsigned char* src7;
+    unsigned char* src1;
+    unsigned char* src2;
+    unsigned char* src3;
+    unsigned char* src4;
+    unsigned char* src5;
+    unsigned char* src6;
+    unsigned char* src7;
 
-	unsigned short bytes = m_graphicsData->GetBytesPerLine();
-	if (bytes==1)
-	{
-		for(short y = m_graphicsData->GetHeight(); y>0; y--)
-		{
-			src1 = m_graphicsData->ScanLine(y-3);
-			src2 = m_graphicsData->ScanLine(y-2);
-			src3 = m_graphicsData->ScanLine(y-1);
-			src4 = m_graphicsData->ScanLine(y);
-			src5 = m_graphicsData->ScanLine(y+1);
-			src6 = m_graphicsData->ScanLine(y+2);
-			src7 = m_graphicsData->ScanLine(y+3);
+    unsigned short bytes = m_graphicsData->GetBytesPerLine();
+    if (bytes==1)
+    {
+        for(short y = m_graphicsData->GetHeight(); y>0; y--)
+        {
+            src1 = m_graphicsData->ScanLine(y-3);
+            src2 = m_graphicsData->ScanLine(y-2);
+            src3 = m_graphicsData->ScanLine(y-1);
+            src4 = m_graphicsData->ScanLine(y);
+            src5 = m_graphicsData->ScanLine(y+1);
+            src6 = m_graphicsData->ScanLine(y+2);
+            src7 = m_graphicsData->ScanLine(y+3);
 
-			for(short x=m_graphicsData->GetWidth(); x>0; x--)
-			{
-				short color = 0;
-				if (src1)
-				{
-					color +=  ((short)*src1) * filter->_11; src1++;
-					color +=  ((short)*src1) * filter->_12; src1++;
-					color +=  ((short)*src1) * filter->_13; src1++;
-					color +=  ((short)*src1) * filter->_14; src1++;
-					color +=  ((short)*src1) * filter->_15; src1++;
-					color +=  ((short)*src1) * filter->_16; src1++;
-					color +=  ((short)*src1) * filter->_17; src1-=5;
-				}
-				if (src2)
-				{
-					color +=  ((short)*src2) * filter->_21; src2++;
-					color +=  ((short)*src2) * filter->_22; src2++;
-					color +=  ((short)*src2) * filter->_23; src2++;
-					color +=  ((short)*src2) * filter->_24; src2++;
-					color +=  ((short)*src2) * filter->_25; src2++;
-					color +=  ((short)*src2) * filter->_26; src2++;
-					color +=  ((short)*src2) * filter->_27; src2-=5;
-				}
-				if (src3)
-				{
-					color +=  ((short)*src3) * filter->_31; src3++;
-					color +=  ((short)*src3) * filter->_32; src3++;
-					color +=  ((short)*src3) * filter->_33; src3++;
-					color +=  ((short)*src3) * filter->_34; src3++;
-					color +=  ((short)*src3) * filter->_35; src3++;
-					color +=  ((short)*src3) * filter->_36; src3++;
-					color +=  ((short)*src3) * filter->_37; src3-=5;
-				}
-				color +=  ((short)*src4) * filter->_41; src4++;
-				color +=  ((short)*src4) * filter->_42; src4++;
-				color +=  ((short)*src4) * filter->_43; src4++;
-				color +=  ((short)*src4) * filter->_44; src4++;
-				color +=  ((short)*src4) * filter->_45; src4++;
-				color +=  ((short)*src4) * filter->_46; src4++;
-				color +=  ((short)*src4) * filter->_47; src4-=5; 
-				if (src5)
-				{
-					color +=  ((short)*src5) * filter->_51; src5++;
-					color +=  ((short)*src5) * filter->_52; src5++;
-					color +=  ((short)*src5) * filter->_53; src5++;
-					color +=  ((short)*src5) * filter->_54; src5++;
-					color +=  ((short)*src5) * filter->_55; src5++;
-					color +=  ((short)*src5) * filter->_56; src5++;
-					color +=  ((short)*src5) * filter->_57; src5-=5;
-				}
-				if (src6)
-				{
-					color +=  ((short)*src6) * filter->_61; src6++;
-					color +=  ((short)*src6) * filter->_62; src6++;
-					color +=  ((short)*src6) * filter->_63; src6++;
-					color +=  ((short)*src6) * filter->_64; src6++;
-					color +=  ((short)*src6) * filter->_65; src6++;
-					color +=  ((short)*src6) * filter->_66; src6++;
-					color +=  ((short)*src6) * filter->_67; src6-=5;
-				}
-				if (src7)
-				{
-					color +=  ((short)*src7) * filter->_71; src7++;
-					color +=  ((short)*src7) * filter->_72; src7++;
-					color +=  ((short)*src7) * filter->_73; src7++;
-					color +=  ((short)*src7) * filter->_74; src7++;
-					color +=  ((short)*src7) * filter->_75; src7++;
-					color +=  ((short)*src7) * filter->_76; src7++;
-					color +=  ((short)*src7) * filter->_77; src7-=5;
-				}
-				color /= filter->Divisor;
-				color += filter->Bias;
-				if (color<0)   color=0;
-				if (color>255) color=255;
+            for(short x=m_graphicsData->GetWidth(); x>0; x--)
+            {
+                short color = 0;
+                if (src1)
+                {
+                    color +=	((short)*src1) * filter->_11; src1++;
+                    color +=	((short)*src1) * filter->_12; src1++;
+                    color +=	((short)*src1) * filter->_13; src1++;
+                    color +=	((short)*src1) * filter->_14; src1++;
+                    color +=	((short)*src1) * filter->_15; src1++;
+                    color +=	((short)*src1) * filter->_16; src1++;
+                    color +=	((short)*src1) * filter->_17; src1-=5;
+                }
+                if (src2)
+                {
+                    color +=	((short)*src2) * filter->_21; src2++;
+                    color +=	((short)*src2) * filter->_22; src2++;
+                    color +=	((short)*src2) * filter->_23; src2++;
+                    color +=	((short)*src2) * filter->_24; src2++;
+                    color +=	((short)*src2) * filter->_25; src2++;
+                    color +=	((short)*src2) * filter->_26; src2++;
+                    color +=	((short)*src2) * filter->_27; src2-=5;
+                }
+                if (src3)
+                {
+                    color +=	((short)*src3) * filter->_31; src3++;
+                    color +=	((short)*src3) * filter->_32; src3++;
+                    color +=	((short)*src3) * filter->_33; src3++;
+                    color +=	((short)*src3) * filter->_34; src3++;
+                    color +=	((short)*src3) * filter->_35; src3++;
+                    color +=	((short)*src3) * filter->_36; src3++;
+                    color +=	((short)*src3) * filter->_37; src3-=5;
+                }
+                color +=	((short)*src4) * filter->_41; src4++;
+                color +=	((short)*src4) * filter->_42; src4++;
+                color +=	((short)*src4) * filter->_43; src4++;
+                color +=	((short)*src4) * filter->_44; src4++;
+                color +=	((short)*src4) * filter->_45; src4++;
+                color +=	((short)*src4) * filter->_46; src4++;
+                color +=	((short)*src4) * filter->_47; src4-=5; 
+                if (src5)
+                {
+                    color +=	((short)*src5) * filter->_51; src5++;
+                    color +=	((short)*src5) * filter->_52; src5++;
+                    color +=	((short)*src5) * filter->_53; src5++;
+                    color +=	((short)*src5) * filter->_54; src5++;
+                    color +=	((short)*src5) * filter->_55; src5++;
+                    color +=	((short)*src5) * filter->_56; src5++;
+                    color +=	((short)*src5) * filter->_57; src5-=5;
+                }
+                if (src6)
+                {
+                    color +=	((short)*src6) * filter->_61; src6++;
+                    color +=	((short)*src6) * filter->_62; src6++;
+                    color +=	((short)*src6) * filter->_63; src6++;
+                    color +=	((short)*src6) * filter->_64; src6++;
+                    color +=	((short)*src6) * filter->_65; src6++;
+                    color +=	((short)*src6) * filter->_66; src6++;
+                    color +=	((short)*src6) * filter->_67; src6-=5;
+                }
+                if (src7)
+                {
+                    color +=	((short)*src7) * filter->_71; src7++;
+                    color +=	((short)*src7) * filter->_72; src7++;
+                    color +=	((short)*src7) * filter->_73; src7++;
+                    color +=	((short)*src7) * filter->_74; src7++;
+                    color +=	((short)*src7) * filter->_75; src7++;
+                    color +=	((short)*src7) * filter->_76; src7++;
+                    color +=	((short)*src7) * filter->_77; src7-=5;
+                }
+                color /= filter->Divisor;
+                color += filter->Bias;
+                if (color<0)	 color=0;
+                if (color>255) color=255;
 
-				if (callback)
-				{
-					callback(x,y, TColorRGB(color, color, color));
-				}
-			}
-		}
-		return true;
-	}
-	if (bytes==3)
-	{
-		for(short y = m_graphicsData->GetHeight(); y>0; y--)
-		{
-			src1 = m_graphicsData->ScanLine(y-3);
-			src2 = m_graphicsData->ScanLine(y-2);
-			src3 = m_graphicsData->ScanLine(y-1);
-			src4 = m_graphicsData->ScanLine(y);
-			src5 = m_graphicsData->ScanLine(y+1);
-			src6 = m_graphicsData->ScanLine(y+2);
-			src7 = m_graphicsData->ScanLine(y+3);
+                if (callback)
+                {
+                    callback(x,y, TColorRGB(color, color, color));
+                }
+            }
+        }
+        return true;
+    }
+    if (bytes==3)
+    {
+        for(short y = m_graphicsData->GetHeight(); y>0; y--)
+        {
+            src1 = m_graphicsData->ScanLine(y-3);
+            src2 = m_graphicsData->ScanLine(y-2);
+            src3 = m_graphicsData->ScanLine(y-1);
+            src4 = m_graphicsData->ScanLine(y);
+            src5 = m_graphicsData->ScanLine(y+1);
+            src6 = m_graphicsData->ScanLine(y+2);
+            src7 = m_graphicsData->ScanLine(y+3);
 
-			for(short x=m_graphicsData->GetWidth(); x>0; x--)
-			{
-				short colorB = 0;
-				short colorG = 0;
-				short colorR = 0;
-				if (src1)
-				{
-					colorB +=  ((short)*src1) * filter->_11; src1++;
-					colorG +=  ((short)*src1) * filter->_11; src1++;
-					colorR +=  ((short)*src1) * filter->_11; src1++;
-					colorB +=  ((short)*src1) * filter->_12; src1++;
-					colorG +=  ((short)*src1) * filter->_12; src1++;
-					colorR +=  ((short)*src1) * filter->_12; src1++;
-					colorB +=  ((short)*src1) * filter->_13; src1++;
-					colorG +=  ((short)*src1) * filter->_13; src1++;
-					colorR +=  ((short)*src1) * filter->_13; src1++;
-					colorB +=  ((short)*src1) * filter->_14; src1++;
-					colorG +=  ((short)*src1) * filter->_14; src1++;
-					colorR +=  ((short)*src1) * filter->_14; src1++;
-					colorB +=  ((short)*src1) * filter->_15; src1++;
-					colorG +=  ((short)*src1) * filter->_15; src1++;
-					colorR +=  ((short)*src1) * filter->_15; src1++;
-					colorB +=  ((short)*src1) * filter->_16; src1++;
-					colorG +=  ((short)*src1) * filter->_16; src1++;
-					colorR +=  ((short)*src1) * filter->_16; src1++;
-					colorB +=  ((short)*src1) * filter->_17; src1++;
-					colorG +=  ((short)*src1) * filter->_17; src1++;
-					colorR +=  ((short)*src1) * filter->_17; src1-=17;
-				}
-				if (src2)
-				{
-					colorB +=  ((short)*src2) * filter->_21; src2++;
-					colorG +=  ((short)*src2) * filter->_21; src2++;
-					colorR +=  ((short)*src2) * filter->_21; src2++;
-					colorB +=  ((short)*src2) * filter->_22; src2++;
-					colorG +=  ((short)*src2) * filter->_22; src2++;
-					colorR +=  ((short)*src2) * filter->_22; src2++;
-					colorB +=  ((short)*src2) * filter->_23; src2++;
-					colorG +=  ((short)*src2) * filter->_23; src2++;
-					colorR +=  ((short)*src2) * filter->_23; src2++;
-					colorB +=  ((short)*src2) * filter->_24; src2++;
-					colorG +=  ((short)*src2) * filter->_24; src2++;
-					colorR +=  ((short)*src2) * filter->_24; src2++;
-					colorB +=  ((short)*src2) * filter->_25; src2++;
-					colorG +=  ((short)*src2) * filter->_25; src2++;
-					colorR +=  ((short)*src2) * filter->_25; src2++;
-					colorB +=  ((short)*src2) * filter->_26; src2++;
-					colorG +=  ((short)*src2) * filter->_26; src2++;
-					colorR +=  ((short)*src2) * filter->_26; src2++;
-					colorB +=  ((short)*src2) * filter->_27; src2++;
-					colorG +=  ((short)*src2) * filter->_27; src2++;
-					colorR +=  ((short)*src2) * filter->_27; src2-=17;
-				}
-				if (src3)
-				{
-					colorB +=  ((short)*src3) * filter->_31; src3++;
-					colorG +=  ((short)*src3) * filter->_31; src3++;
-					colorR +=  ((short)*src3) * filter->_31; src3++;
-					colorB +=  ((short)*src3) * filter->_32; src3++;
-					colorG +=  ((short)*src3) * filter->_32; src3++;
-					colorR +=  ((short)*src3) * filter->_32; src3++;
-					colorB +=  ((short)*src3) * filter->_33; src3++;
-					colorG +=  ((short)*src3) * filter->_33; src3++;
-					colorR +=  ((short)*src3) * filter->_33; src3++;
-					colorB +=  ((short)*src3) * filter->_34; src3++;
-					colorG +=  ((short)*src3) * filter->_34; src3++;
-					colorR +=  ((short)*src3) * filter->_34; src3++;
-					colorB +=  ((short)*src3) * filter->_35; src3++;
-					colorG +=  ((short)*src3) * filter->_35; src3++;
-					colorR +=  ((short)*src3) * filter->_35; src3++;
-					colorB +=  ((short)*src3) * filter->_36; src3++;
-					colorG +=  ((short)*src3) * filter->_36; src3++;
-					colorR +=  ((short)*src3) * filter->_36; src3++;
-					colorB +=  ((short)*src3) * filter->_37; src3++;
-					colorG +=  ((short)*src3) * filter->_37; src3++;
-					colorR +=  ((short)*src3) * filter->_37; src3-=17;
-				}
-				colorB +=  ((short)*src4) * filter->_41; src4++;
-				colorG +=  ((short)*src4) * filter->_41; src4++;
-				colorR +=  ((short)*src4) * filter->_41; src4++;
-				colorB +=  ((short)*src4) * filter->_42; src4++;
-				colorG +=  ((short)*src4) * filter->_42; src4++;
-				colorR +=  ((short)*src4) * filter->_42; src4++;
-				colorB +=  ((short)*src4) * filter->_43; src4++;
-				colorG +=  ((short)*src4) * filter->_43; src4++;
-				colorR +=  ((short)*src4) * filter->_43; src4++;
-				colorB +=  ((short)*src4) * filter->_44; src4++;
-				colorG +=  ((short)*src4) * filter->_44; src4++;
-				colorR +=  ((short)*src4) * filter->_44; src4++;
-				colorB +=  ((short)*src4) * filter->_45; src4++;
-				colorG +=  ((short)*src4) * filter->_45; src4++;
-				colorR +=  ((short)*src4) * filter->_45; src4++;
-				colorB +=  ((short)*src4) * filter->_46; src4++;
-				colorG +=  ((short)*src4) * filter->_46; src4++;
-				colorR +=  ((short)*src4) * filter->_46; src4++;
-				colorB +=  ((short)*src4) * filter->_47; src4++;
-				colorG +=  ((short)*src4) * filter->_47; src4++;
-				colorR +=  ((short)*src4) * filter->_47; src4-=17;
-				if (src5)
-				{
-					colorB +=  ((short)*src5) * filter->_51; src5++;
-					colorG +=  ((short)*src5) * filter->_51; src5++;
-					colorR +=  ((short)*src5) * filter->_51; src5++;
-					colorB +=  ((short)*src5) * filter->_52; src5++;
-					colorG +=  ((short)*src5) * filter->_52; src5++;
-					colorR +=  ((short)*src5) * filter->_52; src5++;
-					colorB +=  ((short)*src5) * filter->_53; src5++;
-					colorG +=  ((short)*src5) * filter->_53; src5++;
-					colorR +=  ((short)*src5) * filter->_53; src5++;
-					colorB +=  ((short)*src5) * filter->_54; src5++;
-					colorG +=  ((short)*src5) * filter->_54; src5++;
-					colorR +=  ((short)*src5) * filter->_54; src5++;
-					colorB +=  ((short)*src5) * filter->_55; src5++;
-					colorG +=  ((short)*src5) * filter->_55; src5++;
-					colorR +=  ((short)*src5) * filter->_55; src5++;
-					colorB +=  ((short)*src5) * filter->_56; src5++;
-					colorG +=  ((short)*src5) * filter->_56; src5++;
-					colorR +=  ((short)*src5) * filter->_56; src5++;
-					colorB +=  ((short)*src5) * filter->_57; src5++;
-					colorG +=  ((short)*src5) * filter->_57; src5++;
-					colorR +=  ((short)*src5) * filter->_57; src5-=17;
-				}
-				if (src6)
-				{
-					colorB +=  ((short)*src6) * filter->_61; src6++;
-					colorG +=  ((short)*src6) * filter->_61; src6++;
-					colorR +=  ((short)*src6) * filter->_61; src6++;
-					colorB +=  ((short)*src6) * filter->_62; src6++;
-					colorG +=  ((short)*src6) * filter->_62; src6++;
-					colorR +=  ((short)*src6) * filter->_62; src6++;
-					colorB +=  ((short)*src6) * filter->_63; src6++;
-					colorG +=  ((short)*src6) * filter->_63; src6++;
-					colorR +=  ((short)*src6) * filter->_63; src6++;
-					colorB +=  ((short)*src6) * filter->_64; src6++;
-					colorG +=  ((short)*src6) * filter->_64; src6++;
-					colorR +=  ((short)*src6) * filter->_64; src6++;
-					colorB +=  ((short)*src6) * filter->_65; src6++;
-					colorG +=  ((short)*src6) * filter->_65; src6++;
-					colorR +=  ((short)*src6) * filter->_65; src6++;
-					colorB +=  ((short)*src6) * filter->_66; src6++;
-					colorG +=  ((short)*src6) * filter->_66; src6++;
-					colorR +=  ((short)*src6) * filter->_66; src6++;
-					colorB +=  ((short)*src6) * filter->_67; src6++;
-					colorG +=  ((short)*src6) * filter->_67; src6++;
-					colorR +=  ((short)*src6) * filter->_67; src6-=17;
-				}                                   
-				if (src7)
-				{
-					colorB +=  ((short)*src7) * filter->_71; src7++;
-					colorG +=  ((short)*src7) * filter->_71; src7++;
-					colorR +=  ((short)*src7) * filter->_71; src7++;
-					colorB +=  ((short)*src7) * filter->_72; src7++;
-					colorG +=  ((short)*src7) * filter->_72; src7++;
-					colorR +=  ((short)*src7) * filter->_72; src7++;
-					colorB +=  ((short)*src7) * filter->_73; src7++;
-					colorG +=  ((short)*src7) * filter->_73; src7++;
-					colorR +=  ((short)*src7) * filter->_73; src7++;
-					colorB +=  ((short)*src7) * filter->_74; src7++;
-					colorG +=  ((short)*src7) * filter->_74; src7++;
-					colorR +=  ((short)*src7) * filter->_74; src7++;
-					colorB +=  ((short)*src7) * filter->_75; src7++;
-					colorG +=  ((short)*src7) * filter->_75; src7++;
-					colorR +=  ((short)*src7) * filter->_75; src7++;
-					colorB +=  ((short)*src7) * filter->_76; src7++;
-					colorG +=  ((short)*src7) * filter->_76; src7++;
-					colorR +=  ((short)*src7) * filter->_76; src7++;
-					colorB +=  ((short)*src7) * filter->_77; src7++;
-					colorG +=  ((short)*src7) * filter->_77; src7++;
-					colorR +=  ((short)*src7) * filter->_77; src7-=17;
-				}
+            for(short x=m_graphicsData->GetWidth(); x>0; x--)
+            {
+                short colorB = 0;
+                short colorG = 0;
+                short colorR = 0;
+                if (src1)
+                {
+                    colorB +=	((short)*src1) * filter->_11; src1++;
+                    colorG +=	((short)*src1) * filter->_11; src1++;
+                    colorR +=	((short)*src1) * filter->_11; src1++;
+                    colorB +=	((short)*src1) * filter->_12; src1++;
+                    colorG +=	((short)*src1) * filter->_12; src1++;
+                    colorR +=	((short)*src1) * filter->_12; src1++;
+                    colorB +=	((short)*src1) * filter->_13; src1++;
+                    colorG +=	((short)*src1) * filter->_13; src1++;
+                    colorR +=	((short)*src1) * filter->_13; src1++;
+                    colorB +=	((short)*src1) * filter->_14; src1++;
+                    colorG +=	((short)*src1) * filter->_14; src1++;
+                    colorR +=	((short)*src1) * filter->_14; src1++;
+                    colorB +=	((short)*src1) * filter->_15; src1++;
+                    colorG +=	((short)*src1) * filter->_15; src1++;
+                    colorR +=	((short)*src1) * filter->_15; src1++;
+                    colorB +=	((short)*src1) * filter->_16; src1++;
+                    colorG +=	((short)*src1) * filter->_16; src1++;
+                    colorR +=	((short)*src1) * filter->_16; src1++;
+                    colorB +=	((short)*src1) * filter->_17; src1++;
+                    colorG +=	((short)*src1) * filter->_17; src1++;
+                    colorR +=	((short)*src1) * filter->_17; src1-=17;
+                }
+                if (src2)
+                {
+                    colorB +=	((short)*src2) * filter->_21; src2++;
+                    colorG +=	((short)*src2) * filter->_21; src2++;
+                    colorR +=	((short)*src2) * filter->_21; src2++;
+                    colorB +=	((short)*src2) * filter->_22; src2++;
+                    colorG +=	((short)*src2) * filter->_22; src2++;
+                    colorR +=	((short)*src2) * filter->_22; src2++;
+                    colorB +=	((short)*src2) * filter->_23; src2++;
+                    colorG +=	((short)*src2) * filter->_23; src2++;
+                    colorR +=	((short)*src2) * filter->_23; src2++;
+                    colorB +=	((short)*src2) * filter->_24; src2++;
+                    colorG +=	((short)*src2) * filter->_24; src2++;
+                    colorR +=	((short)*src2) * filter->_24; src2++;
+                    colorB +=	((short)*src2) * filter->_25; src2++;
+                    colorG +=	((short)*src2) * filter->_25; src2++;
+                    colorR +=	((short)*src2) * filter->_25; src2++;
+                    colorB +=	((short)*src2) * filter->_26; src2++;
+                    colorG +=	((short)*src2) * filter->_26; src2++;
+                    colorR +=	((short)*src2) * filter->_26; src2++;
+                    colorB +=	((short)*src2) * filter->_27; src2++;
+                    colorG +=	((short)*src2) * filter->_27; src2++;
+                    colorR +=	((short)*src2) * filter->_27; src2-=17;
+                }
+                if (src3)
+                {
+                    colorB +=	((short)*src3) * filter->_31; src3++;
+                    colorG +=	((short)*src3) * filter->_31; src3++;
+                    colorR +=	((short)*src3) * filter->_31; src3++;
+                    colorB +=	((short)*src3) * filter->_32; src3++;
+                    colorG +=	((short)*src3) * filter->_32; src3++;
+                    colorR +=	((short)*src3) * filter->_32; src3++;
+                    colorB +=	((short)*src3) * filter->_33; src3++;
+                    colorG +=	((short)*src3) * filter->_33; src3++;
+                    colorR +=	((short)*src3) * filter->_33; src3++;
+                    colorB +=	((short)*src3) * filter->_34; src3++;
+                    colorG +=	((short)*src3) * filter->_34; src3++;
+                    colorR +=	((short)*src3) * filter->_34; src3++;
+                    colorB +=	((short)*src3) * filter->_35; src3++;
+                    colorG +=	((short)*src3) * filter->_35; src3++;
+                    colorR +=	((short)*src3) * filter->_35; src3++;
+                    colorB +=	((short)*src3) * filter->_36; src3++;
+                    colorG +=	((short)*src3) * filter->_36; src3++;
+                    colorR +=	((short)*src3) * filter->_36; src3++;
+                    colorB +=	((short)*src3) * filter->_37; src3++;
+                    colorG +=	((short)*src3) * filter->_37; src3++;
+                    colorR +=	((short)*src3) * filter->_37; src3-=17;
+                }
+                colorB +=	((short)*src4) * filter->_41; src4++;
+                colorG +=	((short)*src4) * filter->_41; src4++;
+                colorR +=	((short)*src4) * filter->_41; src4++;
+                colorB +=	((short)*src4) * filter->_42; src4++;
+                colorG +=	((short)*src4) * filter->_42; src4++;
+                colorR +=	((short)*src4) * filter->_42; src4++;
+                colorB +=	((short)*src4) * filter->_43; src4++;
+                colorG +=	((short)*src4) * filter->_43; src4++;
+                colorR +=	((short)*src4) * filter->_43; src4++;
+                colorB +=	((short)*src4) * filter->_44; src4++;
+                colorG +=	((short)*src4) * filter->_44; src4++;
+                colorR +=	((short)*src4) * filter->_44; src4++;
+                colorB +=	((short)*src4) * filter->_45; src4++;
+                colorG +=	((short)*src4) * filter->_45; src4++;
+                colorR +=	((short)*src4) * filter->_45; src4++;
+                colorB +=	((short)*src4) * filter->_46; src4++;
+                colorG +=	((short)*src4) * filter->_46; src4++;
+                colorR +=	((short)*src4) * filter->_46; src4++;
+                colorB +=	((short)*src4) * filter->_47; src4++;
+                colorG +=	((short)*src4) * filter->_47; src4++;
+                colorR +=	((short)*src4) * filter->_47; src4-=17;
+                if (src5)
+                {
+                    colorB +=	((short)*src5) * filter->_51; src5++;
+                    colorG +=	((short)*src5) * filter->_51; src5++;
+                    colorR +=	((short)*src5) * filter->_51; src5++;
+                    colorB +=	((short)*src5) * filter->_52; src5++;
+                    colorG +=	((short)*src5) * filter->_52; src5++;
+                    colorR +=	((short)*src5) * filter->_52; src5++;
+                    colorB +=	((short)*src5) * filter->_53; src5++;
+                    colorG +=	((short)*src5) * filter->_53; src5++;
+                    colorR +=	((short)*src5) * filter->_53; src5++;
+                    colorB +=	((short)*src5) * filter->_54; src5++;
+                    colorG +=	((short)*src5) * filter->_54; src5++;
+                    colorR +=	((short)*src5) * filter->_54; src5++;
+                    colorB +=	((short)*src5) * filter->_55; src5++;
+                    colorG +=	((short)*src5) * filter->_55; src5++;
+                    colorR +=	((short)*src5) * filter->_55; src5++;
+                    colorB +=	((short)*src5) * filter->_56; src5++;
+                    colorG +=	((short)*src5) * filter->_56; src5++;
+                    colorR +=	((short)*src5) * filter->_56; src5++;
+                    colorB +=	((short)*src5) * filter->_57; src5++;
+                    colorG +=	((short)*src5) * filter->_57; src5++;
+                    colorR +=	((short)*src5) * filter->_57; src5-=17;
+                }
+                if (src6)
+                {
+                    colorB +=	((short)*src6) * filter->_61; src6++;
+                    colorG +=	((short)*src6) * filter->_61; src6++;
+                    colorR +=	((short)*src6) * filter->_61; src6++;
+                    colorB +=	((short)*src6) * filter->_62; src6++;
+                    colorG +=	((short)*src6) * filter->_62; src6++;
+                    colorR +=	((short)*src6) * filter->_62; src6++;
+                    colorB +=	((short)*src6) * filter->_63; src6++;
+                    colorG +=	((short)*src6) * filter->_63; src6++;
+                    colorR +=	((short)*src6) * filter->_63; src6++;
+                    colorB +=	((short)*src6) * filter->_64; src6++;
+                    colorG +=	((short)*src6) * filter->_64; src6++;
+                    colorR +=	((short)*src6) * filter->_64; src6++;
+                    colorB +=	((short)*src6) * filter->_65; src6++;
+                    colorG +=	((short)*src6) * filter->_65; src6++;
+                    colorR +=	((short)*src6) * filter->_65; src6++;
+                    colorB +=	((short)*src6) * filter->_66; src6++;
+                    colorG +=	((short)*src6) * filter->_66; src6++;
+                    colorR +=	((short)*src6) * filter->_66; src6++;
+                    colorB +=	((short)*src6) * filter->_67; src6++;
+                    colorG +=	((short)*src6) * filter->_67; src6++;
+                    colorR +=	((short)*src6) * filter->_67; src6-=17;
+                }																	 
+                if (src7)
+                {
+                    colorB +=	((short)*src7) * filter->_71; src7++;
+                    colorG +=	((short)*src7) * filter->_71; src7++;
+                    colorR +=	((short)*src7) * filter->_71; src7++;
+                    colorB +=	((short)*src7) * filter->_72; src7++;
+                    colorG +=	((short)*src7) * filter->_72; src7++;
+                    colorR +=	((short)*src7) * filter->_72; src7++;
+                    colorB +=	((short)*src7) * filter->_73; src7++;
+                    colorG +=	((short)*src7) * filter->_73; src7++;
+                    colorR +=	((short)*src7) * filter->_73; src7++;
+                    colorB +=	((short)*src7) * filter->_74; src7++;
+                    colorG +=	((short)*src7) * filter->_74; src7++;
+                    colorR +=	((short)*src7) * filter->_74; src7++;
+                    colorB +=	((short)*src7) * filter->_75; src7++;
+                    colorG +=	((short)*src7) * filter->_75; src7++;
+                    colorR +=	((short)*src7) * filter->_75; src7++;
+                    colorB +=	((short)*src7) * filter->_76; src7++;
+                    colorG +=	((short)*src7) * filter->_76; src7++;
+                    colorR +=	((short)*src7) * filter->_76; src7++;
+                    colorB +=	((short)*src7) * filter->_77; src7++;
+                    colorG +=	((short)*src7) * filter->_77; src7++;
+                    colorR +=	((short)*src7) * filter->_77; src7-=17;
+                }
 
-				colorB /= filter->Divisor;
-				colorG /= filter->Divisor;
-				colorR /= filter->Divisor;
+                colorB /= filter->Divisor;
+                colorG /= filter->Divisor;
+                colorR /= filter->Divisor;
 
-				colorB += filter->Bias;
-				colorG += filter->Bias;
-				colorR += filter->Bias;
+                colorB += filter->Bias;
+                colorG += filter->Bias;
+                colorR += filter->Bias;
 
-				if (colorB<0)   colorB=0;
-				if (colorB>255) colorB=255;
-				if (colorG<0)   colorG=0;
-				if (colorG>255) colorG=255;
-				if (colorR<0)   colorR=0;
-				if (colorR>255) colorR=255;
+                if (colorB<0)	 colorB=0;
+                if (colorB>255) colorB=255;
+                if (colorG<0)	 colorG=0;
+                if (colorG>255) colorG=255;
+                if (colorR<0)	 colorR=0;
+                if (colorR>255) colorR=255;
 
-				if (callback)
-				{
-					switch(m_graphicsData->GetPixelFormat())
-					{
-					case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR));
-					case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB));
-					}				
-				}
-			}
-		}
-		return true;
-	}
-	return false;
+                if (callback)
+                {
+                    switch(m_graphicsData->GetPixelFormat())
+                    {
+                    case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR));
+                    case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB));
+                    }				
+                }
+            }
+        }
+        return true;
+    }
+    return false;
 }
 

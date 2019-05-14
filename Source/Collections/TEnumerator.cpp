@@ -79,5 +79,4 @@ bool TEnumerator<T>::MoveNext()
 	return m_current!=NULL;
 }
 
-
 #endif

@@ -122,7 +122,7 @@ void TSerializedBaseCollection::SerializeHeader(unsigned short &version)
 		case esmBinaryOutput:  
 			{
 				version = GetVersion();
-				TSerializer::DataStream->WriteChar((char)MANAGER_BEGIN_FLAG);
+				TSerializer::DataStream->WriteByte((unsigned char)MANAGER_BEGIN_FLAG);
 				TSerializer::DataStream->WriteUWord(version);
 			}
 			break;
@@ -232,7 +232,7 @@ void TSerializedBaseCollection::SerializeBody(unsigned short version)
 					TSerializedItem* item = it.Current();
 
 					unsigned short subType = item->GetSubType();
-					TSerializer::DataStream->WriteChar((char)ELEMENT_FLAG);
+					TSerializer::DataStream->WriteByte((unsigned char)ELEMENT_FLAG);
 					TSerializer::DataStream->WriteULong(item->GetUID());
 					TSerializer::DataStream->WriteUWord(subType);
 					if (subType!=255)
@@ -241,7 +241,7 @@ void TSerializedBaseCollection::SerializeBody(unsigned short version)
 						item->Serialize(version);
 					}
 				}
-				TSerializer::DataStream->WriteChar((char)MANAGER_END_FLAG);
+				TSerializer::DataStream->WriteByte((unsigned char)MANAGER_END_FLAG);
 			}
 			break;
 

@@ -40,6 +40,3 @@ void TFileLog::WriteToFile(const char* pszText, int cbText)
         fclose(file);    
     }
 }
-
-    
-        

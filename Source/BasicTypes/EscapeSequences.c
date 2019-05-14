@@ -70,7 +70,7 @@ int AddEscapedChars(const char* text, int textLength, char* escapedText, int* es
 int RemoveEscapedChars(const char* escapedText, int escapedTextLength, char* outputText, int* outputTextLength, int maxOutputTextLength)
 {
     int i = 0;
-    unsigned char* output = outputText;
+    char* output = outputText;
     int outputLength = 0;
 
     if (escapedText == NULL) return 0;

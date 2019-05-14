@@ -51,7 +51,7 @@ class TLZ77Streamed : public TCachedStream
 
         TLZ77Streamed(TStream* mainStream, void* slidingWindowAndCache, int cacheSize, int slidingWindowSize);
         TLZ77Streamed(TStream* mainStream, int cacheSize=512, int slidingWindowSize=3584);
-        ~TLZ77Streamed();
+        virtual ~TLZ77Streamed();
 
         virtual long GetSize();
 

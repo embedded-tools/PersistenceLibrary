@@ -225,15 +225,18 @@ template<class T>
 bool TObjectList<T>::SetCount(short reservedCapacity)
 {
     int oldCount = m_dataPointerCount;
-    SetCount(reservedCapacity);
+    if (!SetCount(reservedCapacity))
+    { 
+        return false;
+    }
 
     for (short i=oldCount; i<m_dataPointerCount; i++) 
     {
         //only new items are allocated
         m_dataPointerArray[i]=new T();
     }
+    return true;
 }
-
 
 template<class T>
 bool TObjectList<T>::SetCapacity(short reservedCapacity)

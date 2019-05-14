@@ -16,7 +16,7 @@
 
 #include "TFixedPoint16M.h"
 
-#ifdef __GNUC__
+#ifndef WIN32
 #include <stdint.h>
 #endif
 
@@ -192,9 +192,8 @@ TFixedPoint16M& TFixedPoint16M::operator *=(long value)
    __int64 result = ((__int64)m_value) * value;
 #endif
 
-#endif
+#else
 
-#ifdef __GNUC__
 	int64_t result = ((int64_t)m_value * value);
 #endif
     if (result>=16777215)
@@ -242,9 +241,8 @@ TFixedPoint16M& TFixedPoint16M::operator *=(TFixedPoint16M& value)
 #else
     __int64 result = ((__int64)m_value) * value.m_value>>5;
 #endif
-
-#endif
-#ifdef __GNUC__
+    
+#else
 	int64_t result = (int64_t)(m_value * value.m_value)>>5;;
 #endif
 

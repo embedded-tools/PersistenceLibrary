@@ -43,7 +43,7 @@ unsigned long TRandom::GetRandomNumber(unsigned long max)
     } else {
         value = m_seed;
     }
-    return (m_seed % max);
+    return (value % max);
 }
 
 void TRandom::GetRandomByteArray(unsigned char* pArray, unsigned long arrayLength)

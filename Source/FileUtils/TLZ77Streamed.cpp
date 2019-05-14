@@ -125,11 +125,6 @@ bool TLZ77Streamed::DoWriteOperation()
     unsigned char a2 = srcA[2];
     unsigned char a3 = srcA[3];    
 
-    unsigned char b0 = srcB[0];
-    unsigned char b1 = srcB[1];
-    unsigned char b2 = srcB[2];
-    unsigned char b3 = srcB[3];
-
     unsigned short currentPattern_Length = 0;
     unsigned short longestPattern_Offset = 0;
     unsigned short longestPattern_Length = 0;
@@ -137,8 +132,6 @@ bool TLZ77Streamed::DoWriteOperation()
     short position = 0;
     while(position<m_cacheSize)
     {
-        bool found = false;
-
         srcB = srcA;
         unsigned char b0 = srcB[0];
         unsigned char b1 = srcB[1];

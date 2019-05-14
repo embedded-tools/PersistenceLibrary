@@ -159,7 +159,6 @@ TDate TDate::AddDay(short days)
 {
     TDate result(*this);
 
-    short m = 0;
     while(days!=0)
     {
         if (days>0)

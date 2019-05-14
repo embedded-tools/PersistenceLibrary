@@ -63,29 +63,30 @@ typedef enum
  */
 class TStream
 {
-private:
-protected:
+  private:
+  protected:
 
     TStream* m_parentStream;
-	bool m_canRead;
-	bool m_canWrite;
-	bool m_canSeek;
+    bool m_canRead;
+    bool m_canWrite;
+    bool m_canSeek;
 
-public:
+  public:
     TStream();
+    virtual ~TStream();
 
     virtual void Close();
     virtual long ReadBuffer   (void* Buffer, long Count);
     virtual long WriteBuffer  (const void* Buffer, long Count);
     virtual long Seek (long Offset, ESeekOrigin Origin)=0;
-	virtual long GetPosition()=0;
-	virtual long GetSize()=0;
+    virtual long GetPosition()=0;
+    virtual long GetSize()=0;
 
-	bool CanRead() { return m_canRead; };
-	bool CanWrite() { return m_canWrite; };
-	bool CanSeek() { return m_canWrite; };
+    bool CanRead() { return m_canRead; };
+    bool CanWrite() { return m_canWrite; };
+    bool CanSeek() { return m_canWrite; };
 
-	bool Eof();
+    bool Eof();
 
     bool ReadBinaryText(TString* text, short maxLength);
     bool ReadBinaryText(char* buffer, unsigned short bufferSize);
@@ -101,10 +102,10 @@ public:
 
     bool WriteBinaryText(TString* text);
     bool WriteBinaryText(const char* text);    
-	bool WritePlainText(TString* text);
-	bool WritePlainText(const char* text);
-	bool WriteXMLEncodedText(TString* text);
-	bool WriteXMLEncodedText(const char* text);
+    bool WritePlainText(TString* text);
+    bool WritePlainText(const char* text);
+    bool WriteXMLEncodedText(TString* text);
+    bool WriteXMLEncodedText(const char* text);
     bool WriteChar (signed char  c);
     bool WriteByte (unsigned char  c);
     bool WriteWord (short w);
@@ -122,8 +123,8 @@ public:
     bool WriteLongAsText  (long i);
     bool WriteULongAsText (unsigned long   i);
     bool WriteLine(const char* line);
-   
-    
+
+
 };
 
 

@@ -24,9 +24,14 @@
 TStream::TStream()
 {
     m_parentStream = NULL;
-	m_canRead  = false;
-	m_canWrite = false;
-	m_canSeek  = false;
+    m_canRead  = false;
+    m_canWrite = false;
+    m_canSeek  = false;
+}
+
+TStream::~TStream()
+{
+  //nothing to do
 }
 
 void TStream::Close()
@@ -66,9 +71,9 @@ long TStream::Seek (long Offset, ESeekOrigin Origin)
 
 bool TStream::Eof()
 {
-	int position = GetPosition();
-	int size     = GetSize();
-	return position>=size;
+    int position = GetPosition();
+    int size     = GetSize();
+    return position>=size;
 }
 
 bool TStream::ReadBinaryText(char* buffer, unsigned short bufferSize)
@@ -90,36 +95,36 @@ bool TStream::ReadBinaryText(char* buffer, unsigned short bufferSize)
 
 bool TStream::ReadBinaryText(TString* text, short maxLength)
 {
-	if (text->IsBufferStatic())
-	{
+    if (text->IsBufferStatic())
+    {
         if (maxLength>(text->GetBufferSize()-1))
         {
             return false;
         }
-	}
+    }
 
     unsigned short length = 0;
     bool res = ReadUWord(length);
     if (!res) 
-	{
-		text->Clear();
-		return false;
-	}
+    {
+        text->Clear();
+        return false;
+    }
 
-	if (!text->Fill(' ', length))
+    if (!text->Fill(' ', length))
     {
         //there is not enough memory for string
         return false;
     }
 
-	void* buffer = (void*) text->ToPChar();
+    void* buffer = (void*) text->ToPChar();
 
-	long bytesRead = ReadBuffer(buffer, length);
+    long bytesRead = ReadBuffer(buffer, length);
     if (bytesRead!=length)
     {
-		text->Clear();
-		return false;
-	}
+        text->Clear();
+        return false;
+    }
     return true;
 }
 
@@ -245,53 +250,53 @@ bool TStream::WriteBinaryText(const char* text)
 
 bool TStream::WritePlainText(TString* text)
 {
-	unsigned short length = text->Length();
-	int res = WriteBuffer((void*)text->ToPChar(), length);
-	return res==length;
+    unsigned short length = text->Length();
+    int res = WriteBuffer((void*)text->ToPChar(), length);
+    return res==length;
 }
 
 bool TStream::WritePlainText(const char* text)
 {
-	unsigned short length = StrLen(text);
-	int res = WriteBuffer((void*)text, length);
-	return res==length;
+    unsigned short length = StrLen(text);
+    int res = WriteBuffer((void*)text, length);
+    return res==length;
 }
 
 bool TStream::WriteXMLEncodedText(TString* text)
 {
-	if (text->Length()>0)
-	{
-		for(char* pp = (char*)text->ToPChar(); *pp!=0; pp++)
-		{
-			switch(*pp)
-			{
-				case ' ': WritePlainText("&nbsp;");
-				case '"': WritePlainText("&quot;");
-				case '<': WritePlainText("&lt;");
-				case '>': WritePlainText("&gt;");
-				case '&': WritePlainText("&amp;");
-				default: WriteByte(*pp);
-			}
-		}
-	}
-	return true;
+    if (text->Length()>0)
+    {
+        for(char* pp = (char*)text->ToPChar(); *pp!=0; pp++)
+        {
+            switch(*pp)
+            {
+                case ' ': WritePlainText("&nbsp;");
+                case '"': WritePlainText("&quot;");
+                case '<': WritePlainText("&lt;");
+                case '>': WritePlainText("&gt;");
+                case '&': WritePlainText("&amp;");
+                default: WriteByte(*pp);
+            }
+        }
+    }
+    return true;
 }
 
 bool TStream::WriteXMLEncodedText(const char* text)
 {
-	for(char* pp = (char*)text; *pp!=0; pp++)
-	{
-		switch(*pp)
-		{
-			case ' ': WritePlainText("&nbsp;"); break;
-			case '"': WritePlainText("&quot;"); break;
-			case '<': WritePlainText("&lt;"); break;
-			case '>': WritePlainText("&gt;"); break;
-			case '&': WritePlainText("&amp;"); break;
-			default: WriteByte(*pp); break;
-		}
-	}
-	return true;
+    for(char* pp = (char*)text; *pp!=0; pp++)
+    {
+        switch(*pp)
+        {
+            case ' ': WritePlainText("&nbsp;"); break;
+            case '"': WritePlainText("&quot;"); break;
+            case '<': WritePlainText("&lt;"); break;
+            case '>': WritePlainText("&gt;"); break;
+            case '&': WritePlainText("&amp;"); break;
+            default: WriteByte(*pp); break;
+        }
+    }
+    return true;
 }
 
 
@@ -345,50 +350,50 @@ bool TStream::WriteULong (unsigned long long i)
 
 bool TStream::WriteByteAsText (char  c)
 {
-	char text[20];
+    char text[20];
     ShortIntToStr(c, text, 20);
-	WritePlainText(text);
-	return true;
+    WritePlainText(text);
+    return true;
 }
 
 bool TStream::WriteUByteAsText(unsigned char  c)
 {
-	TCustomString<14> text;
-	LongIntToStr(c, (char*)text.ToPChar(), 14);
-	WritePlainText(text);
-	return true;
+    TCustomString<14> text;
+    LongIntToStr(c, (char*)text.ToPChar(), 14);
+    WritePlainText(text);
+    return true;
 }
 
 bool TStream::WriteWordAsText (short w)
 {
-	TCustomString<14> text;
+    TCustomString<14> text;
     ShortIntToStr(w, (char*)text.ToPChar(), 14);
-	WritePlainText(text);
-	return true;
+    WritePlainText(text);
+    return true;
 }
 
 bool TStream::WriteUWordAsText(unsigned short w)
 {
     TCustomString<14> text;
     UShortIntToStr(w, (char*)text.ToPChar(), 14);
-	WritePlainText(text);
-	return true;
+    WritePlainText(text);
+    return true;
 }
 
 bool TStream::WriteLongAsText  (long i)
 {
     TCustomString<14> text;
     LongIntToStr(i, (char*)text.ToPChar(), 14);
-	WritePlainText(text);
-	return true;
+    WritePlainText(text);
+    return true;
 }
 
 bool TStream::WriteULongAsText (unsigned long i)
 {
     TCustomString<14> text;
     ULongIntToStr(i, (char*)text.ToPChar(), 14);
-	WritePlainText(text);
-	return true;
+    WritePlainText(text);
+    return true;
 }
 
 bool TStream::WriteLine(const char* line)

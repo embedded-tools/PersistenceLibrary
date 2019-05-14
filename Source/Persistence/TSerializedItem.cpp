@@ -65,8 +65,6 @@ void TSerializedItem::WriteXsdUInt(const char* paramName, const char* typeName, 
 
 void TSerializedItem::SerializeChar (const char* paramName, signed char &value, signed char aMinValue, signed char aMaxValue)
 {
-	signed char defValue = 0;
-
 	switch(TSerializer::Mode)
 	{
 		case esmXMLOutput: 
@@ -379,7 +377,6 @@ void TSerializedItem::SerializeUID  (const char* paramName, void** object, bool 
 					TSerializer::DataStream->WritePlainText("_EMP");
 				}
 				TSerializer::DataStream->WritePlainText("\" />\r\n");
-				break;
 			}			
 			break;
 	}

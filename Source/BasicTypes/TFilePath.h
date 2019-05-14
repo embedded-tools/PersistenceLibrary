@@ -43,7 +43,7 @@ class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
 		const char* ExtractFileExt();
 		TFilePath   ExtractFileDirectory();
 
-		//TFilePath   ExtractRelativePath (const char* basedir);
+		TFilePath   ExtractRelativePath (const char* basedir);
 
 		bool        ChangeFileExt  (const char* pszNewExtension);
 		bool        ChangeFileName (const char* pszNewFilename);

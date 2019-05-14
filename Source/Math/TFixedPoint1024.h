@@ -78,6 +78,4 @@ class TFixedPoint1024
         
 };
 
-
-
 #endif

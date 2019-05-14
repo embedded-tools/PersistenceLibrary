@@ -82,7 +82,6 @@ bool TList<T>::Add(T R)
 	{
 		return false;
 	}
-	short oldm_dataCount = m_dataCount;
 	if (SetCount(m_dataCount+1))
 	{
 		if (m_dataCount>0)

@@ -12,3 +12,4 @@ int UnicodeTextToUTF8Text(const wchar_t* unicodeText, char* utf8buffer, unsigned
 int UTF8TextToUnicodeText(const char* utf8text, wchar_t* unicodeBuffer, unsigned long unicodeMaxCharacterCount);
 
 #endif
+

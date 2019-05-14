@@ -560,7 +560,7 @@ bool TGraphicsData::LoadFromROM (const unsigned char* image)
 	unsigned long bitmapOffset		= *headerOffsets++;
 	unsigned long headerSize		= *headerOffsets++;
 	unsigned short flags            = 0;
-    unsigned short bitsperpixel     = 0;
+  unsigned short bitsperpixel     = 0;
 
     Clear();
 

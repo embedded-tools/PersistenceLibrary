@@ -16,6 +16,9 @@
 
 #include "TLZ77.h"
 
+//escape flag should be a character with the least number of occurences
+#define LZ77_ESCAPE_FLAG 0xBF
+
 LZ77Error LZ77_Compress  (unsigned char* pbDataToCompress, unsigned long cbDataToCompress, unsigned char* pbOutputBuffer, unsigned long& cbOutputBuffer)
 {
     unsigned char* srcA   = pbDataToCompress;
@@ -27,11 +30,6 @@ LZ77Error LZ77_Compress  (unsigned char* pbDataToCompress, unsigned long cbDataT
     unsigned char a1 = srcA[1];
     unsigned char a2 = srcA[2];
     unsigned char a3 = srcA[3];    
-
-    unsigned char b0 = srcB[0];
-    unsigned char b1 = srcB[1];
-    unsigned char b2 = srcB[2];
-    unsigned char b3 = srcB[3];
     
     unsigned short currentPattern_Length = 0;
     unsigned short longestPattern_Offset = 0;
@@ -43,10 +41,10 @@ LZ77Error LZ77_Compress  (unsigned char* pbDataToCompress, unsigned long cbDataT
         bool found = false;
 
         srcB = srcA;
-        char b0 = srcB[0];
-        char b1 = srcB[1];
-        char b2 = srcB[2];
-        char b3 = srcB[3];
+        unsigned char b0 = srcB[0];
+        unsigned char b1 = srcB[1];
+        unsigned char b2 = srcB[2];
+        unsigned char b3 = srcB[3];
          
         int maxOffset = position;
         if (maxOffset>4096) maxOffset = 4096;
@@ -59,7 +57,7 @@ LZ77Error LZ77_Compress  (unsigned char* pbDataToCompress, unsigned long cbDataT
             b1 = b0;
             b0 = srcB[0];
 
-//performance optimization - very fast way of comparing first four bytes
+            //performance optimization - very fast way of comparing first four bytes
             if (a0==b0)
             {
                 if (a1==b1)
@@ -71,7 +69,7 @@ LZ77Error LZ77_Compress  (unsigned char* pbDataToCompress, unsigned long cbDataT
                             unsigned char* srcAA = srcA + 4;
                             unsigned char* srcBB = srcB + 4;
                             currentPattern_Length = 4;
-							//end of performance optimization
+                            //end of performance optimization
                             for(unsigned long search = 4; search<(cbDataToCompress-position); search++)
                             {
                                 if (*srcAA!=*srcBB)
@@ -101,13 +99,13 @@ LZ77Error LZ77_Compress  (unsigned char* pbDataToCompress, unsigned long cbDataT
         if (longestPattern_Length>0)
         {            
             bool useEscSeq = longestPattern_Length>=6;
-            if ((longestPattern_Offset==1) && (b0==0xBF))
+            if ((longestPattern_Offset==1) && (b0==LZ77_ESCAPE_FLAG))
             {
                 useEscSeq = true;
             }
             if (useEscSeq)
             {                
-                *dst = 0xBF;
+                *dst = LZ77_ESCAPE_FLAG;
                 dst++; dstCnt++;
                 if (dstCnt>=cbOutputBuffer) return lzeOutputBufferNotBigEnough;
 
@@ -179,7 +177,7 @@ LZ77Error LZ77_Decompress(unsigned char* pbDataToDecompress, unsigned long cbDat
     while(position<cbDataToDecompress)
     {
         c = *srcData;
-        if (c==0xBF)
+        if (c==LZ77_ESCAPE_FLAG)
         {
             srcData++;
             short length = *srcData;            

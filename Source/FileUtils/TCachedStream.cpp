@@ -18,23 +18,23 @@
 
 TCachedStream::TCachedStream(TStream* mainStream, void* cache, int cacheSize)
 {
-	m_parentStream = mainStream;
-	m_cache = (unsigned char*) cache;
-	m_cachePosition = 0;	
-	m_cacheSize = 0;
-	m_cacheMaxSize = cacheSize;
-	m_cacheOwned = false;			
+    m_parentStream = mainStream;
+    m_cache = (unsigned char*) cache;
+    m_cachePosition = 0;	
+    m_cacheSize = 0;
+    m_cacheMaxSize = cacheSize;
+    m_cacheOwned = false;			
 
-	m_canRead = mainStream->CanRead();
-	m_canWrite = mainStream->CanWrite();
-	m_canSeek = false;
+    m_canRead = mainStream->CanRead();
+    m_canWrite = mainStream->CanWrite();
+    m_canSeek = false;
 
-	m_position = 0;
+    m_position = 0;
 }
 
 TCachedStream::TCachedStream(TStream* mainStream, int cacheSize)
 {
-	m_parentStream = mainStream;
+    m_parentStream = mainStream;
     if (cacheSize>0)
     {
 	    m_cache = (unsigned char*) malloc(cacheSize);
@@ -43,15 +43,15 @@ TCachedStream::TCachedStream(TStream* mainStream, int cacheSize)
         m_cache = NULL;
         m_cacheOwned = false;
     }
-	m_cachePosition = 0;	
-	m_cacheSize = 0;
-	m_cacheMaxSize = cacheSize;	
+    m_cachePosition = 0;	
+    m_cacheSize = 0;
+    m_cacheMaxSize = cacheSize;	
 
-	m_canRead = mainStream->CanRead();
-	m_canWrite = mainStream->CanWrite();
-	m_canSeek = false;
+    m_canRead = mainStream->CanRead();
+    m_canWrite = mainStream->CanWrite();
+    m_canSeek = false;
 
-	m_position = 0;
+    m_position = 0;
 }
 
 TCachedStream::~TCachedStream()
