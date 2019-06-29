@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Graphics" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option platforms="Windows;" />
+				<Option output="../lib/GraphicsD" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_LIB" />
+					<Add option="-W" />
+					<Add option="-g" />
+					<Add option="-O0" />
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Release Win32">
+				<Option platforms="Windows;" />
+				<Option output="../lib/Graphics" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_LIB" />
+					<Add option="-W" />
+					<Add option="-O2" />
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Debug-Linux">
+				<Option platforms="Unix;Mac;" />
+				<Option output="../lib/GraphicsD" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-W" />
+					<Add option="-O0" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_LIB" />
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Release-Linux">
+				<Option platforms="Unix;Mac;" />
+				<Option output="../lib/Graphics" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-W" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_LIB" />
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+				</ResourceCompiler>
+			</Target>
+		</Build>
+		<Unit filename="../../../Source/Graphics/TAlign.h" />
+		<Unit filename="../../../Source/Graphics/TCachedWindowsBmpFile.cpp" />
+		<Unit filename="../../../Source/Graphics/TCachedWindowsBmpFile.h" />
+		<Unit filename="../../../Source/Graphics/TCanvas.cpp" />
+		<Unit filename="../../../Source/Graphics/TCanvas.h" />
+		<Unit filename="../../../Source/Graphics/TColorConverter.cpp" />
+		<Unit filename="../../../Source/Graphics/TColorConverter.h" />
+		<Unit filename="../../../Source/Graphics/TColorRGB.cpp" />
+		<Unit filename="../../../Source/Graphics/TColorRGB.h" />
+		<Unit filename="../../../Source/Graphics/TColorYUV.cpp" />
+		<Unit filename="../../../Source/Graphics/TColorYUV.h" />
+		<Unit filename="../../../Source/Graphics/TDisplay320x240x65536.cpp" />
+		<Unit filename="../../../Source/Graphics/TDisplay320x240x65536.h" />
+		<Unit filename="../../../Source/Graphics/TDxtBlockCreator.cpp" />
+		<Unit filename="../../../Source/Graphics/TDxtBlockCreator.h" />
+		<Unit filename="../../../Source/Graphics/TEndlessLine.cpp" />
+		<Unit filename="../../../Source/Graphics/TEndlessLine.h" />
+		<Unit filename="../../../Source/Graphics/TFilter3x3.cpp" />
+		<Unit filename="../../../Source/Graphics/TFilter3x3.h" />
+		<Unit filename="../../../Source/Graphics/TFilter5x5.cpp" />
+		<Unit filename="../../../Source/Graphics/TFilter5x5.h" />
+		<Unit filename="../../../Source/Graphics/TFilter7x7.cpp" />
+		<Unit filename="../../../Source/Graphics/TFilter7x7.h" />
+		<Unit filename="../../../Source/Graphics/TFont.cpp" />
+		<Unit filename="../../../Source/Graphics/TFont.h" />
+		<Unit filename="../../../Source/Graphics/TFontCharacter.cpp" />
+		<Unit filename="../../../Source/Graphics/TFontCharacter.h" />
+		<Unit filename="../../../Source/Graphics/TFontFormat.h" />
+		<Unit filename="../../../Source/Graphics/TGraphicsData.cpp" />
+		<Unit filename="../../../Source/Graphics/TGraphicsData.h" />
+		<Unit filename="../../../Source/Graphics/TPixelFormatConverter.cpp" />
+		<Unit filename="../../../Source/Graphics/TPixelFormatConverter.h" />
+		<Unit filename="../../../Source/Graphics/TPosition.cpp" />
+		<Unit filename="../../../Source/Graphics/TPosition.h" />
+		<Unit filename="../../../Source/Graphics/TRectangle.cpp" />
+		<Unit filename="../../../Source/Graphics/TRectangle.h" />
+		<Unit filename="../../../Source/Graphics/TSize.cpp" />
+		<Unit filename="../../../Source/Graphics/TSize.h" />
+		<Unit filename="../../../Source/Graphics/TVector.cpp" />
+		<Unit filename="../../../Source/Graphics/TVector.h" />
+		<Unit filename="../../../Source/Graphics/TVerticalAlign.h" />
+		<Unit filename="../../../Source/Graphics/TWindowsBmpFile.cpp" />
+		<Unit filename="../../../Source/Graphics/TWindowsBmpFile.h" />
+		<Unit filename="../../../Source/Graphics/ePixelFormat.h" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Persistence" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option platforms="Windows;" />
+				<Option output="../lib/PersistenceD" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_LIB" />
+					<Add option="-W" />
+					<Add option="-g" />
+					<Add option="-O0" />
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Persistence" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Persistence" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Release Win32">
+				<Option platforms="Windows;" />
+				<Option output="../lib/Persistence" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_LIB" />
+					<Add option="-W" />
+					<Add option="-O2" />
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Persistence" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Persistence" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Debug-Linux">
+				<Option platforms="Unix;Mac;" />
+				<Option output="../lib/PersistenceD" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-W" />
+					<Add option="-O0" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_LIB" />
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Persistence" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Persistence" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Release-Linux">
+				<Option platforms="Unix;Mac;" />
+				<Option output="../lib/Persistence" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-W" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_LIB" />
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Persistence" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Persistence" />
+				</ResourceCompiler>
+			</Target>
+		</Build>
+		<Unit filename="../../../Source/Persistence/EItemState.h" />
+		<Unit filename="../../../Source/Persistence/ESerializationMode.h" />
+		<Unit filename="../../../Source/Persistence/TMainSerializer.cpp" />
+		<Unit filename="../../../Source/Persistence/TMainSerializer.h" />
+		<Unit filename="../../../Source/Persistence/TObjectFactory.cpp" />
+		<Unit filename="../../../Source/Persistence/TObjectFactory.h" />
+		<Unit filename="../../../Source/Persistence/TSerializedBaseCollection.cpp" />
+		<Unit filename="../../../Source/Persistence/TSerializedBaseCollection.h" />
+		<Unit filename="../../../Source/Persistence/TSerializedItem.cpp" />
+		<Unit filename="../../../Source/Persistence/TSerializedItem.h" />
+		<Unit filename="../../../Source/Persistence/TSerializedShortCollection.h" />
+		<Unit filename="../../../Source/Persistence/TSerializer.cpp" />
+		<Unit filename="../../../Source/Persistence/TSerializer.h" />
+		<Unit filename="../../../Source/Persistence/TXMLCache.cpp" />
+		<Unit filename="../../../Source/Persistence/TXMLCache.h" />
+		<Unit filename="../../../Source/Persistence/TXMLParser.cpp" />
+		<Unit filename="../../../Source/Persistence/TXMLParser.h" />
+		<Unit filename="../../../Source/Persistence/TXMLParserInterface.h" />
+		<Unit filename="../../../Source/Persistence/TXMLTalkerInterface.h" />
+		<Unit filename="../../../Source/Persistence/TXMLTypes.cpp" />
+		<Unit filename="../../../Source/Persistence/TXMLTypes.h" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

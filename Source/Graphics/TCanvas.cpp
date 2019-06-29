@@ -1260,8 +1260,8 @@ bool TCanvas::ApplyFilter(TFilter3x3* filter, FilteredPixelCallback callback)
                 {
                     switch(m_graphicsData->GetPixelFormat())
                     {
-                    case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR));
-                    case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB));
+                    case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR)); break;
+                    case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB)); break;
                     }				
                 }
             }
@@ -1464,8 +1464,8 @@ bool TCanvas::ApplyFilter(TFilter5x5* filter, FilteredPixelCallback callback)
                 {
                     switch(m_graphicsData->GetPixelFormat())
                     {
-                    case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR));
-                    case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB));
+                    case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR)); break;
+                    case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB)); break;
                     }				
                 }
             }
@@ -1783,8 +1783,8 @@ bool TCanvas::ApplyFilter(TFilter7x7* filter, FilteredPixelCallback callback)
                 {
                     switch(m_graphicsData->GetPixelFormat())
                     {
-                    case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR));
-                    case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB));
+                    case pfRGB888: callback(x,y, TColorRGB(colorB, colorG, colorR)); break;
+                    case pfBGR888: callback(x,y, TColorRGB(colorR, colorG, colorB)); break;
                     }				
                 }
             }
