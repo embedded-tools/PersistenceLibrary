@@ -17,8 +17,8 @@
 #ifndef TRANDOM___H
 #define TRANDOM___H
 
-#define TRANDOM_PRIME_1 696132157
-#define TRANDOM_PRIME_2 791941417
+#define TRANDOM_ARG_1 75155
+#define TRANDOM_ARG_2 547898677
 
 /************************************************************************/
 /* Very simple class for generating random numbers similar to standard

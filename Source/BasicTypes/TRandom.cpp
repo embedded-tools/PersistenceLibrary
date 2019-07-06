@@ -27,23 +27,20 @@ unsigned long TRandom::GetRandomNumber(unsigned long max)
 {
     unsigned long value;
 
-    m_seed = m_seed * TRANDOM_PRIME_1 + TRANDOM_PRIME_2;
-    
-    if (max<=0x100)
+    m_seed = m_seed * TRANDOM_ARG_1 + TRANDOM_ARG_2;  
+    if (max < 100000)
     {
-        value = m_seed>>23;
-    } else 
-    if (max <= 0x10000)
-    {
-        value = m_seed>>15;
-    } else 
-    if (max <= 0x1000000)
-    {
-        value = m_seed>>7;
+        unsigned long divisor = (4294967295U / max) + 1;
+        value = m_seed / divisor;
     } else {
-        value = m_seed;
+        if (max<4294967295U)
+        {
+            value = m_seed % max;
+        } else {
+            value = m_seed;
+        }        
     }
-    return (value % max);
+    return value;
 }
 
 void TRandom::GetRandomByteArray(unsigned char* pArray, unsigned long arrayLength)
