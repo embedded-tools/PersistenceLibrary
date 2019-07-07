@@ -535,7 +535,7 @@ TWideString& TWideString::Insert(unsigned short index, TWideString& oString)
 
 TWideString& TWideString::Delete(unsigned short index, unsigned short length)
 {
-    if ((index<0) || (index>=Length()))
+    if (((short)index<0) || (index>=Length()))
     {
         return *this;
     }	 

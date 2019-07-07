@@ -270,11 +270,11 @@ bool TStream::WriteXMLEncodedText(TString* text)
         {
             switch(*pp)
             {
-                case ' ': WritePlainText("&nbsp;");
-                case '"': WritePlainText("&quot;");
-                case '<': WritePlainText("&lt;");
-                case '>': WritePlainText("&gt;");
-                case '&': WritePlainText("&amp;");
+                case ' ': WritePlainText("&nbsp;"); break;
+                case '"': WritePlainText("&quot;"); break;
+                case '<': WritePlainText("&lt;"); break;
+                case '>': WritePlainText("&gt;"); break;
+                case '&': WritePlainText("&amp;"); break;
                 default: WriteByte(*pp);
             }
         }

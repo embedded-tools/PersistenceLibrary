@@ -111,7 +111,8 @@ bool  TSortedDictionary<KEY, VALUE>::Add(TPair<KEY,VALUE> pair)
 template<typename KEY, typename VALUE>
 bool  TSortedDictionary<KEY, VALUE>::Remove(KEY key)
 {
-
+    ///TODO: Implement this!
+    return false;
 }
 
 template<typename KEY, typename VALUE>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Protocols" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option platforms="Windows;" />
+				<Option output="../lib/ProtocolsD" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-D_WINSOCK2API_" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_LIB" />
+					<Add option="-W" />
+					<Add option="-g" />
+					<Add option="-O0" />
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Release Win32">
+				<Option platforms="Windows;" />
+				<Option output="../lib/Protocols" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-D_WINSOCK2API_" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_LIB" />
+					<Add option="-W" />
+					<Add option="-O2" />
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Debug-Linux">
+				<Option platforms="Unix;Mac;" />
+				<Option output="../lib/ProtocolsD" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Debug" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-W" />
+					<Add option="-O0" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_LIB" />
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+				</ResourceCompiler>
+			</Target>
+			<Target title="Release-Linux">
+				<Option platforms="Unix;Mac;" />
+				<Option output="../lib/Protocols" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="Release" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-W" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_LIB" />
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+				</ResourceCompiler>
+			</Target>
+		</Build>
+		<Unit filename="../../../Source/Protocols/datareceivedcallback.h" />
+		<Unit filename="../../../Source/Protocols/eCommand.h" />
+		<Unit filename="../../../Source/Protocols/tbinaryprotocol.cpp" />
+		<Unit filename="../../../Source/Protocols/tbinaryprotocol.h" />
+		<Unit filename="../../../Source/Protocols/tconsolelog.cpp" />
+		<Unit filename="../../../Source/Protocols/tconsolelog.h" />
+		<Unit filename="../../../Source/Protocols/tcpclient.cpp" />
+		<Unit filename="../../../Source/Protocols/tcpclient.h" />
+		<Unit filename="../../../Source/Protocols/tcpclient_win.cpp">
+			<Option target="Debug Win32" />
+			<Option target="Release Win32" />
+		</Unit>
+		<Unit filename="../../../Source/Protocols/tcpclient_win.h">
+			<Option target="Debug Win32" />
+			<Option target="Release Win32" />
+		</Unit>
+		<Unit filename="../../../Source/Protocols/tcpserver_win.cpp">
+			<Option target="Debug Win32" />
+			<Option target="Release Win32" />
+		</Unit>
+		<Unit filename="../../../Source/Protocols/tcpserver_win.h">
+			<Option target="Debug Win32" />
+			<Option target="Release Win32" />
+		</Unit>
+		<Unit filename="../../../Source/Protocols/tevent.h" />
+		<Unit filename="../../../Source/Protocols/teventcallback.h" />
+		<Unit filename="../../../Source/Protocols/teventreceiver.cpp" />
+		<Unit filename="../../../Source/Protocols/teventreceiver.h" />
+		<Unit filename="../../../Source/Protocols/teventsender.cpp" />
+		<Unit filename="../../../Source/Protocols/teventsender.h" />
+		<Unit filename="../../../Source/Protocols/teventserializer.cpp" />
+		<Unit filename="../../../Source/Protocols/teventserializer.h" />
+		<Unit filename="../../../Source/Protocols/textcommandreceivedcallback.h" />
+		<Unit filename="../../../Source/Protocols/tfilelog.cpp" />
+		<Unit filename="../../../Source/Protocols/tfilelog.h" />
+		<Unit filename="../../../Source/Protocols/tlog.cpp" />
+		<Unit filename="../../../Source/Protocols/tlog.h" />
+		<Unit filename="../../../Source/Protocols/ttextprotocol.cpp" />
+		<Unit filename="../../../Source/Protocols/ttextprotocol.h" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

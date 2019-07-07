@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="PersistenceLibrary">
+		<Project filename="BasicTypes/BasicTypes.cbp" />
+		<Project filename="Collections/Collections.cbp" />
+		<Project filename="FileUtils/FileUtils.cbp" />
+		<Project filename="Graphics/Graphics.cbp" />
+		<Project filename="Math/Math.cbp" />
+		<Project filename="Persistence/Persistence.cbp" />
+		<Project filename="Protocols/Protocols.cbp" />
+		<Project filename="UnitTests/UnitTests.cbp" />
+	</Workspace>
+</CodeBlocks_workspace_file>

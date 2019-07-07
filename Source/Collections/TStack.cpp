@@ -19,19 +19,19 @@
 
 #include "TStack.h"
 
-template <class T, int N>
+template <class T, unsigned short N>
 TStack<T,N>::TStack()
 {
     m_count = 0;
 }
 
-template <class T, int N>
+template <class T, unsigned short N>
 void TStack<T,N>::Clear()
 {
     m_count = 0;
 }
 
-template <class T, int N>
+template <class T, unsigned short N>
 bool TStack<T,N>::Push(const T value)
 {
     if (m_count>=N)
@@ -44,7 +44,7 @@ bool TStack<T,N>::Push(const T value)
     return true;
 }
 
-template <class T, int N>
+template <class T, unsigned short N>
 bool TStack<T,N>::Pop(T& value)
 {
     if (m_count==0)
@@ -56,33 +56,33 @@ bool TStack<T,N>::Pop(T& value)
     return true;
 }
 
-template <class T, int N>
+template <class T, unsigned short N>
 bool TStack<T,N>::IsFull()
 {
     return m_count>=N;
 }
 
-template <class T, int N>
+template <class T, unsigned short N>
 bool TStack<T,N>::IsEmpty()
 {
     return m_count==0;
 }
 
 #ifdef STL_STYLE
-template <class T, int N>
+template <class T, unsigned short N>
 bool TStack<T,N>::push(const T value)
 {
 	return Push(value);
 }
 
-template <class T, int N>
+template <class T, unsigned short N>
 bool TStack<T,N>::pop()
 {
 	static T tmp;
 	return Pop(tmp);
 }
 
-template <class T, int N>
+template <class T, unsigned short N>
 T TStack<T,N>::top()
 {
 	if (m_count==0) return 0;
@@ -91,31 +91,31 @@ T TStack<T,N>::top()
 	return m_linearBuffer[index];
 }
 
-template <class T, int N>
+template <class T, unsigned short N>
 bool TStack<T,N>::empty()
 {
 	return m_count==0;
 }
 
-template <class T, int N>
+template <class T, unsigned short N>
 bool TStack<T,N>::full()
 {
 	return m_count>=N;
 }
 
-template <class T, int N>
-int TStack<T,N>::size()
+template <class T, unsigned short N>
+unsigned short TStack<T,N>::size()
 {
 	return m_count;
 }
 
-template <class T, int N>
-int TStack<T,N>::max_size()
+template <class T, unsigned short N>
+unsigned short TStack<T,N>::max_size()
 {
 	return N;
 }
 
-template <class T, int N>
+template <class T, unsigned short N>
 void TStack<T,N>::clear()
 {
 	memset(m_linearBuffer, 0, sizeof(m_linearBuffer));

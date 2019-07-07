@@ -17,11 +17,12 @@
 #ifndef TSTACK___H
 #define TSTACK___H
 
-template <typename T, int N> class TStack
+template <typename T, unsigned short N> class TStack
 {
     private:
         T               m_linearBuffer[N];
         unsigned short  m_count;
+        unsigned short  m_linearBufferStart;
 
     public:
 
@@ -40,8 +41,8 @@ template <typename T, int N> class TStack
 		bool empty();
 		bool full();
 
-		int  size();
-		int  max_size();
+		unsigned short size();
+		unsigned short max_size();
 		void clear();
 #endif
 

@@ -36,18 +36,18 @@ int TFontCharacter::ScanLine(unsigned short lineIndex, unsigned char* pLine, uns
 
     switch(m_charPixelFormat)
     {
-        case pfBGR2ColorsPalette:   bitsPerPixel = 1;
-        case pfBGR4ColorsPalette:   bitsPerPixel = 2;
-        case pfBGR16ColorsPalette:  bitsPerPixel = 4;
-        case pfBGR256ColorsPalette: bitsPerPixel = 8;
-        case pfBGR888: bitsPerPixel = 24;
-        case pfBGRA8888: bitsPerPixel = 32;
-        case pfRGB332: bitsPerPixel = 8;
-        case pfRGB555: bitsPerPixel = 16;
-        case pfRGB565: bitsPerPixel = 16;
-        case pfRGB888: bitsPerPixel = 32;
-        case pfRGBA8888: bitsPerPixel = 32;
-        case pfRGBX8888: bitsPerPixel = 32;
+        case pfBGR2ColorsPalette:   bitsPerPixel = 1; break;
+        case pfBGR4ColorsPalette:   bitsPerPixel = 2; break;
+        case pfBGR16ColorsPalette:  bitsPerPixel = 4; break;
+        case pfBGR256ColorsPalette: bitsPerPixel = 8; break;
+        case pfBGR888: bitsPerPixel = 24; break;
+        case pfBGRA8888: bitsPerPixel = 32; break;
+        case pfRGB332: bitsPerPixel = 8; break;
+        case pfRGB555: bitsPerPixel = 16; break;
+        case pfRGB565: bitsPerPixel = 16; break;
+        case pfRGB888: bitsPerPixel = 32; break;
+        case pfRGBA8888: bitsPerPixel = 32; break;
+        case pfRGBX8888: bitsPerPixel = 32; break;
         default: pLine = NULL; return 0;
     }
 
@@ -60,7 +60,7 @@ int TFontCharacter::ScanLine(unsigned short lineIndex, unsigned char* pLine, uns
         default: pLine = NULL; return 0;
     }
     memcpy( pLine, m_charData+offset, (m_charWidth*bitsPerPixel+7)/8 );
-
+    return 1;
 }
 
 TColorRGB TFontCharacter::GetPixelColor(short x, short y)

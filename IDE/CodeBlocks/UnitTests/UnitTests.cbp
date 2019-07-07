@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="UnitTests" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug Win32">
+				<Option platforms="Windows;" />
+				<Option output="UnitTests" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Debug Win32" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_CONSOLE" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-W" />
+					<Add option="-g" />
+					<Add option="-O0" />
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+					<Add directory="../../../Source/Persistence" />
+					<Add directory="../../../Source/Protocols" />
+					<Add directory="../../../Source/UnitTests/Fonts" />
+					<Add directory="../../../Source/UnitTests/PersistenceExample" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+					<Add directory="../../../Source/Persistence" />
+					<Add directory="../../../Source/Protocols" />
+					<Add directory="../../../Source/UnitTests/Fonts" />
+					<Add directory="../../../Source/UnitTests/PersistenceExample" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="BasicTypesD" />
+					<Add library="CollectionsD" />
+					<Add library="FileUtilsD" />
+					<Add library="GraphicsD" />
+					<Add library="MathD" />
+					<Add library="PersistenceD" />
+					<Add library="ProtocolsD" />
+				</Linker>
+			</Target>
+			<Target title="Release Win32">
+				<Option platforms="Windows;" />
+				<Option output="UnitTests" prefix_auto="1" extension_auto="1" />
+				<Option object_output="Release Win32" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DWIN32" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_CONSOLE" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add option="-W" />
+					<Add option="-O2" />
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+					<Add directory="../../../Source/Persistence" />
+					<Add directory="../../../Source/Protocols" />
+					<Add directory="../../../Source/UnitTests/Fonts" />
+					<Add directory="../../../Source/UnitTests/PersistenceExample" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+					<Add directory="../../../Source/Persistence" />
+					<Add directory="../../../Source/Protocols" />
+					<Add directory="../../../Source/UnitTests/Fonts" />
+					<Add directory="../../../Source/UnitTests/PersistenceExample" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="BasicTypes" />
+					<Add library="Collections" />
+					<Add library="FileUtils" />
+					<Add library="Graphics" />
+					<Add library="Math" />
+					<Add library="Persistence" />
+					<Add library="Protocols" />
+				</Linker>
+			</Target>
+			<Target title="Debug-Linux">
+				<Option platforms="Unix;Mac;" />
+				<Option output="UnitTests" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../../" />
+				<Option object_output="Debug" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-W" />
+					<Add option="-O0" />
+					<Add option="-D_DEBUG" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+					<Add directory="../../../Source/Persistence" />
+					<Add directory="../../../Source/Protocols" />
+					<Add directory="../../../Source/UnitTests/Fonts" />
+					<Add directory="../../../Source/UnitTests/PersistenceExample" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+					<Add directory="../../../Source/Persistence" />
+					<Add directory="../../../Source/Protocols" />
+					<Add directory="../../../Source/UnitTests/Fonts" />
+					<Add directory="../../../Source/UnitTests/PersistenceExample" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="BasicTypesD" />
+					<Add library="CollectionsD" />
+					<Add library="FileUtilsD" />
+					<Add library="GraphicsD" />
+					<Add library="MathD" />
+					<Add library="PersistenceD" />
+					<Add library="ProtocolsD" />
+					<Add directory="../lib" />
+				</Linker>
+			</Target>
+			<Target title="Release-Linux">
+				<Option platforms="Unix;Mac;" />
+				<Option output="UnitTests" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../../" />
+				<Option object_output="Release" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-W" />
+					<Add option="-DNDEBUG" />
+					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+					<Add directory="../../../Source/Persistence" />
+					<Add directory="../../../Source/Protocols" />
+					<Add directory="../../../Source/UnitTests/Fonts" />
+					<Add directory="../../../Source/UnitTests/PersistenceExample" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../../../Source/BasicTypes" />
+					<Add directory="../../../Source/Collections" />
+					<Add directory="../../../Source/FileUtils" />
+					<Add directory="../../../Source/Graphics" />
+					<Add directory="../../../Source/Math" />
+					<Add directory="../../../Source/Persistence" />
+					<Add directory="../../../Source/Protocols" />
+					<Add directory="../../../Source/UnitTests/Fonts" />
+					<Add directory="../../../Source/UnitTests/PersistenceExample" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="BasicTypes" />
+					<Add library="Collections" />
+					<Add library="FileUtils" />
+					<Add library="Graphics" />
+					<Add library="Math" />
+					<Add library="Persistence" />
+					<Add library="Protocols" />
+					<Add directory="../lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="../../../Source/UnitTests/Fonts/Amata13.cpp" />
+		<Unit filename="../../../Source/UnitTests/Fonts/Amata13.h" />
+		<Unit filename="../../../Source/UnitTests/Fonts/Bookman50.cpp" />
+		<Unit filename="../../../Source/UnitTests/Fonts/Bookman50.h" />
+		<Unit filename="../../../Source/UnitTests/Fonts/BrushScript12.cpp" />
+		<Unit filename="../../../Source/UnitTests/Fonts/BrushScript12.h" />
+		<Unit filename="../../../Source/UnitTests/Fonts/Robotron.cpp" />
+		<Unit filename="../../../Source/UnitTests/Fonts/Robotron.h" />
+		<Unit filename="../../../Source/UnitTests/Fonts/ZXSpectrum.cpp" />
+		<Unit filename="../../../Source/UnitTests/Fonts/ZXSpectrum.h" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/BaseClass.cpp" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/BaseClass.h" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassA.cpp" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassA.h" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassB.cpp" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassB.h" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassC.cpp" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassC.h" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassD.cpp" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassD.h" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassManagerA.cpp" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassManagerA.h" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassManagerB.cpp" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassManagerB.h" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassManagerC.cpp" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassManagerC.h" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassManagerD.cpp" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/ClassManagerD.h" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/MainObject.cpp" />
+		<Unit filename="../../../Source/UnitTests/PersistenceExample/MainObject.h" />
+		<Unit filename="../../../Source/UnitTests/Test_EscapeSequences.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_LZ77.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_Persistence.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_StringUtils.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TBinaryProtocol.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TCachedFileStream.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TCachedMemoryStream.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TCachedWindowsBmp.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TCanvas.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TColor.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TCompression.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TCustomString.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TDate.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TDateTime.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TDateTimeCounter.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TDictionary.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TEndlessLine.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TEventSender.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TFilePath.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TFileStream.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TFixedPoint1024.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TFixedPoint128.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TFixedPoint16M.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TFont.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TGraphics.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TJsonDoc.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TList.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TLog.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TMemoryStream.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TObjectList.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TParamString.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TQueue.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TRandom.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TShortString.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TSortedDictionary.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TStack.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TStaticDictionary.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TStaticList.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TString.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TStringList.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TTextFile.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TTime.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TWideString.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TWindowsBmpFile.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TXMLDoc.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_TXMLParser.cpp" />
+		<Unit filename="../../../Source/UnitTests/Test_Template.cpp" />
+		<Unit filename="../../../Source/UnitTests/UnitTests.cpp" />
+		<Unit filename="../../../Source/UnitTests/UnitTests.h" />
+		<Unit filename="../../../Source/UnitTests/minicppunit.cpp" />
+		<Unit filename="../../../Source/UnitTests/minicppunit.hxx" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
