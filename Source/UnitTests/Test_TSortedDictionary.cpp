@@ -21,7 +21,8 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
 		TEST_CASE( AddItems2);
 		TEST_CASE( AddItems3);
         TEST_CASE( AddItems4);
-        TEST_CASE( ContainsKey );
+        TEST_CASE( DeleteItems);
+        TEST_CASE( ContainsKey);
         TEST_CASE( Clear );
 #ifdef STL_STYLE
 		TEST_CASE( STL_Style );
@@ -184,6 +185,44 @@ class Test_TSortedDictionary : public TestFixture<Test_TSortedDictionary>
         }
         ASSERT_EQUALS(200, (long)dict.Count());
     }
+
+    void DeleteItems()
+    {
+        TSortedDictionary<short, char> dict;
+        dict.AddKeysAutomatically = true;
+        dict[10] = 11;
+        dict[20] = 21;
+        dict[30] = 31;
+        dict[40] = 41;
+        dict[50] = 51;
+        ASSERT_EQUALS(5, (int)dict.Count());   
+
+        ASSERT(dict.ContainsKey(30));
+        dict.Remove(30);        
+        ASSERT(!dict.ContainsKey(30));
+        ASSERT_EQUALS(4, (int)dict.Count());   
+
+        ASSERT(dict.ContainsKey(20));
+        dict.Remove(20);        
+        ASSERT(!dict.ContainsKey(20));
+        ASSERT_EQUALS(3, (int)dict.Count());   
+
+        ASSERT(dict.ContainsKey(10));
+        dict.Remove(10);        
+        ASSERT(!dict.ContainsKey(10));
+        ASSERT_EQUALS(2, (int)dict.Count());   
+
+        ASSERT(dict.ContainsKey(50));
+        dict.Remove(50);        
+        ASSERT(!dict.ContainsKey(50));
+        ASSERT_EQUALS(1, (int)dict.Count());   
+
+        ASSERT(dict.ContainsKey(40));
+        dict.Remove(40);        
+        ASSERT(!dict.ContainsKey(40));
+        ASSERT_EQUALS(0, (int)dict.Count());   
+    }
+
 
     void ContainsKey()
     {

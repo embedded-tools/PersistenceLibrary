@@ -111,8 +111,17 @@ bool  TSortedDictionary<KEY, VALUE>::Add(TPair<KEY,VALUE> pair)
 template<typename KEY, typename VALUE>
 bool  TSortedDictionary<KEY, VALUE>::Remove(KEY key)
 {
-    ///TODO: Implement this!
-    return false;
+    short i = FindKeyIndex(key);
+    if (i==-1)
+    {
+        return false;
+    }
+    for(short j = i; j<m_dataCount-1; j++)
+    {
+        m_pairArray[j]=m_pairArray[j+1];
+    }
+    m_dataCount--;    
+    return true;
 }
 
 template<typename KEY, typename VALUE>
