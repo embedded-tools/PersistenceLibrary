@@ -25,261 +25,261 @@
 #include <float.h>
 
 #ifdef _MSC_VER
+#if _MSC_VER<1800
 #include <float.h>
-namespace std
+template <typename T>  inline bool isnan(T x)
 {
-  template <typename T>
-  inline bool isnan(T x) { 
-      return _isnan(x) != 0;
+  return _isnan(x) != 0;
 }
-	template <typename T>
-	inline bool isinf(T x) { 
-      return _finite(x) == 0;
+
+template <typename T>  inline bool isinf(T x)
+{
+  return _finite(x) == 0;
 }
-}
+#endif
 #endif
 
 TestsListener& TestsListener::theInstance()
 {
-   static TestsListener instancia;
-   return instancia;
+  static TestsListener instancia;
+  return instancia;
 }
 
 std::stringstream& TestsListener::errorsLog()
 {
-   if (_currentTestName)
-      _log << "\n" << errmsgTag_nameOfTest() << (*_currentTestName) << "\n";
-   return _log;
+  if (_currentTestName)
+    _log << "\n" << errmsgTag_nameOfTest() << (*_currentTestName) << "\n";
+  return _log;
 }
 
 std::string TestsListener::logString()
 {
-   std::string aRetornar = _log.str();
-   _log.str("");
-   return aRetornar;
+  std::string aRetornar = _log.str();
+  _log.str("");
+  return aRetornar;
 }
 
-void TestsListener::currentTestName( std::string& name)
+void TestsListener::currentTestName(std::string& name)
 {
-   _currentTestName = &name;
+  _currentTestName = &name;
 }
 
 void TestsListener::testHasRun()
 {
-   std::cout << ".";
-   theInstance()._executed++;
+  std::cout << ".";
+  theInstance()._executed++;
 }
 
 void TestsListener::testHasFailed()
 {
-   std::cout << "F";
-   theInstance()._failed++;
-   throw TestFailedException();
+  std::cout << "F";
+  theInstance()._failed++;
+  throw TestFailedException();
 }
 
 void TestsListener::testHasThrown()
 {
-   std::cout << "E";
-   theInstance()._exceptions++;
+  std::cout << "E";
+  theInstance()._exceptions++;
 }
 
 std::string TestsListener::summary()
 {
-   std::ostringstream os;
-   os	<< "\nSummary:\n"
-      << Assert::bold() << "\tExecuted Tests:         "
-      << _executed << Assert::normal() << std::endl
-      << Assert::green() << "\tPassed Tests:           "
-      << (_executed-_failed-_exceptions)
-      << Assert::normal() << std::endl;
-   if (_failed > 0)
-   {
-      os 	<< Assert::red() << "\tFailed Tests:           "
-         << _failed << Assert::normal() << std::endl;
-   }
-   if (_exceptions > 0)
-   {
-      os 	<< Assert::yellow() << "\tUnexpected exceptions:  "
-         << _exceptions << Assert::normal() << std::endl;
-   }
-   os << std::endl;
-   return os.str();
+  std::ostringstream os;
+  os << "\nSummary:\n"
+    << Assert::bold() << "\tExecuted Tests:         "
+    << _executed << Assert::normal() << std::endl
+    << Assert::green() << "\tPassed Tests:           "
+    << (_executed - _failed - _exceptions)
+    << Assert::normal() << std::endl;
+  if (_failed > 0)
+  {
+    os << Assert::red() << "\tFailed Tests:           "
+      << _failed << Assert::normal() << std::endl;
+  }
+  if (_exceptions > 0)
+  {
+    os << Assert::yellow() << "\tUnexpected exceptions:  "
+      << _exceptions << Assert::normal() << std::endl;
+  }
+  os << std::endl;
+  return os.str();
 }
 
 bool TestsListener::allTestsPassed()
 {
-   return !theInstance()._exceptions && !theInstance()._failed;
+  return !theInstance()._exceptions && !theInstance()._failed;
 }
-    
+
 void Assert::assertTrue(const char* strExpression, bool expression,
-      const char* file, int linia)
+  const char* file, int linia)
 {
-   if (!expression)
-   {
-      TestsListener::theInstance().errorsLog() << "\n"
-         << errmsgTag_testFailedIn() << file
-         << errmsgTag_inLine() << linia << "\n"
-         << errmsgTag_failedExpression()
-         << bold() << strExpression << normal() << "\n";
-      TestsListener::theInstance().testHasFailed();
-   }
+  if (!expression)
+  {
+    TestsListener::theInstance().errorsLog() << "\n"
+      << errmsgTag_testFailedIn() << file
+      << errmsgTag_inLine() << linia << "\n"
+      << errmsgTag_failedExpression()
+      << bold() << strExpression << normal() << "\n";
+    TestsListener::theInstance().testHasFailed();
+  }
 }
 
 void Assert::assertTrueMissatge(char* strExpression, bool expression,
-      const char* missatge, const char* file, int linia)
+  const char* missatge, const char* file, int linia)
 {
-   if (!expression)
-   {
-      TestsListener::theInstance().errorsLog() << "\n"
-         << errmsgTag_testFailedIn() << file
-         << errmsgTag_inLine() << linia << "\n"
-         << errmsgTag_failedExpression()
-         << bold() << strExpression << "\n"
-         << missatge<< normal() << "\n";
-      TestsListener::theInstance().testHasFailed();
-   }
+  if (!expression)
+  {
+    TestsListener::theInstance().errorsLog() << "\n"
+      << errmsgTag_testFailedIn() << file
+      << errmsgTag_inLine() << linia << "\n"
+      << errmsgTag_failedExpression()
+      << bold() << strExpression << "\n"
+      << missatge << normal() << "\n";
+    TestsListener::theInstance().testHasFailed();
+  }
 }
 
 
-void Assert::assertEquals( const char * expected, const char * result,
-   const char* file, int linia )
+void Assert::assertEquals(const char * expected, const char * result,
+  const char* file, int linia)
 {
-   assertEquals(std::string(expected), std::string(result),
-      file, linia);
+  assertEquals(std::string(expected), std::string(result),
+    file, linia);
 
 }
 
-void Assert::assertEquals( bool expected, bool result,
-   const char* file, int linia )
+void Assert::assertEquals(bool expected, bool result,
+  const char* file, int linia)
 {
-   assertEquals(
-      (expected?"true":"false"),
-      (result?"true":"false"),
-      file, linia);
+  assertEquals(
+    (expected ? "true" : "false"),
+    (result ? "true" : "false"),
+    file, linia);
 }
 
 // floating point numbers comparisons taken
 // from c/c++ users journal. dec 04 pag 10
 bool isNaN(double x)
 {
-   bool b1 = (x < 0.0);
-   bool b2 = (x >= 0.0);
-   return !(b1 || b2);
+  bool b1 = (x < 0.0);
+  bool b2 = (x >= 0.0);
+  return !(b1 || b2);
 }
 
-double scaledEpsilon(const double& expected, const double& fuzzyEpsilon )
+double scaledEpsilon(const double& expected, const double& fuzzyEpsilon)
 {
-   const double aa = fabs(expected)+1;
-	return (std::isinf(aa))? fuzzyEpsilon: fuzzyEpsilon * aa;
+  const double aa = fabs(expected) + 1;
+  return (isinf(aa)) ? fuzzyEpsilon : fuzzyEpsilon * aa;
 }
 bool fuzzyEquals(double expected, double result, double fuzzyEpsilon)
 {
-   return (expected==result) || ( fabs(expected-result) <= scaledEpsilon(expected, fuzzyEpsilon) );
+  return (expected == result) || (fabs(expected - result) <= scaledEpsilon(expected, fuzzyEpsilon));
 }
 
 
-void Assert::assertEquals( double expected, double result,
-      const char* file, int linia )
+void Assert::assertEquals(double expected, double result,
+  const char* file, int linia)
 {
-   const double fuzzyEpsilon = 0.000001;
-   assertEqualsEpsilon( expected, result, fuzzyEpsilon, file, linia );
+  const double fuzzyEpsilon = 0.000001;
+  assertEqualsEpsilon(expected, result, fuzzyEpsilon, file, linia);
 }
 
-void Assert::assertEquals( float expected, float result,
-      const char* file, int linia )
+void Assert::assertEquals(float expected, float result,
+  const char* file, int linia)
 {
-   assertEquals((double)expected, (double)result, file, linia);
+  assertEquals((double)expected, (double)result, file, linia);
 }
-void Assert::assertEquals( long double expected, long double result,
-      const char* file, int linia )
+void Assert::assertEquals(long double expected, long double result,
+  const char* file, int linia)
 {
-   assertEquals((double)expected, (double)result, file, linia);
-}
-
-void Assert::assertEquals( long expected, long result,
-    const char* file, int linia )
-{
-    if (expected==result) return;
-
-    TestsListener::theInstance().errorsLog()
-        << errmsgTag_testFailedIn() << file
-        << errmsgTag_inLine() << linia << "\n"
-        << errmsgTag_expected()
-        << bold() << expected << normal() << " "
-        << errmsgTag_butWas()
-        << bold() << result << normal() << "\n";
-    TestsListener::theInstance().testHasFailed();
+  assertEquals((double)expected, (double)result, file, linia);
 }
 
-void Assert::assertEquals( unsigned long expected, unsigned long result,
-    const char* file, int linia )
+void Assert::assertEquals(long expected, long result,
+  const char* file, int linia)
 {
-    if (expected==result) return;
+  if (expected == result) return;
 
-    TestsListener::theInstance().errorsLog()
-        << errmsgTag_testFailedIn() << file
-        << errmsgTag_inLine() << linia << "\n"
-        << errmsgTag_expected()
-        << bold() << expected << normal() << " "
-        << errmsgTag_butWas()
-        << bold() << result << normal() << "\n";
-    TestsListener::theInstance().testHasFailed();
+  TestsListener::theInstance().errorsLog()
+    << errmsgTag_testFailedIn() << file
+    << errmsgTag_inLine() << linia << "\n"
+    << errmsgTag_expected()
+    << bold() << expected << normal() << " "
+    << errmsgTag_butWas()
+    << bold() << result << normal() << "\n";
+  TestsListener::theInstance().testHasFailed();
+}
+
+void Assert::assertEquals(unsigned long expected, unsigned long result,
+  const char* file, int linia)
+{
+  if (expected == result) return;
+
+  TestsListener::theInstance().errorsLog()
+    << errmsgTag_testFailedIn() << file
+    << errmsgTag_inLine() << linia << "\n"
+    << errmsgTag_expected()
+    << bold() << expected << normal() << " "
+    << errmsgTag_butWas()
+    << bold() << result << normal() << "\n";
+  TestsListener::theInstance().testHasFailed();
 }
 
 
-void Assert::assertEqualsEpsilon( double expected, double result, double epsilon,
-      const char* file, int linia )
+void Assert::assertEqualsEpsilon(double expected, double result, double epsilon,
+  const char* file, int linia)
 {
-   if (isNaN(expected) && isNaN(result) ) return;
-   if (!isNaN(expected) && !isNaN(result) && fuzzyEquals(expected, result, epsilon) ) return;
+  if (isNaN(expected) && isNaN(result)) return;
+  if (!isNaN(expected) && !isNaN(result) && fuzzyEquals(expected, result, epsilon)) return;
 
-   TestsListener::theInstance().errorsLog()
-         << errmsgTag_testFailedIn() << file
-         << errmsgTag_inLine() << linia << "\n"
-         << errmsgTag_expected()
-         << bold() << expected << normal() << " "
-         << errmsgTag_butWas()
-         << bold() << result << normal() << "\n";
-   TestsListener::theInstance().testHasFailed();
+  TestsListener::theInstance().errorsLog()
+    << errmsgTag_testFailedIn() << file
+    << errmsgTag_inLine() << linia << "\n"
+    << errmsgTag_expected()
+    << bold() << expected << normal() << " "
+    << errmsgTag_butWas()
+    << bold() << result << normal() << "\n";
+  TestsListener::theInstance().testHasFailed();
 }
 
-int Assert::notEqualIndex( const std::string & one, const std::string & other )
+int Assert::notEqualIndex(const std::string & one, const std::string & other)
 {
-   unsigned int end = (unsigned int)std::min(one.length(), other.length());
-   for ( unsigned int index = 0; index < end; index++ )
-      if (one[index] != other[index] )
-         return index;
-   return end;
+  unsigned int end = (unsigned int)std::min(one.length(), other.length());
+  for (unsigned int index = 0; index < end; index++)
+    if (one[index] != other[index])
+      return index;
+  return end;
 }
 
-void Assert::assertEquals( const std::string expected, const std::string result,
-   const char* file, int linia )
+void Assert::assertEquals(const std::string expected, const std::string result,
+  const char* file, int linia)
 {
-   if(expected == result)
-      return;
+  if (expected == result)
+    return;
 
-   int indexDiferent = notEqualIndex(expected, result);
-   TestsListener::theInstance().errorsLog()
-      << file << ", linia: " << linia << "\n"
-      << errmsgTag_expected() << "\n" << blue()
-      << expected.substr(0,indexDiferent)
-      << green() << expected.substr(indexDiferent)
-      << normal() << "\n"
-      << errmsgTag_butWas() << blue() << "\n"
-      << result.substr(0,indexDiferent)
-      << red() << result.substr(indexDiferent)
-      << normal() << std::endl;
+  int indexDiferent = notEqualIndex(expected, result);
+  TestsListener::theInstance().errorsLog()
+    << file << ", linia: " << linia << "\n"
+    << errmsgTag_expected() << "\n" << blue()
+    << expected.substr(0, indexDiferent)
+    << green() << expected.substr(indexDiferent)
+    << normal() << "\n"
+    << errmsgTag_butWas() << blue() << "\n"
+    << result.substr(0, indexDiferent)
+    << red() << result.substr(indexDiferent)
+    << normal() << std::endl;
 
-   TestsListener::theInstance().testHasFailed();
+  TestsListener::theInstance().testHasFailed();
 }
 
 void Assert::fail(const char* motiu, const char* file, int linia)
 {
-   TestsListener::theInstance().errorsLog() <<
-      file << errmsgTag_inLine() << linia << "\n" <<
-      "Reason: " << motiu << "\n";
+  TestsListener::theInstance().errorsLog() <<
+    file << errmsgTag_inLine() << linia << "\n" <<
+    "Reason: " << motiu << "\n";
 
-   TestsListener::theInstance().testHasFailed();
+  TestsListener::theInstance().testHasFailed();
 }
 
 
