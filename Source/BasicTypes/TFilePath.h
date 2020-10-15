@@ -20,7 +20,7 @@
 #include "StringUtils.h"
 #include "TCustomString.h"
 
-#define FILEPATH_MAXLENGTH 128
+#define FILEPATH_MAXLENGTH 256
 
 /**
  *  TCustomString is a string that stores string data in static char array with predefined length.
