@@ -1,7 +1,7 @@
 /*
  * Persistence Library / Basic types / TFilePath
  *
- * Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
+ * Copyright (c) 2016-2020 Ondrej Sterba <osterba@atlas.cz>
  *
  * https://github.com/embedded-tools/PersistenceLibrary
  *
@@ -164,7 +164,11 @@ bool TFilePath::ChangeFileExt (const char* ext)
     int n = pos+extLen;	
     if (SetLength(n))
     {
-        memcpy(PData+pos, ext, extLen+1);
+        //PData==NULL would mean that memory allocation failed
+        if (PData)
+        {
+            memcpy(PData+pos, ext, extLen+1);
+        }
     }
     return true;
 };
@@ -188,7 +192,11 @@ bool TFilePath::ChangeFileName (const char* filename)
     int n = pos+extLen;	
     if (SetLength(n))
     {
-        memcpy(PData+pos, filename, extLen+1);
+        //PData==NULL would mean that memory allocation failed
+        if (PData)
+        {
+            memcpy(PData+pos, filename, extLen+1);
+        }
     }
     return true;
 };
@@ -227,8 +235,12 @@ bool TFilePath::DeleteLastDir()
         {
             if (SetLength(2))
             {
-                (*this)[1]=m_separator;
-                return true;
+                //PData==NULL would mean that memory allocation failed
+                if (PData)
+                {
+                    (*this)[1]=m_separator;
+                    return true;
+                }
             }
             return false;
         }
@@ -269,8 +281,6 @@ void TFilePath::DeleteDoubleSlash()
         }
     }
 }
-
-
 
 TFilePath TFilePath::operator = (const TFilePath& oString )
 {
@@ -324,6 +334,7 @@ TFilePath& TFilePath::operator += (const char* pChar )
 
     if (LastChar()>=' ')
     {
+        //checks whether filepath ends with \ or /
         bool fileFound = false;
         for(int i = DataLen; i>=0; i--)
         {
@@ -340,14 +351,22 @@ TFilePath& TFilePath::operator += (const char* pChar )
                 fileFound = true;
             }
         }
+        //slash  needs to be added if it is missing
         if ((LastChar()!='\\') && (LastChar()!='/') && (!fileFound))
-        {            
+        {            			
+            //if filepath ends with xxxxxx.yyy then is assumes,
+            //that xxxxxx.yyy is a filename, therefore / is not added
             if(SetLength(DataLen+1,false))
             {
-                PData[DataLen-1] = m_separator;						
+                //PData==NULL would mean that memory allocation failed
+                if (PData)
+                {
+                    PData[DataLen-1] = m_separator;						
+                }
             }
         }
     }
+    //now it combines this filepath string with pChar relative path string
     if (pChar!=0)
     {
         while (pChar[0]=='.')
@@ -372,6 +391,7 @@ TFilePath& TFilePath::operator += (const char* pChar )
     };			
     if ((LastChar()=='\\') || (LastChar()=='/'))
     {
+        //prevents inserting double or triple slash
         if ((*pChar=='\\') || (*pChar=='/'))
         {
             pChar++;
@@ -381,14 +401,20 @@ TFilePath& TFilePath::operator += (const char* pChar )
     {
         if (PData && pChar)
         {
+            //if current filepath contains ./
+            //and relative path pChar contains it also,
             if ( (pChar[0]=='.') && (PData[0]=='.') && ((PData[1]=='\\') || (PData[1]=='/')) )
             {
+                //then current filepath is cleared
+                //to avoid result ././
                 Clear();
             }            
         }
-    }
+    }	
     if (pChar!=NULL)
     {
+        //some chars from original pChar could have been deleted
+        //therefore checks string length of the rest
         pCharLen = 0;
         if (pChar!=NULL)
         {
@@ -397,6 +423,9 @@ TFilePath& TFilePath::operator += (const char* pChar )
     }
     if (pCharLen>=3)
     {
+        //if pChar (relative path) contains full path
+        //including drive name, then current path will be
+        //completelly ignored and pChar is used a new path
         if ( ((pChar[0]>='A')&&(pChar[0]<='Z')) || ((pChar[0]>='a')&&(pChar[0]<='z')) )
         {
             if (pChar[1]==':')
@@ -406,23 +435,34 @@ TFilePath& TFilePath::operator += (const char* pChar )
         }
     }
 
-    if (pCharLen==0) return *this;
+    if (pCharLen==0) 
+    {
+        //pChar (relative path) is empty
+        //therefore current path is used
+        //as a result
+	    return *this;
+    }
+
     unsigned short oldLength = Length();
     unsigned short newLength = oldLength + pCharLen;
     if (newLength<oldLength) newLength=65534;
     if (newLength==65535) newLength=65534;
+
+    //makes more space in memory for merged strings
     if (SetLength(newLength))
     {
-        memcpy(&PData[oldLength], pChar, DataLen-oldLength);
+        //PData==NULL would mean that memory allocation failed
         if (PData)
         {
+            //append pChar at the end of current path
+            memcpy(&PData[oldLength], pChar, DataLen-oldLength);
             ChangeSeparator(m_separator);
         }
     }
     return *this;
 }
 
-TFilePath&	TFilePath::operator += (const char c)
+TFilePath&    TFilePath::operator += (const char c)
 {
     char cc = c;
     if ((cc=='\\') || (cc=='/'))
@@ -431,7 +471,11 @@ TFilePath&	TFilePath::operator += (const char c)
     }	
     if (SetLength(DataLen+1, false))
     {
-        PData[DataLen-1] = cc;
+        //PData==NULL would mean that memory allocation failed
+        if (PData)
+        {
+            PData[DataLen-1] = cc;
+        }
     }
     return *this;
 }
