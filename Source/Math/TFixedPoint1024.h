@@ -23,22 +23,26 @@
 class TFixedPoint1024
 {
     private:
-        short m_value; //16bit value -32768 to 32767 (represents -1024 to 1023.95)
+        short m_value; //16bit value
+		               //-32768         = negative infinity
+		               //-32767 - 32766 = range -1023.95 to 1023.90
+		               // 32767         = positive infinity
 
     public:
         TFixedPoint1024();
+        TFixedPoint1024(const TFixedPoint1024& value);
         TFixedPoint1024(short value);
         TFixedPoint1024(short frac1, short frac2);
 
         TFixedPoint1024& operator = (short num);
-        TFixedPoint1024& operator = (const TFixedPoint1024 value);
+        TFixedPoint1024& operator = (const TFixedPoint1024& value);
 
         TFixedPoint1024  operator + (TFixedPoint1024& value);
         TFixedPoint1024& operator +=(TFixedPoint1024& value);
         TFixedPoint1024  operator - (TFixedPoint1024& value);
         TFixedPoint1024& operator -=(TFixedPoint1024& value);
         TFixedPoint1024  operator * (TFixedPoint1024& value);
-        TFixedPoint1024& operator *=(TFixedPoint1024& value);        
+        TFixedPoint1024& operator *=(TFixedPoint1024& value);
         TFixedPoint1024  operator / (TFixedPoint1024& value);
         TFixedPoint1024& operator /=(TFixedPoint1024& value);
 
@@ -48,7 +52,7 @@ class TFixedPoint1024
         TFixedPoint1024  operator - (short value);
         TFixedPoint1024& operator -=(short value);
         TFixedPoint1024  operator * (short value);
-        TFixedPoint1024& operator *=(short value);        
+        TFixedPoint1024& operator *=(short value);
         TFixedPoint1024  operator / (short value);
         TFixedPoint1024& operator /=(short value);
         TFixedPoint1024  operator % (short value);
@@ -66,7 +70,7 @@ class TFixedPoint1024
         bool operator <  (short num);
         bool operator <  (TFixedPoint1024& num);
 
-        signed char     Sgn();        
+        signed char     Sgn();
         short           Round();
         short           Trunc();
         TFixedPoint1024 Frac();
@@ -75,7 +79,7 @@ class TFixedPoint1024
         bool            IsZero();
 
         void            Print(char* pbOutputBuffer, unsigned short cbOutputBuffer);
-        
+
 };
 
 #endif

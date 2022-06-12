@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7BEA2081-BBEA-4B13-B3E9-5F8BCBEA9C2C}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC60.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeaderOutputFile>.\Release/FileUtils.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;..\..\..\Source\Collections;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>..\lib\FileUtils.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Release/FileUtils.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;..\..\..\Source\Collections;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>.\Debug/FileUtils.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0809</Culture>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>..\lib\FileUtilsD.lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+    <Bscmake>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <OutputFile>.\Debug/FileUtils.bsc</OutputFile>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BasicTypes\BasicTypes.vcxproj">
+      <Project>{30e0f53b-d83c-47ad-b87a-3435f5aeff05}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\Collections\Collections.vcxproj">
+      <Project>{40f9b515-20be-4083-8863-f58addc88a7a}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Source\FileUtils\TCachedStream.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TEEPROMStream.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TFileStream.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\THandleStream.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TJsonDoc.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TJsonTag.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TJsonTagBasePool.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TJsonTagDynamicPool.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TJsonTagStaticPool.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TLZ77.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TLZ77Streamed.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TMemoryStream.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TROMStream.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TStream.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TTextFile.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TXmlDoc.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TXmlTag.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TXmlTagBasePool.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TXmlTagDynamicPool.h" />
+    <ClInclude Include="..\..\..\Source\FileUtils\TXmlTagStaticPool.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Source\FileUtils\TCachedStream.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TEEPROMStream.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TFileStream.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\THandleStream.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TJsonDoc.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TJsonTag.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TJsonTagBasePool.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TJsonTagDynamicPool.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TJsonTagStaticPool.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TLZ77.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TLZ77Streamed.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TMemoryStream.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TROMStream.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TStream.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TTextFile.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TXmlDoc.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TXmlTag.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TXmlTagBasePool.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TXmlTagDynamicPool.cpp" />
+    <ClCompile Include="..\..\..\Source\FileUtils\TXmlTagStaticPool.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

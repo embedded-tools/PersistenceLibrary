@@ -135,7 +135,7 @@ public:
         fs->Close(); delete fs;
 
         FILE* hFile = fopen("./TestData/LZ77Streamed2.xml", "wb");
-        ASSERT(hFile);
+        ASSERT(hFile != NULL);
         fwrite(buf, 1, realLength, hFile);
         fclose(hFile);
 

@@ -24,6 +24,13 @@ TColorYUV::TColorYUV()
 	this->V = 0;
 }
 
+TColorYUV::TColorYUV(const TColorYUV& color)
+{
+	this->Y = color.Y;
+	this->U = color.U;
+	this->V = color.V;
+}
+
 TColorYUV::TColorYUV(short y, short u, short v)
 {
 	if (y>255) y = 255;
@@ -44,6 +51,14 @@ TColorRGB TColorYUV::ConvertToRGB()
 					 (255*Y + 451*U + 128)/255
 		            );
 	return result;
+}
+
+TColorYUV& TColorYUV::operator = (const TColorYUV& color)
+{
+	this->Y = color.Y;
+	this->U = color.U;
+	this->V = color.V;
+	return *this;
 }
 
 bool TColorYUV::operator == (TColorYUV& color)

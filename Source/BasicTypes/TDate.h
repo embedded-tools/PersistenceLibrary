@@ -40,8 +40,12 @@ class TDate
         unsigned char  GetMonth();
         unsigned short GetYear();
 		unsigned short GetTotalDays();
+
+		void SetYear(short year);
+		void SetMonth(short year);
+		void SetDay(short day);
         
-        TDate AddYear(short seconds = 1);
+        TDate AddYear(short years = 1);
         TDate AddMonth(short months = 1);
         TDate AddDay(short days = 1);        
 

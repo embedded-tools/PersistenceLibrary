@@ -1,90 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Project Name="UnitTests" Version="10.0.0" InternalType="Console">
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00010001N0005Debug000000000000]]>
-    </Plugin>
-  </Plugins>
-  <Description/>
-  <Dependencies/>
-  <VirtualDirectory Name="src">
-    <File Name="../../../Source/UnitTests/Test_EscapeSequences.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_LZ77.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_Persistence.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_StringUtils.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TBinaryProtocol.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TCachedFileStream.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TCachedMemoryStream.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TCachedWindowsBmp.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TCanvas.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TColor.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TCompression.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TCustomString.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TDate.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TDateTime.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TDateTimeCounter.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TDictionary.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TEndlessLine.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TEventSender.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TFilePath.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TFileStream.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TFixedPoint16M.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TFixedPoint128.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TFixedPoint1024.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TFont.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TGraphics.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TJsonDoc.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TList.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TLog.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TMemoryStream.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TObjectList.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TParamString.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TQueue.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TRandom.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TShortString.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TSortedDictionary.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TStack.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TStaticDictionary.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TStaticList.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TString.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TStringList.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TTextFile.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TTime.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TWideString.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TWindowsBmpFile.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TXMLDoc.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_TXMLParser.cpp"/>
-    <File Name="../../../Source/UnitTests/Test_Template.cpp"/>
-    <File Name="../../../Source/UnitTests/UnitTests.cpp"/>
-    <File Name="../../../Source/UnitTests/minicppunit.cpp"/>
-    <VirtualDirectory Name="Fonts">
-      <File Name="../../../Source/UnitTests/Fonts/Amata13.cpp"/>
-      <File Name="../../../Source/UnitTests/Fonts/Bookman50.cpp"/>
-      <File Name="../../../Source/UnitTests/Fonts/BrushScript12.cpp"/>
-      <File Name="../../../Source/UnitTests/Fonts/Robotron.cpp"/>
-      <File Name="../../../Source/UnitTests/Fonts/ZXSpectrum.cpp"/>
-    </VirtualDirectory>
-    <VirtualDirectory Name="PersistenceExample">
-      <File Name="../../../Source/UnitTests/PersistenceExample/BaseClass.cpp"/>
-      <File Name="../../../Source/UnitTests/PersistenceExample/ClassA.cpp"/>
-      <File Name="../../../Source/UnitTests/PersistenceExample/ClassB.cpp"/>
-      <File Name="../../../Source/UnitTests/PersistenceExample/ClassC.cpp"/>
-      <File Name="../../../Source/UnitTests/PersistenceExample/ClassD.cpp"/>
-      <File Name="../../../Source/UnitTests/PersistenceExample/ClassManagerA.cpp"/>
-      <File Name="../../../Source/UnitTests/PersistenceExample/ClassManagerB.cpp"/>
-      <File Name="../../../Source/UnitTests/PersistenceExample/ClassManagerC.cpp"/>
-      <File Name="../../../Source/UnitTests/PersistenceExample/ClassManagerD.cpp"/>
-      <File Name="../../../Source/UnitTests/PersistenceExample/MainObject.cpp"/>
-    </VirtualDirectory>
-  </VirtualDirectory>
+<CodeLite_Project Name="UnitTests" Version="11000" InternalType="Console">
   <VirtualDirectory Name="include">
-    <VirtualDirectory Name="Fonts">
-      <File Name="../../../Source/UnitTests/Fonts/Amata13.h"/>
-      <File Name="../../../Source/UnitTests/Fonts/Bookman50.h"/>
-      <File Name="../../../Source/UnitTests/Fonts/BrushScript12.h"/>
-      <File Name="../../../Source/UnitTests/Fonts/Robotron.h"/>
-      <File Name="../../../Source/UnitTests/Fonts/ZXSpectrum.h"/>
-    </VirtualDirectory>
+    <File Name="../../../Source/UnitTests/minicppunit.hxx"/>
+    <File Name="../../../Source/UnitTests/TWMLog.h"/>
+    <File Name="../../../Source/UnitTests/UnitTests.h"/>
     <VirtualDirectory Name="PersistenceExample">
       <File Name="../../../Source/UnitTests/PersistenceExample/BaseClass.h"/>
       <File Name="../../../Source/UnitTests/PersistenceExample/ClassA.h"/>
@@ -97,25 +16,86 @@
       <File Name="../../../Source/UnitTests/PersistenceExample/ClassManagerD.h"/>
       <File Name="../../../Source/UnitTests/PersistenceExample/MainObject.h"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="Fonts">
+      <File Name="../../../Source/UnitTests/Fonts/Amata13.h"/>
+      <File Name="../../../Source/UnitTests/Fonts/Bookman50.h"/>
+      <File Name="../../../Source/UnitTests/Fonts/BrushScript12.h"/>
+      <File Name="../../../Source/UnitTests/Fonts/Robotron.h"/>
+      <File Name="../../../Source/UnitTests/Fonts/ZXSpectrum.h"/>
+    </VirtualDirectory>
   </VirtualDirectory>
-  <Dependencies Name="Debug">
-    <Project Name="BasicTypes"/>
-    <Project Name="Collections"/>
-    <Project Name="FileUtils"/>
-    <Project Name="Graphics"/>
-    <Project Name="Math"/>
-    <Project Name="Persistence"/>
-    <Project Name="Protocols"/>
-  </Dependencies>
-  <Dependencies Name="Release">
-    <Project Name="BasicTypes"/>
-    <Project Name="Collections"/>
-    <Project Name="FileUtils"/>
-    <Project Name="Graphics"/>
-    <Project Name="Math"/>
-    <Project Name="Protocols"/>
-    <Project Name="Persistence"/>
-  </Dependencies>
+  <Description/>
+  <Dependencies/>
+  <VirtualDirectory Name="src">
+    <VirtualDirectory Name="PersistenceExample">
+      <File Name="../../../Source/UnitTests/PersistenceExample/ClassManagerB.cpp"/>
+      <File Name="../../../Source/UnitTests/PersistenceExample/ClassManagerC.cpp"/>
+      <File Name="../../../Source/UnitTests/PersistenceExample/ClassManagerD.cpp"/>
+      <File Name="../../../Source/UnitTests/PersistenceExample/BaseClass.cpp"/>
+      <File Name="../../../Source/UnitTests/PersistenceExample/ClassA.cpp"/>
+      <File Name="../../../Source/UnitTests/PersistenceExample/ClassB.cpp"/>
+      <File Name="../../../Source/UnitTests/PersistenceExample/ClassC.cpp"/>
+      <File Name="../../../Source/UnitTests/PersistenceExample/ClassD.cpp"/>
+      <File Name="../../../Source/UnitTests/PersistenceExample/ClassManagerA.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Fonts">
+      <File Name="../../../Source/UnitTests/Fonts/Amata13.cpp"/>
+      <File Name="../../../Source/UnitTests/Fonts/Bookman50.cpp"/>
+      <File Name="../../../Source/UnitTests/Fonts/BrushScript12.cpp"/>
+      <File Name="../../../Source/UnitTests/Fonts/Robotron.cpp"/>
+      <File Name="../../../Source/UnitTests/Fonts/ZXSpectrum.cpp"/>
+    </VirtualDirectory>
+    <File Name="../../../Source/UnitTests/minicppunit.cpp"/>
+    <File Name="../../../Source/UnitTests/TWMLog.cpp"/>
+    <File Name="../../../Source/UnitTests/UnitTests.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_Template.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TXMLParser.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TXMLDoc.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TWindowsBmpFile.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TWideString.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TTime.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TTextFile.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TStringList.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TString.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TStaticList.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TStaticDictionary.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TStack.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TSortedDictionary.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TShortString.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TRandom.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TQueue.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TParamString.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TObjectList.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TMemoryStream.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TLog.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TList.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TJsonDoc.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TGraphics.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TFont.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TFixedPoint1024.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TFixedPoint128.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TFixedPoint16M.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TFileStream.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TFilePath.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TEventSender.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TEndlessLine.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TDictionary.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TDateTimeCounter.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TDateTime.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TDate.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TCustomString.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TCompression.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TColor.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TCanvas.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TCachedWindowsBmp.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TCachedMemoryStream.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TCachedFileStream.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_TBinaryProtocol.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_StringUtils.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_Persistence.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_LZ77.cpp"/>
+    <File Name="../../../Source/UnitTests/Test_EscapeSequences.cpp"/>
+  </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -126,29 +106,26 @@
       </Linker>
       <ResourceCompiler Options=""/>
     </GlobalSettings>
-    <Configuration Name="Debug" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="not used, edit makefile directly" C_Options="not used, edit makefile directly" Assembler="not used, edit makefile directly" Required="no" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+    <Configuration Name="Debug" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
         <IncludePath Value="."/>
       </Compiler>
       <Linker Options="" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="../$(ProjectName).so" IntermediateDirectory="./" Command="/home/john/Downloads/PersistenceLibrary/unittests.so" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="/home/john/Downloads/PersistenceLibrary/" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
-      <BuildSystem Name="Default"/>
+      <General OutputFile="$(ProjectName)" IntermediateDirectory="" Command="$(WorkspacePath)/build-$(WorkspaceConfiguration)/bin/$(OutputFile)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(WorkspacePath)/build-$(WorkspaceConfiguration)/lib" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="CodeLite Make Generator"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
-      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="yes">
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
         <DebuggerSearchPaths/>
         <PostConnectCommands/>
         <StartupCommands/>
       </Debugger>
       <PreBuild/>
-      <PostBuild>
-        <Command Enabled="yes">cp ./unittests.so ../../../unittests.so</Command>
-      </PostBuild>
+      <PostBuild/>
       <CustomBuild Enabled="yes">
-        <RebuildCommand>make clean
-make</RebuildCommand>
+        <RebuildCommand>make clean; make</RebuildCommand>
         <CleanCommand>make clean</CleanCommand>
         <BuildCommand>make</BuildCommand>
         <PreprocessFileCommand/>
@@ -168,19 +145,19 @@ make</RebuildCommand>
         <SearchPaths/>
       </Completion>
     </Configuration>
-    <Configuration Name="Release" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+    <Configuration Name="Release" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-O2;-Wall" C_Options="-O2;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
         <IncludePath Value="."/>
         <Preprocessor Value="NDEBUG"/>
       </Compiler>
       <Linker Options="" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>
-      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Release" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
-      <BuildSystem Name="Default"/>
+      <General OutputFile="$(ProjectName)" IntermediateDirectory="" Command="$(WorkspacePath)/build-$(WorkspaceConfiguration)/bin/$(OutputFile)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(WorkspacePath)/build-$(WorkspaceConfiguration)/lib" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="CodeLite Make Generator"/>
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[]]>
       </Environment>
-      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="yes">
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
         <DebuggerSearchPaths/>
         <PostConnectCommands/>
         <StartupCommands/>
@@ -209,4 +186,16 @@ make</RebuildCommand>
       </Completion>
     </Configuration>
   </Settings>
+  <Dependencies Name="Debug">
+    <Project Name="BasicTypes"/>
+    <Project Name="Collections"/>
+    <Project Name="FileUtils"/>
+    <Project Name="Math"/>
+    <Project Name="Graphics"/>
+    <Project Name="Logs"/>
+    <Project Name="Networking"/>
+    <Project Name="Protocols"/>
+    <Project Name="Persistence"/>
+    <Project Name="Signaling"/>
+  </Dependencies>
 </CodeLite_Project>

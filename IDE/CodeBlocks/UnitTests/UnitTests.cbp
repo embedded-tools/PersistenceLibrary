@@ -13,13 +13,13 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-g" />
+					<Add option="-W" />
+					<Add option="-O0" />
 					<Add option="-DWIN32" />
 					<Add option="-D_DEBUG" />
 					<Add option="-D_CONSOLE" />
 					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
-					<Add option="-W" />
-					<Add option="-g" />
-					<Add option="-O0" />
 					<Add directory="../../../Source/BasicTypes" />
 					<Add directory="../../../Source/Collections" />
 					<Add directory="../../../Source/FileUtils" />
@@ -29,6 +29,9 @@
 					<Add directory="../../../Source/Protocols" />
 					<Add directory="../../../Source/UnitTests/Fonts" />
 					<Add directory="../../../Source/UnitTests/PersistenceExample" />
+					<Add directory="../../../Source/Networking" />
+					<Add directory="../../../Source/Signaling" />
+					<Add directory="../../../Source/Logs" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="../../../Source/BasicTypes" />
@@ -49,6 +52,10 @@
 					<Add library="MathD" />
 					<Add library="PersistenceD" />
 					<Add library="ProtocolsD" />
+					<Add library="LogsD" />
+					<Add library="NetworkingD" />
+					<Add library="SignalingD" />
+					<Add directory="../lib" />
 				</Linker>
 			</Target>
 			<Target title="Release Win32">
@@ -58,12 +65,13 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-g" />
+					<Add option="-W" />
+					<Add option="-O0" />
 					<Add option="-DWIN32" />
-					<Add option="-DNDEBUG" />
+					<Add option="-D_DEBUG" />
 					<Add option="-D_CONSOLE" />
 					<Add option="-D_CRT_SECURE_NO_WARNINGS" />
-					<Add option="-W" />
-					<Add option="-O2" />
 					<Add directory="../../../Source/BasicTypes" />
 					<Add directory="../../../Source/Collections" />
 					<Add directory="../../../Source/FileUtils" />
@@ -73,6 +81,9 @@
 					<Add directory="../../../Source/Protocols" />
 					<Add directory="../../../Source/UnitTests/Fonts" />
 					<Add directory="../../../Source/UnitTests/PersistenceExample" />
+					<Add directory="../../../Source/Networking" />
+					<Add directory="../../../Source/Signaling" />
+					<Add directory="../../../Source/Logs" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="../../../Source/BasicTypes" />
@@ -93,6 +104,10 @@
 					<Add library="Math" />
 					<Add library="Persistence" />
 					<Add library="Protocols" />
+					<Add library="Logs" />
+					<Add library="Networking" />
+					<Add library="Signaling" />
+					<Add directory="../lib" />
 				</Linker>
 			</Target>
 			<Target title="Debug-Linux">
@@ -117,6 +132,9 @@
 					<Add directory="../../../Source/Protocols" />
 					<Add directory="../../../Source/UnitTests/Fonts" />
 					<Add directory="../../../Source/UnitTests/PersistenceExample" />
+					<Add directory="../../../Source/Networking" />
+					<Add directory="../../../Source/Signaling" />
+					<Add directory="../../../Source/Logs" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="../../../Source/BasicTypes" />
@@ -137,6 +155,9 @@
 					<Add library="MathD" />
 					<Add library="PersistenceD" />
 					<Add library="ProtocolsD" />
+					<Add library="LogsD" />
+					<Add library="NetworkingD" />
+					<Add library="SignalingD" />
 					<Add directory="../lib" />
 				</Linker>
 			</Target>
@@ -161,6 +182,9 @@
 					<Add directory="../../../Source/Protocols" />
 					<Add directory="../../../Source/UnitTests/Fonts" />
 					<Add directory="../../../Source/UnitTests/PersistenceExample" />
+					<Add directory="../../../Source/Networking" />
+					<Add directory="../../../Source/Signaling" />
+					<Add directory="../../../Source/Logs" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="../../../Source/BasicTypes" />
@@ -181,6 +205,9 @@
 					<Add library="Math" />
 					<Add library="Persistence" />
 					<Add library="Protocols" />
+					<Add library="Logs" />
+					<Add library="Networking" />
+					<Add library="Signaling" />
 					<Add directory="../lib" />
 				</Linker>
 			</Target>
@@ -266,10 +293,6 @@
 		<Unit filename="../../../Source/UnitTests/UnitTests.h" />
 		<Unit filename="../../../Source/UnitTests/minicppunit.cpp" />
 		<Unit filename="../../../Source/UnitTests/minicppunit.hxx" />
-		<Extensions>
-			<envvars />
-			<code_completion />
-			<debugger />
-		</Extensions>
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

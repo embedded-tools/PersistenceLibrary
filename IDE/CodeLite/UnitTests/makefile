@@ -18,15 +18,16 @@ OUTPUTDIR =.
 OUTPUTFILE =$(PROJECT).so
 ROOTDIR = ../../..
 LIBDIR = -L../lib
-LIBS = -lbasictypes -lcollections -lfileutils -lgraphics -lmath -lpersistence -lprotocols
+LIBS = -lc -lbasictypes -lcollections -lfileutils -lgraphics -lmath -llogs -lpersistence -lprotocols -lnetworking -lsignaling
 
 SRCDIR = $(ROOTDIR)/Source
 
 CC	= gcc
 CPP	= g++
 AS	= as
-LD	= g++
-CP	= objcopy
+AR	= ar rcs
+LD	= g++ -lm
+CP	= cp
 OS	= size
 OD	= objdump
 MD	= mkdir
@@ -37,8 +38,11 @@ INC = 	-I.\
 	-I$(SRCDIR)/FileUtils\
 	-I$(SRCDIR)/Graphics\
 	-I$(SRCDIR)/Math\
+	-I$(SRCDIR)/Networking\
+	-I$(SRCDIR)/Logs\
 	-I$(SRCDIR)/Persistence\
 	-I$(SRCDIR)/Protocols\
+	-I$(SRCDIR)/Signaling\
 	-I$(SRCDIR)/UnitTests/Fonts\
 	-I$(SRCDIR)/UnitTests/PersistenceExample
 
@@ -119,9 +123,10 @@ COBJ = $(CFILES:.c=.o)
 SOBJ = $(ASMFILES:.s=.o)
 OBJ  = $(CPPOBJ) $(COBJ) $(SOBJ)
 
-CPPFLAGS  = -g -std=c++11
-CFLAGS  = -g -std=c99
+CPPFLAGS  = -g -lstdc++ -shared -fPIC
+CFLAGS  = -g -shared -fPIC
 ASFLAGS = -g
+LDFLAGS  = -g
 
 all: $(OUTPUTFILE)
 
@@ -130,7 +135,7 @@ $(OUTPUTFILE): $(OBJ)
 	then \
 		$(MD) $(OUTPUTDIR);\
 	fi
-	@$(LD) $(OBJ) $(LIBDIR) $(LIBS) -o $(OUTPUTDIR)/$(OUTPUTFILE)	
+	@$(LD) $(LDFLAGS) $(OBJ) $(LIBDIR) $(LIBS) -o $(OUTPUTDIR)/$(OUTPUTFILE)	
 	@$(OS) $(OUTPUTDIR)/$(OUTPUTFILE)	
 	
 $(CPPOBJ): %.o: %.cpp

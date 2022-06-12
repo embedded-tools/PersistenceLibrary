@@ -38,11 +38,14 @@ unsigned short TDateTime::PrintDateTime(char* pbOutputString, unsigned short cbO
 {    
     unsigned short result = 0;
     result += TDate::PrintDate(pbOutputString, cbOutputString);
-    if (cbOutputString>=12)
+    if (cbOutputString >= 12)
     {
-        pbOutputString[10] = 'T';
-        result += TTime::PrintTimeFull(pbOutputString + 11, cbOutputString - 11);
-    } else {
+        pbOutputString[result] = 'T';
+		result++;
+        result += TTime::PrintTimeFull(pbOutputString + result, cbOutputString - result);
+    } 
+	else 
+	{
         result = 0;
     }
     return result;

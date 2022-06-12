@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Logs" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="Sources/;Headers/" />
+		<Build>
+			<Target title="Debug-Linux">
+				<Option output="../lib/LogsD" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add directory="../../../Source/Logs" />
+					<Add directory="../../../Source/BasicTypes" />
+				</Compiler>
+			</Target>
+			<Target title="Release-Linux">
+				<Option output="../lib/Logs" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+					<Add directory="../../../Source/Logs" />
+					<Add directory="../../../Source/BasicTypes" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Unit filename="../../../Source/Logs/TConsoleLog.cpp" />
+		<Unit filename="../../../Source/Logs/TConsoleLog.h" />
+		<Unit filename="../../../Source/Logs/TCustomLog.cpp" />
+		<Unit filename="../../../Source/Logs/TCustomLog.h" />
+		<Unit filename="../../../Source/Logs/TFileLog.cpp" />
+		<Unit filename="../../../Source/Logs/TFileLog.h" />
+		<Unit filename="../../../Source/Logs/TLog.h" />
+		<Unit filename="../../../Source/Logs/TLogBase.cpp" />
+		<Unit filename="../../../Source/Logs/TLogBase.h" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>

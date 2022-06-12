@@ -143,10 +143,6 @@
 		<Unit filename="../../../Source/Graphics/TWindowsBmpFile.cpp" />
 		<Unit filename="../../../Source/Graphics/TWindowsBmpFile.h" />
 		<Unit filename="../../../Source/Graphics/ePixelFormat.h" />
-		<Extensions>
-			<envvars />
-			<code_completion />
-			<debugger />
-		</Extensions>
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

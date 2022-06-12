@@ -24,6 +24,7 @@ struct TColorYUV
 
 public:
 	TColorYUV();
+	TColorYUV(const TColorYUV& color);
     TColorYUV(short y, short u, short v);
 
 	unsigned char Y;
@@ -31,7 +32,7 @@ public:
 	char V;
 
 	TColorRGB ConvertToRGB();
-
+    TColorYUV& operator = (const TColorYUV& color);
 	bool operator == (TColorYUV& color);
 
 };

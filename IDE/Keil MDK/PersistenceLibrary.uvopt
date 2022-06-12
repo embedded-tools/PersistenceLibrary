@@ -579,7 +579,7 @@
 
   <Group>
     <GroupName>FileUtils</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1458,77 +1458,93 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Source\Protocols\tconsolelog.cpp</PathWithFileName>
-      <FilenameWithoutPath>tconsolelog.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\..\Source\Protocols\ttextprotocol.cpp</PathWithFileName>
+      <FilenameWithoutPath>ttextprotocol.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+  </Group>
+
+  <Group>
+    <GroupName>Logs</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>7</GroupNumber>
+      <GroupNumber>8</GroupNumber>
       <FileNumber>79</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Source\Protocols\teventreceiver.cpp</PathWithFileName>
-      <FilenameWithoutPath>teventreceiver.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\..\Source\Logs\TConsoleLog.cpp</PathWithFileName>
+      <FilenameWithoutPath>TConsoleLog.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>7</GroupNumber>
+      <GroupNumber>8</GroupNumber>
       <FileNumber>80</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>14</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>7</TopLine>
+      <CurrentLine>17</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Source\Protocols\teventsender.cpp</PathWithFileName>
-      <FilenameWithoutPath>teventsender.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\..\Source\Logs\TCustomLog.cpp</PathWithFileName>
+      <FilenameWithoutPath>TCustomLog.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>7</GroupNumber>
+      <GroupNumber>8</GroupNumber>
       <FileNumber>81</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Source\Protocols\teventserializer.cpp</PathWithFileName>
-      <FilenameWithoutPath>teventserializer.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\..\Source\Logs\TFileLog.cpp</PathWithFileName>
+      <FilenameWithoutPath>TFileLog.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>7</GroupNumber>
+      <GroupNumber>8</GroupNumber>
       <FileNumber>82</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Source\Protocols\tfilelog.cpp</PathWithFileName>
-      <FilenameWithoutPath>tfilelog.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\..\Source\Logs\TLogBase.cpp</PathWithFileName>
+      <FilenameWithoutPath>TLogBase.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+  </Group>
+
+  <Group>
+    <GroupName>Signaling</GroupName>
+    <tvExp>1</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <RteFlg>0</RteFlg>
     <File>
-      <GroupNumber>7</GroupNumber>
+      <GroupNumber>9</GroupNumber>
       <FileNumber>83</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
@@ -1538,13 +1554,13 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Source\Protocols\tlog.cpp</PathWithFileName>
-      <FilenameWithoutPath>tlog.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\..\Source\Signaling\TEventReceiver.cpp</PathWithFileName>
+      <FilenameWithoutPath>TEventReceiver.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
     <File>
-      <GroupNumber>7</GroupNumber>
+      <GroupNumber>9</GroupNumber>
       <FileNumber>84</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
@@ -1554,8 +1570,24 @@
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\Source\Protocols\ttextprotocol.cpp</PathWithFileName>
-      <FilenameWithoutPath>ttextprotocol.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\..\Source\Signaling\TEventSender.cpp</PathWithFileName>
+      <FilenameWithoutPath>TEventSender.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>85</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>0</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\Source\Signaling\TEventSerializer.cpp</PathWithFileName>
+      <FilenameWithoutPath>TEventSerializer.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

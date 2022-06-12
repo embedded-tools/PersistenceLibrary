@@ -2,11 +2,10 @@
 <CodeLite_Workspace Name="Linux" Database="" Version="10.0.0">
   <Project Name="TcpServer" Path="TcpServer/TcpServer.project" Active="No"/>
   <Project Name="TcpClient" Path="TcpClient/TcpClient.project" Active="No"/>
-  <Project Name="UdpClient" Path="UdpClient/UdpClient.project" Active="No"/>
+  <Project Name="UdpClient" Path="UdpClient/UdpClient.project" Active="Yes"/>
   <Project Name="TcpClient_Async" Path="TcpClient_Async/TcpClient_Async.project" Active="No"/>
   <Project Name="UdpClient_Async" Path="UdpClient_Async/UdpClient_Async.project" Active="No"/>
   <Project Name="TextProtocol" Path="TextProtocol/TextProtocol.project" Active="No"/>
-  <Project Name="TcpServer_Callback" Path="TcpServer_Callback/TcpServer_Callback.project" Active="Yes"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
@@ -17,7 +16,6 @@
       <Project Name="UdpClient_Async" ConfigName="Debug"/>
       <Project Name="TextProtocol" ConfigName="Debug"/>
       <Project Name="BinaryProtocol" ConfigName="Debug"/>
-      <Project Name="TcpServer_Callback" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
@@ -28,7 +26,6 @@
       <Project Name="UdpClient_Async" ConfigName="Release"/>
       <Project Name="TextProtocol" ConfigName="Release"/>
       <Project Name="BinaryProtocol" ConfigName="Release"/>
-      <Project Name="TcpServer_Callback" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>

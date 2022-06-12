@@ -3,26 +3,11 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
-#include "tconsolelog.h"
-#include "ttime.h"
-#include "tcpclient_linux.h"
+#include "TTime.h"
+#include "TcpClient_Linux.h"
 
 bool terminated = false;
 
-void GetTime(TTime &time)
-{
-	struct timeval  tv;
-    struct timezone tz;
-    struct tm* now;
-
-    gettimeofday(&tv,&tz);
-    now=localtime(&tv.tv_sec);
-	
-	time.SetHour(now->tm_hour);
-	time.SetMinute(now->tm_min);
-	time.SetSecond(now->tm_sec);
-	time.SetMilliSecond(tv.tv_usec/1000);	
-}
 
 void TcpMessage(TcpClient* sender, const char* data, int dataLength)
 {
@@ -31,12 +16,11 @@ void TcpMessage(TcpClient* sender, const char* data, int dataLength)
 
 int main(int argc, char **argv)
 {
-    TConsoleLog::Init(GetTime);
 	TcpClient_Linux client;
-    bool res = client.OpenAsync("192.168.54.99", 4000, TcpMessage);
+    bool res = client.OpenAsync("192.168.11.3", 4000, TcpMessage);
     if (!res)
     {
-        DEBUG(NULL, "Can't connect to the server");
+		printf("Can't connect to the server\n");
         return 0;
     }    
     

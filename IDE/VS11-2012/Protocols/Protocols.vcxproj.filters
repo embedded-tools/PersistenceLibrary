@@ -11,66 +11,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Source\Protocols\tbinaryprotocol.cpp">
+    <ClCompile Include="..\..\..\Source\Protocols\TUserManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Protocols\tconsolelog.cpp">
+    <ClCompile Include="..\..\..\Source\Protocols\TBinaryProtocol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Protocols\tfilelog.cpp">
+    <ClCompile Include="..\..\..\Source\Protocols\TTextProtocol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Source\Protocols\tlog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\Protocols\ttextprotocol.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\Protocols\teventreceiver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\Protocols\teventsender.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Source\Protocols\teventserializer.cpp">
+    <ClCompile Include="..\..\..\Source\Protocols\Sha1.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Source\Protocols\datareceivedcallback.h">
+    <ClInclude Include="..\..\..\Source\Protocols\TBinaryProtocol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\Protocols\eCommand.h">
+    <ClInclude Include="..\..\..\Source\Protocols\TTextProtocol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\Protocols\tbinaryprotocol.h">
+    <ClInclude Include="..\..\..\Source\Protocols\TUserManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Source\Protocols\tconsolelog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\Protocols\tfilelog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\Protocols\tlog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\Protocols\ttextprotocol.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\Protocols\tevent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\Protocols\teventcallback.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\Protocols\teventreceiver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\Protocols\teventsender.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Source\Protocols\teventserializer.h">
+    <ClInclude Include="..\..\..\Source\Protocols\Sha1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

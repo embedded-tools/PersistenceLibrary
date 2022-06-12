@@ -15,10 +15,14 @@
  */
 
 #include "TWideString.h"
+#include <string.h>
+#include <wchar.h>
+
 extern "C"
 {
     #include "UTF8.h"
 };
+
 
 
 TWideString::TWideString()
@@ -103,7 +107,7 @@ bool TWideString::Fill(wchar_t c, unsigned short number)
 }
 
 bool TWideString::CopyFrom (const wchar_t* pChar, unsigned short length)
-{    
+{
 	if (pChar==NULL)
 	{
 		Clear();
@@ -122,7 +126,7 @@ bool TWideString::CopyFrom (const wchar_t* pChar, unsigned short length)
 			memcpy(PData,pChar,DataLen*sizeof(wchar_t));
 			PData[DataLen] = 0;
             return true;
-		}		
+		}
         return false;
 	}
     return true;
@@ -144,14 +148,14 @@ bool TWideString::SetLength(unsigned short len, bool addSpaces)
 			DataLen = 0;
 			DataMax = 0;
 			return false;
-		}    
+		}
 		if (DataMax<=len)
 		{
 			//allocated memory is not so big,
-			//therefore it must be reallocated    
+			//therefore it must be reallocated
 			unsigned short newDataMax = DataMax;
 			while (newDataMax<=len)
-			{            
+			{
 				if (newDataMax>=64000)
 				{
 					newDataMax = 65535;
@@ -160,14 +164,14 @@ bool TWideString::SetLength(unsigned short len, bool addSpaces)
 					if (newDataMax>=1024)
 					{
 						newDataMax += 1024;
-					} else 
+					} else
 						if (newDataMax>=128)
 						{
 							newDataMax += 128;
 						} else {
 							newDataMax += 16;
-						}				
-			}            
+						}
+			}
 			DataMax = newDataMax;
 
 			if (PData==NULL)
@@ -204,7 +208,7 @@ bool TWideString::SetLength(unsigned short len, bool addSpaces)
             PData[i] = ' ';
         }
     }
-	PData[len]=0;   
+	PData[len]=0;
 	DataLen = len;
 	return true;
 }
@@ -221,7 +225,7 @@ const wchar_t* TWideString::ToPWChar() const
 
 bool TWideString::Contains(wchar_t c) const
 {
-	wchar_t buf[2];    
+	wchar_t buf[2];
 	buf[0] = c;
 	buf[1] = 0;
 	wchar_t* pChar = (wchar_t*) &buf;
@@ -271,10 +275,10 @@ bool TWideString::Contains(const wchar_t* pChar) const
 
 int TWideString::IndexOf(wchar_t c, unsigned short startIndex) const
 {
-	wchar_t buf[2];    
+	wchar_t buf[2];
 	buf[0] = c;
 	buf[1] = 0;
-    
+
 	wchar_t* pChar = (wchar_t*) &buf;
 	return IndexOf(pChar, startIndex);
 }
@@ -321,10 +325,10 @@ int TWideString::IndexOf(const wchar_t* pChar, unsigned short startIndex) const
 
 int TWideString::LastIndexOf(wchar_t c) const
 {
-	wchar_t buf[2];    
+	wchar_t buf[2];
 	buf[0] = c;
 	buf[1] = 0;
-    
+
     wchar_t* pChar = (wchar_t*) &buf;
     return IndexOf(pChar);
 }
@@ -372,7 +376,7 @@ TWideString& TWideString::LowerCase()
 		wchar_t c = *pp;
 		if ((c>='A') && (c<='Z'))
 		{
-			*pp = c + 32;            
+			*pp = c + 32;
 		}
 		pp++;
 	}
@@ -415,7 +419,7 @@ TWideString& TWideString::Trim()
         {
             end = j;
             if (PData[j]>' ') break;
-        }        
+        }
     }
     if (begin>end)
     {
@@ -458,7 +462,7 @@ TWideString::operator const wchar_t*()
 
 TWideString& TWideString::Append(wchar_t c)
 {
-	int oldLength = Length();	
+	int oldLength = Length();
 	if (SetLength(oldLength+1))
 	{
 		PData[oldLength] = c;
@@ -471,7 +475,7 @@ TWideString& TWideString::Append(const wchar_t* s)
 	int oldLength = Length();
 	int sLength = 0;
 	if (s!=NULL) sLength = (int)wcslen(s);
-	
+
 	if (SetLength(oldLength+sLength))
 	{
 		sLength = DataLen - oldLength;
@@ -503,7 +507,7 @@ TWideString& TWideString::Insert(unsigned short index, wchar_t c)
 		{
 			PData[i] = PData[i-1];
 		}
-		PData[index] = c;	
+		PData[index] = c;
 	}
 	return *this;
 }
@@ -538,7 +542,7 @@ TWideString& TWideString::Delete(unsigned short index, unsigned short length)
     if (((short)index<0) || (index>=Length()))
     {
         return *this;
-    }	 
+    }
 	if ((index+length)>=DataLen)
 	{
 		length = DataLen - index;
@@ -555,7 +559,7 @@ TWideString& TWideString::operator = (const TString oString )
 {
     if (SetLength(oString.Length()))
 	{
-		UTF8TextToUnicodeText(oString.ToPChar(), PData, DataLen);    
+		UTF8TextToUnicodeText(oString.ToPChar(), PData, DataLen);
 	}
     return *this;
 }
@@ -571,7 +575,7 @@ TWideString& TWideString::operator = ( const char* pChar )
 			UTF8TextToUnicodeText(pChar, PData, DataLen);
 		}
         DataLen = (unsigned short)wcslen(PData);
-    }    
+    }
     return *this;
 }
 
@@ -579,13 +583,13 @@ TWideString& TWideString::operator = (const TWideString oString )
 {
 	CopyFrom(oString.ToPWChar(), oString.Length());
 	return *this;
-}    
+}
 
 TWideString& TWideString::operator = (const wchar_t* pChar)
 {
 	CopyFrom(pChar);
 	return *this;
-}    
+}
 
 
 TWideString TWideString::operator + ( const wchar_t* pChar )
@@ -612,10 +616,10 @@ TWideString& TWideString::operator += ( const wchar_t* pChar )
 		pCharLen = 0;
 		if (pChar!=NULL)
 		{
-			pCharLen = (int)wcslen(pChar);    
+			pCharLen = (int)wcslen(pChar);
 		}
 	}
-	if (pCharLen==0) return *this;        
+	if (pCharLen==0) return *this;
 	unsigned short oldLength = Length();
 	unsigned short newLength = oldLength + pCharLen;
 	if (newLength<oldLength) newLength=65534;
@@ -637,10 +641,10 @@ TWideString& TWideString::operator += ( TWideString& oString )
 		pCharLen = 0;
 		if (pChar!=NULL)
 		{
-			pCharLen = (int)wcslen(pChar);    
+			pCharLen = (int)wcslen(pChar);
 		}
 	}
-	if (pCharLen==0) return *this;        
+	if (pCharLen==0) return *this;
 	unsigned short oldLength = Length();
 	unsigned short newLength = oldLength + pCharLen;
 	if (newLength<oldLength) newLength=65534;
@@ -654,7 +658,7 @@ TWideString& TWideString::operator += ( TWideString& oString )
 
 
 TWideString& TWideString::operator += ( const wchar_t AChar )
-{    
+{
 	int length = Length();
 	if (SetLength(length+1))
 	{
@@ -683,14 +687,14 @@ bool TWideString::operator > (const wchar_t* pChar) const
 
 	int i;
 	wchar_t* pp = (wchar_t*)ToPWChar();
-	wchar_t* ss = (wchar_t*)pChar; 
+	wchar_t* ss = (wchar_t*)pChar;
 
-	for (i=0; i<minlength; i++) 
+	for (i=0; i<minlength; i++)
 	{
 		if (*pp>*ss) return (true);
 		if (*pp<*ss) return (false);
 		pp++; ss++;
-	}	
+	}
 	if (Length()==pCharLen) return (false);
 	if (Length()>pCharLen)  return (true);
 	return (false);
@@ -715,14 +719,14 @@ bool TWideString::operator < (const wchar_t* pChar) const
 	int i;
 
 	wchar_t* pp = (wchar_t*)ToPWChar();
-	wchar_t* ss = (wchar_t*)pChar; 
+	wchar_t* ss = (wchar_t*)pChar;
 
-	for (i=0; i<minlength; i++) 
+	for (i=0; i<minlength; i++)
 	{
 		if (*pp<*ss) return (true);
 		if (*pp>*ss) return (false);
 		pp++; ss++;
-	}	
+	}
 	if (Length()==pCharLen) return (false);
 	if (Length()<pCharLen)  return (true);
 	return (false);
@@ -745,14 +749,14 @@ bool TWideString::operator >= (const wchar_t* pChar) const
 
 
 bool TWideString::operator <= (TWideString &s) const
-{        
+{
 	if (*this<s) return (true);
 	if (*this==s) return (true);
 	return false;
 }
 
 bool TWideString::operator <= (const wchar_t* pChar) const
-{        
+{
 	if (*this<pChar) return (true);
 	if (*this==pChar) return (true);
 	return false;

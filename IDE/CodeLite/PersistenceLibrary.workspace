@@ -8,6 +8,9 @@
   <Project Name="Persistence" Path="Persistence/Persistence.project" Active="No"/>
   <Project Name="Protocols" Path="Protocols/Protocols.project" Active="No"/>
   <Project Name="UnitTests" Path="UnitTests/UnitTests.project" Active="Yes"/>
+  <Project Name="Logs" Path="Logs/Logs.project" Active="No"/>
+  <Project Name="Networking" Path="Networking/Networking.project" Active="No"/>
+  <Project Name="Signaling" Path="Signaling/Signaling.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
@@ -15,9 +18,12 @@
       <Project Name="Collections" ConfigName="Debug"/>
       <Project Name="FileUtils" ConfigName="Debug"/>
       <Project Name="Graphics" ConfigName="Debug"/>
+      <Project Name="Logs" ConfigName="Debug"/>
       <Project Name="Math" ConfigName="Debug"/>
+      <Project Name="Networking" ConfigName="Debug"/>
       <Project Name="Persistence" ConfigName="Debug"/>
       <Project Name="Protocols" ConfigName="Debug"/>
+      <Project Name="Signaling" ConfigName="Debug"/>
       <Project Name="UnitTests" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
@@ -30,6 +36,9 @@
       <Project Name="Persistence" ConfigName="Release"/>
       <Project Name="Protocols" ConfigName="Release"/>
       <Project Name="UnitTests" ConfigName="Release"/>
+      <Project Name="Logs" ConfigName="Release"/>
+      <Project Name="Networking" ConfigName="Release"/>
+      <Project Name="Signaling" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>

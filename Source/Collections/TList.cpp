@@ -27,16 +27,17 @@ TList<T>::TList(int capacity)
 {
     m_dataCount  = 0;
     m_dataMaxCount    = 0;
-    m_dataArray       = NULL;	
+    m_dataArray       = NULL;
 	SetCapacity(capacity);
 }
 
 template<typename T>
 TList<T>::TList(const TList<T>& list)
+:TEnumerator<T>()
 {
 	m_dataCount       = 0;
 	m_dataMaxCount    = 0;
-	m_dataArray       = NULL;	
+	m_dataArray       = NULL;
 
 	for(int i = 0; i<list.Count(); i++)
 	{
@@ -78,7 +79,7 @@ short TList<T>::Count() const
 template<typename T>
 bool TList<T>::Add(T R)
 {
-	if (m_dataCount==32767) 
+	if (m_dataCount==32767)
 	{
 		return false;
 	}
@@ -87,7 +88,7 @@ bool TList<T>::Add(T R)
 		if (m_dataCount>0)
 		{
 			m_dataArray[m_dataCount-1]  = R;
-		}		
+		}
         return true;
 	}
     return false;
@@ -254,8 +255,8 @@ bool TList<T>::SetCapacity(short reservedCapacity)
 		m_dataMaxCount = 0;
 		return false;
 	}
-	m_dataMaxCount = reservedCapacity;	
-	return true;		
+	m_dataMaxCount = reservedCapacity;
+	return true;
 }
 
 
@@ -268,7 +269,7 @@ void TList<T>::Clear(bool unallocMemory)
         {
             free(m_dataArray);
         }
-        m_dataArray = NULL;        
+        m_dataArray = NULL;
         m_dataMaxCount = 0;
     }
     m_dataCount = 0;
@@ -280,12 +281,12 @@ void  TList<T>::Reverse()
 	T tmp;
 
 	int i1 = 0;
-	int i2 = m_dataCount-1;	
+	int i2 = m_dataCount-1;
 	while(i1<i2)
 	{
 		tmp = m_dataArray[i1];
 		m_dataArray[i1]=m_dataArray[i2];
-		m_dataArray[i2]=tmp;		
+		m_dataArray[i2]=tmp;
 		i1++; i2--;
 	}
 }
@@ -348,7 +349,7 @@ TArray<T> TList<T>::ToArray()
 
 template<typename T>
 T& TList<T>::operator [] (short index)
-{	
+{
     if ((index>=0) && (index<m_dataCount))
     {
 		return m_dataArray[index];
@@ -381,7 +382,7 @@ TList<T>& TList<T>::operator = (const TList<T>& list)
 template<typename T>
 T* TList<T>::begin()
 {
-	if (m_dataArray==NULL) 
+	if (m_dataArray==NULL)
     {
         SetCapacity(8);
         if (m_dataArray==NULL) return NULL;
@@ -392,7 +393,7 @@ T* TList<T>::begin()
 template<typename T>
 T* TList<T>::end()
 {
-    if (m_dataArray==NULL) 
+    if (m_dataArray==NULL)
     {
         SetCapacity(8);
         if (m_dataArray==NULL) return NULL;
@@ -403,7 +404,7 @@ T* TList<T>::end()
 template<typename T>
 const T* TList<T>::cbegin() const
 {
-    if (m_dataArray==NULL) 
+    if (m_dataArray==NULL)
     {
         SetCapacity(8);
         if (m_dataArray==NULL) return NULL;
@@ -414,7 +415,7 @@ const T* TList<T>::cbegin() const
 template<typename T>
 const T* TList<T>::cend() const
 {
-    if (m_dataArray==NULL) 
+    if (m_dataArray==NULL)
     {
         SetCapacity(8);
         if (m_dataArray==NULL) return NULL;
@@ -486,7 +487,7 @@ T TList<T>::back()
 
 template<typename T>
 T* TList<T>::insert(T* it, T value)
-{    
+{
     if (it<m_dataArray) return NULL;
     if (it>(m_dataArray+m_dataMaxCount)) return NULL;
 
@@ -523,7 +524,7 @@ void TList<T>::splice(T* position, TList<T>& list, T* first, T* last)
     if (last==NULL)
     {
         last = first + 1;
-    }    
+    }
     T* it = first;
 
     int n = list.size();
@@ -535,8 +536,8 @@ void TList<T>::splice(T* position, TList<T>& list, T* first, T* last)
         if (insert(position++, *it++ )==NULL)
         {
             return;
-        }        
-    }    
+        }
+    }
 }
 
 template<typename T>
@@ -561,11 +562,11 @@ T* TList<T>::erase(T* first, T* last)
         }
         if (!SetCount(m_dataCount-1)) break;
 
-        first++;        
+        first++;
         if (first==last)
         {
             break;
-        }   
+        }
     }
     return first;
 }
@@ -583,7 +584,7 @@ void TList<T>::unique()
                 m_dataArray[j] = m_dataArray[j+1];
             }
             if (n>0) n--;
-        }        
+        }
     }
     SetCount(n);
 }

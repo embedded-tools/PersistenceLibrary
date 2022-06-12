@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE; _CRT_SECURE_NO_WARNINGS"
+				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Logs;..\..\..\Source\Math;..\..\..\Source\Networking;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\Signaling;..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample"
+				PreprocessorDefinitions="STL_STYLE;WIN32;_DEBUG;_CONSOLE; _CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="BasicTypesD.lib CollectionsD.lib FileUtilsD.lib GraphicsD.lib MathD.lib PersistenceD.lib ProtocolsD.lib"
+				AdditionalDependencies="BasicTypesD.lib CollectionsD.lib FileUtilsD.lib GraphicsD.lib LogsD.lib MathD.lib NetworkingD.lib PersistenceD.lib ProtocolsD.lib SignalingD.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\lib"
 				GenerateDebugInformation="true"
@@ -117,7 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample"
+				AdditionalIncludeDirectories="..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Logs;..\..\..\Source\Math;..\..\..\Source\Networking;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\Signaling;..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
@@ -136,7 +136,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="BasicTypes.lib Collections.lib FileUtils.lib Graphics.lib Math.lib Persistence.lib Protocols.lib"
+				AdditionalDependencies="BasicTypes.lib Collections.lib FileUtils.lib Graphics.lib Logs.lib Math.lib Networking.lib Persistence.lib Protocols.lib Signaling.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\lib"
 				GenerateDebugInformation="true"
@@ -190,6 +190,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\Source\UnitTests\Test_Persistence.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\UnitTests\Test_Sha1.cpp"
 				>
 			</File>
 			<File
@@ -369,6 +373,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Source\UnitTests\TWMLog.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\Source\UnitTests\UnitTests.cpp"
 				>
 			</File>
@@ -448,6 +456,10 @@
 			>
 			<File
 				RelativePath="..\..\..\Source\UnitTests\minicppunit.hxx"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\Source\UnitTests\TWMLog.h"
 				>
 			</File>
 			<File

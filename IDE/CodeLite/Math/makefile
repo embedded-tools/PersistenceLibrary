@@ -32,8 +32,6 @@ OS	= size
 OD	= objdump
 MD	= mkdir
 
-LDFLAGS  = -g
-
 INC = -I$(SRCDIR)/Math
 
 SRC = $(SRCDIR)/Math/TFixedPoint128.cpp\
@@ -53,9 +51,10 @@ COBJ = $(CFILES:.c=.o)
 SOBJ = $(ASMFILES:.s=.o)
 OBJ  = $(CPPOBJ) $(COBJ) $(SOBJ)
 
-CPPFLAGS  = -g -std=c++11
-CFLAGS  = -g -std=c99
+CPPFLAGS  = -g -lstdc++ -shared -fPIC
+CFLAGS  = -g -shared -fPIC
 ASFLAGS = -g
+LDFLAGS  = -g
 
 all: $(OUTPUTFILE)
 

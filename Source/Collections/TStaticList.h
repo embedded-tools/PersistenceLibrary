@@ -23,7 +23,7 @@
 /**
  *  TStaticList is a list similar to TList in C#. TStaticList is designed for
  *  storing simple value data types like char, int etc.
- *  
+ *
  *  It allocates memory statically, there is no way no to increase
  *  maximum number of items.
  *
@@ -38,12 +38,12 @@ protected:
 
     T      m_dataArray[N];
     short  m_dataCount;
-    short  m_dataIterator; 
+    short  m_dataIterator;
     short  m_dataMaxCount;
 
 public:
 
-    TStaticList();
+    explicit TStaticList();
     ~TStaticList();
 
 #ifndef COLLECTIONS_SIMPLIFY
@@ -53,7 +53,7 @@ public:
 
 	short Count();
 	void  Add(T R);
-	void  RemoveAt(short index);	
+	void  RemoveAt(short index);
 	void  Insert (short index, T x);
 	bool  Contains (T x) const;
 	short IndexOf(T x, short startIndex=0);
@@ -86,12 +86,12 @@ public:
 	int        max_size();
 	void       clear();
 	void       reverse();
-	void       sort();	
+	void       sort();
 #endif
 
 };
 
 #include "TStaticList.cpp"
- 
+
 #endif
 

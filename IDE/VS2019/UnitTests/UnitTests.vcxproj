@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E99163D1-E6A9-46CB-85E7-437D2333EA47}</ProjectGuid>
+    <RootNamespace>UnitTests2</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Logs;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\Signaling;..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>BasicTypesD.lib;CollectionsD.lib;FileUtilsD.lib;GraphicsD.lib;LogsD.lib;MathD.lib;PersistenceD.lib;ProtocolsD.lib;SignalingD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>..\lib</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>BasicTypes.lib;Collections.lib;FileUtils.lib;Graphics.lib;Math.lib;Persistence.lib;Protocols.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>..\lib</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Source\UnitTests\minicppunit.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_EscapeSequences.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_LZ77.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_Persistence.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_StringUtils.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TBinaryProtocol.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedFileStream.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedMemoryStream.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCachedWindowsBmp.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCanvas.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TColor.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCompression.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TCustomString.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TDate.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TDateTime.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TDateTimeCounter.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TDictionary.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_Template.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TEndlessLine.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TEventSender.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFilePath.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFileStream.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint1024.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint128.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFixedPoint16M.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TFont.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TGraphics.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TJsonDoc.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TList.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TLog.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TMemoryStream.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TObjectList.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TParamString.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TQueue.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TRandom.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TShortString.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TSortedDictionary.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStack.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStaticDictionary.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStaticList.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TString.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TStringList.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TTextFile.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TTime.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TWideString.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TWindowsBmpFile.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLDoc.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLParser.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\UnitTests.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Amata13.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Bookman50.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\BrushScript12.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Robotron.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\BaseClass.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassA.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassB.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassC.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassD.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerA.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerB.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerC.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerD.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\MainObject.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Source\UnitTests\minicppunit.hxx" />
+    <ClInclude Include="..\..\..\Source\UnitTests\UnitTests.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Amata13.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Bookman50.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\BrushScript12.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\Robotron.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\Fonts\ZXSpectrum.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\BaseClass.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassA.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassB.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassC.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassD.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerA.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerB.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerC.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\ClassManagerD.h" />
+    <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\MainObject.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -22,6 +22,12 @@ TFixedPoint1024::TFixedPoint1024()
 
 }
 
+TFixedPoint1024::TFixedPoint1024(const TFixedPoint1024& value)
+    : m_value(0)
+{
+    *this = value;
+}
+
 TFixedPoint1024::TFixedPoint1024(short value)
 {
     if (value>1023)
@@ -46,7 +52,7 @@ TFixedPoint1024& TFixedPoint1024::operator = (short num)
     return *this;
 }
 
-TFixedPoint1024& TFixedPoint1024::operator = (const TFixedPoint1024 value)
+TFixedPoint1024& TFixedPoint1024::operator = (const TFixedPoint1024& value)
 {
     m_value = value.m_value;
     return *this;
@@ -58,7 +64,7 @@ TFixedPoint1024 TFixedPoint1024::operator - ()
     if (result.m_value==FIXEDPOINT_INF)
     {
         result.m_value=FIXEDPOINT_NEG_INF;
-    } else 
+    } else
     if (result.m_value==FIXEDPOINT_NEG_INF)
     {
         result.m_value=FIXEDPOINT_INF;
@@ -72,7 +78,7 @@ TFixedPoint1024  TFixedPoint1024::operator + (short value)
 {
     TFixedPoint1024 result = *this;
     result += value;
-    return result;    
+    return result;
 }
 
 TFixedPoint1024& TFixedPoint1024::operator +=(short value)
@@ -97,7 +103,7 @@ TFixedPoint1024  TFixedPoint1024::operator + (TFixedPoint1024& value)
 {
     TFixedPoint1024 result = *this;
     result += value;
-    return result;    
+    return result;
 }
 
 TFixedPoint1024& TFixedPoint1024::operator +=(TFixedPoint1024& value)
@@ -121,7 +127,7 @@ TFixedPoint1024  TFixedPoint1024::operator - (short value)
 {
     TFixedPoint1024 result = *this;
     result -= value;
-    return result;    
+    return result;
 }
 
 TFixedPoint1024& TFixedPoint1024::operator -=(short value)
@@ -146,7 +152,7 @@ TFixedPoint1024  TFixedPoint1024::operator - (TFixedPoint1024& value)
 {
     TFixedPoint1024 result = *this;
     result -= value;
-    return result;    
+    return result;
 }
 
 TFixedPoint1024& TFixedPoint1024::operator -=(TFixedPoint1024& value)
@@ -170,7 +176,7 @@ TFixedPoint1024  TFixedPoint1024::operator * (short value)
 {
     TFixedPoint1024 result = *this;
     result *= value;
-    return result;    
+    return result;
 }
 
 TFixedPoint1024& TFixedPoint1024::operator *=(short value)
@@ -188,7 +194,7 @@ TFixedPoint1024& TFixedPoint1024::operator *=(short value)
     {
         result = -32768;
     }
-    if (value>=1) 
+    if (value>=1)
     {
         if (((short)result)<m_value)
         {
@@ -209,7 +215,7 @@ TFixedPoint1024  TFixedPoint1024::operator * (TFixedPoint1024& value)
 {
     TFixedPoint1024 result = *this;
     result *= value;
-    return result;    
+    return result;
 }
 
 TFixedPoint1024& TFixedPoint1024::operator *=(TFixedPoint1024& value)
@@ -248,7 +254,7 @@ TFixedPoint1024  TFixedPoint1024::operator / (short value)
 {
     TFixedPoint1024 result = *this;
     result /= value;
-    return result;    
+    return result;
 }
 
 TFixedPoint1024& TFixedPoint1024::operator /=(short value)
@@ -265,7 +271,7 @@ TFixedPoint1024& TFixedPoint1024::operator /=(short value)
         } else {
             m_value = FIXEDPOINT_NEG_INF;
         }
-        return *this;        
+        return *this;
     }
     //result = 32bit value
     long result = (m_value / value);
@@ -299,7 +305,7 @@ TFixedPoint1024  TFixedPoint1024::operator / (TFixedPoint1024& value)
 {
     TFixedPoint1024 result = *this;
     result /= value;
-    return result;    
+    return result;
 }
 
 TFixedPoint1024& TFixedPoint1024::operator /=(TFixedPoint1024& value)
@@ -316,7 +322,7 @@ TFixedPoint1024& TFixedPoint1024::operator /=(TFixedPoint1024& value)
         } else {
             m_value = FIXEDPOINT_NEG_INF;
         }
-        return *this;        
+        return *this;
     }
     //result = 32bit value
     long result = (((long)m_value<<5) / value.m_value);
@@ -363,7 +369,7 @@ TFixedPoint1024  TFixedPoint1024::operator % (short value)
         return *this;
     }
     result.m_value = result.m_value % (value<<5);
-    return result;    
+    return result;
 }
 
 bool TFixedPoint1024::operator == (short num)
@@ -439,7 +445,7 @@ bool TFixedPoint1024::operator < (TFixedPoint1024& num)
 signed char     TFixedPoint1024::Sgn()
 {
     if (m_value>0) return 1;
-    if (m_value==0) return 0;        
+    if (m_value==0) return 0;
     return -1;
 }
 
@@ -526,7 +532,7 @@ void TFixedPoint1024::Print(char* pbOutputBuffer, unsigned short cbOutputBuffer)
     {
         n = m_value;
         n += 1;
-    }  else 
+    }  else
     {
         *pbOutputBuffer='-';
         pbOutputBuffer++;
@@ -534,7 +540,7 @@ void TFixedPoint1024::Print(char* pbOutputBuffer, unsigned short cbOutputBuffer)
         n  = -m_value;
         n += 1;
     }
-    
+
     char c = 0;
     char zeroChar = 0;
     short exp = 1000<<5;
@@ -542,7 +548,7 @@ void TFixedPoint1024::Print(char* pbOutputBuffer, unsigned short cbOutputBuffer)
     //divides n by 1000, 100, 10 and 1
     //this way are calculates first four digits
     for(int i = 0; i<4; i++)
-    {        
+    {
         c = '0';
         if (i==3)
         {
@@ -566,7 +572,7 @@ void TFixedPoint1024::Print(char* pbOutputBuffer, unsigned short cbOutputBuffer)
             zeroChar = '0';
             pbOutputBuffer++;
             cbOutputBuffer++;
-        }        
+        }
         exp/=10;
     }
     //inserts comma
@@ -579,7 +585,7 @@ void TFixedPoint1024::Print(char* pbOutputBuffer, unsigned short cbOutputBuffer)
     for(int j = 0; j<1; j++)
     {
         c = '0';
-        n*=10;        
+        n*=10;
         while(n>=exp)
         {
             c++;
@@ -587,9 +593,9 @@ void TFixedPoint1024::Print(char* pbOutputBuffer, unsigned short cbOutputBuffer)
         }
         *pbOutputBuffer=c;
         pbOutputBuffer++;
-        cbOutputBuffer++;        
+        cbOutputBuffer++;
     }
     *pbOutputBuffer=0;
     pbOutputBuffer++;
-    cbOutputBuffer++;        
+    cbOutputBuffer++;
 }

@@ -160,9 +160,6 @@
 		<Unit filename="../../../Source/FileUtils/TXmlTagStaticPool.cpp" />
 		<Unit filename="../../../Source/FileUtils/TXmlTagStaticPool.h" />
 		<Extensions>
-			<envvars />
-			<code_completion />
-			<debugger />
 			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>

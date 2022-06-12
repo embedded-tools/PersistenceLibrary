@@ -23,22 +23,26 @@
 class TFixedPoint128
 {
 private:
-    short m_value; //16bit value -32768 to 32767 (represents -128 to 1023.95)
+	short m_value; //16bit value
+				   //-32768         = negative infinity
+	               //-32767 - 32766 = range -127.995 to 127.990
+	               // 32767         = positive infinity
 
 public:
     TFixedPoint128();
+    TFixedPoint128(const TFixedPoint128& value);
     TFixedPoint128(short value);
     TFixedPoint128(short frac1, short frac2);
 
     TFixedPoint128& operator = (short num);
-    TFixedPoint128& operator = (const TFixedPoint128 value);
+    TFixedPoint128& operator = (const TFixedPoint128& value);
 
     TFixedPoint128  operator + (TFixedPoint128& value);
     TFixedPoint128& operator +=(TFixedPoint128& value);
     TFixedPoint128  operator - (TFixedPoint128& value);
     TFixedPoint128& operator -=(TFixedPoint128& value);
     TFixedPoint128  operator * (TFixedPoint128& value);
-    TFixedPoint128& operator *=(TFixedPoint128& value);        
+    TFixedPoint128& operator *=(TFixedPoint128& value);
     TFixedPoint128  operator / (TFixedPoint128& value);
     TFixedPoint128& operator /=(TFixedPoint128& value);
 
@@ -48,7 +52,7 @@ public:
     TFixedPoint128  operator - (short value);
     TFixedPoint128& operator -=(short value);
     TFixedPoint128  operator * (short value);
-    TFixedPoint128& operator *=(short value);        
+    TFixedPoint128& operator *=(short value);
     TFixedPoint128  operator / (short value);
     TFixedPoint128& operator /=(short value);
     TFixedPoint128  operator % (short value);
@@ -66,7 +70,7 @@ public:
     bool operator <  (short num);
     bool operator <  (TFixedPoint128& num);
 
-    signed char     Sgn();        
+    signed char     Sgn();
     short           Round();
     short           Trunc();
     TFixedPoint128 Frac();

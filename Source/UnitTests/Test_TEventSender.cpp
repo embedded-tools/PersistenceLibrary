@@ -1,11 +1,11 @@
 #include "UnitTests.h"
 
-#include "teventsender.h"
-#include "teventreceiver.h"
-#include "teventserializer.h"
+#include "TEventSender.h"
+#include "TEventReceiver.h"
+#include "TEventSerializer.h"
 
 class TMyReceiver : public TEventReceiver
-{ 
+{
     public:
  	    int Counter;
 };
@@ -23,18 +23,18 @@ class Test_TEventSender : public TestFixture<Test_TEventSender>
 		TEST_CASE(DeserializeEvent1);
 		TEST_CASE(DeserializeEvent2);
     }
-	
+
     void SendEvent()
     {
 		TEventSender sender;
 		TMyReceiver receiver1;
 		TMyReceiver receiver2;
-			
+
 		receiver1.Counter = 0;
 		receiver2.Counter = 0;
 		receiver1.connect(&sender, 9, Event_Callback);
 		receiver2.connect(&sender, 9, Event_Callback);
-				
+
 		TEvent ev;
 		memset(&ev, 0, sizeof(ev));
 		ev.eventID = 9;
@@ -122,7 +122,7 @@ class Test_TEventSender : public TestFixture<Test_TEventSender>
 
 
 	void TestOfBufferLimits()
-	{		
+	{
 		char buf2[1];
 		buf2[0] = (char)0xAA;
 
@@ -140,7 +140,7 @@ class Test_TEventSender : public TestFixture<Test_TEventSender>
 		char buf[30];
 
 		bool b;
-		for (int i = 0; i < sizeof(buf); i++)
+		for (int i = 0; i < (int)sizeof(buf); i++)
 		{
 			b = TEventSerializer::serialize(ev, buf, i);
 			ASSERT(!b);

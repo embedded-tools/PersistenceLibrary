@@ -89,15 +89,15 @@ void TVector::Simplify()
 		{
 			DirectionX /= 2;
 			DirectionY /= 2;
-		} 
-		else break;		
+		}
+		else break;
 	}
 }
 
 void TVector::Normalize()
 {
 	int currentVectorSize;
-	
+
 	currentVectorSize = (DirectionX*DirectionX) + (DirectionY*DirectionY);
 	currentVectorSize = TCanvas::FastSqrt(currentVectorSize);
 
@@ -118,8 +118,15 @@ TVector TVector::operator * (int x)
 		currentVectorSize = TCanvas::FastSqrt(currentVectorSize);
 	} else {
 		currentVectorSize = UNIFIED_VECTOR_SIZE;
-	}	
+	}
 	result.DirectionX = (DirectionX * x + currentVectorSize / 2 ) / currentVectorSize;
 	result.DirectionY = (DirectionY * x + currentVectorSize / 2 ) / currentVectorSize;
 	return result;
+}
+
+TVector& TVector::operator = (const TVector& vec)
+{
+	DirectionX = vec.DirectionX;
+	DirectionY = vec.DirectionY;
+	return *this;
 }

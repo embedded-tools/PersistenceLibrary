@@ -137,9 +137,6 @@
 		<Unit filename="../../../Source/Persistence/TXMLTypes.cpp" />
 		<Unit filename="../../../Source/Persistence/TXMLTypes.h" />
 		<Extensions>
-			<envvars />
-			<code_completion />
-			<debugger />
 			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>

@@ -53,7 +53,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Logs;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\Signaling;..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -63,7 +63,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>BasicTypesD.lib;CollectionsD.lib;FileUtilsD.lib;GraphicsD.lib;MathD.lib;PersistenceD.lib;ProtocolsD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>BasicTypesD.lib;CollectionsD.lib;FileUtilsD.lib;GraphicsD.lib;LogsD.lib;MathD.lib;PersistenceD.lib;ProtocolsD.lib;SignalingD.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -74,7 +74,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Source\BasicTypes;..\..\..\Source\Collections;..\..\..\Source\FileUtils;..\..\..\Source\Graphics;..\..\..\Source\Logs;..\..\..\Source\Math;..\..\..\Source\Persistence;..\..\..\Source\Protocols;..\..\..\Source\Signaling;..\..\..\Source\UnitTests\Fonts;..\..\..\Source\UnitTests\PersistenceExample;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -83,7 +83,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>BasicTypes.lib;Collections.lib;FileUtils.lib;Graphics.lib;Math.lib;Persistence.lib;Protocols.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>BasicTypes.lib;Collections.lib;FileUtils.lib;Graphics.lib;Logs.lib;Math.lib;Persistence.lib;Protocols.lib;Signaling.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -136,11 +136,13 @@
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TString.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TStringList.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TTextFile.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_TTextProtocol.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TTime.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TWideString.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TWindowsBmpFile.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLDoc.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Test_TXMLParser.cpp" />
+    <ClCompile Include="..\..\..\Source\UnitTests\TWMLog.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\UnitTests.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Amata13.cpp" />
     <ClCompile Include="..\..\..\Source\UnitTests\Fonts\Bookman50.cpp" />

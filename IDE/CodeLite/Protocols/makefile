@@ -21,7 +21,6 @@ SRCDIR = $(ROOTDIR)/Source
 LIBDIR = -L../lib
 LIBS =
 
-
 CC	= gcc
 CPP	= g++
 AS	= as
@@ -32,20 +31,15 @@ OS	= size
 OD	= objdump
 MD  = mkdir
 
-LDFLAGS  = -g
-
 INC = -I$/usr/include\
       -I$(SRCDIR)/BasicTypes\
 	  -I$(SRCDIR)/Collections\
 	  -I$(SRCDIR)/Protocols
 
-SRC = $(SRCDIR)/Protocols/tbinaryprotocol.cpp\
-	  $(SRCDIR)/Protocols/tconsolelog.cpp\
-	  $(SRCDIR)/Protocols/teventreceiver.cpp\
-	  $(SRCDIR)/Protocols/teventsender.cpp\
-	  $(SRCDIR)/Protocols/teventserializer.cpp\
-	  $(SRCDIR)/Protocols/tfilelog.cpp\
-	  $(SRCDIR)/Protocols/tlog.cpp\
+SRC = $(SRCDIR)/Protocols/TBinaryProtocol.cpp\
+	  $(SRCDIR)/Protocols/TTextProtocol.cpp\
+	  $(SRCDIR)/Protocols/TUserManager.cpp\
+	  $(SRCDIR)/Protocols/Sha1.c
 
 #  C++ source files
 CPPFILES = $(filter %.cpp, $(SRC))
@@ -60,9 +54,10 @@ COBJ = $(CFILES:.c=.o)
 SOBJ = $(ASMFILES:.s=.o)
 OBJ  = $(CPPOBJ) $(COBJ) $(SOBJ)
 
-CPPFLAGS  = -g -std=c++11
-CFLAGS  = -g -std=c99
+CPPFLAGS  = -g -lstdc++ -shared -fPIC
+CFLAGS  = -g -shared -fPIC
 ASFLAGS = -g
+LDFLAGS  = -g
 
 all: $(OUTPUTFILE)
 

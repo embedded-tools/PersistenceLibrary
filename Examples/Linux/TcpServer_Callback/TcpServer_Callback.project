@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Project Name="TcpServer_Callback" Version="10.0.0" InternalType="Console">
+<CodeLite_Project Name="TcpServer_Callback" Version="11000" InternalType="Console">
   <Plugins>
     <Plugin Name="qmake">
       <![CDATA[00010001N0005Debug000000000000]]>
@@ -16,6 +16,15 @@
     <File Name="../../../Source/Protocols/tlog.cpp"/>
     <File Name="../../../Source/BasicTypes/TTime.cpp"/>
     <File Name="../../../Source/Protocols/tcpclient.cpp"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="inc">
+    <File Name="../../../Source/Protocols/tconsolelog.h"/>
+    <File Name="../../../Source/Protocols/tcpclient_linux.h"/>
+    <File Name="../../../Source/Protocols/tcpserver_linux.h"/>
+    <File Name="../../../Source/Protocols/tfilelog.h"/>
+    <File Name="../../../Source/Protocols/tlog.h"/>
+    <File Name="../../../Source/BasicTypes/TTime.h"/>
+    <File Name="../../../Source/Protocols/tcpclient.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
@@ -109,13 +118,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <VirtualDirectory Name="inc">
-    <File Name="../../../Source/Protocols/tconsolelog.h"/>
-    <File Name="../../../Source/Protocols/tcpclient_linux.h"/>
-    <File Name="../../../Source/Protocols/tcpserver_linux.h"/>
-    <File Name="../../../Source/Protocols/tfilelog.h"/>
-    <File Name="../../../Source/Protocols/tlog.h"/>
-    <File Name="../../../Source/BasicTypes/TTime.h"/>
-    <File Name="../../../Source/Protocols/tcpclient.h"/>
-  </VirtualDirectory>
 </CodeLite_Project>

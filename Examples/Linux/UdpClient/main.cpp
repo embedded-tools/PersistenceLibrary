@@ -3,33 +3,17 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
-#include "tconsolelog.h"
-#include "ttime.h"
-#include "udpclient_linux.h"
+#include "UdpClient_Linux.h"
 
 bool terminated = false;
 
-void GetTime(TTime &time)
-{
-	struct timeval  tv;
-    struct timezone tz;
-    struct tm* now;
-
-    gettimeofday(&tv,&tz);
-    now=localtime(&tv.tv_sec);
-	
-	time.SetHour(now->tm_hour);
-	time.SetMinute(now->tm_min);
-	time.SetSecond(now->tm_sec);
-	time.SetMilliSecond(tv.tv_usec/1000);	
-}
 
 int main(int argc, char **argv)
-{
-    TConsoleLog::Init(GetTime);
-    
+{  
     UdpClient client;
-    client.Init("192.168.1.3", 4001, 4000);
+	//ports can match if sender and receiver are on different devices
+	//(two applications on the same device can't listen on the same port)
+    client.Init("192.168.11.3", 4000, 4000);
     client.SendData("Hello there!");
     
     char buf[64];

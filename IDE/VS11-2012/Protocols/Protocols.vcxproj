@@ -11,28 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Source\Protocols\tbinaryprotocol.cpp" />
-    <ClCompile Include="..\..\..\Source\Protocols\tconsolelog.cpp" />
-    <ClCompile Include="..\..\..\Source\Protocols\teventreceiver.cpp" />
-    <ClCompile Include="..\..\..\Source\Protocols\teventsender.cpp" />
-    <ClCompile Include="..\..\..\Source\Protocols\teventserializer.cpp" />
-    <ClCompile Include="..\..\..\Source\Protocols\tfilelog.cpp" />
-    <ClCompile Include="..\..\..\Source\Protocols\tlog.cpp" />
-    <ClCompile Include="..\..\..\Source\Protocols\ttextprotocol.cpp" />
+    <ClCompile Include="..\..\..\Source\Protocols\Sha1.c" />
+    <ClCompile Include="..\..\..\Source\Protocols\TBinaryProtocol.cpp" />
+    <ClCompile Include="..\..\..\Source\Protocols\TTextProtocol.cpp" />
+    <ClCompile Include="..\..\..\Source\Protocols\TUserManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Source\Protocols\datareceivedcallback.h" />
-    <ClInclude Include="..\..\..\Source\Protocols\eCommand.h" />
-    <ClInclude Include="..\..\..\Source\Protocols\tbinaryprotocol.h" />
-    <ClInclude Include="..\..\..\Source\Protocols\tconsolelog.h" />
-    <ClInclude Include="..\..\..\Source\Protocols\tevent.h" />
-    <ClInclude Include="..\..\..\Source\Protocols\teventcallback.h" />
-    <ClInclude Include="..\..\..\Source\Protocols\teventreceiver.h" />
-    <ClInclude Include="..\..\..\Source\Protocols\teventsender.h" />
-    <ClInclude Include="..\..\..\Source\Protocols\teventserializer.h" />
-    <ClInclude Include="..\..\..\Source\Protocols\tfilelog.h" />
-    <ClInclude Include="..\..\..\Source\Protocols\tlog.h" />
-    <ClInclude Include="..\..\..\Source\Protocols\ttextprotocol.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\Sha1.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\TBinaryProtocol.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\TTextProtocol.h" />
+    <ClInclude Include="..\..\..\Source\Protocols\TUserManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B51F88F6-1359-4CCA-8D32-EFD50A1666D5}</ProjectGuid>
@@ -68,6 +56,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>.\Debug\</OutDir>
     <IntDir>.\Debug\</IntDir>
+    <TargetName>$(ProjectName)D</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>.\Release\</OutDir>

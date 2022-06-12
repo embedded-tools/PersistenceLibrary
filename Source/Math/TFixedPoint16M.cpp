@@ -27,6 +27,12 @@ TFixedPoint16M::TFixedPoint16M()
 
 }
 
+TFixedPoint16M::TFixedPoint16M(const TFixedPoint16M& value)
+    : m_value(0)
+{
+    *this = value;
+}
+
 TFixedPoint16M::TFixedPoint16M(long value)
 {
     if (value>16777215)
@@ -51,7 +57,7 @@ TFixedPoint16M& TFixedPoint16M::operator = (long num)
     return *this;
 }
 
-TFixedPoint16M& TFixedPoint16M::operator = (const TFixedPoint16M value)
+TFixedPoint16M& TFixedPoint16M::operator = (const TFixedPoint16M& value)
 {
     m_value = value.m_value;
     return *this;
@@ -63,7 +69,7 @@ TFixedPoint16M TFixedPoint16M::operator - ()
     if (result.m_value==FIXEDPOINT_INF_32)
     {
         result.m_value=FIXEDPOINT_NEG_INF_32;
-    } else 
+    } else
     if (result.m_value==FIXEDPOINT_NEG_INF_32)
     {
         result.m_value=FIXEDPOINT_INF_32;
@@ -77,7 +83,7 @@ TFixedPoint16M  TFixedPoint16M::operator + (long value)
 {
     TFixedPoint16M result = *this;
     result += value;
-    return result;    
+    return result;
 }
 
 TFixedPoint16M& TFixedPoint16M::operator +=(long value)
@@ -102,7 +108,7 @@ TFixedPoint16M  TFixedPoint16M::operator + (TFixedPoint16M& value)
 {
     TFixedPoint16M result = *this;
     result += value;
-    return result;    
+    return result;
 }
 
 TFixedPoint16M& TFixedPoint16M::operator +=(TFixedPoint16M& value)
@@ -126,7 +132,7 @@ TFixedPoint16M  TFixedPoint16M::operator - (long value)
 {
     TFixedPoint16M result = *this;
     result -= value;
-    return result;    
+    return result;
 }
 
 TFixedPoint16M& TFixedPoint16M::operator -=(long value)
@@ -151,7 +157,7 @@ TFixedPoint16M  TFixedPoint16M::operator - (TFixedPoint16M& value)
 {
     TFixedPoint16M result = *this;
     result -= value;
-    return result;    
+    return result;
 }
 
 TFixedPoint16M& TFixedPoint16M::operator -=(TFixedPoint16M& value)
@@ -175,7 +181,7 @@ TFixedPoint16M  TFixedPoint16M::operator * (long value)
 {
     TFixedPoint16M result = *this;
     result *= value;
-    return result;    
+    return result;
 }
 
 TFixedPoint16M& TFixedPoint16M::operator *=(long value)
@@ -186,10 +192,10 @@ TFixedPoint16M& TFixedPoint16M::operator *=(long value)
     }
 #ifdef WIN32
 
-#if (_MSC_VER>=1400)
+#if _MSC_VER && (_MSC_VER<1400)
+    __int64 result = ((__int64)m_value) * value;
+#else
     long long result = (long long)m_value * value;
-#else                                                                   
-   __int64 result = ((__int64)m_value) * value;
 #endif
 
 #else
@@ -204,7 +210,7 @@ TFixedPoint16M& TFixedPoint16M::operator *=(long value)
     {
         result = -16777215;
     }
-    if (value>=1) 
+    if (value>=1)
     {
         if ((long)result<m_value)
         {
@@ -225,7 +231,7 @@ TFixedPoint16M  TFixedPoint16M::operator * (TFixedPoint16M& value)
 {
     TFixedPoint16M result = *this;
     result *= value;
-    return result;    
+    return result;
 }
 
 TFixedPoint16M& TFixedPoint16M::operator *=(TFixedPoint16M& value)
@@ -236,12 +242,12 @@ TFixedPoint16M& TFixedPoint16M::operator *=(TFixedPoint16M& value)
     }
 #ifdef WIN32
 
-#if (_MSC_VER>=1400)
-    long long result = (long long)m_value * value.m_value>>5;
-#else
+#if _MSC_VER && (_MSC_VER < 1400)
     __int64 result = ((__int64)m_value) * value.m_value>>5;
+#else
+    long long result = (long long)m_value * value.m_value>>5;
 #endif
-    
+
 #else
 	int64_t result = (int64_t)(m_value * value.m_value)>>5;;
 #endif
@@ -275,7 +281,7 @@ TFixedPoint16M  TFixedPoint16M::operator / (long value)
 {
     TFixedPoint16M result = *this;
     result /= value;
-    return result;    
+    return result;
 }
 
 TFixedPoint16M& TFixedPoint16M::operator /=(long value)
@@ -292,7 +298,7 @@ TFixedPoint16M& TFixedPoint16M::operator /=(long value)
         } else {
             m_value = FIXEDPOINT_NEG_INF_32;
         }
-        return *this;        
+        return *this;
     }
     //result = 32bit value
     long result = (m_value / value);
@@ -326,7 +332,7 @@ TFixedPoint16M  TFixedPoint16M::operator / (TFixedPoint16M& value)
 {
     TFixedPoint16M result = *this;
     result /= value;
-    return result;    
+    return result;
 }
 
 TFixedPoint16M& TFixedPoint16M::operator /=(TFixedPoint16M& value)
@@ -343,7 +349,7 @@ TFixedPoint16M& TFixedPoint16M::operator /=(TFixedPoint16M& value)
         } else {
             m_value = FIXEDPOINT_NEG_INF_32;
         }
-        return *this;        
+        return *this;
     }
     //result = 32bit value
     long result = (((long)m_value<<5) / value.m_value);
@@ -390,7 +396,7 @@ TFixedPoint16M  TFixedPoint16M::operator % (long value)
         return *this;
     }
     result.m_value = result.m_value % (value<<5);
-    return result;    
+    return result;
 }
 
 bool TFixedPoint16M::operator == (long num)
@@ -466,7 +472,7 @@ bool TFixedPoint16M::operator < (TFixedPoint16M& num)
 signed char     TFixedPoint16M::Sgn()
 {
     if (m_value>0) return 1;
-    if (m_value==0) return 0;        
+    if (m_value==0) return 0;
     return -1;
 }
 
@@ -553,7 +559,7 @@ void TFixedPoint16M::Print(char* pbOutputBuffer, unsigned long cbOutputBuffer)
     {
         n = m_value;
         n += 1;
-    }  else 
+    }  else
     {
         *pbOutputBuffer='-';
         pbOutputBuffer++;
@@ -561,7 +567,7 @@ void TFixedPoint16M::Print(char* pbOutputBuffer, unsigned long cbOutputBuffer)
         n  = -m_value;
         n += 1;
     }
-    
+
     char c = 0;
     char zeroChar = 0;
     unsigned long exp = 1000<<5;
@@ -569,7 +575,7 @@ void TFixedPoint16M::Print(char* pbOutputBuffer, unsigned long cbOutputBuffer)
     //divides n by 1000, 100, 10 and 1
     //this way are calculates first four digits
     for(int i = 0; i<4; i++)
-    {        
+    {
         c = '0';
         if (i==3)
         {
@@ -593,7 +599,7 @@ void TFixedPoint16M::Print(char* pbOutputBuffer, unsigned long cbOutputBuffer)
             zeroChar = '0';
             pbOutputBuffer++;
             cbOutputBuffer++;
-        }        
+        }
         exp/=10;
     }
     //inserts comma
@@ -606,7 +612,7 @@ void TFixedPoint16M::Print(char* pbOutputBuffer, unsigned long cbOutputBuffer)
     for(int j = 0; j<1; j++)
     {
         c = '0';
-        n*=10;        
+        n*=10;
         while(n>=exp)
         {
             c++;
@@ -614,9 +620,9 @@ void TFixedPoint16M::Print(char* pbOutputBuffer, unsigned long cbOutputBuffer)
         }
         *pbOutputBuffer=c;
         pbOutputBuffer++;
-        cbOutputBuffer++;        
+        cbOutputBuffer++;
     }
     *pbOutputBuffer=0;
     pbOutputBuffer++;
-    cbOutputBuffer++;        
+    cbOutputBuffer++;
 }

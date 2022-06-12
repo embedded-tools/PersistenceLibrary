@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Project Name="Protocols" Version="10.0.0" InternalType="Library">
+<CodeLite_Project Name="Protocols" Version="11000" InternalType="Library">
   <Plugins>
     <Plugin Name="qmake">
       <![CDATA[00010001N0005Debug000000000000]]>
@@ -8,50 +8,17 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
-    <File Name="../../../Source/Protocols/tbinaryprotocol.cpp"/>
-    <File Name="../../../Source/Protocols/tconsolelog.cpp"/>
-    <File Name="../../../Source/Protocols/tcpclient.cpp"/>
-    <File Name="../../../Source/Protocols/tcpclient_linux.cpp"/>
-    <File Name="../../../Source/Protocols/tcpclient_win.cpp"/>
-    <File Name="../../../Source/Protocols/tcpserver_linux.cpp"/>
-    <File Name="../../../Source/Protocols/tcpserver_win.cpp"/>
-    <File Name="../../../Source/Protocols/teventreceiver.cpp"/>
-    <File Name="../../../Source/Protocols/teventsender.cpp"/>
-    <File Name="../../../Source/Protocols/teventserializer.cpp"/>
-    <File Name="../../../Source/Protocols/tfilelog.cpp"/>
-    <File Name="../../../Source/Protocols/tlog.cpp"/>
-    <File Name="../../../Source/Protocols/ttextprotocol.cpp"/>
-    <File Name="../../../Source/Protocols/tudplog_linux.cpp"/>
-    <File Name="../../../Source/Protocols/udpclient_linux.cpp"/>
+    <File Name="../../../Source/Protocols/TBinaryProtocol.cpp"/>
+    <File Name="../../../Source/Protocols/TTextProtocol.cpp"/>
+    <File Name="../../../Source/Protocols/TUserManager.cpp"/>
+    <File Name="../../../Source/Protocols/Sha1.c"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
-    <File Name="../../../Source/Protocols/eCommand.h"/>
-    <File Name="../../../Source/Protocols/tbinaryprotocol.h"/>
-    <File Name="../../../Source/Protocols/tconsolelog.h"/>
-    <File Name="../../../Source/Protocols/tcpclient.h"/>
-    <File Name="../../../Source/Protocols/tcpclient_linux.h"/>
-    <File Name="../../../Source/Protocols/tcpclient_win.h"/>
-    <File Name="../../../Source/Protocols/tcpserver_linux.h"/>
-    <File Name="../../../Source/Protocols/tcpserver_win.h"/>
-    <File Name="../../../Source/Protocols/tevent.h"/>
-    <File Name="../../../Source/Protocols/teventcallback.h"/>
-    <File Name="../../../Source/Protocols/teventreceiver.h"/>
-    <File Name="../../../Source/Protocols/teventsender.h"/>
-    <File Name="../../../Source/Protocols/teventserializer.h"/>
-    <File Name="../../../Source/Protocols/tfilelog.h"/>
-    <File Name="../../../Source/Protocols/tlog.h"/>
-    <File Name="../../../Source/Protocols/ttextprotocol.h"/>
-    <File Name="../../../Source/Protocols/tudplog_linux.h"/>
-    <File Name="../../../Source/Protocols/udpclient_linux.h"/>
+    <File Name="../../../Source/Protocols/TBinaryProtocol.h"/>
+    <File Name="../../../Source/Protocols/TTextProtocol.h"/>
+    <File Name="../../../Source/Protocols/TUserManager.h"/>
+    <File Name="../../../Source/Protocols/Sha1.h"/>
   </VirtualDirectory>
-  <Dependencies Name="Debug">
-    <Project Name="BasicTypes"/>
-    <Project Name="Collections"/>
-  </Dependencies>
-  <Dependencies Name="Release">
-    <Project Name="BasicTypes"/>
-    <Project Name="Collections"/>
-  </Dependencies>
   <Settings Type="Static Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -142,4 +109,12 @@ make</RebuildCommand>
       </Completion>
     </Configuration>
   </Settings>
+  <Dependencies Name="Debug">
+    <Project Name="BasicTypes"/>
+    <Project Name="Collections"/>
+  </Dependencies>
+  <Dependencies Name="Release">
+    <Project Name="BasicTypes"/>
+    <Project Name="Collections"/>
+  </Dependencies>
 </CodeLite_Project>

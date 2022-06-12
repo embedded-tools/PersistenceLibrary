@@ -25,6 +25,14 @@ TColorRGB::TColorRGB()
 	this->A = 255;
 }
 
+TColorRGB::TColorRGB(const TColorRGB& color)
+{
+	this->R = color.R;
+	this->G = color.G;
+	this->B = color.B;
+	this->A = color.A;
+}
+
 TColorRGB::TColorRGB(short r, short g, short b)
 {
 	if (r>255) r = 255;
@@ -55,7 +63,7 @@ unsigned short TColorRGB::ConvertToRGB565()
 	return l + (h<<8);
 }
 
-TColorRGB TColorRGB::operator = (TColorRGB color)
+TColorRGB& TColorRGB::operator = (const TColorRGB& color)
 {
 	this->R = color.R;
 	this->G = color.G;

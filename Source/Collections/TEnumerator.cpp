@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "TEnumerator.h"
 
-template <typename T> 
+template <typename T>
 TEnumerator<T>::TEnumerator()
 {
 	m_current = NULL;
@@ -12,7 +12,7 @@ TEnumerator<T>::TEnumerator()
 	m_pitch = 0;
 }
 
-template <typename T> 
+template <typename T>
 TEnumerator<T>::TEnumerator(TArray<T> a)
 {
 	m_current = a.m_itemArray;
@@ -21,7 +21,7 @@ TEnumerator<T>::TEnumerator(TArray<T> a)
 	m_current = Dec(m_current, 1);
 }
 
-template <typename T> 
+template <typename T>
 TEnumerator<T>::TEnumerator(T* firstItem, T* lastItem)
 {
 	m_current = firstItem;
@@ -30,22 +30,14 @@ TEnumerator<T>::TEnumerator(T* firstItem, T* lastItem)
 	m_current = Dec(m_current, 1);
 }
 
-template <typename T> 
-TEnumerator<T>::TEnumerator(const TEnumerator& enumerator)
-{
-	m_current = enumerator.m_current;
-	m_last    = enumerator.m_last;
-	m_pitch   = enumerator.m_pitch;
-}
-
-template <typename T> 
+template <typename T>
 T* TEnumerator<T>::Inc(T* ptr, int n)
 {
 	T* result = (T*)(((char*)ptr) + m_pitch * n);
 	return result;
 }
 
-template <typename T> 
+template <typename T>
 T* TEnumerator<T>::Dec(T* ptr, int n)
 {
 	T* result = (T*)(((char*)ptr) - m_pitch * n);
@@ -53,7 +45,7 @@ T* TEnumerator<T>::Dec(T* ptr, int n)
 }
 
 
-template <typename T> 
+template <typename T>
 T& TEnumerator<T>::Current()
 {
 	if (m_current==NULL)
@@ -64,7 +56,7 @@ T& TEnumerator<T>::Current()
 	return *m_current;
 }
 
-template <typename T> 
+template <typename T>
 bool TEnumerator<T>::MoveNext()
 {
 	if (m_current==NULL)

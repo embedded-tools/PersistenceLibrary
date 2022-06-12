@@ -1,31 +1,28 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include "tconsolelog.h"
-#include "ttime.h"
-#include "tcpserver_win.h"
-#include "tcpclient_win.h"
+#include "TcpServer_Win.h"
+#include "TcpClient_Win.h"
 
 bool terminated = false;
 
-void GetTime(TTime &time)
-{
-    SYSTEMTIME localTime;
-    GetLocalTime(&localTime);
-    time.SetHour((unsigned char)localTime.wHour);
-    time.SetMinute((unsigned char)localTime.wMinute);
-    time.SetSecond((unsigned char)localTime.wSecond);
-    time.SetMilliSecond((unsigned short)localTime.wMilliseconds);
-}
+//no log implementation
+//You can keep LOG_DEBUG functions in your libraries without performance loss 
+//(your compiler should optimize it out)
+void LOG_DEBUG     (void*, const char*, int) { };
+void LOG_INFO      (void*, const char*, int) { };
+void LOG_WARNING   (void*, const char*, int) { };
+void LOG_ERROR     (void*, const char*, int) { };
+void LOG_EXCEPTION (void*, const char*, int) { };
 
 void ClientConnected(const struct sockaddr_in& address)
 {
-    DEBUG(NULL, "New client connected");
+   printf("New client connected\r\n");
 }
 
 void ClientDisconnected(const struct sockaddr_in& address)
 {
-    DEBUG(NULL, "Client disconnected");
+	printf("New client disconnected\r\n");
 }
 
 void ClientSentData(TcpClient* client, const char* command, int commandLength)
@@ -35,7 +32,6 @@ void ClientSentData(TcpClient* client, const char* command, int commandLength)
         terminated = true;
     }
     client->SendData(" Affirmative!");
-    DEBUG(NULL, command);
 }
 
 int main(int argc, char **argv)
@@ -44,11 +40,10 @@ int main(int argc, char **argv)
     WORD wVersionRequested = MAKEWORD(2, 2);
     WSAStartup(wVersionRequested, &wsaData);
 
-    TConsoleLog::Init(GetTime);
     TcpServer server;
     if (!server.Listen(4000))
     {
-        DEBUG(NULL, "Can't open port");
+        printf("Can't open port\r\n");
         return 0;
     }
     server.OnClientConnected = ClientConnected;

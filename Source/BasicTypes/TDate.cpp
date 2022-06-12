@@ -107,6 +107,20 @@ unsigned char TDate::DaysInMonth(unsigned short month, unsigned short year)
     return result;
 }
 
+void TDate::SetYear(short year)
+{
+	m_year = year;
+}
+
+void TDate::SetMonth(short month)
+{
+	m_month = (unsigned char)month;
+}
+
+void TDate::SetDay(short day)
+{
+	m_day = (unsigned char)day;
+}
 
 TDate TDate::AddYear(short years)
 {
@@ -227,6 +241,6 @@ unsigned short TDate::PrintDate(char* pbOutputString, unsigned short cbOutputStr
     pbOutputString[8] = m_day / 10 + '0';
     pbOutputString[9] = m_day % 10 + '0';    
     pbOutputString[10] = 0;
-    return 11;
+    return 10;
 }
 

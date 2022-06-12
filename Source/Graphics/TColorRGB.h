@@ -29,13 +29,14 @@ public:
 	unsigned char A;
 
 	TColorRGB();
+	TColorRGB(const TColorRGB& color);
     TColorRGB(short r, short g, short b);
     TColorRGB(unsigned long rgb);
-	
+
 	unsigned short ConvertToRGB565();
-	TColorRGB operator = (TColorRGB color);
+	TColorRGB& operator = (const TColorRGB& color);
 	TColorRGB operator = (unsigned long color);
-	bool operator == (TColorRGB& color);	
+	bool operator == (TColorRGB& color);
 };
 
 #endif

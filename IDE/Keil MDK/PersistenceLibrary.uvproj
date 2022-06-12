@@ -167,7 +167,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
         </Utilities>
         <TargetArmAds>
@@ -371,7 +371,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>1</umfTarg>
+            <umfTarg>0</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -808,39 +808,54 @@
               <FilePath>..\..\Source\Protocols\tbinaryprotocol.cpp</FilePath>
             </File>
             <File>
-              <FileName>tconsolelog.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\..\Source\Protocols\tconsolelog.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>teventreceiver.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\..\Source\Protocols\teventreceiver.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>teventsender.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\..\Source\Protocols\teventsender.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>teventserializer.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\..\Source\Protocols\teventserializer.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>tfilelog.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\..\Source\Protocols\tfilelog.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>tlog.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\..\Source\Protocols\tlog.cpp</FilePath>
-            </File>
-            <File>
               <FileName>ttextprotocol.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\..\Source\Protocols\ttextprotocol.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Logs</GroupName>
+          <Files>
+            <File>
+              <FileName>TConsoleLog.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Source\Logs\TConsoleLog.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TCustomLog.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Source\Logs\TCustomLog.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TFileLog.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Source\Logs\TFileLog.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TLogBase.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Source\Logs\TLogBase.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Signaling</GroupName>
+          <Files>
+            <File>
+              <FileName>TEventReceiver.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Source\Signaling\TEventReceiver.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TEventSender.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Source\Signaling\TEventSender.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TEventSerializer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\Source\Signaling\TEventSerializer.cpp</FilePath>
             </File>
           </Files>
         </Group>

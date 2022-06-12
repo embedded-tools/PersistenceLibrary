@@ -2,7 +2,7 @@
  * Persistence Library / Basic types / TFilePath
  *
  * Copyright (c) 2016-2018 Ondrej Sterba <osterba@atlas.cz>
- * 
+ *
  * https://github.com/embedded-tools/PersistenceLibrary
  *
  * Permission to use, copy, modify, distribute and sell this software
@@ -35,6 +35,7 @@ class TFilePath : public TCustomString<FILEPATH_MAXLENGTH>
 		char m_separator;
 	public:
 		TFilePath();
+		TFilePath(const TFilePath& path);
 		TFilePath(const char* text, unsigned short textLength=0);
 
 		void ChangeSeparator(char separator);

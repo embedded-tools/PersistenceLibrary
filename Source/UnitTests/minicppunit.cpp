@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2004  Pau Arumí & David García
+ * Copyright (c) 2003-2004  Pau ArumÃ­ & David GarcÃ­a
  *
  *
  * This program is free software; you can redistribute it and/or modify
@@ -37,6 +37,11 @@ template <typename T>  inline bool isinf(T x)
   return _finite(x) == 0;
 }
 #endif
+#else
+template <typename T>  inline bool isinf(T x)
+{
+  return std::isfinite(x) == 0;
+}
 #endif
 
 TestsListener& TestsListener::theInstance()
