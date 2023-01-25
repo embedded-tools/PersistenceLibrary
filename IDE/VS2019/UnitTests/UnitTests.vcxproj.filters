@@ -215,6 +215,12 @@
     <ClCompile Include="..\..\..\Source\UnitTests\PersistenceExample\MainObject.cpp">
       <Filter>Source Files\PersistenceExample</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\TWMLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\UnitTests\Test_Sha1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Source\UnitTests\minicppunit.hxx">
@@ -267,6 +273,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Source\UnitTests\PersistenceExample\MainObject.h">
       <Filter>Header Files\PersistenceExample</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\UnitTests\TWMLog.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

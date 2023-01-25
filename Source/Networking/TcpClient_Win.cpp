@@ -16,7 +16,7 @@
 
 #include "tcpclient_win.h"
 #include "tcpserver_win.h"
-#include "tlog.h"
+#include "TLog.h"
 #include <windows.h>
 #include <WinSock.h>
 #include <WinIoCtl.h>

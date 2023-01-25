@@ -435,11 +435,13 @@ TString& TString::Append(const char* s)
 {
     int oldLength = Length();
     int sLength = 0;
-    if (s!=NULL) sLength = (int)strlen(s);
-
-    if (SetLength(oldLength+sLength, false))
+    if (s != NULL)
     {
-        memcpy(PData+oldLength, s, DataLen - oldLength);
+        sLength = (int)strlen(s);
+        if (SetLength(oldLength + sLength, false))
+        {
+            memcpy(PData + oldLength, s, DataLen - oldLength);
+        }
     }
     return *this;
 }
@@ -492,7 +494,10 @@ TString& TString::Insert(unsigned short index, const char* s)
         {
             PData[i] = PData[i-sLength];
         }
-        memcpy(PData+index, s, sLength);
+        if (s != NULL)
+        {
+            memcpy(PData + index, s, sLength);
+        }
     }
     return *this;
 }
@@ -654,13 +659,16 @@ bool TString::SetCapacity(unsigned short capacity)
         DataMax = 0;
         return false;
     }
-    PData = (char*) realloc(PData,capacity);
-    if (PData==NULL)
+    char* tmp = (char*) realloc(PData,capacity);
+    if (tmp == NULL)
     {
+        free(PData);
+        PData = NULL;
         DataLen = 0;
         DataMax = 0;
         return false;
     }
+    PData = tmp;
     if (DataLen>DataMax)
     {
         DataLen=DataMax-1;
@@ -969,7 +977,7 @@ TString& TString::assign(const char* str)
 {
     if (str)
     {
-        CopyFrom(str, strlen(str));
+        CopyFrom(str, (unsigned short) strlen(str));
     } else {
         SetLength(0);
     }
