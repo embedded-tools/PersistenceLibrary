@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include "TUserManager.h"
 
-enum ECommand
+enum ECommand : unsigned short
 {
 	bcPing = 0x01,
     bcLogin = 0x02,
@@ -50,7 +50,7 @@ enum ECommand
 	bcForceInt16 = 0x7FFF
 };
 
-enum ECommandResult
+enum ECommandResult : unsigned short
 {
 	crUnknown = 0x00,
     crSuccess,
@@ -102,8 +102,7 @@ public:
 	typedef void (*SendPacketCallback)(unsigned char* data, unsigned short dataLength);
 
 private:
-	short m_idleCounter;       
-		
+	
 	unsigned char          m_magicByte1;
 	unsigned char          m_magicByte2;
 	unsigned short         m_packetCounter;
