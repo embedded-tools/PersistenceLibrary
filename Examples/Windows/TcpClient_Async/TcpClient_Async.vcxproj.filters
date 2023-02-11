@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files\BasicTypes">
+      <UniqueIdentifier>{951d5f36-cbd9-4a0e-aab8-22af16a7300f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BasicTypes">
+      <UniqueIdentifier>{a622d2a9-91ca-41b3-ab65-312e703ab684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logs">
+      <UniqueIdentifier>{cd8983b6-7e9a-4241-a62d-227080a86c5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logs">
+      <UniqueIdentifier>{c267bd23-2cc7-4b22-b7ac-5299c11ba324}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Networking">
+      <UniqueIdentifier>{0f795e9e-3914-46ac-9194-2d14e0fd0440}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Networking">
+      <UniqueIdentifier>{216f29ec-ee52-4474-8771-92152265f5cf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\tvorba-emb\PersistenceLibrary\Source\BasicTypes\TDate.cpp">
+      <Filter>Source Files\BasicTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\tvorba-emb\PersistenceLibrary\Source\BasicTypes\TDateTime.cpp">
+      <Filter>Source Files\BasicTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\tvorba-emb\PersistenceLibrary\Source\BasicTypes\TTime.cpp">
+      <Filter>Source Files\BasicTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\tvorba-emb\PersistenceLibrary\Source\Logs\TConsoleLog.cpp">
+      <Filter>Source Files\Logs</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\tvorba-emb\PersistenceLibrary\Source\Logs\TLogBase.cpp">
+      <Filter>Source Files\Logs</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\tvorba-emb\PersistenceLibrary\Source\Networking\TcpClient.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\tvorba-emb\PersistenceLibrary\Source\Networking\TcpClient_Win.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\tvorba-emb\PersistenceLibrary\Source\Networking\TcpServer_Win.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\tvorba-emb\PersistenceLibrary\Source\BasicTypes\TDate.h">
+      <Filter>Header Files\BasicTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\tvorba-emb\PersistenceLibrary\Source\BasicTypes\TDateTime.h">
+      <Filter>Header Files\BasicTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\tvorba-emb\PersistenceLibrary\Source\BasicTypes\TTime.h">
+      <Filter>Header Files\BasicTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\tvorba-emb\PersistenceLibrary\Source\Logs\TConsoleLog.h">
+      <Filter>Header Files\Logs</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\tvorba-emb\PersistenceLibrary\Source\Logs\TLogBase.h">
+      <Filter>Header Files\Logs</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\tvorba-emb\PersistenceLibrary\Source\Networking\TcpClient.h">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\tvorba-emb\PersistenceLibrary\Source\Networking\TcpClient_Win.h">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\tvorba-emb\PersistenceLibrary\Source\Networking\TcpServer_Win.h">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

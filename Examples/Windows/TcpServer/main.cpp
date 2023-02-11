@@ -6,15 +6,6 @@
 
 bool terminated = false;
 
-//no log implementation
-//You can keep LOG_DEBUG functions in your libraries without performance loss 
-//(your compiler should optimize it out)
-void LOG_DEBUG     (void*, const char*, int) { };
-void LOG_INFO      (void*, const char*, int) { };
-void LOG_WARNING   (void*, const char*, int) { };
-void LOG_ERROR     (void*, const char*, int) { };
-void LOG_EXCEPTION (void*, const char*, int) { };
-
 void ClientConnected(const struct sockaddr_in& address)
 {
    printf("New client connected\r\n");

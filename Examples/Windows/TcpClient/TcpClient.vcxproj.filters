@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files\BasicTypes">
+      <UniqueIdentifier>{f7efe392-5ae7-49c7-a7e0-ac6a7b47c5c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BasicTypes">
+      <UniqueIdentifier>{7593a73d-4828-4972-859f-62493083fb60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Networking">
+      <UniqueIdentifier>{d5c20ab5-2358-476d-8082-f789b334ded7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Networking">
+      <UniqueIdentifier>{bdb95a54-108b-4614-90e5-121e7b355136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logs">
+      <UniqueIdentifier>{b8b96bd9-f7f5-4058-a4fa-6d5055d1aceb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logs">
+      <UniqueIdentifier>{e52c9ba9-8ef4-4d1b-8194-ee05f4de87c1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\BasicTypes\TDateTime.cpp">
+      <Filter>Source Files\BasicTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\BasicTypes\TDate.cpp">
+      <Filter>Source Files\BasicTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\BasicTypes\TTime.cpp">
+      <Filter>Source Files\BasicTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Networking\TcpClient_Win.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Logs\TLogBase.cpp">
+      <Filter>Source Files\Logs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Logs\TConsoleLog.cpp">
+      <Filter>Source Files\Logs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Networking\TcpClient.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Networking\TcpServer_Win.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Source\BasicTypes\TDateTime.h">
+      <Filter>Header Files\BasicTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\BasicTypes\TDate.h">
+      <Filter>Header Files\BasicTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\BasicTypes\TTime.h">
+      <Filter>Header Files\BasicTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Networking\TcpClient_Win.h">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Logs\TLogBase.h">
+      <Filter>Header Files\Logs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Logs\TConsoleLog.h">
+      <Filter>Header Files\Logs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Networking\TcpClient.h">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Networking\TcpServer_Win.h">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -20,9 +20,9 @@ void LogImplementation(LogType logType, void* objectId, const char* message, int
 		//you can use sprintf if it is available on your platform
 		//or you can avoid using it
 		sprintf(buf, "%s %d", message, arg);
-		consoleLog->Log(logType, objectId, arg, buf);
+		consoleLog->Log(logType, (unsigned long)objectId, arg, buf);
 	} else {
-		consoleLog->Log(logType, objectId, arg, message);
+		consoleLog->Log(logType, (unsigned long)objectId, arg, message);
 	}	
 }
 
@@ -31,27 +31,27 @@ void LogImplementation(LogType logType, void* objectId, const char* message, int
 //actual log implementation is always defined in main.cpp
 //(you can have different project definitions with different main.cpp versions
 // with and without logs)
-void LOG_DEBUG (void* objectId, const char* message, int arg)
+void LOG_DEBUG (void* objectId, const char* message, long arg)
 {
 	LogImplementation(ltDebug, objectId, message, arg);
 }
 
-void LOG_INFO      (void* objectId, const char* message, int arg)
+void LOG_INFO      (void* objectId, const char* message, long arg)
 {
 	LogImplementation(ltInfo, objectId, message, arg);
 }
 
-void LOG_WARNING   (void* objectId, const char* message, int arg)
+void LOG_WARNING   (void* objectId, const char* message, long arg)
 {
 	LogImplementation(ltWarning, objectId, message, arg);
 }
 
-void LOG_ERROR     (void* objectId, const char* message, int arg)
+void LOG_ERROR     (void* objectId, const char* message, long arg)
 {
 	LogImplementation(ltError, objectId, message, arg);
 }
 
-void LOG_EXCEPTION (void* objectId, const char* message, int arg)
+void LOG_EXCEPTION (void* objectId, const char* message, long arg)
 {
 	LogImplementation(ltException, objectId, message, arg);
 }
