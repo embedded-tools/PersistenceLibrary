@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TcpClient_Async", "TcpClien
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TcpServer", "TcpServer\TcpServer.vcxproj", "{5C07006F-B318-42D1-B868-3BEB883B0745}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UdpClient", "UdpClient\UdpClient.vcxproj", "{8B99CBA1-5F09-4513-8E05-F6419D7DCFF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -25,6 +27,10 @@ Global
 		{5C07006F-B318-42D1-B868-3BEB883B0745}.Debug|Win32.Build.0 = Debug|Win32
 		{5C07006F-B318-42D1-B868-3BEB883B0745}.Release|Win32.ActiveCfg = Release|Win32
 		{5C07006F-B318-42D1-B868-3BEB883B0745}.Release|Win32.Build.0 = Release|Win32
+		{8B99CBA1-5F09-4513-8E05-F6419D7DCFF2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8B99CBA1-5F09-4513-8E05-F6419D7DCFF2}.Debug|Win32.Build.0 = Debug|Win32
+		{8B99CBA1-5F09-4513-8E05-F6419D7DCFF2}.Release|Win32.ActiveCfg = Release|Win32
+		{8B99CBA1-5F09-4513-8E05-F6419D7DCFF2}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

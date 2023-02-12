@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Networking">
+      <UniqueIdentifier>{68e599b3-cdce-4bb0-82a1-f265866d287d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Networking">
+      <UniqueIdentifier>{c51b81a5-fb9f-42a1-adb8-27d0ba7e8bfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logs">
+      <UniqueIdentifier>{7be9f7c0-9d51-4db5-9482-9359695692d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logs">
+      <UniqueIdentifier>{1cf28e18-5c18-4126-a401-0292892f23b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BasicTypes">
+      <UniqueIdentifier>{a249db6a-861b-450b-9a20-1ee87e7737d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\BasicTypes">
+      <UniqueIdentifier>{f4c5a924-8fab-4dac-9eaf-c54b75a5e65b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Networking\UdpClient_Win.h">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\Logs\TLog.h">
+      <Filter>Header Files\Logs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\BasicTypes\TDate.h">
+      <Filter>Header Files\BasicTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\BasicTypes\TDateTime.h">
+      <Filter>Header Files\BasicTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Source\BasicTypes\TTime.h">
+      <Filter>Header Files\BasicTypes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UdpClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Networking\UdpClient_Win.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\BasicTypes\TDate.cpp">
+      <Filter>Source Files\BasicTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\BasicTypes\TDateTime.cpp">
+      <Filter>Source Files\BasicTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\BasicTypes\TTime.cpp">
+      <Filter>Source Files\BasicTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Logs\TConsoleLog.cpp">
+      <Filter>Source Files\Logs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Source\Logs\TLogBase.cpp">
+      <Filter>Source Files\Logs</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
