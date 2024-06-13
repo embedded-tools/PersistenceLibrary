@@ -2,5 +2,4 @@
 
 C++ library designed especially for embedded system with very limited resources, e.g. 32kB RAM. Library can be also used as a STL replacement.
 
-For more information see http://embedded-tools.bbot.cz
 
